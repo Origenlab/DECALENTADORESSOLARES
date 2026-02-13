@@ -1,0 +1,89 @@
+---
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = "Calentadores solares en Mexico",
+  description = "Venta, instalacion y mantenimiento de calentadores solares en Mexico.",
+  image = "/icon.png",
+  noindex = false
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://decalentadoressolares.com");
+const canonical = new URL(Astro.url.pathname, site).toString();
+const ogImage = image.startsWith("http") ? image : new URL(image, site).toString();
+const pageTitle = title.includes("De Calentadores Solares")
+  ? title
+  : `${title} | De Calentadores Solares`;
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "De Calentadores Solares",
+  url: site.toString(),
+  telephone: "+52-55-1234-5678",
+  areaServed: "Mexico",
+  email: "info@decalentadoressolares.com",
+  sameAs: ["https://decalentadoressolares.com"]
+};
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(organizationJsonLd)}
+    />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <SiteHeader />
+    <main id="contenido" class="page-shell">
+      <article class="content">
+        <slot />
+      </article>
+    </main>
+    <SiteFooter />
+  </body>
+</html>

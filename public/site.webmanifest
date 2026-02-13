@@ -1,0 +1,15 @@
+{
+  "name": "De Calentadores Solares",
+  "short_name": "Solar MX",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff8ef",
+  "theme_color": "#f5851f"
+}
