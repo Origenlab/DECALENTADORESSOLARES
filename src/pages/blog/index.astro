@@ -1,0 +1,49 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Card from "../../components/ui/Card.astro";
+
+const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+const posts: CollectionEntry<"blog">[] = allPosts.filter(
+  (entry: CollectionEntry<"blog">) => !entry.data.draft
+).sort(
+  (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title="Blog de Calentadores Solares | Consejos Tecnicos y Ahorro"
+  description="Articulos sobre instalacion, mantenimiento y eficiencia de calentadores solares para mejorar decisiones de compra y operacion."
+>
+  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Blog" }]} />
+
+  <section class="page-intro">
+    <h1>Blog tecnico de calentadores solares</h1>
+    <p>
+      Contenido especializado para elegir mejor tu sistema, optimizar rendimiento y extender su vida
+      util. Tambien puedes revisar nuestro <a href="/productos">catalogo de productos</a> y
+      <a href="/servicios">servicios profesionales</a>.
+    </p>
+  </section>
+
+  <section class="section-tight" aria-labelledby="posts-title">
+    <h2 id="posts-title" class="visually-hidden">Listado de articulos</h2>
+
+    <div class="blog-grid">
+      {posts.map((post: CollectionEntry<"blog">) => (
+        <Card
+          title={post.data.title}
+          description={post.data.description}
+          image={post.data.image}
+          imageAlt={post.data.imageAlt}
+          link={`/blog/${post.slug}`}
+          variant="default"
+        >
+          <p class="article-meta">{post.data.pubDate.toLocaleDateString("es-MX")}</p>
+        </Card>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

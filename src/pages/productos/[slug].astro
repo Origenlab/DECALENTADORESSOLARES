@@ -1,0 +1,119 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import Card from "../../components/ui/Card.astro";
+
+interface Props {
+  product: CollectionEntry<"productos">;
+}
+
+export async function getStaticPaths() {
+  const products: CollectionEntry<"productos">[] = await getCollection("productos");
+
+  return products.map((product: CollectionEntry<"productos">) => ({
+    params: { slug: product.slug },
+    props: { product }
+  }));
+}
+
+const { product } = Astro.props as Props;
+const { Content } = await product.render();
+
+const relatedProducts: CollectionEntry<"productos">[] = (await getCollection("productos"))
+  .filter((item: CollectionEntry<"productos">) => item.slug !== product.slug)
+  .sort(
+    (a: CollectionEntry<"productos">, b: CollectionEntry<"productos">) => a.data.order - b.data.order
+  )
+  .slice(0, 2);
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: product.data.title,
+  description: product.data.description,
+  image: `https://decalentadoressolares.com${product.data.image}`,
+  brand: {
+    "@type": "Brand",
+    name: "De Calentadores Solares"
+  },
+  offers: product.data.price
+    ? {
+        "@type": "Offer",
+        priceCurrency: "MXN",
+        price: product.data.price,
+        availability: "https://schema.org/InStock"
+      }
+    : undefined
+};
+---
+
+<BaseLayout
+  title={`${product.data.title} | Calentadores Solares`}
+  description={product.data.description}
+  ogImage={product.data.image}
+  schema={productSchema}
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Productos", href: "/productos" },
+      { label: product.data.title }
+    ]}
+  />
+
+  <section class="section-tight">
+    <div class="product-detail">
+      <article class="product-content">
+        <img src={product.data.image} alt={product.data.imageAlt} width="960" height="540" loading="eager" />
+        <h1>{product.data.title}</h1>
+        <p>{product.data.description}</p>
+        <Content />
+      </article>
+
+      <aside class="product-meta">
+        <h2>Ficha tecnica</h2>
+        {product.data.price ? (
+          <p class="product-meta__price">${product.data.price.toLocaleString("es-MX")} MXN</p>
+        ) : (
+          <p class="product-meta__price">Cotizacion personalizada</p>
+        )}
+
+        <ul class="spec-list">
+          {product.data.features.map((feature: string) => (
+            <li>{feature}</li>
+          ))}
+        </ul>
+
+        <Button
+          href="https://wa.me/5215512345678?text=Hola,%20quiero%20cotizar%20el%20producto%20que%20vi%20en%20su%20sitio"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Solicitar cotizacion de este modelo
+        </Button>
+        <Button href="/servicios" variant="outline">Ver servicios de instalacion</Button>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="related-title">
+    <header class="section-header">
+      <h2 id="related-title">Productos relacionados</h2>
+    </header>
+
+    <div class="grid-2-cols">
+      {relatedProducts.map((item: CollectionEntry<"productos">) => (
+        <Card
+          title={item.data.title}
+          description={item.data.description}
+          image={item.data.image}
+          imageAlt={item.data.imageAlt}
+          link={`/productos/${item.slug}`}
+          variant="compact"
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

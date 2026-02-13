@@ -1,0 +1,51 @@
+---
+import Card from "../ui/Card.astro";
+
+interface ProductEntry {
+  id: string;
+  slug: string;
+  data: {
+    title: string;
+    description: string;
+    image: string;
+    imageAlt: string;
+    price?: number;
+    category: string;
+  };
+}
+
+interface Props {
+  products: ProductEntry[];
+  title?: string;
+}
+
+const { products, title = "Productos destacados" } = Astro.props;
+---
+
+<section class="section" aria-labelledby="productos-title">
+  <header class="section-header">
+    <span class="section-eyebrow">Catalogo solar</span>
+    <h2 id="productos-title">{title}</h2>
+    <p class="section-description">
+      Equipos seleccionados por eficiencia, durabilidad y facilidad de mantenimiento para uso
+      residencial y comercial.
+    </p>
+  </header>
+
+  <div class="product-grid">
+    {products.map((product, index) => (
+      <Card
+        title={product.data.title}
+        description={product.data.description}
+        image={product.data.image}
+        imageAlt={product.data.imageAlt}
+        link={`/productos/${product.slug}`}
+        variant={index === 0 ? "featured" : "default"}
+      >
+        <p class="card-price">
+          {product.data.price ? `Desde $${product.data.price.toLocaleString("es-MX")} MXN` : "Cotizacion a medida"}
+        </p>
+      </Card>
+    ))}
+  </div>
+</section>

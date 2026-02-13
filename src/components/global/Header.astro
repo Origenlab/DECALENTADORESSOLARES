@@ -1,0 +1,85 @@
+---
+import Navigation from "./Navigation.astro";
+import Button from "../ui/Button.astro";
+
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { label: "Inicio", href: "/" },
+  { label: "Productos", href: "/productos" },
+  { label: "Servicios", href: "/servicios" },
+  { label: "Blog", href: "/blog" }
+];
+---
+
+<div class="topbar" role="complementary" aria-label="Informacion rapida">
+  <div class="container topbar__content">
+    <div class="topbar__left">
+      <span>Atencion residencial y comercial en Mexico</span>
+      <span class="topbar__chip">Respuesta comercial en menos de 24 h</span>
+    </div>
+    <div class="topbar__right">
+      <a href="tel:+525512345678">55 1234 5678</a>
+      <span>|</span>
+      <a href="mailto:info@decalentadoressolares.com">info@decalentadoressolares.com</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-shell">
+    <a href="/" class="brand" aria-label="Ir al inicio">
+      <span class="brand__mark" aria-hidden="true">DS</span>
+      <span class="brand__text">
+        <span class="brand__title">De Calentadores Solares</span>
+        <span class="brand__subtitle">Ingenieria termica solar</span>
+      </span>
+    </a>
+
+    <Navigation links={links} currentPath={currentPath} />
+
+    <div class="header-actions">
+      <a class="header-phone" href="tel:+525512345678">55 1234 5678</a>
+      <Button
+        href="https://wa.me/5215512345678?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Solicitar Cotizacion
+      </Button>
+    </div>
+
+    <button id="mobile-toggle" class="mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
+      MENU
+    </button>
+  </div>
+</header>
+
+<script is:inline>
+  const toggle = document.getElementById("mobile-toggle");
+  const panel = document.getElementById("mobile-panel");
+
+  if (toggle && panel) {
+    const closeMenu = () => {
+      document.body.classList.remove("menu-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.textContent = "MENU";
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = document.body.classList.toggle("menu-open");
+      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      toggle.textContent = isOpen ? "X" : "MENU";
+    });
+
+    panel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    });
+  }
+</script>

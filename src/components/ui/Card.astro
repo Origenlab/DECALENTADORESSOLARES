@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  link?: string;
+  variant?: "default" | "featured" | "compact";
+}
+
+const {
+  title,
+  description,
+  image,
+  imageAlt = title,
+  link,
+  variant = "default"
+} = Astro.props;
+
+const classes = ["ui-card", variant === "featured" && "ui-card--featured", variant === "compact" && "ui-card--compact"].filter(Boolean).join(" ");
+const Tag = link ? "a" : "article";
+---
+
+<Tag class={classes} href={link}>
+  {image && <img src={image} alt={imageAlt} loading="lazy" />}
+  <div class="ui-card__body">
+    <h3>{title}</h3>
+    <p>{description}</p>
+    <slot />
+  </div>
+</Tag>

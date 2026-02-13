@@ -1,0 +1,38 @@
+---
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  links: LinkItem[];
+  currentPath: string;
+}
+
+const { links, currentPath } = Astro.props;
+
+const isActive = (href: string) =>
+  currentPath === href || (href !== "/" && currentPath.startsWith(href));
+---
+
+<nav class="nav-desktop" aria-label="Navegacion principal">
+  {links.map((link) => (
+    <a href={link.href} class="nav-link" aria-current={isActive(link.href) ? "page" : undefined}>
+      {link.label}
+    </a>
+  ))}
+</nav>
+
+<div id="mobile-panel" class="mobile-panel" aria-label="Menu movil">
+  {links.map((link) => (
+    <a href={link.href}>{link.label}</a>
+  ))}
+  <a
+    class="btn btn-primary"
+    href="https://wa.me/5215512345678?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Solicitar cotizacion
+  </a>
+</div>

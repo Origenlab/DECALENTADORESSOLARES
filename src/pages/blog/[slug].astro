@@ -1,0 +1,36 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+export async function getStaticPaths() {
+  const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+  const publishedPosts = posts.filter((entry: CollectionEntry<"blog">) => !entry.data.draft);
+
+  return publishedPosts.map((post: CollectionEntry<"blog">) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props as Props;
+const { Content } = await post.render();
+---
+
+<ArticleLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogImage={post.data.image}
+  pubDate={post.data.pubDate}
+  author={post.data.author}
+  breadcrumbItems={[
+    { label: "Inicio", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: post.data.title }
+  ]}
+>
+  <Content />
+</ArticleLayout>

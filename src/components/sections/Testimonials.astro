@@ -1,0 +1,33 @@
+---
+const testimonials = [
+  {
+    text: "Nos ayudaron a dimensionar correctamente el sistema para nuestro edificio. El ahorro mensual es consistente.",
+    author: "Administrador de Condominio, CDMX"
+  },
+  {
+    text: "Instalacion limpia y profesional. Nos explicaron todo el proceso y dejaron el sistema funcionando sin detalles.",
+    author: "Familia Martinez, Estado de Mexico"
+  },
+  {
+    text: "La asesoria tecnica previa fue clave para elegir el equipo correcto y evitar sobrecostos.",
+    author: "Gerente de Operaciones, Queretaro"
+  }
+];
+---
+
+<section class="section" aria-labelledby="testimonios-title">
+  <header class="section-header">
+    <span class="section-eyebrow">Confianza del cliente</span>
+    <h2 id="testimonios-title">Testimonios de proyectos instalados</h2>
+  </header>
+
+  <div class="testimonial-grid">
+    {testimonials.map((item) => (
+      <article class="testimonial">
+        <div class="testimonial__stars" aria-label="Calificacion 5 estrellas">*****</div>
+        <p>{item.text}</p>
+        <p class="testimonial__name">{item.author}</p>
+      </article>
+    ))}
+  </div>
+</section>

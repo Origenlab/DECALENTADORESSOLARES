@@ -1,0 +1,55 @@
+---
+import Button from "../ui/Button.astro";
+import Badge from "../ui/Badge.astro";
+---
+
+<section class="hero-section" aria-labelledby="hero-title">
+  <div class="hero-layout">
+    <div class="hero-panel">
+      <Badge>Energia solar termica</Badge>
+      <h1 id="hero-title" class="hero-title">
+        Reduce tu gasto de gas hasta 80% con sistemas de calentamiento solar bien dimensionados
+      </h1>
+      <p class="hero-lead">
+        Disenamos e instalamos soluciones solares para uso residencial y comercial con enfoque en
+        ahorro real, seguridad y larga vida util.
+      </p>
+
+      <div class="hero-cta-row">
+        <Button
+          href="https://wa.me/5215512345678?text=Hola,%20quiero%20una%20cotizacion%20de%20calentador%20solar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Solicitar Cotizacion
+        </Button>
+        <Button href="/productos" variant="outline">Ver Productos</Button>
+      </div>
+
+      <div class="hero-kpis" aria-label="Indicadores clave">
+        <div class="hero-kpi">
+          <strong>80%</strong>
+          <span>Ahorro potencial en gas LP</span>
+        </div>
+        <div class="hero-kpi">
+          <strong>24 h</strong>
+          <span>Tiempo promedio de respuesta</span>
+        </div>
+        <div class="hero-kpi">
+          <strong>10+</strong>
+          <span>Anos de vida util esperada</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-aside">
+      <h3>Tu proyecto incluye</h3>
+      <ul class="trust-list">
+        <li>Diagnostico tecnico y capacidad correcta para tu consumo.</li>
+        <li>Instalacion profesional con criterios de seguridad.</li>
+        <li>Puesta en marcha y recomendaciones de operacion.</li>
+        <li>Mantenimiento preventivo para sostener rendimiento.</li>
+      </ul>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  pubDate?: Date;
+  author?: string;
+  breadcrumbItems?: BreadcrumbItem[];
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  canonicalURL,
+  pubDate,
+  author = "Equipo Editorial",
+  breadcrumbItems = []
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} ogImage={ogImage} canonicalURL={canonicalURL}>
+  {breadcrumbItems.length > 0 && <Breadcrumb items={breadcrumbItems} />}
+
+  <article class="article-shell">
+    <header class="article-header">
+      <h1>{title}</h1>
+      {(pubDate || author) && (
+        <p class="article-meta">
+          {pubDate && <span>{pubDate.toLocaleDateString("es-MX")}</span>}
+          {pubDate && author && <span> - </span>}
+          {author && <span>{author}</span>}
+        </p>
+      )}
+      <p>{description}</p>
+    </header>
+
+    <section class="article-content">
+      <slot />
+    </section>
+  </article>
+</BaseLayout>

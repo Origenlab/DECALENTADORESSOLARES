@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Sistema solar presurizado 300 litros">
+  <rect width="640" height="400" fill="#f8f9fa"/>
+  <rect x="90" y="55" width="460" height="250" rx="20" fill="#ffffff" stroke="#e5e7eb" stroke-width="8"/>
+  <rect x="120" y="110" width="400" height="130" rx="12" fill="#1a1a2e"/>
+  <text x="320" y="170" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="26">Presurizado</text>
+  <text x="320" y="205" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="22">300 Litros</text>
+  <rect x="160" y="308" width="320" height="28" rx="14" fill="#c41e3a"/>
+</svg>

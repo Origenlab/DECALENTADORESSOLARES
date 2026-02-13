@@ -1,22 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/ui/Button.astro";
 ---
 
 <BaseLayout
-  title="Pagina no encontrada"
-  description="La pagina solicitada no esta disponible."
+  title="Pagina no encontrada | De Calentadores Solares"
+  description="La pagina solicitada no existe. Regresa al inicio y continua navegando nuestros productos y servicios."
   noindex={true}
 >
-  <div class="hero">
-    <p class="eyebrow">Error 404</p>
+  <section class="not-found stack-md">
+    <span class="section-eyebrow">Error 404</span>
     <h1>Pagina no encontrada</h1>
-    <p class="lead">
-      La ruta que solicitaste no existe o fue movida. Puedes volver al inicio o ir a la
-      seccion de servicios.
+    <p>
+      La ruta solicitada no esta disponible. Puedes volver al inicio, consultar el catalogo de
+      productos o revisar nuestros servicios.
     </p>
-    <div class="actions">
-      <a class="btn btn-primary" href="/">Ir al inicio</a>
-      <a class="btn btn-secondary" href="/servicios">Ver servicios</a>
+    <div class="hero-cta-row">
+      <Button href="/">Ir al inicio</Button>
+      <Button href="/productos" variant="outline">Ver productos</Button>
+      <Button href="/servicios" variant="ghost">Ver servicios</Button>
     </div>
-  </div>
+  </section>
 </BaseLayout>

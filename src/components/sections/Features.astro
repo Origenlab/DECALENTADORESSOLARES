@@ -1,0 +1,61 @@
+---
+const features = [
+  {
+    title: "Dimensionamiento preciso",
+    description:
+      "Calculamos la capacidad del sistema segun usuarios, habitos de consumo y condiciones climaticas reales.",
+    icon: "01"
+  },
+  {
+    title: "Instalacion certificada",
+    description:
+      "Aplicamos buenas practicas tecnicas para evitar fugas, sobrepresion y perdida de rendimiento termico.",
+    icon: "02"
+  },
+  {
+    title: "ROI medible",
+    description:
+      "Proyectamos ahorro anual y periodo de recuperacion para tomar decisiones financieras con datos.",
+    icon: "03"
+  },
+  {
+    title: "Mantenimiento preventivo",
+    description:
+      "Programas de revision periodica para extender la vida util del equipo y mantener eficiencia estable.",
+    icon: "04"
+  },
+  {
+    title: "Atencion nacional",
+    description:
+      "Cobertura en CDMX, Estado de Mexico y otras zonas mediante coordinacion operativa dedicada.",
+    icon: "05"
+  },
+  {
+    title: "Soporte postventa",
+    description:
+      "Seguimiento tecnico posterior a la instalacion para asegurar continuidad y resolver incidencias.",
+    icon: "06"
+  }
+];
+---
+
+<section class="section" aria-labelledby="beneficios-title">
+  <header class="section-header">
+    <span class="section-eyebrow">Ventajas competitivas</span>
+    <h2 id="beneficios-title">Beneficios de trabajar con un equipo profesional</h2>
+    <p class="section-description">
+      Un sistema solar no se define solo por el equipo. El resultado depende del diseno, la
+      instalacion y la calidad del servicio durante todo el ciclo de vida.
+    </p>
+  </header>
+
+  <div class="feature-grid">
+    {features.map((feature) => (
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">{feature.icon}</span>
+        <h3>{feature.title}</h3>
+        <p>{feature.description}</p>
+      </article>
+    ))}
+  </div>
+</section>

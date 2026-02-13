@@ -1,0 +1,109 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+
+const services = [
+  {
+    title: "Instalacion profesional",
+    description:
+      "Montaje completo del sistema con validaciones de seguridad, pruebas de rendimiento y puesta en marcha documentada."
+  },
+  {
+    title: "Mantenimiento preventivo",
+    description:
+      "Inspecciones periodicas para conservar eficiencia, reducir desgaste y extender vida util del equipo."
+  },
+  {
+    title: "Asesoria tecnica",
+    description:
+      "Analisis de consumo, dimensionamiento y comparativa tecnica para elegir la mejor alternativa antes de invertir."
+  },
+  {
+    title: "Diagnostico y correccion",
+    description:
+      "Evaluacion de sistemas existentes para corregir bajo rendimiento, fallas de presion o problemas de temperatura."
+  }
+];
+
+const process = [
+  "Levantamiento tecnico del sitio y perfil de consumo.",
+  "Propuesta con alcance, tiempos y costos transparentes.",
+  "Ejecucion con equipo especializado y materiales adecuados.",
+  "Puesta en marcha, pruebas finales y recomendaciones de uso.",
+  "Seguimiento postventa y plan de mantenimiento preventivo."
+];
+---
+
+<LandingLayout
+  title="Servicios para Calentadores Solares | Instalacion y Mantenimiento"
+  description="Servicios especializados en instalacion, mantenimiento y asesoria para calentadores solares con enfoque tecnico y resultados medibles."
+>
+  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Servicios" }]} />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Servicios especializados</span>
+        <h1 class="hero-title">Implementacion integral de calentadores solares</h1>
+        <p class="hero-lead">
+          Ofrecemos servicios para todo el ciclo del sistema: desde la evaluacion inicial hasta el
+          mantenimiento que sostiene el ahorro en el tiempo.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/5215512345678?text=Hola,%20quiero%20informacion%20de%20servicios%20de%20calentadores%20solares"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Hablar con un asesor
+          </Button>
+          <Button href="/productos" variant="outline">Explorar productos</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Objetivo del servicio</h2>
+        <ul class="trust-list">
+          <li>Maximizar ahorro sin comprometer disponibilidad de agua caliente.</li>
+          <li>Reducir riesgos tecnicos en instalacion y operacion.</li>
+          <li>Asegurar continuidad mediante mantenimiento preventivo.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="servicios-title">
+    <header class="section-header">
+      <h2 id="servicios-title">Servicios principales</h2>
+      <p class="section-description">
+        Cada servicio se adapta al tipo de inmueble, nivel de consumo y objetivos operativos del
+        cliente.
+      </p>
+    </header>
+
+    <div class="service-grid">
+      {services.map((service) => (
+        <article class="service-card">
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="proceso-title">
+    <header class="section-header">
+      <h2 id="proceso-title">Proceso de trabajo</h2>
+    </header>
+
+    <div class="process-grid">
+      {process.map((item, index) => (
+        <article class="process-step">
+          <span class="step-number">{index + 1}</span>
+          <p>{item}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</LandingLayout>

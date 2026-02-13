@@ -1,60 +1,73 @@
 ---
-import SiteHeader from "../components/SiteHeader.astro";
-import SiteFooter from "../components/SiteFooter.astro";
+import { ClientRouter } from "astro:transitions";
+import Header from "../components/global/Header.astro";
+import Footer from "../components/global/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonicalURL?: string;
   noindex?: boolean;
+  schema?: Record<string, unknown>;
 }
 
 const {
-  title = "Calentadores solares en Mexico",
-  description = "Venta, instalacion y mantenimiento de calentadores solares en Mexico.",
-  image = "/icon.png",
-  noindex = false
+  title,
+  description,
+  ogImage = "/icon.png",
+  canonicalURL,
+  noindex = false,
+  schema
 } = Astro.props;
 
-const site = Astro.site ?? new URL("https://decalentadoressolares.com");
-const canonical = new URL(Astro.url.pathname, site).toString();
-const ogImage = image.startsWith("http") ? image : new URL(image, site).toString();
-const pageTitle = title.includes("De Calentadores Solares")
-  ? title
-  : `${title} | De Calentadores Solares`;
+const siteUrl = Astro.site ?? new URL("https://decalentadoressolares.com");
+const canonical = canonicalURL ?? new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageAbsolute = ogImage.startsWith("http") ? ogImage : new URL(ogImage, siteUrl).toString();
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "Organization",
   name: "De Calentadores Solares",
-  url: site.toString(),
-  telephone: "+52-55-1234-5678",
-  areaServed: "Mexico",
-  email: "info@decalentadoressolares.com",
-  sameAs: ["https://decalentadoressolares.com"]
+  url: siteUrl.toString(),
+  logo: new URL("/icon.png", siteUrl).toString(),
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+52-55-1234-5678",
+      contactType: "sales",
+      availableLanguage: ["Spanish"]
+    }
+  ]
 };
 ---
 
 <!doctype html>
-<html lang="es-MX">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{pageTitle}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={pageTitle} />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbsolute} />
+    <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
+
+    <meta name="theme-color" content="#c41e3a" />
+    <meta name="format-detection" content="telephone=yes" />
+
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
@@ -63,36 +76,36 @@ const organizationJsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <ClientRouter />
 
-    <script
-      type="application/ld+json"
-      is:inline
-      set:html={JSON.stringify(organizationJsonLd)}
-    />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationJsonLd)} />
+    {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />}
   </head>
-
   <body>
-    <a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <SiteHeader />
-    <main id="contenido" class="page-shell">
-      <article class="content">
+    <a class="skip-link" href="#contenido-principal">Saltar al contenido</a>
+
+    <Header />
+
+    <main id="contenido-principal" class="main-content">
+      <div class="container">
         <slot />
-      </article>
+      </div>
     </main>
+
     <a
-      class="floating-cta"
-      href="https://wa.me/5215512345678?text=Hola,%20necesito%20informacion%20sobre%20calentadores%20solares"
+      class="whatsapp-float"
+      href="https://wa.me/5215512345678?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
     >
-      WhatsApp
+      WA
     </a>
-    <SiteFooter />
+
+    <Footer />
   </body>
 </html>
