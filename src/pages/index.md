@@ -1,39 +1,48 @@
 ---
 layout: ../layouts/BaseLayout.astro
 title: Calentadores Solares en Mexico | Ahorra hasta 80% en Gas LP
-description: Venta e instalacion de calentadores solares en Mexico. Sistemas certificados NOM-027-ENER, garantia extendida y cotizacion profesional en 24 horas.
+description: Venta, instalacion y mantenimiento de calentadores solares en Mexico. Proyecto profesional con analisis tecnico y cotizacion en 24 horas.
 ---
 
-<div class="hero">
-  <div class="hero-grid">
+<div class="home-hero">
+  <div class="home-hero-grid">
     <div>
-      <p class="eyebrow">Ingenieria termica solar para alto rendimiento</p>
-      <h1>Disenamos e instalamos sistemas solares que si generan ahorro real</h1>
+      <p class="eyebrow">Solar termico con enfoque de ingenieria</p>
+      <h1>Transforma tu consumo de agua caliente en ahorro medible y estable</h1>
       <p class="lead">
-        Integramos analisis tecnico, seleccion de equipo, instalacion certificada y soporte
-        postventa para que tu proyecto opere estable, con buen retorno de inversion y menor
-        dependencia de gas LP.
+        Construimos proyectos de calentadores solares con metodologia profesional: diagnostico,
+        dimensionamiento, instalacion certificada y mantenimiento preventivo para sostener
+        eficiencia en el tiempo.
       </p>
 
-      <div class="actions">
-        <a class="btn btn-primary" href="https://wa.me/5215512345678?text=Hola,%20me%20interesa%20cotizar%20un%20calentador%20solar" target="_blank" rel="noopener noreferrer">Solicitar cotizacion por WhatsApp</a>
-        <a class="btn btn-secondary" href="/servicios">Explorar servicios</a>
+      <div class="home-actions">
+        <a class="home-btn-light" href="https://wa.me/5215512345678?text=Hola,%20quiero%20una%20cotizacion%20de%20calentador%20solar" target="_blank" rel="noopener noreferrer">Quiero una cotizacion</a>
+        <a class="home-btn-glass" href="/servicios">Ver portafolio de servicios</a>
       </div>
 
-      <div class="stat-strip">
-        <div class="stat-item"><strong>80%</strong>Ahorro potencial en energia termica</div>
-        <div class="stat-item"><strong>2-3 anos</strong>Recuperacion promedio</div>
-        <div class="stat-item"><strong>24h</strong>Tiempo de respuesta comercial</div>
+      <div class="home-metrics">
+        <div class="home-metric">
+          <strong>80%</strong>
+          <span>Ahorro potencial</span>
+        </div>
+        <div class="home-metric">
+          <strong>2-3 anos</strong>
+          <span>Retorno promedio</span>
+        </div>
+        <div class="home-metric">
+          <strong>24 h</strong>
+          <span>Respuesta comercial</span>
+        </div>
       </div>
     </div>
 
-    <aside class="hero-panel">
-      <h3>Que incluye una propuesta profesional</h3>
-      <ul class="check-list">
-        <li>Dimensionamiento segun numero de usuarios y perfil de consumo.</li>
-        <li>Comparativa tecnica de capacidades, rendimiento y alcance.</li>
-        <li>Estimacion de ahorro anual y periodo de retorno de inversion.</li>
-        <li>Alcances de instalacion, garantia y mantenimiento recomendado.</li>
+    <aside class="home-side">
+      <h3>Tu proyecto incluye</h3>
+      <ul>
+        <li>Analisis de consumo y dimensionamiento sin sobrecostos.</li>
+        <li>Propuesta tecnica y comercial con alcance claro.</li>
+        <li>Instalacion con pruebas de seguridad y rendimiento.</li>
+        <li>Plan de mantenimiento para proteger la inversion.</li>
       </ul>
     </aside>
   </div>
@@ -41,84 +50,78 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
 
 <section class="section-block">
   <div class="section-head">
-    <h2>Por que esta propuesta es diferente</h2>
+    <h2>Lo que te entregamos desde el primer contacto</h2>
     <p>
-      No vendemos solo equipos. Construimos soluciones tecnicas de largo plazo con metodologia,
-      documentacion y seguimiento operativo para proteger tu inversion.
+      La diferencia esta en el proceso. No improvisamos instalaciones; trabajamos con datos,
+      criterios tecnicos y control de ejecucion.
     </p>
+  </div>
+
+  <div class="pulse-row">
+    <span class="pulse-item">NOM-027-ENER</span>
+    <span class="pulse-item">Diagnostico tecnico</span>
+    <span class="pulse-item">Instalacion certificada</span>
+    <span class="pulse-item">Postventa activa</span>
   </div>
 
   <div class="grid-3">
     <article class="card">
-      <h3>Dimensionamiento preciso</h3>
-      <p>
-        Evitamos sobredimensionamiento y subdimensionamiento con criterios de ingenieria,
-        no con supuestos comerciales.
-      </p>
+      <h3>Precision tecnica</h3>
+      <p>Seleccionamos capacidad y configuracion con base en demanda real, no con estimados genericos.</p>
     </article>
     <article class="card">
-      <h3>Ejecucion con estandar</h3>
-      <p>
-        Instalacion bajo mejores practicas y lineamientos NOM-027-ENER, con pruebas de
-        funcionamiento y seguridad.
-      </p>
+      <h3>Calidad de ejecucion</h3>
+      <p>Montaje, conexiones y pruebas con estandar profesional para reducir riesgos operativos.</p>
     </article>
     <article class="card">
-      <h3>Operacion sostenible</h3>
-      <p>
-        Mantenimiento y control preventivo para sostener eficiencia, vida util y continuidad
-        en el suministro de agua caliente.
-      </p>
+      <h3>Rendimiento continuo</h3>
+      <p>Seguimiento y mantenimiento preventivo para mantener eficiencia y vida util del sistema.</p>
     </article>
   </div>
 </section>
 
 <section class="section-block">
   <div class="section-head">
-    <h2>Linea de servicios principal</h2>
+    <h2>Servicios estrategicos</h2>
     <p>
-      Cada etapa del proyecto tiene una solucion especializada. Puedes contratar un servicio
-      puntual o trabajar bajo un plan integral.
+      Puedes contratar una etapa especifica o trabajar un plan completo desde analisis hasta mantenimiento.
     </p>
   </div>
 
   <div class="grid-2">
     <a class="card card-link" href="/instalacion-profesional">
       <h3>Instalacion profesional</h3>
-      <p>Montaje completo con puesta en marcha, pruebas y garantia de mano de obra.</p>
+      <p>Implementacion integral en sitio con pruebas, puesta en marcha y garantia documentada.</p>
       <ul class="check-list">
-        <li>Instalacion residencial y comercial.</li>
-        <li>Control de calidad y validacion tecnica.</li>
+        <li>Residencial y comercial.</li>
+        <li>Entrega tecnica formal.</li>
       </ul>
     </a>
 
     <a class="card card-link" href="/mantenimiento-preventivo">
       <h3>Mantenimiento preventivo</h3>
-      <p>Programa tecnico para conservar rendimiento y reducir riesgo de fallas costosas.</p>
+      <p>Protege eficiencia y evita fallas prematuras con revisiones periodicas de componentes criticos.</p>
       <ul class="check-list">
-        <li>Inspeccion de componentes criticos.</li>
-        <li>Limpieza, ajustes y reporte tecnico.</li>
+        <li>Limpieza y ajustes clave.</li>
+        <li>Reporte tecnico por servicio.</li>
       </ul>
     </a>
 
     <a class="card card-link" href="/asesoria-tecnica">
       <h3>Asesoria tecnica</h3>
-      <p>Evaluacion objetiva para elegir capacidad, tecnologia y alcance correcto.</p>
+      <p>Define la solucion correcta antes de invertir: capacidad, ROI y ruta de implementacion.</p>
       <ul class="check-list">
-        <li>Revision de consumo y necesidades reales.</li>
-        <li>Analisis de ROI y riesgos de implementacion.</li>
+        <li>Comparativa de opciones.</li>
+        <li>Decision sustentada en datos.</li>
       </ul>
     </a>
 
     <article class="card">
-      <h3>Diagnostico y mejora de sistemas existentes</h3>
-      <p>
-        Si ya tienes calentador solar y no rinde como deberia, evaluamos causa raiz,
-        proponemos correcciones y normalizamos su operacion.
-      </p>
+      <h3>Diagnostico de sistemas existentes</h3>
+      <p>Si tu equipo no rinde como deberia, detectamos causa raiz y proponemos normalizacion operativa.</p>
       <ul class="check-list">
-        <li>Baja temperatura o variaciones de servicio.</li>
-        <li>Fugas, presion inestable y desgaste prematuro.</li>
+        <li>Problemas de temperatura y presion.</li>
+        <li>Correcciones para estabilidad.</li>
       </ul>
     </article>
   </div>
@@ -126,47 +129,69 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
 
 <section class="section-block">
   <div class="section-head">
-    <h2>Proceso de trabajo en 5 fases</h2>
-    <p>
-      Metodo claro para ejecutar sin improvisaciones y con trazabilidad tecnica desde el
-      primer contacto hasta la operacion estable.
-    </p>
+    <h2>Comparativa: propuesta comun vs propuesta profesional</h2>
+  </div>
+
+  <div class="home-compare">
+    <article class="compare-col old">
+      <h3>Enfoque comercial basico</h3>
+      <ul>
+        <li>Capacidad sugerida sin diagnostico completo.</li>
+        <li>Instalacion rapida sin control documental.</li>
+        <li>Seguimiento limitado despues de la venta.</li>
+      </ul>
+    </article>
+
+    <article class="compare-col new">
+      <h3>Enfoque tecnico profesional</h3>
+      <ul>
+        <li>Dimensionamiento por consumo y contexto real.</li>
+        <li>Ejecucion con pruebas y criterios de calidad.</li>
+        <li>Mantenimiento y soporte para continuidad operativa.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="section-head">
+    <h2>Proceso de implementacion en 5 fases</h2>
   </div>
 
   <ol class="step-grid">
     <li class="step-item">
       <span class="step-index">1</span>
       <div class="step-body">
-        <strong>Levantamiento y diagnostico</strong>
-        <p>Revisamos consumo, ubicacion, orientacion solar y condiciones hidraulicas del inmueble.</p>
+        <strong>Diagnostico inicial</strong>
+        <p>Analisis de consumo, ubicacion, orientacion solar y condiciones de instalacion.</p>
       </div>
     </li>
     <li class="step-item">
       <span class="step-index">2</span>
       <div class="step-body">
-        <strong>Propuesta tecnica y comercial</strong>
-        <p>Definimos capacidad, alcance de trabajo, tiempos y garantias con costos transparentes.</p>
+        <strong>Propuesta tecnica</strong>
+        <p>Capacidad recomendada, alcance, tiempos, garantias y costos transparentes.</p>
       </div>
     </li>
     <li class="step-item">
       <span class="step-index">3</span>
       <div class="step-body">
-        <strong>Instalacion y verificaciones</strong>
-        <p>Ejecutamos montaje integral con pruebas de seguridad, flujo y temperatura.</p>
+        <strong>Instalacion en sitio</strong>
+        <p>Montaje completo con conexiones seguras y validacion de funcionamiento.</p>
       </div>
     </li>
     <li class="step-item">
       <span class="step-index">4</span>
       <div class="step-body">
-        <strong>Puesta en marcha y entrega</strong>
-        <p>Entregamos recomendaciones operativas, evidencia tecnica y lineamientos de cuidado.</p>
+        <strong>Puesta en marcha</strong>
+        <p>Pruebas finales, recomendaciones operativas y entrega de evidencia tecnica.</p>
       </div>
     </li>
     <li class="step-item">
       <span class="step-index">5</span>
       <div class="step-body">
         <strong>Seguimiento postventa</strong>
-        <p>Programamos mantenimiento y soporte para sostener desempeno en el tiempo.</p>
+        <p>Soporte y mantenimiento preventivo para conservar rendimiento y vida util.</p>
       </div>
     </li>
   </ol>
@@ -174,11 +199,8 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
 
 <section class="section-block">
   <div class="section-head">
-    <h2>Capacidades de referencia y recomendacion</h2>
-    <p>
-      Esta tabla es orientativa. La capacidad final debe definirse con datos de consumo,
-      numero de usuarios y habitos de uso.
-    </p>
+    <h2>Capacidades orientativas</h2>
+    <p>La capacidad final siempre se ajusta con diagnostico tecnico y habitos de consumo.</p>
   </div>
 
   <div class="table-wrap">
@@ -187,8 +209,8 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
         <tr>
           <th>Usuarios</th>
           <th>Capacidad sugerida</th>
-          <th>Escenario tipico</th>
-          <th>Meta principal</th>
+          <th>Aplicacion habitual</th>
+          <th>Objetivo principal</th>
         </tr>
       </thead>
       <tbody>
@@ -196,7 +218,7 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
           <td>2 a 4 personas</td>
           <td>150 litros</td>
           <td>Hogar compacto</td>
-          <td>Reducir gasto mensual</td>
+          <td>Disminuir gasto mensual</td>
         </tr>
         <tr>
           <td>4 a 6 personas</td>
@@ -208,7 +230,7 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
           <td>6+ personas</td>
           <td>300 litros o mas</td>
           <td>Alta demanda</td>
-          <td>Continuidad y confort</td>
+          <td>Continuidad de servicio</td>
         </tr>
       </tbody>
     </table>
@@ -217,21 +239,21 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
 
 <section class="section-block">
   <div class="section-head">
-    <h2>Clientes satisfechos con resultados medibles</h2>
+    <h2>Confianza de nuestros clientes</h2>
   </div>
 
   <div class="quote-grid">
     <blockquote class="quote-card">
-      "En menos de tres meses vimos un cambio claro en consumo de gas y estabilidad en agua caliente."
-      <strong>Cliente residencial - CDMX</strong>
+      "La propuesta tecnica fue muy clara y el ahorro mensual se noto en poco tiempo."
+      <strong>Cliente residencial, CDMX</strong>
     </blockquote>
     <blockquote class="quote-card">
-      "La diferencia fue el proceso tecnico y la claridad de la propuesta, no solo el precio."
-      <strong>Cliente comercial - Edo. Mex.</strong>
+      "El proceso de instalacion fue ordenado y con explicacion completa de cada etapa."
+      <strong>Cliente comercial, Estado de Mexico</strong>
     </blockquote>
     <blockquote class="quote-card">
-      "El mantenimiento preventivo evito fallas en temporada alta y mejoro rendimiento general."
-      <strong>Cliente multifamiliar - Puebla</strong>
+      "Con mantenimiento preventivo el sistema se mantuvo estable incluso en temporada alta."
+      <strong>Cliente multifamiliar, Puebla</strong>
     </blockquote>
   </div>
 </section>
@@ -242,27 +264,18 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
   </div>
 
   <details>
-    <summary>Cuanto puedo ahorrar con calentador solar?</summary>
-    <p>
-      Dependiendo del consumo y de la configuracion del sistema, los ahorros suelen ubicarse entre
-      60% y 80% en costos de calentamiento de agua.
-    </p>
+    <summary>Cuanto se puede ahorrar con un calentador solar?</summary>
+    <p>Segun consumo y configuracion, la reduccion suele estar entre 60% y 80% en calentamiento de agua.</p>
   </details>
 
   <details>
-    <summary>En cuanto tiempo queda instalada una solucion residencial?</summary>
-    <p>
-      La mayoria de instalaciones residenciales se ejecuta en un dia de trabajo, sujeto a condiciones
-      de acceso y complejidad de conexion.
-    </p>
+    <summary>Cuanto tarda una instalacion residencial?</summary>
+    <p>En la mayoria de los casos se ejecuta en un dia, dependiendo del acceso y complejidad de conexiones.</p>
   </details>
 
   <details>
-    <summary>Que garantia se entrega?</summary>
-    <p>
-      Incluye garantia de instalacion y garantia de componentes segun fabricante, con alcances y
-      condiciones definidas por escrito.
-    </p>
+    <summary>Que garantias se ofrecen?</summary>
+    <p>Incluye garantia de instalacion y garantia de componentes segun fabricante, con alcance documentado.</p>
   </details>
 </section>
 
@@ -270,8 +283,8 @@ description: Venta e instalacion de calentadores solares en Mexico. Sistemas cer
   <div class="cta-panel">
     <h2>Solicita tu propuesta tecnica personalizada</h2>
     <p>
-      Comparte tus datos de consumo y recibe una cotizacion profesional en menos de 24 horas.
-      Si ya tienes cotizaciones, tambien podemos hacer revision tecnica comparativa.
+      Envia tus datos de consumo y recibe una cotizacion profesional en menos de 24 horas.
+      Tambien revisamos cotizaciones de terceros para ayudarte a decidir con claridad.
     </p>
     <ul>
       <li>WhatsApp: <a href="https://wa.me/5215512345678" target="_blank" rel="noopener noreferrer">+52 55 1234 5678</a></li>
