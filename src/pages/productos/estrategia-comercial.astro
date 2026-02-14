@@ -1,0 +1,292 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+
+interface StrategyBand {
+  segment: string;
+  marginMin: number;
+  marginMax: number;
+  maxCpaPct: number;
+  channel: string;
+  priority: string;
+}
+
+const products: CollectionEntry<"productos">[] = (await getCollection("productos")).sort(
+  (a: CollectionEntry<"productos">, b: CollectionEntry<"productos">) => b.data.demandScore - a.data.demandScore
+);
+
+const estimateBasePrice = (item: CollectionEntry<"productos">): number => {
+  if (item.data.price) {
+    return item.data.price;
+  }
+
+  if (item.data.priceRangeMin && item.data.priceRangeMax) {
+    return Math.round((item.data.priceRangeMin + item.data.priceRangeMax) / 2);
+  }
+
+  return 0;
+};
+
+const getBand = (item: CollectionEntry<"productos">): StrategyBand => {
+  const demand = item.data.demandScore;
+  const pressureType = item.data.pressureType;
+
+  if (demand >= 90 && pressureType === "baja-presion") {
+    return {
+      segment: "Volumen",
+      marginMin: 24,
+      marginMax: 31,
+      maxCpaPct: 11,
+      channel: "Google Search + Meta Lead Ads",
+      priority: "Alta"
+    };
+  }
+
+  if (demand >= 80) {
+    return {
+      segment: "Ticket medio",
+      marginMin: 30,
+      marginMax: 36,
+      maxCpaPct: 10,
+      channel: "Google Search (exacta) + Remarketing",
+      priority: "Alta"
+    };
+  }
+
+  if (pressureType === "alta-presion") {
+    return {
+      segment: "Premium presurizado",
+      marginMin: 33,
+      marginMax: 40,
+      maxCpaPct: 9,
+      channel: "Search alta intencion + WhatsApp cierre",
+      priority: "Media"
+    };
+  }
+
+  if (pressureType === "hibrido") {
+    return {
+      segment: "Premium continuidad",
+      marginMin: 35,
+      marginMax: 42,
+      maxCpaPct: 8,
+      channel: "Outbound B2B + Search comercial",
+      priority: "Media"
+    };
+  }
+
+  return {
+    segment: "Cobertura",
+    marginMin: 28,
+    marginMax: 34,
+    maxCpaPct: 10,
+    channel: "Search + organico SEO",
+    priority: "Media"
+  };
+};
+
+const strategyRows = products.map((item: CollectionEntry<"productos">) => {
+  const basePrice = estimateBasePrice(item);
+  const band = getBand(item);
+
+  const minProfit = Math.round((basePrice * band.marginMin) / 100);
+  const maxProfit = Math.round((basePrice * band.marginMax) / 100);
+  const maxCpa = Math.round((basePrice * band.maxCpaPct) / 100);
+
+  return {
+    item,
+    basePrice,
+    band,
+    minProfit,
+    maxProfit,
+    maxCpa
+  };
+});
+
+const keywordClusters = [
+  {
+    title: "Compra inmediata",
+    keywords: [
+      "calentador solar precio",
+      "calentador solar instalado",
+      "cotizacion calentador solar",
+      "calentador solar 12 tubos",
+      "calentador solar 150 litros"
+    ]
+  },
+  {
+    title: "Comparativa y seleccion",
+    keywords: [
+      "cuantos litros necesita un calentador solar",
+      "presurizado vs tubos",
+      "calentador solar para 4 personas",
+      "calentador solar para 6 personas"
+    ]
+  },
+  {
+    title: "Servicio y postventa",
+    keywords: [
+      "instalacion de calentador solar",
+      "mantenimiento calentador solar",
+      "asesoria calentador solar",
+      "calentador solar comercial"
+    ]
+  }
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Matriz comercial de catalogo de calentadores solares",
+  datePublished: "2026-02-14",
+  dateModified: "2026-02-14",
+  author: {
+    "@type": "Organization",
+    name: "De Calentadores Solares"
+  }
+};
+---
+
+<BaseLayout
+  title="Estrategia Comercial por SKU | Calentadores Solares"
+  description="Matriz de margen objetivo, CPA maximo y estrategia de pauta para vender calentadores solares por SKU."
+  schema={schema}
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Productos", href: "/productos" },
+      { label: "Estrategia comercial" }
+    ]}
+  />
+
+  <section class="page-intro">
+    <h1>Matriz comercial por SKU: margen y pauta</h1>
+    <p>
+      Esta estructura sirve para decidir que productos empujar con presupuesto, que margen exigir por
+      modelo y cual debe ser el CPA maximo de adquisicion para no comprometer utilidad.
+    </p>
+  </section>
+
+  <section class="section-tight" aria-labelledby="matrix-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Rentabilidad y adquisicion</span>
+      <h2 id="matrix-title">Matriz de margen objetivo por producto</h2>
+      <p class="section-description">
+        Formula aplicada: utilidad bruta objetivo por SKU y tope de CPA como porcentaje del precio de
+        venta estimado.
+      </p>
+    </header>
+
+    <div class="capacity-table-wrap">
+      <table class="capacity-table">
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Segmento</th>
+            <th>Precio base</th>
+            <th>Margen objetivo</th>
+            <th>Utilidad esperada</th>
+            <th>CPA maximo</th>
+            <th>Canal recomendado</th>
+            <th>Prioridad</th>
+          </tr>
+        </thead>
+        <tbody>
+          {strategyRows.map((row) => (
+            <tr>
+              <td><a href={`/productos/${row.item.slug}`}>{row.item.data.title}</a></td>
+              <td>{row.band.segment}</td>
+              <td>${row.basePrice.toLocaleString("es-MX")} MXN</td>
+              <td>{row.band.marginMin}% - {row.band.marginMax}%</td>
+              <td>${row.minProfit.toLocaleString("es-MX")} - ${row.maxProfit.toLocaleString("es-MX")} MXN</td>
+              <td>${row.maxCpa.toLocaleString("es-MX")} MXN</td>
+              <td>{row.band.channel}</td>
+              <td>{row.band.priority}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="media-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Plan de pauta</span>
+      <h2 id="media-title">Distribucion recomendada de inversion mensual</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card">
+        <h3>60% - Google Search</h3>
+        <ul class="features-list">
+          <li>Campanas por SKU de alta demanda.</li>
+          <li>Keywords de compra con match exacto y frase.</li>
+          <li>Extension de llamada y WhatsApp.</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>25% - Meta Lead Ads</h3>
+        <ul class="features-list">
+          <li>Anuncios por segmento: 2-4, 4-6 y 6+ personas.</li>
+          <li>Creativos con ahorro potencial y precio inicial.</li>
+          <li>Objetivo de leads para cierre en WhatsApp.</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>15% - Remarketing</h3>
+        <ul class="features-list">
+          <li>Audiencias de /productos y /servicios.</li>
+          <li>Recordatorio de cotizacion en 7 y 14 dias.</li>
+          <li>Oferta de asesoria tecnica sin costo.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="keyword-title">
+    <header class="section-header">
+      <span class="section-eyebrow">SEO + SEM</span>
+      <h2 id="keyword-title">Clusters de keywords para captacion</h2>
+    </header>
+
+    <div class="offer-grid">
+      {keywordClusters.map((cluster) => (
+        <article class="offer-card">
+          <h3>{cluster.title}</h3>
+          <ul class="features-list">
+            {cluster.keywords.map((keyword) => (
+              <li>{keyword}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ops-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Operacion comercial</span>
+      <h2 id="ops-title">Reglas para proteger margen en ventas</h2>
+    </header>
+
+    <div class="service-grid">
+      <article class="service-card">
+        <h3>Regla 1</h3>
+        <p>No ofertar descuento directo sin revisar CPA real por SKU y margen bruto proyectado.</p>
+      </article>
+      <article class="service-card">
+        <h3>Regla 2</h3>
+        <p>Priorizar en pauta SKUs con demanda 85+ para estabilizar flujo de leads y caja.</p>
+      </article>
+      <article class="service-card">
+        <h3>Regla 3</h3>
+        <p>Usar productos premium como upsell en cierre consultivo, no como primer impacto de pauta.</p>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="estrategia-comercial" />
+</BaseLayout>

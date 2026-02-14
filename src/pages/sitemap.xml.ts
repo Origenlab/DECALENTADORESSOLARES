@@ -4,6 +4,7 @@ const staticUrls = [
   "/",
   "/productos",
   "/productos/mas-vendidos",
+  "/productos/estrategia-comercial",
   "/servicios",
   "/servicios/instalacion-profesional",
   "/servicios/mantenimiento-preventivo",
