@@ -1,0 +1,49 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Mantenimiento Preventivo de Calentadores Solares | De Calentadores Solares"
+  description="Mantenimiento preventivo para calentadores solares con limpieza, revision tecnica y recomendaciones para mantener ahorro y rendimiento."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Servicios", href: "/servicios" },
+      { label: "Mantenimiento preventivo" }
+    ]}
+  />
+
+  <section class="page-intro">
+    <h1>Mantenimiento preventivo de calentadores solares</h1>
+    <p>
+      Mantener el sistema en buen estado evita caidas de eficiencia y extiende la vida util del
+      equipo. Este servicio es clave para preservar el ahorro en gas a largo plazo.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="plan-title">
+    <header class="section-header">
+      <h2 id="plan-title">Que revisamos en cada visita</h2>
+    </header>
+
+    <div class="service-grid">
+      <article class="service-card">
+        <h3>Revision de componentes</h3>
+        <p>Inspeccion de conexiones, valvulas, sellos y estado general del sistema.</p>
+      </article>
+      <article class="service-card">
+        <h3>Limpieza tecnica</h3>
+        <p>Limpieza de partes criticas para conservar captacion y comportamiento termico.</p>
+      </article>
+      <article class="service-card">
+        <h3>Validacion de rendimiento</h3>
+        <p>Verificacion de temperatura, presion y estabilidad operativa.</p>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="servicio-mantenimiento" />
+</LandingLayout>

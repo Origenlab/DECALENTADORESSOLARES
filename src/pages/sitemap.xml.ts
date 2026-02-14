@@ -1,6 +1,18 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 
-const staticUrls = ["/", "/productos", "/servicios", "/blog"];
+const staticUrls = [
+  "/",
+  "/productos",
+  "/servicios",
+  "/servicios/instalacion-profesional",
+  "/servicios/mantenimiento-preventivo",
+  "/servicios/asesoria-tecnica",
+  "/servicios/proyectos-comerciales",
+  "/blog",
+  "/nosotros",
+  "/aviso-de-privacidad",
+  "/terminos-y-condiciones"
+];
 
 const toUrlEntry = (path: string) =>
   `<url><loc>https://decalentadoressolares.com${path}</loc></url>`;

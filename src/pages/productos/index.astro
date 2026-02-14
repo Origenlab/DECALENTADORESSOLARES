@@ -3,27 +3,123 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import ProductGrid from "../../components/sections/ProductGrid.astro";
+import FAQSection from "../../components/sections/FAQSection.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+import SEOContentBlock from "../../components/sections/SEOContentBlock.astro";
 import CallToAction from "../../components/sections/CallToAction.astro";
 
 const products: CollectionEntry<"productos">[] = (await getCollection("productos")).sort(
   (a: CollectionEntry<"productos">, b: CollectionEntry<"productos">) => a.data.order - b.data.order
 );
+
+const faqItems = [
+  {
+    question: "Que capacidad de calentador solar necesito?",
+    answer:
+      "Depende de numero de usuarios, horarios de regadera y simultaneidad. Como referencia, 150 litros para 2-4 personas y 200-240 litros para 4-6 personas."
+  },
+  {
+    question: "Es mejor un modelo de tubos o presurizado?",
+    answer:
+      "Los modelos de tubos son competitivos para uso residencial estandar. Los presurizados suelen rendir mejor cuando hay mayor exigencia de presion y demanda simultanea."
+  },
+  {
+    question: "El precio incluye instalacion?",
+    answer:
+      "El precio publicado es referencial del equipo. La cotizacion final integra instalacion segun condiciones reales del sitio y alcance requerido."
+  },
+  {
+    question: "Puedo financiar la compra?",
+    answer:
+      "Dependiendo del proyecto podemos evaluar esquemas de pago por etapas para facilitar la implementacion."
+  }
+];
+
+const seoParagraphs = [
+  "Nuestro catalogo de calentadores solares esta organizado para facilitar una compra por criterios reales de consumo: numero de usuarios, tipo de inmueble y nivel de demanda diaria. En lugar de vender por moda o por precio aislado, recomendamos equipo y capacidad con base en una evaluacion tecnica simple.",
+  "En esta pagina puedes comparar modelos residenciales de 15, 20 y 30 tubos, asi como sistemas presurizados para demandas mas altas. Si no sabes cual te conviene, en la seccion de servicios contamos con asesoria para definir la mejor alternativa en rendimiento y retorno de inversion.",
+  "Tambien publicamos contenido en el blog para resolver dudas frecuentes de compra: diferencia entre tecnologias, mantenimiento preventivo, errores comunes de instalacion y recomendaciones para estimar ahorro anual. Esto te ayuda a decidir con informacion util antes de invertir.",
+  "Si deseas una recomendacion rapida, compartenos por WhatsApp cuantas personas usan agua caliente, en que ciudad estas y que tipo de inmueble tienes. Te devolvemos una propuesta inicial con capacidad sugerida y rango de inversion."
+];
 ---
 
 <BaseLayout
-  title="Productos de Calentadores Solares | Catalogo Profesional"
-  description="Explora nuestro catalogo de calentadores solares residenciales y comerciales. Equipos eficientes con asesoria e instalacion especializada."
+  title="Catalogo de Calentadores Solares | Modelos Residenciales y Comerciales"
+  description="Conoce nuestro catalogo de calentadores solares por capacidad y tipo de proyecto. Cotiza equipo, instalacion y soporte tecnico en Mexico."
 >
   <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Productos" }]} />
 
   <section class="page-intro">
-    <h1>Catalogo de productos solares</h1>
+    <h1>Catalogo de calentadores solares</h1>
     <p>
-      Selecciona el equipo adecuado segun tu consumo y tipo de proyecto. Si necesitas ayuda para
-      dimensionar, visita tambien nuestra pagina de <a href="/servicios">servicios tecnicos</a>.
+      Selecciona el equipo adecuado segun consumo y demanda de agua caliente. Si quieres validar
+      capacidad y costos con mas precision, revisa nuestra seccion de <a href="/servicios">servicios
+      tecnicos</a> o consulta articulos en el <a href="/blog">blog especializado</a>.
     </p>
   </section>
 
+  <section class="section-tight" aria-labelledby="type-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Comparativa rapida</span>
+      <h2 id="type-title">Que tecnologia te conviene segun tu escenario</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card">
+        <h3>Modelos de tubos al vacio</h3>
+        <ul class="features-list">
+          <li>Excelente punto de entrada para vivienda.</li>
+          <li>Buena relacion costo-beneficio.</li>
+          <li>Ideal para consumo residencial estandar.</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>Sistemas presurizados</h3>
+        <ul class="features-list">
+          <li>Mejor respuesta en demanda simultanea.</li>
+          <li>Mayor estabilidad para usos exigentes.</li>
+          <li>Opcion recomendada para proyectos comerciales.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
   <ProductGrid products={products} title="Modelos disponibles" />
+
+  <section class="section" aria-labelledby="selection-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Ruta de seleccion</span>
+      <h2 id="selection-title">Como elegir tu calentador solar en 3 pasos</h2>
+    </header>
+
+    <div class="process-grid">
+      <article class="process-step">
+        <span class="step-number">1</span>
+        <p>Define numero de usuarios y horario de uso de agua caliente.</p>
+      </article>
+      <article class="process-step">
+        <span class="step-number">2</span>
+        <p>Elige tecnologia: tubos o presurizado segun nivel de demanda.</p>
+      </article>
+      <article class="process-step">
+        <span class="step-number">3</span>
+        <p>Solicita cotizacion con instalacion para validar inversion total.</p>
+      </article>
+    </div>
+  </section>
+
+  <FAQSection
+    id="faq-productos"
+    title="Preguntas frecuentes del catalogo"
+    subtitle="Dudas comunes antes de elegir capacidad, tecnologia y rango de inversion."
+    faqs={faqItems}
+  />
+
+  <SEOContentBlock
+    title="Compra de calentadores solares: enfoque practico para decidir"
+    paragraphs={seoParagraphs}
+  />
+
+  <LeadCapture source="productos" />
   <CallToAction />
 </BaseLayout>

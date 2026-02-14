@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  paragraphs: string[];
+}
+
+const { title, paragraphs } = Astro.props;
+---
+
+<section class="section" aria-labelledby="seo-copy-title">
+  <div class="seo-copy">
+    <h2 id="seo-copy-title">{title}</h2>
+    {paragraphs.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </div>
+</section>

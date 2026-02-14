@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+---
+
+<BaseLayout
+  title="Terminos y Condiciones | De Calentadores Solares"
+  description="Terminos y condiciones de uso del sitio y de los servicios de De Calentadores Solares."
+>
+  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Terminos y condiciones" }]} />
+
+  <article class="article-shell">
+    <header class="article-header">
+      <h1>Terminos y condiciones</h1>
+      <p class="article-meta">Ultima actualizacion: 14 de febrero de 2026</p>
+    </header>
+
+    <section class="article-content">
+      <h2>Uso del sitio</h2>
+      <p>
+        El contenido del sitio es informativo y puede actualizarse sin previo aviso para mejorar la
+        calidad de la informacion comercial y tecnica.
+      </p>
+      <h2>Cotizaciones</h2>
+      <p>
+        Las cotizaciones preliminares estan sujetas a validacion tecnica en sitio y alcance final
+        del proyecto.
+      </p>
+      <h2>Garantias</h2>
+      <p>
+        La garantia de instalacion aplica segun alcance contratado. La garantia de equipo depende de
+        fabricante, modelo y condiciones de uso.
+      </p>
+      <h2>Contacto</h2>
+      <p>
+        Para aclaraciones puedes comunicarte por WhatsApp, telefono o correo electronico oficial.
+      </p>
+    </section>
+  </article>
+</BaseLayout>

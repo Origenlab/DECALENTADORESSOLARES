@@ -1,24 +1,26 @@
 ---
 title: "Errores comunes en instalacion solar y como evitarlos"
-description: "Resumen de fallas frecuentes en proyectos solares termicos y buenas practicas para evitarlas desde el diseno."
+description: "Conoce las fallas mas frecuentes en proyectos solares termicos y como prevenirlas desde la planeacion."
 pubDate: 2025-04-09
 author: "Ingenieria de Campo"
 image: "/images/blog/errores-instalacion-solar.svg"
-imageAlt: "Checklist tecnico de instalacion de calentadores solares"
+imageAlt: "Errores comunes de instalacion de calentadores solares"
 tags: ["instalacion", "calentadores", "calidad"]
 category: "instalacion"
 ---
 
-La mayoria de problemas en sistemas solares no vienen del equipo, sino de una ejecucion deficiente.
+Muchos problemas de calentadores solares no vienen del equipo, sino de una ejecucion deficiente.
 
-## Errores frecuentes
+## Error 1: Capacidad mal calculada
 
-1. Inclinacion u orientacion incorrecta.
-2. Capacidad mal calculada.
-3. Falta de pruebas de puesta en marcha.
+Cuando la capacidad no corresponde al consumo, el usuario percibe que el sistema "no funciona" aunque el equipo este bien.
 
-## Como prevenir
+## Error 2: Instalacion sin pruebas
 
-Trabaja con un proveedor que documente proceso, pruebas y plan de seguimiento.
+No validar presion, temperatura y estabilidad al cierre del trabajo genera fallas tempranas.
 
-Si quieres cotizar con enfoque tecnico, inicia en [nuestro formulario de contacto](/#contacto) o consulta [productos recomendados](/productos).
+## Error 3: Falta de mantenimiento planeado
+
+Sin revisiones periodicas, el rendimiento cae y crece el riesgo de fallas correctivas costosas.
+
+Para evitar estos errores, combina [instalacion profesional](/servicios/instalacion-profesional) con [mantenimiento preventivo](/servicios/mantenimiento-preventivo).

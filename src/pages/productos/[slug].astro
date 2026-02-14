@@ -28,6 +28,24 @@ const relatedProducts: CollectionEntry<"productos">[] = (await getCollection("pr
   )
   .slice(0, 2);
 
+const faqItems = [
+  {
+    question: "Este modelo incluye instalacion?",
+    answer:
+      "El precio del producto es referencial del equipo. La cotizacion final integra instalacion segun condiciones del inmueble y alcance requerido."
+  },
+  {
+    question: "Como se valida si la capacidad es correcta?",
+    answer:
+      "Se analiza numero de usuarios, puntos de consumo simultaneos y habitos de uso para confirmar cobertura real."
+  },
+  {
+    question: "Cada cuanto se recomienda mantenimiento?",
+    answer:
+      "En uso residencial normal se recomienda cada 6 a 12 meses. En demanda alta o agua dura puede requerir mayor frecuencia."
+  }
+];
+
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -45,7 +63,12 @@ const productSchema = {
         price: product.data.price,
         availability: "https://schema.org/InStock"
       }
-    : undefined
+    : undefined,
+  additionalProperty: faqItems.map((item) => ({
+    "@type": "PropertyValue",
+    name: item.question,
+    value: item.answer
+  }))
 };
 ---
 
@@ -94,7 +117,53 @@ const productSchema = {
           Solicitar cotizacion de este modelo
         </Button>
         <Button href="/servicios" variant="outline">Ver servicios de instalacion</Button>
+        <Button href="/blog" variant="ghost">Leer guias de compra</Button>
       </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="buy-title">
+    <header class="section-header">
+      <h2 id="buy-title">Antes de comprar este modelo</h2>
+      <p class="section-description">
+        Validar capacidad y tipo de tecnologia reduce riesgo de mala compra y mejora tu retorno de
+        inversion.
+      </p>
+    </header>
+
+    <div class="process-grid">
+      <article class="process-step">
+        <span class="step-number">1</span>
+        <p>Comparte numero de usuarios y horarios de mayor consumo.</p>
+      </article>
+      <article class="process-step">
+        <span class="step-number">2</span>
+        <p>Recibe propuesta con alcance tecnico y costo de instalacion.</p>
+      </article>
+      <article class="process-step">
+        <span class="step-number">3</span>
+        <p>Agenda instalacion y plan de mantenimiento preventivo.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="product-faq-title">
+    <header class="section-header">
+      <h2 id="product-faq-title">Preguntas frecuentes de este modelo</h2>
+    </header>
+
+    <div class="faq-list">
+      {faqItems.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>{item.question}</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.answer}</p>
+          </div>
+        </details>
+      ))}
     </div>
   </section>
 

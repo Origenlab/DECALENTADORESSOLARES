@@ -1,0 +1,79 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Instalacion Profesional de Calentadores Solares | De Calentadores Solares"
+  description="Servicio de instalacion profesional de calentadores solares con pruebas de seguridad, puesta en marcha y garantia de mano de obra."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Servicios", href: "/servicios" },
+      { label: "Instalacion profesional" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Servicio especializado</span>
+        <h1 class="hero-title">Instalacion profesional de calentadores solares</h1>
+        <p class="hero-lead">
+          Ejecutamos proyectos residenciales y comerciales con metodologia tecnica para asegurar
+          rendimiento desde el primer dia.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/5215512345678?text=Hola,%20quiero%20cotizar%20instalacion%20profesional%20de%20calentador%20solar"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Cotizar instalacion
+          </Button>
+          <Button href="/productos" variant="outline">Ver modelos</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Incluye</h2>
+        <ul class="trust-list">
+          <li>Levantamiento tecnico del sitio.</li>
+          <li>Montaje y conexiones seguras.</li>
+          <li>Puesta en marcha y validacion.</li>
+          <li>Recomendaciones de operacion.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="alcance-title">
+    <header class="section-header">
+      <h2 id="alcance-title">Alcance tecnico del servicio</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card">
+        <h3>Fase previa</h3>
+        <ul class="features-list">
+          <li>Evaluacion de consumo y demanda.</li>
+          <li>Revision de ubicacion e inclinacion.</li>
+          <li>Definicion de materiales y capacidad.</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>Fase de ejecucion</h3>
+        <ul class="features-list">
+          <li>Montaje estructural y conexion.</li>
+          <li>Pruebas hidraulicas y termicas.</li>
+          <li>Entrega con checklist tecnico.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="servicio-instalacion" />
+</LandingLayout>

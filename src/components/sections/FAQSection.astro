@@ -1,0 +1,44 @@
+---
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  faqs: FaqItem[];
+}
+
+const {
+  id = "faq",
+  eyebrow = "Preguntas frecuentes",
+  title,
+  subtitle,
+  faqs
+} = Astro.props;
+---
+
+<section class="section" id={id} aria-labelledby={`${id}-title`}>
+  <header class="section-header">
+    <span class="section-eyebrow">{eyebrow}</span>
+    <h2 id={`${id}-title`}>{title}</h2>
+    {subtitle && <p class="section-description">{subtitle}</p>}
+  </header>
+
+  <div class="faq-list">
+    {faqs.map((item, index) => (
+      <details class="faq-item" name={id}>
+        <summary class="faq-question">
+          <span>{item.question}</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="faq-answer" id={`${id}-item-${index + 1}`}>
+          <p>{item.answer}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>

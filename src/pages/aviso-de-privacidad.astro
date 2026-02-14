@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+---
+
+<BaseLayout
+  title="Aviso de Privacidad | De Calentadores Solares"
+  description="Aviso de privacidad para usuarios y clientes de De Calentadores Solares."
+>
+  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Aviso de privacidad" }]} />
+
+  <article class="article-shell">
+    <header class="article-header">
+      <h1>Aviso de privacidad</h1>
+      <p class="article-meta">Ultima actualizacion: 14 de febrero de 2026</p>
+    </header>
+
+    <section class="article-content">
+      <p>
+        En De Calentadores Solares protegemos los datos personales que nos compartes a traves de
+        formularios, WhatsApp, correo y telefono.
+      </p>
+      <h2>Datos que recopilamos</h2>
+      <ul>
+        <li>Nombre y datos de contacto.</li>
+        <li>Ciudad o zona de servicio.</li>
+        <li>Informacion del proyecto para cotizacion.</li>
+      </ul>
+      <h2>Uso de la informacion</h2>
+      <p>
+        Utilizamos los datos para responder solicitudes de cotizacion, brindar asesoria tecnica y
+        dar seguimiento comercial.
+      </p>
+      <h2>Derechos ARCO</h2>
+      <p>
+        Puedes solicitar acceso, rectificacion o eliminacion de tus datos escribiendo a
+        info@decalentadoressolares.com.
+      </p>
+    </section>
+  </article>
+</BaseLayout>

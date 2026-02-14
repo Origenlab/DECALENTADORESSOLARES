@@ -1,24 +1,27 @@
 ---
 title: "Mantenimiento preventivo: clave para que tu sistema solar dure mas"
-description: "Frecuencias, puntos criticos y recomendaciones para mantener rendimiento termico estable durante todo el ano."
+description: "Frecuencias recomendadas y checklist tecnico para conservar rendimiento de calentadores solares."
 pubDate: 2025-03-21
 author: "Area de Operaciones"
 image: "/images/blog/mantenimiento-calentadores-solares.svg"
-imageAlt: "Tecnico dando mantenimiento a calentador solar"
+imageAlt: "Mantenimiento de calentadores solares"
 tags: ["mantenimiento", "solar", "eficiencia"]
 category: "servicios"
 ---
 
-Un sistema solar requiere revisiones periodicas para sostener la eficiencia y evitar fallas prematuras.
+Un sistema solar puede perder rendimiento de forma gradual si no recibe mantenimiento periodico.
 
-## Que revisar en cada visita
+## Que debe incluir una visita preventiva
 
-- Estado de colectores y limpieza.
-- Valvulas, conexiones y sellos.
-- Presion y comportamiento termico.
+- Limpieza de componentes expuestos.
+- Revision de conexiones, valvulas y sellos.
+- Verificacion de presion y comportamiento termico.
+- Recomendaciones de ajustes para siguiente periodo.
 
-## Frecuencia sugerida
+## Cada cuanto conviene hacerlo
 
-Para uso residencial normal, la recomendacion general es mantenimiento cada 6 a 12 meses.
+- Uso residencial promedio: cada 6 a 12 meses.
+- Uso intensivo o agua dura: cada 6 meses.
+- Proyectos comerciales: segun plan de continuidad.
 
-Conoce los paquetes en nuestra pagina de [servicios profesionales](/servicios) y revisa productos compatibles en [catalogo solar](/productos).
+Si quieres implementarlo, revisa [mantenimiento preventivo](/servicios/mantenimiento-preventivo) y solicita una propuesta por WhatsApp.

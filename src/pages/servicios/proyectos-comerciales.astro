@@ -1,0 +1,53 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Proyectos Comerciales de Calentamiento Solar | De Calentadores Solares"
+  description="Proyectos comerciales de calentadores solares para hoteles, gimnasios, restaurantes y operaciones de alta demanda de agua caliente."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Servicios", href: "/servicios" },
+      { label: "Proyectos comerciales" }
+    ]}
+  />
+
+  <section class="page-intro">
+    <h1>Proyectos comerciales de calentamiento solar</h1>
+    <p>
+      Disenamos e implementamos soluciones para operaciones con demanda intensiva de agua caliente,
+      priorizando continuidad de servicio y reduccion de costo energetico.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="segment-title">
+    <header class="section-header">
+      <h2 id="segment-title">Segmentos que atendemos</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>Hoteles y hospedaje</h3>
+        <p>Demanda continua y estabilidad termica para operacion diaria.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Gimnasios y clubes</h3>
+        <p>Cobertura en horarios pico y soporte para alto flujo de usuarios.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Restaurantes</h3>
+        <p>Agua caliente para procesos de limpieza y operacion de cocina.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Condominios y desarrollos</h3>
+        <p>Modelos centralizados o por unidad con gestion escalable.</p>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="servicio-comercial" />
+</LandingLayout>

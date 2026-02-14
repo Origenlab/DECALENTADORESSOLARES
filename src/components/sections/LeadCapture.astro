@@ -1,0 +1,91 @@
+---
+interface Props {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  source?: string;
+}
+
+const {
+  id = "cotizar",
+  title = "Solicita una cotizacion personalizada",
+  subtitle = "Comparte tus datos y te orientamos con capacidad recomendada, rango de inversion y tiempos de instalacion.",
+  source = "sitio-web"
+} = Astro.props;
+---
+
+<section class="section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="lead-capture">
+    <div class="lead-copy stack-sm">
+      <span class="section-eyebrow">Cotizacion express</span>
+      <h2 id={`${id}-title`}>{title}</h2>
+      <p>{subtitle}</p>
+      <ul class="lead-bullets">
+        <li>Respuesta comercial en menos de 24 horas.</li>
+        <li>Asesoria tecnica sin costo inicial.</li>
+        <li>Cobertura residencial y comercial en Mexico.</li>
+      </ul>
+    </div>
+
+    <form class="lead-form" id={`${id}-form`}>
+      <label>
+        Nombre
+        <input type="text" name="nombre" autocomplete="name" required />
+      </label>
+      <label>
+        Telefono o WhatsApp
+        <input type="text" name="contacto" autocomplete="tel" required />
+      </label>
+      <label>
+        Ciudad o zona
+        <input type="text" name="ciudad" autocomplete="address-level2" required />
+      </label>
+      <label>
+        Tipo de proyecto
+        <select name="proyecto" required>
+          <option value="" selected disabled>Selecciona una opcion</option>
+          <option value="Residencial">Residencial</option>
+          <option value="Comercial">Comercial</option>
+          <option value="Condominio">Condominio</option>
+          <option value="Hotel o gimnasio">Hotel o gimnasio</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </label>
+      <label>
+        Mensaje
+        <textarea name="mensaje" rows="4" placeholder="Cuantas personas usan agua caliente, horario de uso y cualquier dato util."></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">Enviar por WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<script is:inline define:vars={{ source, id }}>
+  const form = document.getElementById(`${id}-form`);
+
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+
+      const nombre = (data.get("nombre") || "").toString().trim();
+      const contacto = (data.get("contacto") || "").toString().trim();
+      const ciudad = (data.get("ciudad") || "").toString().trim();
+      const proyecto = (data.get("proyecto") || "").toString().trim();
+      const mensaje = (data.get("mensaje") || "").toString().trim();
+
+      const text = [
+        "Hola, quiero cotizar un calentador solar.",
+        `Nombre: ${nombre}`,
+        `Contacto: ${contacto}`,
+        `Ciudad/Zona: ${ciudad}`,
+        `Tipo de proyecto: ${proyecto}`,
+        `Detalle: ${mensaje || "Sin detalle adicional"}`,
+        `Fuente: ${source}`
+      ].join("\n");
+
+      const url = `https://wa.me/5215512345678?text=${encodeURIComponent(text)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+  }
+</script>

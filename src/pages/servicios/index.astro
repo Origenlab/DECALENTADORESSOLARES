@@ -2,72 +2,115 @@
 import LandingLayout from "../../layouts/LandingLayout.astro";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import Button from "../../components/ui/Button.astro";
+import FAQSection from "../../components/sections/FAQSection.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+import SEOContentBlock from "../../components/sections/SEOContentBlock.astro";
 
 const services = [
   {
     title: "Instalacion profesional",
     description:
-      "Montaje completo del sistema con validaciones de seguridad, pruebas de rendimiento y puesta en marcha documentada."
+      "Montaje integral con criterios de seguridad, pruebas de rendimiento y entrega tecnica.",
+    href: "/servicios/instalacion-profesional"
   },
   {
     title: "Mantenimiento preventivo",
     description:
-      "Inspecciones periodicas para conservar eficiencia, reducir desgaste y extender vida util del equipo."
+      "Programa tecnico para sostener eficiencia, evitar fallas y proteger la inversion.",
+    href: "/servicios/mantenimiento-preventivo"
   },
   {
     title: "Asesoria tecnica",
     description:
-      "Analisis de consumo, dimensionamiento y comparativa tecnica para elegir la mejor alternativa antes de invertir."
+      "Evaluacion de consumo, capacidad y retorno de inversion antes de comprar.",
+    href: "/servicios/asesoria-tecnica"
   },
   {
-    title: "Diagnostico y correccion",
+    title: "Proyectos comerciales",
     description:
-      "Evaluacion de sistemas existentes para corregir bajo rendimiento, fallas de presion o problemas de temperatura."
+      "Ejecucion para negocios con alta demanda de agua caliente y necesidad de continuidad.",
+    href: "/servicios/proyectos-comerciales"
   }
 ];
 
 const process = [
   "Levantamiento tecnico del sitio y perfil de consumo.",
-  "Propuesta con alcance, tiempos y costos transparentes.",
-  "Ejecucion con equipo especializado y materiales adecuados.",
-  "Puesta en marcha, pruebas finales y recomendaciones de uso.",
-  "Seguimiento postventa y plan de mantenimiento preventivo."
+  "Propuesta comercial con alcance, tiempos y costo claro.",
+  "Ejecucion en sitio con estandares de instalacion profesional.",
+  "Puesta en marcha y validacion de funcionamiento.",
+  "Seguimiento postventa y plan de mantenimiento."
+];
+
+const faqItems = [
+  {
+    question: "La asesoria tiene costo?",
+    answer:
+      "La asesoria comercial inicial no tiene costo. Para proyectos complejos podemos proponer una visita tecnica especializada con alcance definido."
+  },
+  {
+    question: "En que zonas brindan servicio?",
+    answer:
+      "Atendemos CDMX, Estado de Mexico y zonas cercanas. Tambien coordinamos proyectos en otras ciudades segun volumen y agenda tecnica."
+  },
+  {
+    question: "Cuanto tarda un servicio de instalacion?",
+    answer:
+      "Un proyecto residencial estandar suele completarse en 1 jornada. Proyectos de mayor escala pueden requerir fases adicionales."
+  },
+  {
+    question: "Que incluye el mantenimiento preventivo?",
+    answer:
+      "Limpieza de componentes, revision de conexiones y valvulas, validacion de rendimiento y recomendaciones tecnicas para la siguiente etapa."
+  },
+  {
+    question: "Pueden revisar una cotizacion de otro proveedor?",
+    answer:
+      "Si. Realizamos comparativa tecnica para detectar diferencias de capacidad, calidad de materiales y alcance real de instalacion."
+  }
+];
+
+const seoParagraphs = [
+  "Nuestros servicios de calentadores solares estan disenados para clientes que buscan algo mas que una venta rapida. La diferencia real del mercado esta en como se dimensiona, instala y mantiene el sistema. Por eso estructuramos cada proyecto en etapas claras: diagnostico, propuesta, ejecucion, puesta en marcha y seguimiento.",
+  "En instalacion profesional priorizamos seguridad hidraulica, estabilidad de temperatura y cumplimiento del alcance acordado. En mantenimiento preventivo evitamos que el rendimiento se degrade con el tiempo por incrustacion, desgaste o falta de ajustes. En asesoria tecnica ayudamos a tomar decisiones con datos para evitar sobrecostos.",
+  "Tambien atendemos proyectos comerciales para hoteles, gimnasios, restaurantes y operaciones con consumo intensivo. En estos casos evaluamos continuidad operativa, horarios de demanda y estrategia de respaldo para reducir riesgo de interrupciones.",
+  "Si necesitas una cotizacion de servicios para calentador solar, puedes enviarnos datos por WhatsApp y en menos de 24 horas recibes una propuesta inicial. Si ya tienes una opcion de otro proveedor, podemos revisarla para validar su viabilidad tecnica y economica."
 ];
 ---
 
 <LandingLayout
-  title="Servicios para Calentadores Solares | Instalacion y Mantenimiento"
-  description="Servicios especializados en instalacion, mantenimiento y asesoria para calentadores solares con enfoque tecnico y resultados medibles."
+  title="Servicios de Calentadores Solares | Instalacion, Mantenimiento y Asesoria"
+  description="Servicios profesionales de calentadores solares en Mexico: instalacion, mantenimiento preventivo, asesoria tecnica y proyectos comerciales."
 >
   <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Servicios" }]} />
 
   <section class="hero-section">
     <div class="hero-layout">
       <div class="hero-panel">
-        <span class="section-eyebrow">Servicios especializados</span>
-        <h1 class="hero-title">Implementacion integral de calentadores solares</h1>
+        <span class="section-eyebrow">Servicio integral</span>
+        <h1 class="hero-title">Servicios profesionales para calentadores solares</h1>
         <p class="hero-lead">
-          Ofrecemos servicios para todo el ciclo del sistema: desde la evaluacion inicial hasta el
-          mantenimiento que sostiene el ahorro en el tiempo.
+          Trabajamos con un proceso comercial y tecnico claro para que tu sistema entregue ahorro
+          real, continuidad operativa y menor riesgo de fallas.
         </p>
         <div class="hero-cta-row">
           <Button
-            href="https://wa.me/5215512345678?text=Hola,%20quiero%20informacion%20de%20servicios%20de%20calentadores%20solares"
+            href="https://wa.me/5215512345678?text=Hola,%20quiero%20cotizar%20servicios%20de%20calentador%20solar"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Hablar con un asesor
+            Solicitar asesoria
           </Button>
-          <Button href="/productos" variant="outline">Explorar productos</Button>
+          <Button href="/productos" variant="outline">Ver productos</Button>
         </div>
       </div>
 
       <aside class="hero-aside">
-        <h2>Objetivo del servicio</h2>
+        <h2>Que nos pide el mercado hoy</h2>
         <ul class="trust-list">
-          <li>Maximizar ahorro sin comprometer disponibilidad de agua caliente.</li>
-          <li>Reducir riesgos tecnicos en instalacion y operacion.</li>
-          <li>Asegurar continuidad mediante mantenimiento preventivo.</li>
+          <li>Respuestas rapidas con costos transparentes.</li>
+          <li>Garantias claras en instalacion y equipos.</li>
+          <li>Cobertura local y soporte postventa real.</li>
+          <li>Contenido tecnico que facilite decidir.</li>
         </ul>
       </aside>
     </div>
@@ -75,26 +118,62 @@ const process = [
 
   <section class="section" aria-labelledby="servicios-title">
     <header class="section-header">
+      <span class="section-eyebrow">Portafolio</span>
       <h2 id="servicios-title">Servicios principales</h2>
       <p class="section-description">
-        Cada servicio se adapta al tipo de inmueble, nivel de consumo y objetivos operativos del
-        cliente.
+        Cada linea de servicio resuelve una etapa distinta del ciclo de compra y operacion.
       </p>
     </header>
 
-    <div class="service-grid">
+    <div class="offer-grid">
       {services.map((service) => (
-        <article class="service-card">
+        <article class="offer-card">
           <h3>{service.title}</h3>
           <p>{service.description}</p>
+          <a class="btn btn-outline" href={service.href}>Ver detalle del servicio</a>
         </article>
       ))}
     </div>
   </section>
 
+  <section class="section" aria-labelledby="plans-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Paquetes</span>
+      <h2 id="plans-title">Esquemas de contratacion</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card">
+        <h3>Plan Esencial</h3>
+        <ul class="features-list">
+          <li>Instalacion residencial estandar.</li>
+          <li>Puesta en marcha con recomendaciones de uso.</li>
+          <li>Seguimiento inicial post-instalacion.</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>Plan Continuidad</h3>
+        <ul class="features-list">
+          <li>Instalacion + mantenimiento preventivo programado.</li>
+          <li>Revision periodica de rendimiento.</li>
+          <li>Prioridad de atencion para incidencias.</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>Plan Comercial</h3>
+        <ul class="features-list">
+          <li>Ingenieria para alta demanda de agua caliente.</li>
+          <li>Ejecucion por etapas y plan de continuidad.</li>
+          <li>Seguimiento tecnico y optimizacion operativa.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
   <section class="section" aria-labelledby="proceso-title">
     <header class="section-header">
-      <h2 id="proceso-title">Proceso de trabajo</h2>
+      <span class="section-eyebrow">Metodologia</span>
+      <h2 id="proceso-title">Proceso comercial y tecnico</h2>
     </header>
 
     <div class="process-grid">
@@ -106,4 +185,18 @@ const process = [
       ))}
     </div>
   </section>
+
+  <FAQSection
+    id="faq-servicios"
+    title="Preguntas frecuentes sobre nuestros servicios"
+    subtitle="Respuestas orientadas a la decision comercial y tecnica antes de contratar."
+    faqs={faqItems}
+  />
+
+  <SEOContentBlock
+    title="Servicios de calentadores solares con enfoque comercial, tecnico y SEO"
+    paragraphs={seoParagraphs}
+  />
+
+  <LeadCapture source="servicios" />
 </LandingLayout>

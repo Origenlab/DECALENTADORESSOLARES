@@ -1,26 +1,30 @@
 ---
 title: "Como elegir la capacidad correcta de un calentador solar"
-description: "Guia practica para calcular la capacidad ideal segun usuarios, habitos de consumo y tipo de inmueble."
+description: "Guia para estimar capacidad de calentador solar segun usuarios, habitos de consumo y tipo de inmueble."
 pubDate: 2025-02-13
 author: "Equipo Tecnico"
 image: "/images/blog/capacidad-calentador-solar.svg"
-imageAlt: "Diagrama para elegir capacidad de calentador solar"
+imageAlt: "Guia de capacidad para calentador solar"
 tags: ["calentadores", "solar", "ahorro", "dimensionamiento"]
 category: "productos"
 ---
 
-Seleccionar la capacidad correcta evita dos errores costosos: **sobredimensionar** o quedarse corto en cobertura.
+Elegir capacidad de forma correcta evita dos costos ocultos: comprar un equipo que no cubre tu demanda o pagar de mas por una capacidad innecesaria.
 
-## Paso 1: Usuarios y puntos de consumo
+## Paso 1: Usuarios y simultaneidad
 
-Define cuantas personas usan agua caliente y cuantas regaderas se utilizan en horarios similares.
+No solo importa cuantas personas viven en el inmueble. Importa cuantas regaderas se usan al mismo tiempo y en que horarios.
 
-## Paso 2: Patron de uso
+## Paso 2: Tipo de inmueble
 
-No es lo mismo un hogar con uso escalonado que uno con demanda concentrada en la manana.
+Un departamento pequeno no se comporta igual que una casa de varios niveles o un negocio de servicios.
 
-## Paso 3: Condiciones del sitio
+## Paso 3: Tecnologia adecuada
 
-La orientacion, sombras y calidad de instalacion influyen directamente en el rendimiento.
+Modelos de tubos y sistemas presurizados responden distinto segun exigencia de presion y continuidad.
 
-Si necesitas apoyo, revisa nuestros [servicios de asesoria e instalacion](/servicios) y compara opciones en [nuestro catalogo de productos](/productos).
+## Recomendacion practica
+
+Si dudas entre dos capacidades, pide una [asesoria tecnica](/servicios/asesoria-tecnica) para validar inversion total antes de comprar.
+
+Tambien puedes comparar modelos en [catalogo de productos](/productos) o revisar [errores comunes de instalacion](/blog/errores-comunes-instalacion-solar).

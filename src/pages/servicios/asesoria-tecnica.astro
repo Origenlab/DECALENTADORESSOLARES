@@ -1,0 +1,49 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Asesoria Tecnica para Calentadores Solares | De Calentadores Solares"
+  description="Asesoria tecnica para elegir capacidad, tecnologia y alcance de instalacion de calentadores solares en proyectos residenciales y comerciales."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Servicios", href: "/servicios" },
+      { label: "Asesoria tecnica" }
+    ]}
+  />
+
+  <section class="page-intro">
+    <h1>Asesoria tecnica para elegir el sistema correcto</h1>
+    <p>
+      Este servicio evita errores de compra. Analizamos consumo real, tipo de inmueble y objetivos
+      de ahorro para recomendar una configuracion viable.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="deliver-title">
+    <header class="section-header">
+      <h2 id="deliver-title">Entregables de asesoria</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card">
+        <h3>Diagnostico de consumo</h3>
+        <p>Estimamos demanda de agua caliente por usuarios, horarios y puntos de uso.</p>
+      </article>
+      <article class="comparison-card">
+        <h3>Recomendacion tecnica</h3>
+        <p>Definimos capacidad y tecnologia con base en costo total y continuidad operativa.</p>
+      </article>
+      <article class="comparison-card">
+        <h3>Revision de cotizaciones</h3>
+        <p>Comparamos propuestas de terceros para validar alcance real y evitar sobrecostos.</p>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="servicio-asesoria" />
+</LandingLayout>

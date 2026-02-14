@@ -1,29 +1,39 @@
 ---
 title: "Calentador Solar de 15 Tubos"
-description: "Equipo de entrada para hogares pequenos con alta eficiencia termica y bajo costo operativo."
+description: "Modelo residencial de entrada para hogares pequenos con alta eficiencia termica y ahorro en consumo de gas."
 image: "/images/productos/calentador-15-tubos.svg"
-imageAlt: "Calentador solar de 15 tubos para uso residencial"
+imageAlt: "Calentador solar de 15 tubos para 2 a 4 personas"
 price: 14500
 features:
   - "Capacidad recomendada para 2 a 4 personas"
   - "Tanque termico con aislamiento de alta densidad"
   - "Estructura galvanizada anticorrosion"
-  - "Ideal para reducir consumo de gas en vivienda urbana"
+  - "Ideal para casas y departamentos con consumo moderado"
 category: "residencial"
 featured: true
 order: 1
 ---
 
-Este modelo esta orientado a familias pequenas que buscan un sistema accesible con desempeno estable.
+El **calentador solar de 15 tubos** es una de las opciones mas buscadas cuando el objetivo principal es reducir el gasto mensual de gas sin comprometer el confort diario.
 
-## Aplicaciones comunes
+## Para quien es este modelo
 
-- Departamentos con 1 o 2 banos.
-- Viviendas con consumo diario moderado de agua caliente.
-- Proyectos que buscan una primera etapa de migracion a energia solar.
+- Hogares de 2 a 4 personas.
+- Departamentos con 1 o 2 regaderas.
+- Proyectos que inician su migracion a energia solar termica.
+
+## Beneficios comerciales
+
+- Inversion inicial accesible frente a modelos de mayor capacidad.
+- Retorno de inversion competitivo cuando el consumo de agua caliente es constante.
+- Mantenimiento sencillo y costo operativo bajo.
 
 ## Recomendaciones tecnicas
 
-Para mantener eficiencia, se recomienda una **inclinacion adecuada** y limpieza de tubos cada 6 a 12 meses.
+Para obtener el mejor rendimiento, este equipo requiere orientacion adecuada, inclinacion correcta y una instalacion profesional. Si el consumo sube con el tiempo, se puede evaluar migrar a un modelo de mayor capacidad.
 
-Si quieres comparar capacidades, revisa el articulo [como elegir la capacidad correcta](/blog/como-elegir-capacidad-calentador-solar).
+## Enlaces de apoyo
+
+- Si quieres validar si este modelo te alcanza, revisa [como elegir capacidad correcta](/blog/como-elegir-capacidad-calentador-solar).
+- Si necesitas instalacion, visita [servicio de instalacion profesional](/servicios/instalacion-profesional).
+- Compara con el siguiente nivel en [calentador solar de 20 tubos](/productos/calentador-solar-20-tubos).

@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+import LeadCapture from "../components/sections/LeadCapture.astro";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "Nosotros - De Calentadores Solares",
+  url: "https://decalentadoressolares.com/nosotros"
+};
+---
+
+<BaseLayout
+  title="Nosotros | De Calentadores Solares"
+  description="Conoce nuestro enfoque profesional para proyectos de calentadores solares residenciales y comerciales en Mexico."
+  schema={schema}
+>
+  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Nosotros" }]} />
+
+  <section class="page-intro">
+    <h1>Nosotros</h1>
+    <p>
+      Somos un equipo enfocado en proyectos de calentamiento solar con metodologia tecnica y
+      orientacion a resultados medibles de ahorro.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="values-title">
+    <header class="section-header">
+      <h2 id="values-title">Nuestra forma de trabajar</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card">
+        <h3>Claridad comercial</h3>
+        <p>Propuestas con alcance, costo y tiempos definidos desde el inicio.</p>
+      </article>
+      <article class="comparison-card">
+        <h3>Rigor tecnico</h3>
+        <p>Dimensionamiento por consumo real y criterios de instalacion profesional.</p>
+      </article>
+      <article class="comparison-card">
+        <h3>Seguimiento postventa</h3>
+        <p>Mantenimiento preventivo y soporte para sostener rendimiento del sistema.</p>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="nosotros" />
+</BaseLayout>

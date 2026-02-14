@@ -10,7 +10,7 @@ interface Props {
   ogImage?: string;
   canonicalURL?: string;
   noindex?: boolean;
-  schema?: Record<string, unknown>;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
