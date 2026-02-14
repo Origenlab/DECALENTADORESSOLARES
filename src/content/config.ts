@@ -8,8 +8,16 @@ const productosCollection = defineCollection({
     image: z.string(),
     imageAlt: z.string(),
     price: z.number().optional(),
+    priceRangeMin: z.number().optional(),
+    priceRangeMax: z.number().optional(),
+    capacityLiters: z.number().optional(),
+    tubeCount: z.number().optional(),
+    pressureType: z.enum(["baja-presion", "alta-presion", "hibrido"]).optional(),
+    targetUsers: z.string().optional(),
     features: z.array(z.string()),
     category: z.string(),
+    demandScore: z.number().min(1).max(100).default(50),
+    sourceSignals: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     order: z.number().default(999)
   })

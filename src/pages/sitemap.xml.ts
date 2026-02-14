@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 const staticUrls = [
   "/",
   "/productos",
+  "/productos/mas-vendidos",
   "/servicios",
   "/servicios/instalacion-profesional",
   "/servicios/mantenimiento-preventivo",

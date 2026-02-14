@@ -4,28 +4,26 @@ description: "Modelo residencial de alta capacidad para familias grandes o vivie
 image: "/images/productos/calentador-30-tubos.svg"
 imageAlt: "Calentador solar de 30 tubos para uso residencial de alta demanda"
 price: 25900
+priceRangeMin: 21000
+priceRangeMax: 32000
+capacityLiters: 340
+tubeCount: 30
+pressureType: "baja-presion"
+targetUsers: "7 a 9 personas"
 features:
-  - "Capacidad sugerida para 6 a 8 personas"
+  - "Capacidad sugerida para 7 a 9 personas"
   - "Mayor superficie de captacion termica"
   - "Opcion recomendada para uso intensivo"
-  - "Buena base para proyectos con expansion futura"
+  - "Buena base para proyectos de alta demanda"
 category: "residencial"
-featured: true
-order: 3
+demandScore: 72
+sourceSignals:
+  - "Presencia en retail para segmento de alta capacidad"
+  - "Demanda menor pero ticket promedio mayor"
+featured: false
+order: 6
 ---
 
-El **calentador solar de 30 tubos** esta pensado para usuarios que requieren una cobertura superior y no quieren sufrir caidas de rendimiento por demanda alta.
+El **calentador solar de 30 tubos** es ideal cuando la prioridad es cobertura y no solo ahorro inicial.
 
-## Cuando conviene este modelo
-
-- Familias numerosas.
-- Casas con varias regaderas en uso frecuente.
-- Proyectos donde el agua caliente es prioridad operativa diaria.
-
-## Valor comercial
-
-Aunque la inversion inicial es mayor, este modelo puede evitar costos de reinversion temprana por quedarse corto de capacidad.
-
-## Recomendacion de compra
-
-Antes de decidir, conviene validar tu consumo real en una [asesoria tecnica](/servicios/asesoria-tecnica) para confirmar si 30 tubos es la mejor opcion o si necesitas un sistema presurizado.
+Para continuidad premium, compara con [sistema hibrido solar + gas](/productos/sistema-hibrido-solar-gas-300-litros).

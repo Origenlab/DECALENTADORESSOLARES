@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Sistema presurizado 15 tubos 157 litros">
+  <rect width="640" height="400" fill="#f8f9fa"/>
+  <rect x="92" y="60" width="456" height="244" rx="18" fill="#fff" stroke="#e5e7eb" stroke-width="8"/>
+  <rect x="122" y="112" width="396" height="126" rx="12" fill="#1a1a2e"/>
+  <text x="320" y="170" text-anchor="middle" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="24">Presurizado</text>
+  <text x="320" y="203" text-anchor="middle" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="20">15 Tubos - 157 L</text>
+  <rect x="164" y="308" width="312" height="24" rx="12" fill="#c41e3a"/>
+</svg>

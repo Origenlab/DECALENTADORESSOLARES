@@ -104,6 +104,17 @@ const productSchema = {
         )}
 
         <ul class="spec-list">
+          {product.data.targetUsers && <li>Perfil recomendado: {product.data.targetUsers}</li>}
+          {product.data.capacityLiters && <li>Capacidad nominal: {product.data.capacityLiters} litros</li>}
+          {product.data.pressureType && (
+            <li>
+              Tipo de sistema: {product.data.pressureType === "baja-presion"
+                ? "Baja presion"
+                : product.data.pressureType === "alta-presion"
+                  ? "Alta presion"
+                  : "Hibrido"}
+            </li>
+          )}
           {product.data.features.map((feature: string) => (
             <li>{feature}</li>
           ))}

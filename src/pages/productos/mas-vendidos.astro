@@ -1,0 +1,172 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+
+const products: CollectionEntry<"productos">[] = (await getCollection("productos")).sort(
+  (a: CollectionEntry<"productos">, b: CollectionEntry<"productos">) => b.data.demandScore - a.data.demandScore
+);
+
+const topProducts = products.slice(0, 8);
+
+const marketSources = [
+  {
+    name: "Home Depot Mexico - categoria y fichas de calentadores solares",
+    url: "https://www.homedepot.com.mx/plomeria/calentadores/calentadores-solares"
+  },
+  {
+    name: "Walmart Mexico - calentadores solares",
+    url: "https://www.walmart.com.mx/c/plomeria/calentadores/calentadores-solares"
+  },
+  {
+    name: "Chedraui - calentadores solares",
+    url: "https://www.chedraui.com.mx/search?text=calentador%20solar"
+  },
+  {
+    name: "Mercado Libre - calentadores solares con senales de ventas",
+    url: "https://listado.mercadolibre.com.mx/calentador-solar"
+  },
+  {
+    name: "Kanndas - catalogo de mas vendidos",
+    url: "https://kanndas.firegreens.com/tienda-virtual"
+  },
+  {
+    name: "Greensaver - productos mas vendidos",
+    url: "https://greensaver.com.mx/"
+  }
+];
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Calentadores solares mas vendidos",
+  itemListElement: topProducts.map((product, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: product.data.title,
+    url: `https://decalentadoressolares.com/productos/${product.slug}`
+  }))
+};
+---
+
+<BaseLayout
+  title="Calentadores Solares Mas Vendidos | Catalogo Priorizado"
+  description="Investigacion de productos mas vendidos en calentadores solares para construir un catalogo con alta conversion comercial."
+  schema={itemListSchema}
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Productos", href: "/productos" },
+      { label: "Mas vendidos" }
+    ]}
+  />
+
+  <section class="page-intro">
+    <h1>Calentadores solares mas vendidos (investigacion aplicada)</h1>
+    <p>
+      Ranking basado en senales de demanda observadas en retail nacional y marketplaces al 14 de
+      febrero de 2026. El objetivo es priorizar SKUs con mayor probabilidad de conversion.
+    </p>
+  </section>
+
+  <section class="section-tight" aria-labelledby="ranking-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Ranking comercial</span>
+      <h2 id="ranking-title">Top de productos para catalogo</h2>
+      <p class="section-description">
+        El indicador de demanda combina repeticion por canal, visibilidad comercial y ajuste al
+        segmento de precio objetivo.
+      </p>
+    </header>
+
+    <div class="capacity-table-wrap">
+      <table class="capacity-table">
+        <thead>
+          <tr>
+            <th>Posicion</th>
+            <th>Producto</th>
+            <th>Segmento</th>
+            <th>Capacidad</th>
+            <th>Precio objetivo</th>
+            <th>Indice de demanda</th>
+          </tr>
+        </thead>
+        <tbody>
+          {topProducts.map((product, index) => (
+            <tr>
+              <td>#{index + 1}</td>
+              <td><a href={`/productos/${product.slug}`}>{product.data.title}</a></td>
+              <td>{product.data.targetUsers ?? "N/A"}</td>
+              <td>{product.data.capacityLiters ? `${product.data.capacityLiters} L` : "N/A"}</td>
+              <td>
+                {product.data.priceRangeMin && product.data.priceRangeMax
+                  ? `$${product.data.priceRangeMin.toLocaleString("es-MX")} - $${product.data.priceRangeMax.toLocaleString("es-MX")} MXN`
+                  : product.data.price
+                    ? `$${product.data.price.toLocaleString("es-MX")} MXN`
+                    : "Por cotizacion"}
+              </td>
+              <td>{product.data.demandScore}/100</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="mix-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Mix recomendado</span>
+      <h2 id="mix-title">Distribucion sugerida de catalogo y pauta</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card">
+        <h3>Volumen (65%)</h3>
+        <ul class="features-list">
+          <li>10 tubos 115 L</li>
+          <li>12 tubos 150 L</li>
+          <li>15 tubos 173 L</li>
+          <li>18 tubos 206 L</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>Ticket medio (25%)</h3>
+        <ul class="features-list">
+          <li>20 tubos 220 L</li>
+          <li>Presurizado 15 tubos</li>
+          <li>Presurizado 20 tubos</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>Premium (10%)</h3>
+        <ul class="features-list">
+          <li>Presurizado 300 L</li>
+          <li>Hibrido solar + gas</li>
+          <li>Proyectos comerciales a medida</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sources-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Fuentes de mercado</span>
+      <h2 id="sources-title">Canales revisados para esta investigacion</h2>
+    </header>
+
+    <div class="service-grid">
+      {marketSources.map((source) => (
+        <article class="service-card">
+          <h3>{source.name}</h3>
+          <a class="btn btn-outline" href={source.url} target="_blank" rel="noopener noreferrer">
+            Abrir fuente
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <LeadCapture source="productos-mas-vendidos" />
+</BaseLayout>

@@ -4,28 +4,26 @@ description: "Sistema de mayor capacidad para proyectos con alta demanda residen
 image: "/images/productos/sistema-presurizado-300-litros.svg"
 imageAlt: "Sistema presurizado solar de 300 litros para alta demanda"
 price: 36500
+priceRangeMin: 28000
+priceRangeMax: 45000
+capacityLiters: 300
+tubeCount: 26
+pressureType: "alta-presion"
+targetUsers: "7 a 10 personas"
 features:
   - "Tanque presurizado de 300 litros"
   - "Mejor respuesta para consumos simultaneos"
   - "Ideal para casas grandes y negocios"
   - "Compatible con esquemas de continuidad operativa"
 category: "comercial"
-featured: true
-order: 4
+demandScore: 74
+sourceSignals:
+  - "SKU visible en retail de alta capacidad"
+  - "Demanda comercial y multifamiliar"
+featured: false
+order: 9
 ---
 
-El **sistema presurizado de 300 litros** ofrece un salto importante en estabilidad para proyectos con varios puntos de consumo al mismo tiempo.
+El **sistema presurizado de 300 litros** resuelve escenarios donde la continuidad y la capacidad son prioridad.
 
-## Donde suele instalarse
-
-- Casas grandes con demanda intensiva.
-- Gimnasios o pequenos hoteles.
-- Restaurantes con necesidades constantes de agua caliente.
-
-## Diferencia clave
-
-Comparado con sistemas basicos, el presurizado brinda mejor comportamiento cuando la demanda se concentra en horarios pico.
-
-## Siguiente paso recomendado
-
-Si tu proyecto es comercial, revisa [proyectos comerciales de calentamiento solar](/servicios/proyectos-comerciales) para una propuesta por fases.
+Para continuidad total, compara con [sistema hibrido solar + gas](/productos/sistema-hibrido-solar-gas-300-litros).

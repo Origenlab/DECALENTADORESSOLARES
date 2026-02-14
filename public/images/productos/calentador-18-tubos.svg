@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Calentador solar 18 tubos">
+  <rect width="640" height="400" fill="#f8f9fa"/>
+  <rect x="100" y="68" width="440" height="232" rx="18" fill="#fff" stroke="#e5e7eb" stroke-width="8"/>
+  <rect x="132" y="116" width="376" height="118" rx="11" fill="#1a1a2e"/>
+  <text x="320" y="186" text-anchor="middle" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27">18 Tubos</text>
+  <rect x="176" y="300" width="288" height="24" rx="12" fill="#c41e3a"/>
+</svg>
