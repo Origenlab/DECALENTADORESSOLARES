@@ -1,111 +1,429 @@
 ---
-import { ClientRouter } from "astro:transitions";
-import Header from "../components/global/Header.astro";
-import Footer from "../components/global/Footer.astro";
-import "../styles/global.css";
+/**
+ * BaseLayout — Layout principal de De Calentadores Solares
+ * Todos los elementos globales: meta SEO, header, footer, WA bubble, schema
+ */
+import {
+  SITE_NAME, SITE_URL, OG_IMAGE_DEFAULT, GEO, BRAND_COLOR
+} from '../lib/config';
 
 interface Props {
+  // SEO esencial
   title: string;
   description: string;
+  // SEO avanzado
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
   ogImage?: string;
-  canonicalURL?: string;
+  ogType?: string;
   noindex?: boolean;
-  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+  // Hero (opcional — si se pasa heroTitle, se renderiza hero automático)
+  heroTitle?: string;
+  heroIntro?: string;
+  heroBadge?: string;
+  heroMetrics?: Array<{ valor: string; texto: string }>;
+  heroPrimaryText?: string;
+  heroPrimaryLink?: string;
+  heroSecondaryText?: string;
+  heroSecondaryLink?: string;
+  heroFeatures?: Array<{ icon: string; text: string }>;
+  showHero?: boolean;
+  // Schema.org
+  structuredData?: object | object[];
+  // Misc
+  activePage?: string;
+  showLeadCapture?: boolean;
+  breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
 const {
   title,
   description,
-  ogImage = "/icon.png",
-  canonicalURL,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogType = 'website',
   noindex = false,
-  schema
+  heroTitle,
+  heroIntro,
+  heroBadge,
+  heroMetrics = [],
+  heroPrimaryText = 'Solicitar Cotización',
+  heroPrimaryLink = '#cotizar',
+  heroSecondaryText = 'Ver Productos',
+  heroSecondaryLink = '/productos',
+  heroFeatures = [],
+  showHero = true,
+  structuredData,
+  activePage = '',
+  showLeadCapture = false,
+  breadcrumbs,
 } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL("https://decalentadoressolares.com");
-const canonical = canonicalURL ?? new URL(Astro.url.pathname, siteUrl).toString();
-const ogImageAbsolute = ogImage.startsWith("http") ? ogImage : new URL(ogImage, siteUrl).toString();
+const pathname = Astro.url.pathname;
+const canonicalUrl = canonical ?? `${SITE_URL}${pathname}`;
+const resolveImg = (img?: string) => img
+  ? (img.startsWith('http') ? img : `${SITE_URL}${img}`)
+  : `${SITE_URL}${OG_IMAGE_DEFAULT}`;
+const ogImgUrl = resolveImg(ogImage);
+const shouldShowHero = showHero && Boolean(heroTitle);
+const hasHeroRight = Astro.slots.has('hero-right') || heroFeatures.length > 0;
 
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "De Calentadores Solares",
-  url: siteUrl.toString(),
-  logo: new URL("/icon.png", siteUrl).toString(),
-  contactPoint: [
-    {
-      "@type": "ContactPoint",
-      telephone: "+52-55-1234-5678",
-      contactType: "sales",
-      availableLanguage: ["Spanish"]
-    }
-  ]
-};
+// Schema combinado
+const schemas = structuredData
+  ? (Array.isArray(structuredData) ? structuredData : [structuredData])
+  : [];
 ---
 
 <!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+  <!-- SEO primario -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  {noindex
+    ? <meta name="robots" content="noindex, follow" />
+    : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  }
 
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImageAbsolute} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
+  <!-- Geo tags México -->
+  <meta name="geo.region" content={GEO.region} />
+  <meta name="geo.placename" content={GEO.placename} />
+  <meta name="geo.position" content={`${GEO.latitude};${GEO.longitude}`} />
+  <meta name="ICBM" content={`${GEO.latitude}, ${GEO.longitude}`} />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageAbsolute} />
+  <!-- Open Graph -->
+  <meta property="og:title" content={ogTitle ?? title} />
+  <meta property="og:description" content={ogDescription ?? description} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImgUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={`${SITE_NAME} — Calentadores solares en México`} />
+  <meta property="og:site_name" content={SITE_NAME} />
+  <meta property="og:locale" content="es_MX" />
 
-    <meta name="theme-color" content="#c41e3a" />
-    <meta name="format-detection" content="telephone=yes" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={ogTitle ?? title} />
+  <meta name="twitter:description" content={ogDescription ?? description} />
+  <meta name="twitter:image" content={ogImgUrl} />
 
-    {noindex && <meta name="robots" content="noindex,nofollow" />}
+  <!-- Tema y favicons -->
+  <meta name="theme-color" content={BRAND_COLOR} />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-    <link rel="manifest" href="/site.webmanifest" />
+  <!-- Preconexiones fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="/src/styles/global.css" />
 
-    <ClientRouter />
+  <!-- Schema.org JSON-LD -->
+  {schemas.map(s => (
+    <script type="application/ld+json" set:html={JSON.stringify(s)} />
+  ))}
 
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationJsonLd)} />
-    {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />}
-  </head>
-  <body>
-    <a class="skip-link" href="#contenido-principal">Saltar al contenido</a>
+  <!-- Overflow prevention (antes de CSS externo) -->
+  <style>html,body{overflow-x:hidden}</style>
+</head>
 
-    <Header />
+<body>
+  <!-- Skip to main content -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-    <main id="contenido-principal" class="main-content">
-      <div class="container">
-        <slot />
+  <!-- Topbar -->
+  <div class="topbar" role="complementary" aria-label="Información de contacto">
+    <div class="container topbar__content">
+      <div class="topbar__left">
+        <span>☀️ Instalación en CDMX, Edomex y más estados</span>
+        <span class="topbar__pill">Respuesta en &lt;24h</span>
       </div>
-    </main>
+      <div class="topbar__right">
+        <a href="tel:+525547868402">📞 55 4786 8402</a>
+        <span aria-hidden="true">|</span>
+        <a href="https://wa.me/5215547868402" target="_blank" rel="noopener">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
 
-    <a
-      class="whatsapp-float"
-      href="https://wa.me/5215512345678?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Contactar por WhatsApp"
-    >
-      WA
-    </a>
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-shell">
+      <a href="/" class="brand" aria-label={`${SITE_NAME} — Inicio`}>
+        <div class="brand__icon" aria-hidden="true">☀️</div>
+        <div>
+          <div class="brand__name">De Calentadores Solares</div>
+          <div class="brand__tag">Energía solar para tu hogar</div>
+        </div>
+      </a>
 
-    <Footer />
-  </body>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <a href="/" class={`nav-link ${activePage === 'inicio' ? 'active' : ''}`}>Inicio</a>
+        <a href="/productos" class={`nav-link ${activePage === 'productos' ? 'active' : ''}`}>Productos</a>
+        <a href="/calentadores" class={`nav-link ${activePage === 'calentadores' ? 'active' : ''}`}>Tipos</a>
+        <a href="/servicios" class={`nav-link ${activePage === 'servicios' ? 'active' : ''}`}>Servicios</a>
+        <a href="/blog" class={`nav-link ${activePage === 'blog' ? 'active' : ''}`}>Blog</a>
+        <a href="/nosotros" class={`nav-link ${activePage === 'nosotros' ? 'active' : ''}`}>Nosotros</a>
+      </nav>
+
+      <div class="header-cta">
+        <a href="tel:+525547868402" class="header-phone">55 4786 8402</a>
+        <a href="https://wa.me/5215547868402?text=Hola%2C%20quiero%20cotizar%20un%20calentador%20solar"
+           class="btn btn--primary btn--sm" target="_blank" rel="noopener noreferrer">
+          Cotizar ahora
+        </a>
+      </div>
+
+      <button id="mobile-toggle" class="mobile-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-panel">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile panel -->
+  <nav id="mobile-panel" class="mobile-panel" aria-label="Menú móvil" role="navigation">
+    <a href="/" class="nav-link">Inicio</a>
+    <a href="/productos" class="nav-link">Productos</a>
+    <a href="/calentadores" class="nav-link">Tipos de calentadores</a>
+    <a href="/servicios" class="nav-link">Servicios</a>
+    <a href="/blog" class="nav-link">Blog</a>
+    <a href="/nosotros" class="nav-link">Nosotros</a>
+    <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.75rem;">
+      <a href="tel:+525547868402" class="btn btn--dark">📞 55 4786 8402</a>
+      <a href="https://wa.me/5215547868402" class="btn btn--primary" target="_blank" rel="noopener">💬 Cotizar por WhatsApp</a>
+    </div>
+  </nav>
+
+  <!-- Hero automático si heroTitle está definido -->
+  {shouldShowHero && (
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class={`hero__grid ${!hasHeroRight ? 'hero__grid--full' : ''}`}>
+          <!-- Columna izquierda -->
+          <div class="hero__left">
+            {heroBadge && (
+              <div class="hero__eyebrow">
+                <span class="hero__badge">☀️ {heroBadge}</span>
+              </div>
+            )}
+            <h1 id="hero-heading">{heroTitle}</h1>
+            {heroIntro && <p class="hero__intro">{heroIntro}</p>}
+            <div class="hero__actions">
+              <a href={heroPrimaryLink} class="btn btn--primary btn--lg">{heroPrimaryText}</a>
+              <a href={heroSecondaryLink} class="btn btn--outline-white btn--lg">{heroSecondaryText}</a>
+            </div>
+            {heroMetrics.length > 0 && (
+              <div class="hero__metrics" aria-label="Métricas clave">
+                {heroMetrics.map(m => (
+                  <div class="hero__metric">
+                    <span class="hero__metric-val">{m.valor}</span>
+                    <span class="hero__metric-label">{m.texto}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <!-- Columna derecha -->
+          {hasHeroRight && (
+            <div class="hero__right">
+              {Astro.slots.has('hero-right')
+                ? <slot name="hero-right" />
+                : (
+                  <Fragment>
+                    <h2 class="hero__right-title">¿Por qué elegir energía solar?</h2>
+                    <p>Los calentadores solares aprovechan la energía del sol para calentar agua, reduciendo el consumo de gas hasta un 80% y con una vida útil de 15 a 20 años.</p>
+                    {heroFeatures.length > 0 && (
+                      <div class="hero__features">
+                        {heroFeatures.map(f => (
+                          <div class="hero__feature">
+                            <span class="hero__feature-icon" aria-hidden="true">{f.icon}</span>
+                            <span>{f.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </Fragment>
+                )
+              }
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Breadcrumb automático -->
+  {breadcrumbs && breadcrumbs.length > 1 && (
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <div class="container">
+        <ol class="breadcrumb__list">
+          {breadcrumbs.map((item, i) => (
+            <li class={`breadcrumb__item ${i === breadcrumbs!.length - 1 ? 'breadcrumb__item--current' : ''}`}>
+              {i < breadcrumbs!.length - 1
+                ? <><a href={item.url}>{item.name}</a><span class="breadcrumb__sep" aria-hidden="true"> › </span></>
+                : <span aria-current="page">{item.name}</span>
+              }
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
+  )}
+
+  <!-- Contenido principal -->
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <!-- Lead capture global (opcional) -->
+  {showLeadCapture && (
+    <section class="lead-capture" aria-labelledby="lead-title" id="cotizar">
+      <div class="container">
+        <div class="lead-capture__inner">
+          <div>
+            <h2 id="lead-title" class="lead-capture__title">Cotiza tu calentador solar hoy</h2>
+            <p class="lead-capture__subtitle">Respondemos en menos de 24 horas con la mejor opción para tu hogar o negocio.</p>
+            <ul class="lead-capture__bullets">
+              <li class="lead-capture__bullet">Asesoría técnica gratuita</li>
+              <li class="lead-capture__bullet">Instalación profesional garantizada</li>
+              <li class="lead-capture__bullet">Ahorro de hasta 80% en tu factura de gas</li>
+              <li class="lead-capture__bullet">15+ años de experiencia</li>
+            </ul>
+          </div>
+          <div class="lead-capture__form">
+            <h3 class="lead-capture__form-title">¿Cuántas personas hay en tu hogar?</h3>
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <a href="https://wa.me/5215547868402?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar%20para%20mi%20casa"
+                 class="btn btn--primary btn--lg" target="_blank" rel="noopener" style="justify-content:center;">
+                💬 Cotizar por WhatsApp
+              </a>
+              <a href="tel:+525547868402" class="btn btn--dark" style="justify-content:center;">
+                📞 Llamar: 55 4786 8402
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <span class="brand-name">☀️ De Calentadores Solares</span>
+          <p>Venta, instalación y mantenimiento de calentadores solares en CDMX y toda la República Mexicana. Más de 15 años de experiencia en energía solar térmica.</p>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="https://wa.me/5215547868402" class="btn btn--primary btn--sm" target="_blank" rel="noopener">💬 WhatsApp</a>
+            <a href="tel:+525547868402" class="btn btn--outline-white btn--sm">📞 Llamar</a>
+          </div>
+        </div>
+        <!-- Productos -->
+        <div>
+          <span class="footer-col-title">Calentadores</span>
+          <ul class="footer-links">
+            <li><a href="/calentadores/residencial">Residencial</a></li>
+            <li><a href="/calentadores/presurizado">Presurizado</a></li>
+            <li><a href="/calentadores/termosifon">Termosifón</a></li>
+            <li><a href="/calentadores/comercial">Comercial</a></li>
+            <li><a href="/calentadores/industrial">Industrial</a></li>
+            <li><a href="/productos">Ver catálogo completo</a></li>
+          </ul>
+        </div>
+        <!-- Servicios -->
+        <div>
+          <span class="footer-col-title">Servicios</span>
+          <ul class="footer-links">
+            <li><a href="/servicios/instalacion-profesional">Instalación</a></li>
+            <li><a href="/servicios/mantenimiento-preventivo">Mantenimiento</a></li>
+            <li><a href="/servicios/asesoria-tecnica">Asesoría técnica</a></li>
+            <li><a href="/servicios/proyectos-comerciales">Proyectos comerciales</a></li>
+            <li><a href="/servicios/conversion">Conversión de sistema</a></li>
+            <li><a href="/zonas">Zonas de servicio</a></li>
+          </ul>
+        </div>
+        <!-- Contacto -->
+        <div>
+          <span class="footer-col-title">Contacto</span>
+          <div class="footer-contact">
+            <div class="footer-contact__item">📞 <a href="tel:+525547868402">55 4786 8402</a></div>
+            <div class="footer-contact__item">💬 <a href="https://wa.me/5215547868402" target="_blank" rel="noopener">WhatsApp</a></div>
+            <div class="footer-contact__item">📧 <a href="mailto:ventas@decalentadoressolares.com">ventas@decalentadoressolares.com</a></div>
+            <div class="footer-contact__item">📍 Ciudad de México, México</div>
+            <div class="footer-contact__item">🕐 Lun–Sáb 8:00–18:00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bar">
+        <span>© {new Date().getFullYear()} De Calentadores Solares. Todos los derechos reservados.</span>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="/aviso-de-privacidad">Aviso de privacidad</a>
+          <a href="/terminos-y-condiciones">Términos y condiciones</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp bubble flotante -->
+  <a href="https://wa.me/5215547868402?text=Hola%2C%20me%20interesa%20un%20calentador%20solar%2C%20%C2%BFpueden%20ayudarme%3F"
+     class="wa-bubble" target="_blank" rel="noopener noreferrer"
+     aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- Mobile menu script -->
+  <script is:inline>
+    (function() {
+      var toggle = document.getElementById('mobile-toggle');
+      var panel = document.getElementById('mobile-panel');
+      if (!toggle || !panel) return;
+      function close() {
+        document.body.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '☰';
+      }
+      toggle.addEventListener('click', function() {
+        var open = document.body.classList.toggle('menu-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.textContent = open ? '✕' : '☰';
+      });
+      panel.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
+
+  <!-- FAQ accordion script global -->
+  <script is:inline>
+    (function() {
+      document.querySelectorAll('.faq__question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var item = btn.closest('.faq__item');
+          var wasOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq__item.open').forEach(function(el) { el.classList.remove('open'); });
+          if (!wasOpen) item.classList.add('open');
+        });
+      });
+    })();
+  </script>
+</body>
 </html>

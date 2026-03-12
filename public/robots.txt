@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://decalentadoressolares.com/sitemap.xml
+Sitemap: https://decalentadoressolares.com/sitemap-index.xml

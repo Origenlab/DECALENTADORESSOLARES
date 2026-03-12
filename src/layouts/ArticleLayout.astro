@@ -28,7 +28,7 @@ const {
 } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} ogImage={ogImage} canonicalURL={canonicalURL}>
+<BaseLayout title={title} description={description} ogImage={ogImage} canonical={canonicalURL}>
   {breadcrumbItems.length > 0 && <Breadcrumb items={breadcrumbItems} />}
 
   <article class="article-shell">

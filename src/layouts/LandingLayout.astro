@@ -11,7 +11,7 @@ interface Props {
 const { title, description, ogImage, canonicalURL } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} ogImage={ogImage} canonicalURL={canonicalURL}>
+<BaseLayout title={title} description={description} ogImage={ogImage} canonical={canonicalURL}>
   <section class="section-tight">
     <slot />
   </section>
