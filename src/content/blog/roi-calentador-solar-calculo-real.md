@@ -3,7 +3,7 @@ title: "ROI de un calentador solar: cálculo real"
 description: "Aprende a calcular el retorno de inversión real de un calentador solar en México con fórmulas prácticas, ejemplos y variables que debes considerar."
 pubDate: 2025-06-28
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/roi-calentador-solar.avif"
+image: "/img/blog/calentador-solar-ahorro-gas-comparativa.avif"
 imageAlt: "Gráfica de retorno de inversión de calentador solar con pesos mexicanos"
 tags: ["ROI", "retorno de inversión", "ahorro", "cálculo"]
 category: "Ahorro"

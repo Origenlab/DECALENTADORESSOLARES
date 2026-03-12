@@ -3,7 +3,7 @@ title: "Mantenimiento de Calentador Solar: Guía Completa"
 description: "Todo lo que debes hacer para mantener tu calentador solar funcionando al máximo por 15 a 20 años. Checklist de mantenimiento preventivo paso a paso."
 pubDate: 2025-02-25
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/mantenimiento-preventivo-calentador-solar-checklist.avif"
+image: "/img/blog/mantenimiento-calentador-solar-tecnico.avif"
 imageAlt: "Técnico realizando mantenimiento de calentador solar en techo"
 tags: ["mantenimiento", "preventivo", "vida útil", "cuidados"]
 category: "Mantenimiento"

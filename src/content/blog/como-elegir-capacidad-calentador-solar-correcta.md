@@ -3,7 +3,7 @@ title: "Cómo elegir la capacidad correcta"
 description: "Aprende a elegir la capacidad correcta de tu calentador solar con esta guía práctica. Factores clave, fórmulas y recomendaciones para México."
 pubDate: 2025-12-08
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/elegir-capacidad-correcta.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Diferentes tamaños de calentadores solares para elegir la capacidad correcta"
 tags: ["capacidad", "dimensionamiento", "guía", "elección"]
 category: "Guías"

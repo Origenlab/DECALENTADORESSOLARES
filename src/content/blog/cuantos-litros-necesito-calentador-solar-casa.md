@@ -3,7 +3,7 @@ title: "¿Cuántos Litros Necesito en mi Calentador Solar?"
 description: "Guía práctica para calcular la capacidad ideal de calentador solar según el número de personas, hábitos de consumo y tipo de inmueble."
 pubDate: 2025-01-20
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/capacidad-calentador-solar-litros-personas.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Guía de litros para calentador solar por número de personas"
 tags: ["capacidad", "litros", "guía", "residencial"]
 category: "Guías"

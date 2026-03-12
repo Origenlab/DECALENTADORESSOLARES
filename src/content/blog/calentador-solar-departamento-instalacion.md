@@ -1,7 +1,7 @@
 ---
 title: "Cómo instalar un calentador solar en departamento: guía práctica"
 description: "Guía paso a paso para instalar un calentador solar en un departamento en México. Permisos, tipos de sistema, limitaciones y soluciones prácticas."
-image: "/images/blog/placeholder.jpg"
+image: "/img/blog/instalacion-calentador-solar-techo-cdmx.avif"
 imageAlt: "Calentador solar instalado en la azotea de un edificio de departamentos en México"
 author: "Equipo De Calentadores Solares"
 tags: ["departamento", "instalación", "calentador solar", "guía", "condominio", "urbano"]

@@ -3,7 +3,7 @@ title: "Calentadores Solares en Morelos, Puebla e Hidalgo"
 description: "Instalación de calentadores solares en Morelos, Puebla e Hidalgo. Recurso solar, municipios atendidos y características de cada región."
 pubDate: 2025-11-05
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentadores-solares-morelos-puebla-hidalgo-instalacion.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Calentadores solares instalados en casas de Morelos y Puebla"
 tags: ["Morelos", "Puebla", "Hidalgo", "zonas"]
 category: "Zonas"

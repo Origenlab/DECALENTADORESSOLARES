@@ -3,7 +3,7 @@ title: "Panel Solar vs Calentador Solar: Diferencias Clave"
 description: "Qué hace cada tecnología, cuándo usar paneles fotovoltaicos y cuándo calentadores solares térmicos. Comparativa técnica y económica para México."
 pubDate: 2025-07-28
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/panel-solar-fotovoltaico-vs-calentador-solar-termico.avif"
+image: "/img/blog/calentador-solar-ahorro-gas-comparativa.avif"
 imageAlt: "Comparativa panel solar fotovoltaico vs calentador solar térmico"
 tags: ["panel solar", "fotovoltaico", "comparativa", "tecnología"]
 category: "Comparativas"

@@ -3,7 +3,7 @@ title: "Mejores Calentadores Solares en México: Guía de Compra 2025"
 description: "Análisis de las mejores marcas y modelos de calentadores solares disponibles en México en 2025. Qué considerar antes de comprar y por qué importa el instalador."
 pubDate: 2025-10-14
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/mejores-calentadores-solares-mexico-guia-compra-2025.avif"
+image: "/img/blog/calentador-solar-ahorro-gas-comparativa.avif"
 imageAlt: "Comparativa calentadores solares marcas México 2025"
 tags: ["marcas", "guía de compra", "comparativa", "2025"]
 category: "Guías"

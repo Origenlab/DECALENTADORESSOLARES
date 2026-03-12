@@ -3,7 +3,7 @@ title: "Calentadores presurizados vs baja presión"
 description: "Comparativa completa entre calentadores solares presurizados y de baja presión. Descubre cuál se adapta mejor a tu hogar según tu sistema hidráulico."
 pubDate: 2025-07-22
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/presurizado-vs-baja-presion.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Dos calentadores solares lado a lado comparando presurizado contra baja presión"
 tags: ["presurizado", "baja presión", "comparativa", "tecnología"]
 category: "Comparativas"

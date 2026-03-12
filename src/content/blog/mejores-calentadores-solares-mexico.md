@@ -3,7 +3,7 @@ title: "Los mejores calentadores solares en México"
 description: "Conoce los mejores calentadores solares disponibles en México según capacidad, tecnología, precio y rendimiento. Guía actualizada para elegir bien."
 pubDate: 2025-04-05
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/mejores-calentadores-mexico.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Selección de los mejores calentadores solares disponibles en el mercado mexicano"
 tags: ["mejores", "calentadores solares", "México", "guía de compra"]
 category: "Guías"

@@ -1,7 +1,7 @@
 ---
 title: "Calentador solar para alberca: guía completa para climatizar tu piscina"
 description: "Descubre cómo funciona un calentador solar para alberca, tipos de sistemas, costos y beneficios de climatizar tu piscina con energía solar en México."
-image: "/images/blog/placeholder.jpg"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Calentador solar instalado junto a una alberca residencial en México"
 author: "Equipo De Calentadores Solares"
 tags: ["alberca", "piscina", "calentador solar", "climatización", "proyecto", "ahorro"]

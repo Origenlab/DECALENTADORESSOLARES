@@ -3,7 +3,7 @@ title: "Financiamiento para Calentador Solar en México: Opciones y Requisitos"
 description: "Opciones de financiamiento disponibles para comprar e instalar calentadores solares en México. Créditos, meses sin intereses y programas de gobierno."
 pubDate: 2025-11-20
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/financiamiento-calentador-solar-mexico-credito.avif"
+image: "/img/blog/calentador-solar-ahorro-gas-comparativa.avif"
 imageAlt: "Opciones de financiamiento para calentador solar"
 tags: ["financiamiento", "crédito", "meses sin intereses", "subsidios"]
 category: "Ahorro"

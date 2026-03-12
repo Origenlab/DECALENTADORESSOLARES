@@ -3,7 +3,7 @@ title: "Calentador Solar para Hotel: Guía de Proyectos Comerciales"
 description: "Cómo instalar un sistema de calentamiento solar para hotel o posada en México. Dimensionamiento, costos, ROI y casos de éxito reales."
 pubDate: 2025-05-08
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-hotel-posada-proyecto-comercial-mexico.avif"
+image: "/img/categorias/calentador-solar-comercial-hotel-mexico.avif"
 imageAlt: "Sistema de calentadores solares en techo de hotel mexicano"
 tags: ["hotel", "comercial", "proyecto", "hostelería"]
 category: "Proyectos"

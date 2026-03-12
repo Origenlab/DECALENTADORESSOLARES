@@ -1,7 +1,7 @@
 ---
 title: "Beneficios ambientales de usar un calentador solar de agua"
 description: "Conoce los beneficios ambientales reales de instalar un calentador solar. Reducción de CO2, ahorro de recursos naturales y menor huella ecológica."
-image: "/images/blog/placeholder.jpg"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Calentador solar de agua rodeado de vegetación simbolizando beneficios ambientales"
 author: "Equipo De Calentadores Solares"
 tags: ["medio ambiente", "ecología", "CO2", "sustentabilidad", "calentador solar", "huella de carbono"]

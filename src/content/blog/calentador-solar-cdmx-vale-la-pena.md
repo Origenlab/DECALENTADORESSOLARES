@@ -3,7 +3,7 @@ title: "¿Vale la Pena un Calentador Solar en CDMX? (Análisis 2025)"
 description: "Análisis detallado de la viabilidad de calentadores solares en Ciudad de México. Horas de sol, ahorro real, costos y veredicto final."
 pubDate: 2025-08-25
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-cdmx-vale-la-pena-analisis.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Calentadores solares en techos de Ciudad de México"
 tags: ["CDMX", "Ciudad de México", "viabilidad", "análisis"]
 category: "Zonas"

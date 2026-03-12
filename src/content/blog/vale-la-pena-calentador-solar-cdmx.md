@@ -3,7 +3,7 @@ title: "¿Vale la pena un calentador solar en CDMX?"
 description: "Análisis completo sobre si vale la pena instalar un calentador solar en la Ciudad de México considerando clima, radiación y ahorro real."
 pubDate: 2025-05-20
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-cdmx.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Calentador solar instalado en azotea con panorámica de la Ciudad de México"
 tags: ["CDMX", "calentador solar", "vale la pena", "radiación solar"]
 category: "Zonas"

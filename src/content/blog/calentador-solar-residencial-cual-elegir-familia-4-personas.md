@@ -3,7 +3,7 @@ title: "Calentador Solar para Familia de 4 Personas: ¿Cuál Elegir?"
 description: "Guía de compra de calentador solar para hogar de 4 personas en México. Comparamos los mejores modelos, capacidades y precios para 2025."
 pubDate: 2025-04-18
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-familia-4-personas-mejor-opcion.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Calentador solar residencial para familia de 4 personas"
 tags: ["familiar", "4 personas", "residencial", "comparativa"]
 category: "Guías"

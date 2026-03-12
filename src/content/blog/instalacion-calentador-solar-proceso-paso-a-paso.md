@@ -3,7 +3,7 @@ title: "Instalación de Calentador Solar: Proceso Paso a Paso"
 description: "Todo lo que pasa el día de la instalación de tu calentador solar. Qué necesitas tener listo, cómo queda conectado y qué esperar al terminar."
 pubDate: 2025-09-08
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/instalacion-calentador-solar-proceso-paso-a-paso.avif"
+image: "/img/blog/instalacion-calentador-solar-techo-cdmx.avif"
 imageAlt: "Técnico instalando calentador solar en azotea residencial"
 tags: ["instalación", "proceso", "técnico", "guía"]
 category: "Guías"

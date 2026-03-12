@@ -3,7 +3,7 @@ title: "Mejores zonas de CDMX para instalar solar"
 description: "Descubre cuáles son las mejores alcaldías y zonas de la Ciudad de México para instalar un calentador solar según radiación, espacio y condiciones."
 pubDate: 2025-08-02
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/zonas-cdmx-solar.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Mapa de la Ciudad de México señalando las mejores zonas para instalar calentador solar"
 tags: ["CDMX", "zonas", "alcaldías", "instalación solar"]
 category: "Zonas"

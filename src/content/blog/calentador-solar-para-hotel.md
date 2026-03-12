@@ -3,7 +3,7 @@ title: "Calentador solar para hotel: guía de proyectos"
 description: "Guía completa para implementar calentadores solares en hoteles de México. Dimensionamiento, ROI, instalación y casos de éxito en el sector hotelero."
 pubDate: 2025-07-03
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-hotel.avif"
+image: "/img/categorias/calentador-solar-comercial-hotel-mexico.avif"
 imageAlt: "Sistema de calentadores solares instalados en la azotea de un hotel en México"
 tags: ["hotel", "comercial", "proyecto", "calentador solar"]
 category: "Proyectos"

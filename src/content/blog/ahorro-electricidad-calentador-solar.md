@@ -3,7 +3,7 @@ title: "Ahorro en electricidad con calentador solar"
 description: "Descubre cuánto puedes ahorrar en electricidad y gas al instalar un calentador solar en tu hogar mexicano. Análisis con cifras reales y ejemplos."
 pubDate: 2025-06-14
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/ahorro-electricidad-solar.avif"
+image: "/img/blog/calentador-solar-ahorro-gas-comparativa.avif"
 imageAlt: "Medidor eléctrico con flecha hacia abajo simbolizando el ahorro con calentador solar"
 tags: ["ahorro", "electricidad", "calentador solar", "energía"]
 category: "Ahorro"

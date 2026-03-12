@@ -3,7 +3,7 @@ title: "Calentador solar para casa de 4 personas"
 description: "Todo lo que necesitas saber para elegir el calentador solar ideal para una casa de 4 personas en México. Capacidad, tipo y recomendaciones prácticas."
 pubDate: 2025-05-03
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-4-personas.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Familia de cuatro personas disfrutando agua caliente con calentador solar en su hogar"
 tags: ["4 personas", "familia", "capacidad", "residencial"]
 category: "Guías"

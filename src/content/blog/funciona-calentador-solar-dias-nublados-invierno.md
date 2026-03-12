@@ -3,7 +3,7 @@ title: "¿Funciona el Calentador Solar en Días Nublados e Invierno?"
 description: "Explicación técnica de cómo operan los calentadores solares de tubos evacuados con cielos nublados, lluvia y en invierno en México."
 pubDate: 2025-03-05
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-dias-nublados-invierno-mexico.avif"
+image: "/img/blog/calentador-solar-dias-nublados-mexico.avif"
 imageAlt: "Calentador solar funcionando en día nublado cielo gris"
 tags: ["tubos evacuados", "nublado", "invierno", "técnico"]
 category: "Técnico"

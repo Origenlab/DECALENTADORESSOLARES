@@ -3,7 +3,7 @@ title: "Qué hacer cuando el calentador solar no calienta"
 description: "Soluciones prácticas cuando tu calentador solar no calienta el agua. Diagnóstico paso a paso de las causas más comunes y cómo resolverlas."
 pubDate: 2025-10-05
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-no-calienta.avif"
+image: "/img/blog/mantenimiento-calentador-solar-tecnico.avif"
 imageAlt: "Persona revisando calentador solar que no calienta el agua correctamente"
 tags: ["no calienta", "problemas", "soluciones", "diagnóstico"]
 category: "Mantenimiento"

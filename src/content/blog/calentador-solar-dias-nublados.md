@@ -3,7 +3,7 @@ title: "¿Funciona el calentador solar en días nublados?"
 description: "Descubre si un calentador solar funciona en días nublados y lluviosos. Explicación técnica del rendimiento con radiación difusa en México."
 pubDate: 2025-08-19
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-dias-nublados.avif"
+image: "/img/blog/calentador-solar-dias-nublados-mexico.avif"
 imageAlt: "Calentador solar en azotea bajo cielo nublado funcionando con radiación difusa"
 tags: ["días nublados", "rendimiento", "radiación difusa", "técnico"]
 category: "Técnico"

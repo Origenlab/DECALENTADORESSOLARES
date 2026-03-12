@@ -3,7 +3,7 @@ title: "Calentador solar vs gas: comparativa de costos 2025"
 description: "Comparativa detallada de costos entre calentador solar y calentador de gas en México para 2025. Descubre cuál conviene más a largo plazo."
 pubDate: 2025-02-08
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/solar-vs-gas-costos.avif"
+image: "/img/blog/calentador-solar-ahorro-gas-comparativa.avif"
 imageAlt: "Comparativa visual entre calentador solar y calentador de gas con gráfica de costos"
 tags: ["comparativa", "costos", "gas", "ahorro", "2025"]
 category: "Comparativas"

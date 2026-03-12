@@ -3,7 +3,7 @@ title: "Instalación de calentador solar: paso a paso"
 description: "Guía paso a paso para la instalación de un calentador solar en México. Conoce el proceso completo desde la evaluación hasta la puesta en marcha."
 pubDate: 2025-01-28
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/instalacion-paso-a-paso.avif"
+image: "/img/blog/instalacion-calentador-solar-techo-cdmx.avif"
 imageAlt: "Proceso de instalación de calentador solar en azotea de casa mexicana"
 tags: ["instalación", "paso a paso", "calentador solar", "guía"]
 category: "Guías"

@@ -3,7 +3,7 @@ title: "Termosifón vs Presurizado: Diferencias en Calentadores Solares"
 description: "Explicación clara de las diferencias entre calentador solar de termosifón y sistema presurizado. Cuál elegir según tu instalación y presupuesto."
 pubDate: 2025-05-22
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/termosifon-vs-presurizado-calentador-solar-diferencias.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Comparativa calentador solar termosifón vs presurizado"
 tags: ["termosifón", "presurizado", "comparativa", "técnico"]
 category: "Comparativas"

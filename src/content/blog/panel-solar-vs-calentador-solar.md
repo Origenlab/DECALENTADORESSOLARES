@@ -3,7 +3,7 @@ title: "Panel solar vs calentador solar: diferencias"
 description: "Entiende las diferencias entre panel solar fotovoltaico y calentador solar térmico. Cuál elegir según tus necesidades de energía y agua caliente."
 pubDate: 2025-09-28
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/panel-vs-calentador-solar.avif"
+image: "/img/blog/calentador-solar-ahorro-gas-comparativa.avif"
 imageAlt: "Comparación lado a lado entre panel solar fotovoltaico y calentador solar térmico"
 tags: ["panel solar", "calentador solar", "fotovoltaico", "diferencias"]
 category: "Comparativas"

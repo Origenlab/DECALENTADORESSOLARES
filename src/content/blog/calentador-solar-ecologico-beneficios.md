@@ -3,7 +3,7 @@ title: "Calentador solar ecológico: beneficios"
 description: "Conoce los beneficios ecológicos de instalar un calentador solar en México. Reducción de CO2, huella de carbono y contribución al medio ambiente."
 pubDate: 2025-09-10
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-ecologico.avif"
+image: "/img/blog/calentador-solar-ecologico-casa-verde.avif"
 imageAlt: "Calentador solar rodeado de naturaleza representando los beneficios ecológicos"
 tags: ["ecología", "medio ambiente", "CO2", "sustentable"]
 category: "Ecología"

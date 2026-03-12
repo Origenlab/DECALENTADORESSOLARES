@@ -3,7 +3,7 @@ title: "Calentador solar para gimnasio o spa"
 description: "Guía para implementar calentadores solares en gimnasios y spas de México. Dimensionamiento, ahorro, instalación y beneficios para tu negocio."
 pubDate: 2025-11-14
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-gimnasio-spa.avif"
+image: "/img/categorias/calentador-solar-comercial-hotel-mexico.avif"
 imageAlt: "Sistema de calentadores solares instalado en la azotea de un gimnasio con alberca"
 tags: ["gimnasio", "spa", "comercial", "proyecto"]
 category: "Proyectos"

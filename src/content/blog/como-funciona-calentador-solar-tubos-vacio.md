@@ -1,7 +1,7 @@
 ---
 title: "¿Cómo funciona un calentador solar de tubos de vacío?"
 description: "Explicación técnica y sencilla de cómo funciona un calentador solar de tubos de vacío. Componentes, principio térmico y ventajas del sistema."
-image: "/images/blog/placeholder.jpg"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Primer plano de los tubos de vacío de un calentador solar mostrando su funcionamiento"
 author: "Equipo De Calentadores Solares"
 tags: ["tubos de vacío", "funcionamiento", "calentador solar", "técnico", "termosifón", "eficiencia"]

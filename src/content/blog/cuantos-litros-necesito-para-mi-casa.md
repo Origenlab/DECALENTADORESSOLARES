@@ -3,7 +3,7 @@ title: "Cuántos litros necesito para mi casa"
 description: "Descubre cuántos litros de calentador solar necesitas según el número de personas en tu hogar, hábitos de consumo y clima de tu región."
 pubDate: 2025-01-15
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/litros-calentador-casa.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Familia calculando la capacidad ideal de calentador solar para su hogar"
 tags: ["capacidad", "litros", "calentador solar", "hogar"]
 category: "Guías"

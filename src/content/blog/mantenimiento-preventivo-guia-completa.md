@@ -3,7 +3,7 @@ title: "Mantenimiento preventivo: guía completa"
 description: "Guía completa de mantenimiento preventivo para calentadores solares en México. Aprende cada paso para prolongar la vida útil de tu equipo."
 pubDate: 2025-03-12
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/mantenimiento-preventivo-solar.avif"
+image: "/img/blog/mantenimiento-calentador-solar-tecnico.avif"
 imageAlt: "Técnico realizando mantenimiento preventivo a un calentador solar en azotea"
 tags: ["mantenimiento", "preventivo", "vida útil", "limpieza"]
 category: "Mantenimiento"

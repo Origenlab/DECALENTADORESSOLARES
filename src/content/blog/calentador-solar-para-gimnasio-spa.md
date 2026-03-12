@@ -3,7 +3,7 @@ title: "Calentador Solar para Gimnasio o Spa: Todo lo que Necesitas Saber"
 description: "Guía completa para instalar calentadores solares en gimnasios, spas y centros deportivos en México. Dimensionamiento, costos y casos reales."
 pubDate: 2025-08-12
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-gimnasio-spa-vestuario-mexico.avif"
+image: "/img/categorias/calentador-solar-comercial-hotel-mexico.avif"
 imageAlt: "Sistema solar para agua caliente en gimnasio vestuarios"
 tags: ["gimnasio", "spa", "comercial", "proyecto"]
 category: "Proyectos"

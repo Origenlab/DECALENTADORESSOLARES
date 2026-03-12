@@ -3,7 +3,7 @@ title: "Calentadores Solares en Estado de México: Zonas y Municipios"
 description: "Cobertura de instalación de calentadores solares en Estado de México. Municipios atendidos, tiempos de respuesta y características del recurso solar."
 pubDate: 2025-09-25
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentadores-solares-estado-de-mexico-municipios.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Mapa de Estado de México con zonas de instalación solar"
 tags: ["Estado de México", "Edomex", "zonas", "municipios"]
 category: "Zonas"

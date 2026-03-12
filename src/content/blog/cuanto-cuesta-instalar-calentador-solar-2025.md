@@ -3,7 +3,7 @@ title: "Cuánto cuesta instalar calentador solar 2025"
 description: "Conoce los costos reales de instalar un calentador solar en México en 2025. Desglose de precios por equipo, instalación, materiales y mano de obra."
 pubDate: 2025-04-22
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/costo-instalar-solar-2025.avif"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Desglose de costos de instalación de calentador solar en pesos mexicanos"
 tags: ["costos", "instalación", "precios", "2025"]
 category: "Ahorro"

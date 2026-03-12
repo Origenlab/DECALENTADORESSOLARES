@@ -1,7 +1,7 @@
 ---
 title: "Normas NOM para calentadores solares en México: lo que debes saber"
 description: "Conoce las normas oficiales mexicanas (NOM) que regulan los calentadores solares de agua. Requisitos, certificaciones y cómo elegir equipos normados."
-image: "/images/blog/placeholder.jpg"
+image: "/img/blog/calentador-solar-casa-residencial-cdmx.avif"
 imageAlt: "Etiqueta de certificación NOM en un calentador solar de agua en México"
 author: "Equipo De Calentadores Solares"
 tags: ["normas NOM", "certificación", "calentador solar", "regulación", "México", "calidad"]

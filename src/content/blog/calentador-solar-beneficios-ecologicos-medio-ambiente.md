@@ -3,7 +3,7 @@ title: "Calentador Solar: Beneficios Ecológicos y Ambientales"
 description: "Impacto ambiental positivo de los calentadores solares en México. Reducción de CO₂, ahorro de gas LP y contribución a la transición energética."
 pubDate: 2025-06-10
 author: "Equipo De Calentadores Solares"
-image: "/img/blog/calentador-solar-beneficios-ecologicos-medio-ambiente.avif"
+image: "/img/blog/calentador-solar-ecologico-casa-verde.avif"
 imageAlt: "Calentador solar en casa ecológica con vegetación"
 tags: ["ecología", "CO₂", "sostenibilidad", "medio ambiente"]
 category: "Ecología"
