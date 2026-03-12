@@ -1,6 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Tabla de litros en calentadores solares">
-  <rect width="960" height="540" fill="#f8f9fa"/>
-  <rect x="120" y="90" width="720" height="360" rx="20" fill="#ffffff" stroke="#e5e7eb" stroke-width="8"/>
-  <text x="480" y="230" text-anchor="middle" fill="#1a1a2e" font-family="Inter, Arial, sans-serif" font-size="40">Cuantos Litros Necesito</text>
-  <text x="480" y="290" text-anchor="middle" fill="#666666" font-family="Inter, Arial, sans-serif" font-size="28">Guia por numero de personas</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <rect width="800" height="400" fill="#FFF8F0"/>
+  <circle cx="120" cy="200" r="70" fill="#E05800" opacity="0.15"/>
+  <text x="120" y="200" font-family="Arial,sans-serif" font-size="40" fill="#E05800" text-anchor="middle" dominant-baseline="middle">☀️</text>
+  <text x="440" y="185" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#1C4E80" text-anchor="middle">Litros que Necesitas</text>
+  <text x="440" y="215" font-family="Arial,sans-serif" font-size="13" fill="#666" text-anchor="middle">Calentadores Solares · CDMX</text>
+  <line x1="220" y1="200" x2="700" y2="200" stroke="#E05800" stroke-width="1" opacity="0.2"/>
 </svg>

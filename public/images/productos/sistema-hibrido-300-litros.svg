@@ -1,8 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Sistema hibrido solar y gas 300 litros">
-  <rect width="640" height="400" fill="#f8f9fa"/>
-  <rect x="90" y="55" width="460" height="250" rx="20" fill="#ffffff" stroke="#e5e7eb" stroke-width="8"/>
-  <rect x="120" y="110" width="400" height="130" rx="12" fill="#1a1a2e"/>
-  <text x="320" y="166" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="24">Hibrido Solar + Gas</text>
-  <text x="320" y="205" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="22">300 Litros</text>
-  <rect x="160" y="308" width="320" height="28" rx="14" fill="#c41e3a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#FFF8F0"/>
+  <rect x="80" y="60" width="100" height="140" rx="8" fill="#1C4E80" opacity="0.15" stroke="#1C4E80" stroke-width="1.5"/>
+  <rect x="220" y="60" width="100" height="140" rx="8" fill="#E05800" opacity="0.12" stroke="#E05800" stroke-width="1.5"/>
+  <text x="130" y="140" font-family="Arial,sans-serif" font-size="10" fill="#1C4E80" text-anchor="middle" font-weight="600">Solar</text>
+  <text x="270" y="140" font-family="Arial,sans-serif" font-size="10" fill="#E05800" text-anchor="middle" font-weight="600">Gas</text>
+  <line x1="180" y1="130" x2="220" y2="130" stroke="#666" stroke-width="2" stroke-dasharray="4"/>
+  <text x="200" y="230" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#E05800" text-anchor="middle">Sistema Híbrido 300 L</text>
+  <text x="200" y="246" font-family="Arial,sans-serif" font-size="10" fill="#1C4E80" text-anchor="middle" opacity="0.7">Solar + Respaldo gas</text>
 </svg>
