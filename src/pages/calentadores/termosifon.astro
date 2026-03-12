@@ -1,138 +1,262 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import Button from "../../components/ui/Button.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { WHATSAPP_NUMBER, SITE_NAME } from '../../lib/config';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const categoryFilter = 'termosifon';
+const pageTitle = 'Calentadores Solares Termosifon | Sistema Clasico y Confiable';
+const pageDescription = 'Calentadores solares de termosifon con circulacion natural. Sin bomba electrica, bajo mantenimiento y vida util de 20+ anos. El sistema mas confiable y economico para casas de 1 piso.';
+const pageUrl = '/calentadores/termosifon';
+
+const allProducts = await getCollection('productos');
+const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === categoryFilter);
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Calentadores', url: '/calentadores' },
+  { name: 'Termosifon', url: pageUrl },
+];
+
+const faqItems = [
+  { pregunta: '¿Como funciona un calentador solar de termosifon?', respuesta: 'El sistema termosifon aprovecha la conveccion natural: el agua fria baja desde el tanque hacia los colectores solares donde se calienta. Al calentarse se vuelve menos densa y sube naturalmente al tanque de almacenamiento. Este ciclo se repite sin necesidad de bomba electrica.' },
+  { pregunta: '¿Cual es la diferencia entre termosifon y tubos al vacio?', respuesta: 'El termosifon clasico usa colectores de placa plana, mientras que otros sistemas usan tubos al vacio. La placa plana es mas durable y economica, ideal para climas calidos. Los tubos al vacio son mas eficientes en climas frios pero requieren mayor inversion.' },
+  { pregunta: '¿Que limitaciones tiene el sistema termosifon?', respuesta: 'Funciona mejor en casas de 1 piso ya que depende de la gravedad. No es ideal para casas de multiples pisos o donde se necesite alta presion. Tambien requiere que el tanque este por encima de los puntos de uso del agua.' },
+  { pregunta: '¿En que climas funciona mejor el termosifon?', respuesta: 'Funciona excelentemente en climas calidos y templados como CDMX, Estado de Mexico y la mayor parte de la republica. En zonas con heladas frecuentes se recomienda considerar un sistema presurizado con tubos heat pipe.' },
+  { pregunta: '¿Como es la instalacion de un calentador termosifon?', respuesta: 'La instalacion es sencilla y se completa en 1 dia habil. Se coloca el tanque y los colectores en la azotea, se conecta a la tuberia existente de agua fria y caliente. No requiere conexion electrica ni modificaciones estructurales mayores.' },
+];
+
+const structuredData = [
+  buildServiceSchema({ name: 'Calentadores Solares Termosifon', description: pageDescription, url: pageUrl }),
+  buildFAQSchema(faqItems),
+  buildBreadcrumbSchema(breadcrumbs),
+];
+
+const features = [
+  { icon: '🔋', title: 'No requiere bomba', desc: 'Funciona por conveccion natural sin necesidad de energia electrica ni bomba de recirculacion.' },
+  { icon: '🔧', title: 'Bajo mantenimiento', desc: 'Menos partes moviles significa menos fallas. Solo requiere limpieza y revision anual.' },
+  { icon: '⏱️', title: 'Larga vida util', desc: 'Con mantenimiento adecuado, un sistema termosifon puede durar 20 anos o mas.' },
+  { icon: '📐', title: 'Placa plana', desc: 'Colectores de placa plana de alta durabilidad, resistentes a la intemperie y faciles de mantener.' },
+  { icon: '🔇', title: 'Silencioso', desc: 'Al no tener bomba ni partes mecanicas en movimiento, opera en completo silencio.' },
+  { icon: '💰', title: 'Economico', desc: 'La opcion mas accesible en calentadores solares con excelente relacion costo-beneficio.' },
+];
 ---
 
-<LandingLayout
-  title="Calentador Solar Termosifón | Sistema sin Bomba para Casas en CDMX"
-  description="Calentador solar de termosifón en CDMX. Sistema sin bomba que funciona por convección natural. La opción más sencilla y económica para casas con tinaco."
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  activePage="calentadores"
+  heroTitle="Calentadores Solares Termosifon | Sistema Clasico y Confiable"
+  heroIntro="El sistema de circulacion natural mas popular en Mexico. Sin bomba, sin ruido, sin consumo electrico. Agua caliente confiable con la menor inversion."
+  heroBadge="Circulacion natural"
+  heroMetrics={[
+    { valor: '150-200L', texto: 'capacidad' },
+    { valor: 'Sin bomba', texto: 'circulacion' },
+    { valor: 'Bajo', texto: 'mantenimiento' },
+    { valor: '20+ anos', texto: 'vida util' },
+  ]}
+  heroPrimaryText="Solicitar Cotizacion"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa un calentador solar de termosifon. ¿Pueden asesorarme?')}`}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/productos"
+  heroFeatures={[
+    { icon: '🔋', text: 'Sin bomba electrica' },
+    { icon: '🔇', text: 'Operacion silenciosa' },
+    { icon: '💰', text: 'Menor inversion inicial' },
+    { icon: '✅', text: 'El mas popular en Mexico' },
+  ]}
+  showLeadCapture={true}
+  breadcrumbs={breadcrumbs}
+  structuredData={structuredData}
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Calentadores", href: "/calentadores" },
-      { label: "Calentador solar termosifón" }
-    ]}
-  />
 
-  <section class="hero-section">
-    <div class="hero-layout">
-      <div class="hero-panel">
-        <span class="section-eyebrow">Sistema sin bomba eléctrica</span>
-        <h1 class="hero-title">Calentador solar termosifón: eficiente, sencillo y sin partes eléctricas</h1>
-        <p class="hero-lead">
-          El sistema termosifón aprovecha la convección natural: el agua caliente sube y el agua
-          fría baja, sin necesidad de bomba eléctrica. Es el sistema más común en México para
-          casas con tinaco elevado. Bajo mantenimiento, larga vida útil y excelente relación
-          costo-beneficio.
-        </p>
-        <div class="hero-cta-row">
-          <Button
-            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar%20de%20termosifon"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Cotizar termosifón
-          </Button>
-          <Button href="/calentadores/presurizado" variant="outline">Ver sistema presurizado</Button>
+  <!-- Caracteristicas principales -->
+  <section class="section" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge--primary">Beneficios</span>
+        <h2 id="features-title">Caracteristicas del calentador solar termosifon</h2>
+        <p>La tecnologia mas probada y confiable en calentamiento solar de agua.</p>
+      </div>
+      <div class="grid-3">
+        {features.map(f => (
+          <div class="card">
+            <div class="card__body">
+              <span class="feature-icon" aria-hidden="true">{f.icon}</span>
+              <h3 class="card__title">{f.title}</h3>
+              <p class="card__desc">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Para quien es -->
+  <section class="section section--alt" aria-labelledby="audience-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge--eco">Ideal para ti</span>
+        <h2 id="audience-title">¿Para quien es el calentador solar termosifon?</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Casas de 1 piso</h3>
+            <p class="card__desc">El sistema termosifon funciona por gravedad, lo que lo hace perfecto para casas de un nivel con azotea accesible y tinaco elevado.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Climas calidos y templados</h3>
+            <p class="card__desc">En zonas con buena irradiacion solar como CDMX, Estado de Mexico, Puebla, Morelos y Queretaro, el termosifon ofrece rendimiento optimo.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Uso moderado de agua caliente</h3>
+            <p class="card__desc">Ideal para familias de 2 a 5 personas con uso moderado de regadera, sin necesidad de multiples puntos de uso simultaneo.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Presupuesto accesible</h3>
+            <p class="card__desc">La mejor opcion para quienes buscan iniciar con energia solar termica con la menor inversion y el mejor retorno.</p>
+          </div>
         </div>
       </div>
-
-      <aside class="hero-aside">
-        <h2>¿Por qué termosifón?</h2>
-        <ul class="trust-list">
-          <li>Sin bomba eléctrica = sin consumo eléctrico adicional.</li>
-          <li>Instalación más económica que sistemas presurizados.</li>
-          <li>Menos partes móviles = menos fallas.</li>
-          <li>Ideal para casas con tinaco en azotea.</li>
-        </ul>
-      </aside>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="como-funciona-termosifon-title">
-    <header class="section-header">
-      <h2 id="como-funciona-termosifon-title">¿Cómo funciona el sistema termosifón?</h2>
-    </header>
-
-    <div class="offer-grid">
-      <article class="offer-card">
-        <h3>1. Captación solar</h3>
-        <p>Los tubos al vacío absorben la radiación solar y calientan el agua o fluido en su interior.</p>
-      </article>
-      <article class="offer-card">
-        <h3>2. Convección natural</h3>
-        <p>El agua caliente sube al tanque superior por ser menos densa. El agua fría del tanque desciende a los tubos.</p>
-      </article>
-      <article class="offer-card">
-        <h3>3. Almacenamiento</h3>
-        <p>El tanque aislado térmicamente mantiene el agua caliente hasta 48 horas sin pérdida significativa.</p>
-      </article>
-      <article class="offer-card">
-        <h3>4. Distribución</h3>
-        <p>El agua caliente fluye por gravedad desde el tanque elevado hacia los puntos de uso de la casa.</p>
-      </article>
+  <!-- Comparativa -->
+  <section class="section" aria-labelledby="compare-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="compare-title">Comparativa: Termosifon vs. otros tipos</h2>
+        <p>Conoce las ventajas y diferencias de cada sistema solar.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Caracteristica</th>
+              <th>Termosifon</th>
+              <th>Presurizado</th>
+              <th>Residencial (tubos)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Circulacion</td><td><strong>Natural (sin bomba)</strong></td><td>Presurizada</td><td>Gravedad</td></tr>
+            <tr><td>Colector</td><td><strong>Placa plana</strong></td><td>Heat pipe</td><td>Tubos al vacio</td></tr>
+            <tr><td>Mantenimiento</td><td><strong>Minimo</strong></td><td>Bajo</td><td>Bajo</td></tr>
+            <tr><td>Vida util</td><td><strong>20+ anos</strong></td><td>15+ anos</td><td>15-20 anos</td></tr>
+            <tr><td>Inversion</td><td><strong>$15,000-$28,000</strong></td><td>$18,000-$55,000</td><td>$10,900-$45,000</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="modelos-termosifon-title">
-    <header class="section-header">
-      <h2 id="modelos-termosifon-title">Modelos de termosifón más vendidos</h2>
-    </header>
-
-    <div class="capacity-table-wrap">
-      <table class="capacity-table">
-        <thead>
-          <tr>
-            <th>Modelo</th>
-            <th>Capacidad</th>
-            <th>Personas</th>
-            <th>Inversión estimada</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>10 tubos — 115 L</td>
-            <td>115 litros</td>
-            <td>2 a 3 personas</td>
-            <td>$14,000 a $18,000 MXN</td>
-          </tr>
-          <tr>
-            <td>12 tubos — 150 L</td>
-            <td>150 litros</td>
-            <td>3 a 4 personas</td>
-            <td>$17,000 a $22,000 MXN</td>
-          </tr>
-          <tr>
-            <td>15 tubos</td>
-            <td>180 litros</td>
-            <td>4 a 5 personas</td>
-            <td>$20,000 a $26,000 MXN</td>
-          </tr>
-          <tr>
-            <td>18 tubos — 206 L</td>
-            <td>206 litros</td>
-            <td>5 a 6 personas</td>
-            <td>$23,000 a $30,000 MXN</td>
-          </tr>
-          <tr>
-            <td>20 tubos</td>
-            <td>240 litros</td>
-            <td>6 a 7 personas</td>
-            <td>$26,000 a $34,000 MXN</td>
-          </tr>
-          <tr>
-            <td>30 tubos</td>
-            <td>300+ litros</td>
-            <td>8+ personas</td>
-            <td>$35,000 a $50,000 MXN</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- Productos relacionados -->
+  <section class="section section--alt" aria-labelledby="products-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="products-title">Calentadores solares termosifon disponibles</h2>
+        <p>Sistemas de placa plana con la mejor relacion costo-beneficio del mercado.</p>
+      </div>
+      {products.length > 0 ? (
+        <div class="grid-3">
+          {products.map((prod: CollectionEntry<'productos'>) => (
+            <a href={`/productos/${prod.slug}`} class="card card--link">
+              <div class="card__body">
+                <h3 class="card__title">{prod.data.title}</h3>
+                <p class="card__desc">{prod.data.description}</p>
+                {prod.data.price && <span class="price-tag">${prod.data.price.toLocaleString('es-MX')} MXN</span>}
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p>Proximamente agregaremos productos a esta categoria. <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesan calentadores solares de termosifon')}`}>Contactanos por WhatsApp</a> para cotizar.</p>
+      )}
     </div>
   </section>
 
-  <LeadCapture source="calentador-termosifon" />
-</LandingLayout>
+  <!-- FAQ -->
+  <section class="section section--dark" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="faq-title">Preguntas frecuentes sobre calentadores solares termosifon</h2>
+      </div>
+      <div class="faq">
+        {faqItems.map(item => (
+          <div class="faq__item">
+            <button class="faq__question">
+              <span>{item.pregunta}</span>
+              <span class="faq__icon">+</span>
+            </button>
+            <div class="faq__answer">
+              <p>{item.respuesta}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .feature-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-white, #fff);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .compare-table th,
+  .compare-table td {
+    padding: 0.875rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-gray-200, #e5e7eb);
+  }
+  .compare-table thead th {
+    background: var(--color-gray-50, #f9fafb);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+  .compare-table tbody td:first-child {
+    font-weight: 500;
+  }
+  .price-tag {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--color-primary-50, #fff7ed);
+    color: var(--color-primary-700, #c2410c);
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  .card--link {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card--link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+</style>

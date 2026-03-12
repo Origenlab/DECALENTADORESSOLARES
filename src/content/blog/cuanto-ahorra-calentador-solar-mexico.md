@@ -6,7 +6,7 @@ author: "Análisis Energético"
 image: "/images/blog/ahorro-real-gas-solar.svg"
 imageAlt: "Ahorro en factura de gas con calentador solar en México"
 tags: ["ahorro", "factura de gas", "retorno de inversión", "calentador solar México"]
-category: "ahorro"
+category: "Ahorro"
 ---
 
 El calentador solar es la inversión en eficiencia energética con mayor retorno real en una casa mexicana. Pero ¿cuánto ahorra en pesos concretos? La respuesta depende de factores específicos que vale la pena entender antes de comprar.

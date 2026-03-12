@@ -6,7 +6,7 @@ author: "Análisis Energético"
 image: "/images/blog/ahorro-real-gas-solar.svg"
 imageAlt: "Comparativa calentador solar vs calentador de gas en México"
 tags: ["calentador solar", "calentador de gas", "comparativa", "eficiencia energética"]
-category: "comparativa"
+category: "Comparativas"
 ---
 
 La decisión entre calentador solar y calentador de gas es la más importante al renovar el sistema de agua caliente de una casa. Aquí analizamos ambas tecnologías con criterio técnico y económico para que puedas decidir con datos reales.

@@ -1,0 +1,39 @@
+---
+interface Props {
+  titulo: string;
+  subtitulo: string;
+  enlaceTexto?: string;
+  enlaceUrl?: string;
+  parrafo1?: string;
+  parrafo2?: string;
+  idTitulo?: string;
+}
+const { titulo, subtitulo, enlaceTexto, enlaceUrl, parrafo1, parrafo2, idTitulo = "section-title" } = Astro.props;
+const twoCol = parrafo1 || parrafo2;
+---
+<div class={`sec-header ${twoCol ? 'sec-header--two' : ''}`}>
+  <div class="sec-header__left">
+    <h2 id={idTitulo} class="sec-header__title">{titulo}</h2>
+    <p class="sec-header__sub">{subtitulo}</p>
+    {enlaceTexto && enlaceUrl && <a href={enlaceUrl} class="sec-header__link">{enlaceTexto} →</a>}
+  </div>
+  {twoCol && (
+    <div class="sec-header__right">
+      {parrafo1 && <p>{parrafo1}</p>}
+      {parrafo2 && <p>{parrafo2}</p>}
+    </div>
+  )}
+</div>
+<style>
+.sec-header { margin-bottom: var(--space-12); text-align: center; }
+.sec-header--two { display: grid; grid-template-columns: 1fr; gap: var(--space-8); text-align: left; margin-bottom: var(--space-10); }
+.sec-header__left { display: flex; flex-direction: column; gap: var(--space-3); }
+.sec-header:not(.sec-header--two) .sec-header__left { align-items: center; }
+.sec-header__title { font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl)); font-weight: var(--weight-extrabold); color: var(--color-dark); line-height: var(--line-tight); margin: 0; }
+.sec-header__sub { font-size: var(--text-lg); color: var(--color-text-secondary); margin: 0; max-width: 640px; }
+.sec-header__link { display: inline-flex; align-items: center; font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-brand); margin-top: var(--space-2); }
+.sec-header__link:hover { color: var(--color-brand-dark); }
+.sec-header__right { display: flex; flex-direction: column; gap: var(--space-5); }
+.sec-header__right p { font-size: var(--text-base); color: var(--color-text-secondary); line-height: var(--line-relaxed); margin: 0; }
+@media (min-width: 1024px) { .sec-header--two { grid-template-columns: 1fr 1fr; gap: var(--space-16); } }
+</style>

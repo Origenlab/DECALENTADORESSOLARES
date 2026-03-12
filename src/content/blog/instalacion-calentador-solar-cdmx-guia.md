@@ -6,7 +6,7 @@ author: "Equipo Técnico"
 image: "/images/blog/ahorro-real-gas-solar.svg"
 imageAlt: "Instalación de calentador solar en azotea CDMX"
 tags: ["instalación", "CDMX", "proceso", "técnico", "guía"]
-category: "instalación"
+category: "Guías"
 ---
 
 Instalar un calentador solar en CDMX es un proceso más sencillo de lo que parece, pero requiere planificación técnica para garantizar el rendimiento correcto desde el primer día. Esta guía te explica cada etapa del proceso para que sepas exactamente qué esperar.

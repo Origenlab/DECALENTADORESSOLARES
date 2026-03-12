@@ -1,0 +1,221 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildLocalBusinessSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { WHATSAPP_NUMBER, SITE_URL, SITE_NAME, GEO } from '../../lib/config';
+
+const title = 'Calentadores Solares en Querétaro | Instalación Profesional';
+const description = 'Instalación profesional de calentadores solares en Querétaro: Santiago de Querétaro, San Juan del Río, Corregidora, El Marqués, Juriquilla y Tequisquiapan. Residencial e industrial.';
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Zonas', url: '/zonas' },
+  { name: 'Querétaro', url: '/zonas/queretaro' },
+];
+
+const municipios = [
+  'Santiago de Querétaro', 'San Juan del Río', 'Corregidora',
+  'El Marqués', 'Juriquilla', 'Tequisquiapan',
+];
+
+const faqs = [
+  {
+    pregunta: '¿Atienden proyectos industriales en Querétaro?',
+    respuesta: 'Sí, Querétaro es una de nuestras zonas principales para proyectos industriales y comerciales. Atendemos plantas industriales, hoteles, restaurantes y grandes desarrollos habitacionales con sistemas de alta capacidad.',
+  },
+  {
+    pregunta: '¿Qué municipios de Querétaro cubren para instalación residencial?',
+    respuesta: 'Cubrimos Santiago de Querétaro, San Juan del Río, Corregidora, El Marqués, Juriquilla y Tequisquiapan. Para otros municipios, contáctanos por WhatsApp para confirmar cobertura.',
+  },
+  {
+    pregunta: '¿Cómo es el clima de Querétaro para calentadores solares?',
+    respuesta: 'Querétaro tiene un clima semiseco con alta irradiación solar (5.5-6.5 horas pico diarias). Las temperaturas cálidas durante la mayor parte del año y los cielos despejados hacen del estado una excelente ubicación para calentadores solares.',
+  },
+  {
+    pregunta: '¿Cuánto cuesta instalar un calentador solar en Querétaro?',
+    respuesta: 'Un sistema residencial para 3-4 personas inicia desde $8,500 MXN instalado. Para proyectos comerciales e industriales, realizamos cotización personalizada según capacidad y requerimientos específicos.',
+  },
+  {
+    pregunta: '¿Cómo es la logística de instalación en Querétaro?',
+    respuesta: 'Contamos con equipo técnico asignado para la zona de Querétaro. Cotización en 24-48 horas, visita técnica en 2-5 días hábiles e instalación residencial en 1 día. Para proyectos industriales coordinamos según alcance del proyecto.',
+  },
+];
+
+const localBusiness = {
+  ...buildLocalBusinessSchema(),
+  areaServed: [
+    { '@type': 'State', name: 'Querétaro' },
+    ...municipios.map(m => ({ '@type': 'City', name: m })),
+  ],
+};
+const faqSchema = buildFAQSchema(faqs);
+const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  activePage="zonas"
+  heroTitle="Calentadores Solares en Querétaro | Instalación Profesional"
+  heroIntro="Instalación profesional de calentadores solares para sector residencial, comercial e industrial en Querétaro. Santiago de Querétaro, San Juan del Río, Corregidora, El Marqués, Juriquilla y Tequisquiapan."
+  heroBadge="Zona industrial"
+  heroMetrics={[
+    { valor: 'Industrial', texto: 'y residencial' },
+    { valor: '24-48h', texto: 'respuesta' },
+    { valor: '+50', texto: 'proyectos' },
+    { valor: '80%', texto: 'ahorro' },
+  ]}
+  heroPrimaryText="Cotizar en Querétaro"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Querétaro.')}`}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/productos"
+  heroFeatures={[
+    { icon: '🏭', text: 'Proyectos industriales' },
+    { icon: '🏠', text: 'Instalación residencial' },
+    { icon: '🔧', text: 'Técnicos certificados' },
+  ]}
+  showLeadCapture={true}
+  breadcrumbs={breadcrumbs}
+  structuredData={[localBusiness, faqSchema, breadcrumbSchema]}
+>
+
+  <!-- Municipios de cobertura -->
+  <section class="section" aria-labelledby="municipios-queretaro-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="municipios-queretaro-title">Áreas de Cobertura en Querétaro</h2>
+        <p>Instalamos calentadores solares en los principales municipios de Querétaro, tanto para proyectos residenciales como comerciales e industriales.</p>
+      </header>
+
+      <div class="grid-3">
+        {municipios.map((municipio) => (
+          <div class="card">
+            <div class="card__body">
+              <h3 class="card__title">{municipio}</h3>
+              <p class="card__desc">Venta, instalación y mantenimiento de calentadores solares en {municipio}, Querétaro. Servicio residencial, comercial e industrial.</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Viabilidad solar Querétaro -->
+  <section class="section section--alt" aria-labelledby="solar-queretaro-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="solar-queretaro-title">Energía Solar en Querétaro: Potencial Industrial y Residencial</h2>
+        <p>Querétaro combina un excelente clima para energía solar con una economía industrial en crecimiento que demanda soluciones sustentables.</p>
+      </header>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Clima semiseco ideal</h3>
+            <p class="card__desc">Querétaro tiene un clima semiseco con alta irradiación solar de 5.5 a 6.5 horas pico diarias. Los cielos despejados la mayor parte del año garantizan rendimiento óptimo del calentador solar.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Polo industrial sustentable</h3>
+            <p class="card__desc">Querétaro es uno de los polos industriales más importantes de México. Cada vez más empresas adoptan calentadores solares como parte de sus estrategias de sustentabilidad y reducción de costos operativos.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Crecimiento residencial</h3>
+            <p class="card__desc">El boom inmobiliario en Juriquilla, Corregidora y El Marqués genera alta demanda de calentadores solares en desarrollos nuevos y casas existentes. Sistemas desde 150 hasta 500 litros.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Ahorro comprobado</h3>
+            <p class="card__desc">Familias y negocios en Querétaro ahorran hasta 80% en gas LP con calentadores solares. El retorno de inversión promedio es de 18-24 meses para residencial y 12-18 meses para comercial.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-queretaro-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="faq-queretaro-title">Preguntas Frecuentes — Calentadores Solares en Querétaro</h2>
+      </header>
+
+      <div class="faq">
+        {faqs.map((faq) => (
+          <div class="faq__item">
+            <button class="faq__question">
+              <span>{faq.pregunta}</span>
+              <span class="faq__icon">+</span>
+            </button>
+            <div class="faq__answer">
+              <p>{faq.respuesta}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="cta-queretaro-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="cta-queretaro-title">¿Listo para ahorrar en gas en Querétaro?</h2>
+        <p>Cotización gratuita y sin compromiso para proyectos residenciales, comerciales e industriales.</p>
+      </header>
+      <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Querétaro.')}`} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
+        <a href="/productos" class="btn btn--secondary">Ver productos</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    background: var(--color-surface, #fff);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+  .card__body { padding: 1.25rem; }
+  .card__title { font-size: 1rem; margin-bottom: .5rem; }
+  .card__desc { font-size: .9rem; color: var(--color-text-muted, #666); line-height: 1.5; }
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq__item { border-bottom: 1px solid var(--color-border, #e5e7eb); }
+  .faq__question {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 0; background: none; border: none; font-size: 1.05rem;
+    font-weight: 600; color: var(--color-heading, #1a1a1a); cursor: pointer; text-align: left; gap: 1rem;
+  }
+  .faq__icon { font-size: 1.5rem; font-weight: 300; color: var(--color-primary, #F97316); flex-shrink: 0; }
+  .faq__answer { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+  .faq__answer p { padding: 0 0 1.25rem; color: var(--color-text-muted, #666); line-height: 1.6; }
+  .faq__item.active .faq__answer { max-height: 300px; }
+  .faq__item.active .faq__icon { transform: rotate(45deg); }
+</style>
+
+<script>
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      item?.classList.toggle('active');
+    });
+  });
+</script>

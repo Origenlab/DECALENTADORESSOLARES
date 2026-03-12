@@ -1,114 +1,222 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import Button from "../../components/ui/Button.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildLocalBusinessSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { WHATSAPP_NUMBER, SITE_URL, SITE_NAME, GEO } from '../../lib/config';
+
+const title = 'Calentadores Solares en Puebla | Instalación Profesional';
+const description = 'Instalación profesional de calentadores solares en Puebla capital, Cholula, Atlixco, Tehuacán, San Martín Texmelucan y zona metropolitana. Cotiza ahora.';
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Zonas', url: '/zonas' },
+  { name: 'Puebla', url: '/zonas/puebla' },
+];
+
+const areas = [
+  'Puebla Capital', 'San Andrés Cholula', 'San Pedro Cholula',
+  'Atlixco', 'Tehuacán', 'San Martín Texmelucan',
+  'Huejotzingo', 'Amozoc', 'Cuautlancingo',
+];
+
+const faqs = [
+  {
+    pregunta: '¿Qué áreas de Puebla cubren para instalación de calentadores solares?',
+    respuesta: 'Cubrimos Puebla capital, San Andrés Cholula, San Pedro Cholula, Atlixco, Tehuacán, San Martín Texmelucan, Huejotzingo, Amozoc y Cuautlancingo. Contáctanos para confirmar cobertura en tu ubicación.',
+  },
+  {
+    pregunta: '¿Hay costos de traslado adicionales para Puebla?',
+    respuesta: 'En la zona metropolitana de Puebla y municipios cercanos, el traslado está incluido en la cotización. Para municipios más alejados como Tehuacán puede aplicar un costo de traslado mínimo que se indica en la cotización.',
+  },
+  {
+    pregunta: '¿Tienen soporte local en Puebla?',
+    respuesta: 'Sí, contamos con técnicos asignados en la zona de Puebla para instalación, mantenimiento y servicio postventa. No dependemos de traslados desde CDMX para atender la región.',
+  },
+  {
+    pregunta: '¿Qué ventajas tiene el clima de Puebla para calentadores solares?',
+    respuesta: 'Puebla registra entre 5.8 y 6.5 horas sol pico diarias en promedio anual, de las más altas del país. Su clima seco y soleado la mayor parte del año maximiza la captación solar y el ahorro en gas.',
+  },
+  {
+    pregunta: '¿Cuál es el proceso para cotizar en Puebla?',
+    respuesta: 'Envía un mensaje por WhatsApp con tu municipio y número de personas en tu hogar. Recibes cotización en menos de 24-48 horas. Se agenda visita técnica para confirmar condiciones e instalación en fecha convenida.',
+  },
+];
+
+const localBusiness = {
+  ...buildLocalBusinessSchema(),
+  areaServed: [
+    { '@type': 'State', name: 'Puebla' },
+    ...areas.map(a => ({ '@type': 'City', name: a })),
+  ],
+};
+const faqSchema = buildFAQSchema(faqs);
+const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 ---
 
-<LandingLayout
-  title="Calentadores Solares en Puebla | Instalación Profesional en Puebla Capital y Zona Metropolitana"
-  description="Instalación de calentadores solares en Puebla capital, San Andrés Cholula, Atlixco y zona metropolitana. Sistema solar térmico con técnicos certificados y NOM-021-ENER-2017."
+<BaseLayout
+  title={title}
+  description={description}
+  activePage="zonas"
+  heroTitle="Calentadores Solares en Puebla | Instalación Profesional"
+  heroIntro="Instalación, mantenimiento y asesoría en calentadores solares para Puebla capital y zona metropolitana. Más de 6 horas sol pico diarias hacen de Puebla una zona ideal para energía solar."
+  heroBadge="Puebla y zona metropolitana"
+  heroMetrics={[
+    { valor: '10+', texto: 'municipios' },
+    { valor: '24-48h', texto: 'respuesta' },
+    { valor: '+80', texto: 'proyectos' },
+    { valor: '80%', texto: 'ahorro' },
+  ]}
+  heroPrimaryText="Cotizar en Puebla"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Puebla.')}`}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/productos"
+  heroFeatures={[
+    { icon: '☀️', text: '6+ horas sol pico diarias' },
+    { icon: '🏠', text: 'Residencial y comercial' },
+    { icon: '🔧', text: 'Técnicos locales en Puebla' },
+  ]}
+  showLeadCapture={true}
+  breadcrumbs={breadcrumbs}
+  structuredData={[localBusiness, faqSchema, breadcrumbSchema]}
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Zonas", href: "/zonas" },
-      { label: "Puebla" }
-    ]}
-  />
 
-  <section class="hero-section">
-    <div class="hero-layout">
-      <div class="hero-panel">
-        <span class="section-eyebrow">Cobertura en Puebla</span>
-        <h1 class="hero-title">Calentadores solares en Puebla: instalación profesional en capital y zona metropolitana</h1>
-        <p class="hero-lead">
-          Instalamos calentadores solares en Puebla capital, San Andrés Cholula, San Pedro Cholula,
-          Atlixco, Tehuacán y municipios de la zona metropolitana. Puebla tiene más de 6 horas sol
-          pico diarias, haciendo de la energía solar la opción más rentable para agua caliente.
-        </p>
-        <div class="hero-cta-row">
-          <Button
-            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20calentador%20solar%20en%20Puebla"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Cotizar en Puebla
-          </Button>
-          <Button href="/calentadores/residencial" variant="outline">Calentadores residenciales</Button>
+  <!-- Áreas de cobertura -->
+  <section class="section" aria-labelledby="areas-puebla-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="areas-puebla-title">Áreas de Cobertura en Puebla</h2>
+        <p>Instalamos calentadores solares en Puebla capital, zona metropolitana y municipios clave del estado.</p>
+      </header>
+
+      <div class="grid-3">
+        {areas.map((area) => (
+          <div class="card">
+            <div class="card__body">
+              <h3 class="card__title">{area}</h3>
+              <p class="card__desc">Instalación y mantenimiento de calentadores solares en {area}, Puebla.</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Viabilidad solar -->
+  <section class="section section--alt" aria-labelledby="solar-puebla-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="solar-puebla-title">¿Por qué Puebla tiene alto potencial solar?</h2>
+        <p>El estado de Puebla cuenta con condiciones climáticas excepcionales para el aprovechamiento de energía solar térmica.</p>
+      </header>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Alta irradiación solar</h3>
+            <p class="card__desc">Puebla registra entre 5.8 y 6.5 horas sol pico diarias en promedio anual, de las más altas del país. El retorno de inversión es más rápido que en zonas con menor irradiación.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Clima seco y soleado</h3>
+            <p class="card__desc">La mayor parte del año el clima de Puebla es seco y soleado, lo que maximiza la captación solar y reduce la dependencia del respaldo de gas a los meses más nublados.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Crecimiento habitacional</h3>
+            <p class="card__desc">El boom de desarrollos residenciales en Cholula y Cuautlancingo genera alta demanda de instalaciones solares tanto en casas nuevas como en propiedades existentes.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Apoyos FIDE disponibles</h3>
+            <p class="card__desc">Los municipios de Puebla califican para los programas de apoyo FIDE y SENER para instalación de calentadores solares que cumplen la norma NOM-027-ENER/SCFI-2018.</p>
+          </div>
         </div>
       </div>
-
-      <aside class="hero-aside">
-        <h2>Municipios atendidos</h2>
-        <ul class="trust-list">
-          <li>Puebla capital.</li>
-          <li>San Andrés y San Pedro Cholula.</li>
-          <li>Atlixco.</li>
-          <li>Amozoc.</li>
-          <li>Tehuacán.</li>
-          <li>Cuautlancingo.</li>
-        </ul>
-      </aside>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="puebla-solar-title">
-    <header class="section-header">
-      <h2 id="puebla-solar-title">¿Por qué Puebla tiene alto potencial solar?</h2>
-    </header>
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-puebla-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="faq-puebla-title">Preguntas Frecuentes — Calentadores Solares en Puebla</h2>
+      </header>
 
-    <div class="offer-grid">
-      <article class="offer-card">
-        <h3>Alta irradiación solar</h3>
-        <p>Puebla registra entre 5.8 y 6.5 horas sol pico diarias en promedio anual, de las más altas del país. El retorno de inversión es más rápido que en zonas con menor irradiación.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Clima seco y soleado</h3>
-        <p>La mayor parte del año el clima de Puebla es seco y soleado, lo que maximiza la captación solar y reduce la necesidad del respaldo de gas a los meses más nublados.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Crecimiento habitacional</h3>
-        <p>El boom de desarrollos residenciales en Cholula y Cuautlancingo hace de Puebla una zona de alta demanda de instalaciones solares tanto en casas nuevas como en existentes.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Apoyos FIDE disponibles</h3>
-        <p>Los municipios de Puebla califican para los programas de apoyo FIDE y SENER para instalación de calentadores solares que cumplen NOM-021-ENER-2017.</p>
-      </article>
+      <div class="faq">
+        {faqs.map((faq) => (
+          <div class="faq__item">
+            <button class="faq__question">
+              <span>{faq.pregunta}</span>
+              <span class="faq__icon">+</span>
+            </button>
+            <div class="faq__answer">
+              <p>{faq.respuesta}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="proceso-puebla-title">
-    <header class="section-header">
-      <h2 id="proceso-puebla-title">Cómo cotizar en Puebla</h2>
-      <p class="section-description">
-        El proceso es el mismo que en CDMX: diagnóstico técnico, propuesta con capacidad y precio,
-        instalación en 1 día hábil y seguimiento postventa. Para Puebla coordinamos agenda con
-        técnico local asignado.
-      </p>
-    </header>
-
-    <div class="comparison-grid">
-      <article class="comparison-card comparison-card--good">
-        <h3>Proceso de contratación</h3>
-        <ul class="features-list">
-          <li>Envía mensaje vía WhatsApp con tu municipio y número de personas.</li>
-          <li>Recibes propuesta base en menos de 24 horas.</li>
-          <li>Se agenda visita técnica para confirmar capacidad y condiciones.</li>
-          <li>Instalación programada en fecha convenida.</li>
-        </ul>
-      </article>
-      <article class="comparison-card comparison-card--good">
-        <h3>Tiempo de respuesta</h3>
-        <ul class="features-list">
-          <li>Cotización inicial: menos de 24 horas.</li>
-          <li>Visita técnica: 2 a 5 días hábiles.</li>
-          <li>Instalación residencial: 1 día hábil.</li>
-          <li>Instalación comercial: 2 a 5 días según proyecto.</li>
-        </ul>
-      </article>
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="cta-puebla-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="cta-puebla-title">¿Listo para ahorrar en gas en Puebla?</h2>
+        <p>Aprovecha el sol de Puebla. Cotización gratuita y sin compromiso.</p>
+      </header>
+      <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Puebla.')}`} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
+        <a href="/productos" class="btn btn--secondary">Ver productos</a>
+      </div>
     </div>
   </section>
 
-  <LeadCapture source="zona-puebla" />
-</LandingLayout>
+</BaseLayout>
+
+<style>
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    background: var(--color-surface, #fff);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+  .card__body { padding: 1.25rem; }
+  .card__title { font-size: 1rem; margin-bottom: .5rem; }
+  .card__desc { font-size: .9rem; color: var(--color-text-muted, #666); line-height: 1.5; }
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq__item { border-bottom: 1px solid var(--color-border, #e5e7eb); }
+  .faq__question {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 0; background: none; border: none; font-size: 1.05rem;
+    font-weight: 600; color: var(--color-heading, #1a1a1a); cursor: pointer; text-align: left; gap: 1rem;
+  }
+  .faq__icon { font-size: 1.5rem; font-weight: 300; color: var(--color-primary, #F97316); flex-shrink: 0; }
+  .faq__answer { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+  .faq__answer p { padding: 0 0 1.25rem; color: var(--color-text-muted, #666); line-height: 1.6; }
+  .faq__item.active .faq__answer { max-height: 300px; }
+  .faq__item.active .faq__icon { transform: rotate(45deg); }
+</style>
+
+<script>
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      item?.classList.toggle('active');
+    });
+  });
+</script>

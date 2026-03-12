@@ -6,7 +6,7 @@ author: "Equipo Comercial"
 image: "/images/blog/costo-instalacion-solar.svg"
 imageAlt: "Costo de instalacion de calentador solar en Mexico"
 tags: ["precio", "instalacion", "cotizacion"]
-category: "servicios"
+category: "Técnico"
 ---
 
 El costo total de un calentador solar no es solo el precio del equipo. La instalacion define gran parte del resultado final.

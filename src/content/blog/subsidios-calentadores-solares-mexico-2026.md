@@ -6,7 +6,7 @@ author: "Análisis Energético"
 image: "/images/blog/ahorro-real-gas-solar.svg"
 imageAlt: "Subsidios calentadores solares México 2026 SENER FIDE"
 tags: ["subsidios", "FIDE", "SENER", "apoyos gobierno", "2026"]
-category: "ahorro"
+category: "Ahorro"
 ---
 
 En México existen programas de gobierno que subsidian o apoyan la instalación de calentadores solares. Conocerlos puede reducir significativamente tu inversión inicial. Esta guía resume los programas vigentes en 2026 y cómo acceder a cada uno.

@@ -1,103 +1,395 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import Button from "../../components/ui/Button.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { buildServiceSchema, buildFAQSchema } from "../../lib/seo";
+import { WHATSAPP_URL } from "../../lib/config";
 
 const tipos = [
   {
-    title: "Calentador solar residencial",
-    description: "Para casas y familias de 3 a 6 personas. Sistemas de 150 a 300 litros con instalación profesional en CDMX.",
+    icon: "🏠",
+    slug: "residencial",
+    titulo: "Calentador Solar Residencial",
+    desc: "Ideal para casas y departamentos de 2 a 6 personas. Sistemas de 120 a 300 litros que cubren el uso diario de agua caliente en regadera, cocina y lavabo.",
+    specs: ["120–300 litros", "2–6 personas", "Ahorro 60–80%"],
     href: "/calentadores/residencial",
-    eyebrow: "Uso doméstico"
   },
   {
-    title: "Calentador solar comercial",
-    description: "Para hoteles, hospitales, gimnasios y restaurantes con alta demanda de agua caliente.",
-    href: "/calentadores/comercial",
-    eyebrow: "Uso comercial"
-  },
-  {
-    title: "Calentador solar industrial",
-    description: "Soluciones de ingeniería para lavanderías industriales, agroindustria y procesos de manufactura.",
-    href: "/calentadores/industrial",
-    eyebrow: "Uso industrial"
-  },
-  {
-    title: "Calentador de paso solar",
-    description: "Sistema híbrido que combina calentador instantáneo con panel solar para reducir consumo de gas.",
-    href: "/calentadores/de-paso-solar",
-    eyebrow: "Sistema híbrido"
-  },
-  {
-    title: "Calentador solar presurizado",
-    description: "Sistema de circuito cerrado con presión constante. Ideal para casas sin tinaco y proyectos comerciales.",
+    icon: "⚡",
+    slug: "presurizado",
+    titulo: "Calentador Solar Presurizado",
+    desc: "Circuito cerrado con presión constante. Perfecto para casas sin tinaco, edificios y proyectos donde se requiere flujo simultáneo en múltiples puntos.",
+    specs: ["150–500 litros", "Presión constante", "Heat pipe"],
     href: "/calentadores/presurizado",
-    eyebrow: "Alta presión"
   },
   {
-    title: "Calentador solar termosifón",
-    description: "El más popular en México. Sin bomba eléctrica, funciona por convección natural. Excelente costo-beneficio.",
+    icon: "♨️",
+    slug: "termosifon",
+    titulo: "Calentador Solar Termosifón",
+    desc: "El más popular en México. Funciona por convección natural sin bomba eléctrica. Excelente relación costo-beneficio para uso residencial estándar.",
+    specs: ["120–240 litros", "Sin bomba", "Gravedad"],
     href: "/calentadores/termosifon",
-    eyebrow: "Sin bomba"
-  }
+  },
+  {
+    icon: "🏨",
+    slug: "comercial",
+    titulo: "Calentador Solar Comercial",
+    desc: "Soluciones de media y alta capacidad para hoteles, gimnasios, restaurantes y hospitales con demanda continua de agua caliente.",
+    specs: ["500–2,000 litros", "Alta demanda", "ROI 2–4 años"],
+    href: "/calentadores/comercial",
+  },
+  {
+    icon: "🏭",
+    slug: "industrial",
+    titulo: "Calentador Solar Industrial",
+    desc: "Ingeniería a medida para lavanderías industriales, agroindustria, manufactura y procesos que requieren temperaturas elevadas y gran volumen.",
+    specs: ["2,000+ litros", "Alta temperatura", "Proyecto especial"],
+    href: "/calentadores/industrial",
+  },
+  {
+    icon: "🔥",
+    slug: "de-paso-solar",
+    titulo: "Calentador de Paso Solar",
+    desc: "Sistema híbrido que combina panel solar con calentador instantáneo. Flujo continuo sin tanque de almacenamiento, ideal para espacios reducidos.",
+    specs: ["Flujo continuo", "Híbrido gas/solar", "Espacio mínimo"],
+    href: "/calentadores/de-paso-solar",
+  },
 ];
+
+const comparativa = [
+  { tipo: "Residencial", capacidad: "120–300 L", presion: "Baja/Media", ideal: "Casas y departamentos", precio: "$14,000–$28,000" },
+  { tipo: "Presurizado", capacidad: "150–500 L", presion: "Alta", ideal: "Sin tinaco / multifamiliar", precio: "$22,000–$45,000" },
+  { tipo: "Termosifón", capacidad: "120–240 L", presion: "Gravedad", ideal: "Residencial estándar", precio: "$12,000–$22,000" },
+  { tipo: "Comercial", capacidad: "500–2,000 L", presion: "Media/Alta", ideal: "Hoteles, gimnasios, negocios", precio: "$45,000–$150,000" },
+  { tipo: "Industrial", capacidad: "2,000+ L", presion: "Alta", ideal: "Manufactura, agroindustria", precio: "Cotización especial" },
+  { tipo: "De paso solar", capacidad: "Continuo", presion: "Red municipal", ideal: "Espacios reducidos", precio: "$18,000–$32,000" },
+];
+
+const faqItems = [
+  {
+    pregunta: "¿Cuál es la diferencia entre un calentador presurizado y uno de termosifón?",
+    respuesta: "El presurizado usa tubos heat pipe en circuito cerrado con presión constante, ideal para casas sin tinaco o con demanda simultánea. El termosifón funciona por gravedad y convección natural, sin bomba eléctrica, y es más económico para uso residencial estándar.",
+  },
+  {
+    pregunta: "¿Qué capacidad necesito para mi casa?",
+    respuesta: "Depende del número de personas y puntos de uso. Como referencia: 2–3 personas necesitan 120–150 litros, 4–5 personas 180–220 litros, y 6+ personas 250–300 litros. Recomendamos un diagnóstico técnico para dimensionar correctamente.",
+  },
+  {
+    pregunta: "¿Un calentador solar funciona en días nublados?",
+    respuesta: "Sí, los calentadores solares captan radiación incluso en días nublados, aunque con menor eficiencia. Los sistemas presurizados y de paso solar incluyen respaldo de gas para garantizar agua caliente las 24 horas.",
+  },
+  {
+    pregunta: "¿Cuánto ahorro realmente con un calentador solar?",
+    respuesta: "En la mayoría de los casos residenciales el ahorro anual oscila entre el 60% y el 80% del gasto de gas destinado a calentar agua. El retorno de inversión típico es de 1.5 a 3 años dependiendo del consumo.",
+  },
+  {
+    pregunta: "¿Incluyen instalación y garantía en todos los tipos?",
+    respuesta: "Sí. Todos nuestros proyectos incluyen instalación profesional, pruebas de funcionamiento y garantía en mano de obra. La garantía del equipo varía según modelo y fabricante, desde 5 hasta 15 años.",
+  },
+];
+
+const serviceSchemas = tipos.map((t) =>
+  buildServiceSchema({
+    name: t.titulo,
+    description: t.desc,
+    url: t.href,
+  })
+);
+
+const faqSchema = buildFAQSchema(faqItems);
+
+const allSchemas = [...serviceSchemas, faqSchema];
 ---
 
-<LandingLayout
-  title="Tipos de Calentadores Solares | Residencial, Comercial e Industrial CDMX"
-  description="Conoce todos los tipos de calentadores solares disponibles en CDMX: residencial, comercial, industrial, de paso, presurizado y termosifón. Instalación profesional."
+<BaseLayout
+  title="Tipos de Calentadores Solares | Guía Completa"
+  description="Conoce las diferencias entre calentadores residenciales, presurizados, termosifón, comerciales e industriales. Guía de compra con comparativa y precios."
+  activePage="calentadores"
+  heroTitle="Tipos de Calentadores Solares | Guía Completa"
+  heroIntro="Conoce las diferencias entre calentadores residenciales, presurizados, termosifón, comerciales e industriales."
+  heroBadge="Guía de compra"
+  heroPrimaryText="Cotizar Ahora"
+  heroPrimaryLink={WHATSAPP_URL}
+  heroSecondaryText="Ver Comparativa"
+  heroSecondaryLink="#comparativa"
+  breadcrumbs={[
+    { name: "Inicio", url: "/" },
+    { name: "Calentadores", url: "/calentadores" },
+  ]}
+  showLeadCapture={true}
+  structuredData={allSchemas}
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Calentadores" }
-    ]}
-  />
 
-  <section class="hero-section">
-    <div class="hero-panel">
-      <span class="section-eyebrow">Catálogo por tipo</span>
-      <h1 class="hero-title">Tipos de calentadores solares disponibles</h1>
-      <p class="hero-lead">
-        Cada proyecto tiene requerimientos distintos. Elige el tipo de calentador solar que mejor
-        se adapta a tu hogar, negocio o proceso industrial en CDMX y Estado de México.
-      </p>
-    </div>
-  </section>
-
+  <!-- ========== TIPOS DE CALENTADORES ========== -->
   <section class="section" aria-labelledby="tipos-title">
-    <header class="section-header">
-      <h2 id="tipos-title">Selecciona el tipo de calentador solar</h2>
-    </header>
+    <div class="container">
+      <header class="section-header">
+        <h2 id="tipos-title">Elige el Tipo de Calentador Solar</h2>
+        <p>Cada proyecto tiene necesidades distintas. Encuentra el sistema que mejor se adapta a tu hogar o negocio.</p>
+      </header>
 
-    <div class="offer-grid">
-      {tipos.map((tipo) => (
-        <article class="offer-card">
-          <p class="mini-title">{tipo.eyebrow}</p>
-          <h3>{tipo.title}</h3>
-          <p>{tipo.description}</p>
-          <a class="btn btn-outline" href={tipo.href}>Ver más</a>
-        </article>
-      ))}
+      <div class="grid-3">
+        {tipos.map((t) => (
+          <article class="card tipo-card">
+            <div class="card__body">
+              <span class="tipo-icon">{t.icon}</span>
+              <h3 class="card__title">{t.titulo}</h3>
+              <p class="card__desc">{t.desc}</p>
+              <ul class="tipo-specs">
+                {t.specs.map((s) => (
+                  <li>{s}</li>
+                ))}
+              </ul>
+              <a class="btn btn--primary tipo-btn" href={t.href}>Ver detalles</a>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="asesor-title">
-    <header class="section-header">
-      <h2 id="asesor-title">¿No sabes cuál elegir?</h2>
-      <p class="section-description">
-        Un técnico especialista evalúa tu caso sin costo y te recomienda la mejor opción según tu
-        presupuesto, número de usuarios y tipo de inmueble.
-      </p>
-    </header>
-    <div style="text-align: center; margin-top: 2rem;">
-      <Button
-        href="https://wa.me/525500000000?text=Hola,%20necesito%20ayuda%20para%20elegir%20el%20tipo%20de%20calentador%20solar"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Hablar con un especialista
-      </Button>
+  <!-- ========== TABLA COMPARATIVA ========== -->
+  <section class="section section--alt" id="comparativa" aria-labelledby="comp-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="comp-title">Comparativa de Calentadores Solares</h2>
+        <p>Compara capacidad, presión, uso ideal y rango de inversión en un vistazo.</p>
+      </header>
+
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Capacidad</th>
+              <th>Presión</th>
+              <th>Ideal Para</th>
+              <th>Rango de Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparativa.map((row) => (
+              <tr>
+                <td><strong>{row.tipo}</strong></td>
+                <td>{row.capacidad}</td>
+                <td>{row.presion}</td>
+                <td>{row.ideal}</td>
+                <td>{row.precio}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
-</LandingLayout>
+
+  <!-- ========== GUÍA DE DECISIÓN ========== -->
+  <section class="section" aria-labelledby="guia-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="guia-title">¿Cuál Necesitas?</h2>
+        <p>Responde estas preguntas rápidas para orientarte hacia el tipo de calentador ideal.</p>
+      </header>
+
+      <div class="grid-2">
+        <div class="card decision-card">
+          <div class="card__body">
+            <h3 class="card__title">🏠 Para tu Casa</h3>
+            <ul class="decision-list">
+              <li><strong>¿Tienes tinaco?</strong> → Termosifón o residencial estándar</li>
+              <li><strong>¿Sin tinaco o presión baja?</strong> → Presurizado</li>
+              <li><strong>¿Espacio reducido?</strong> → De paso solar (híbrido)</li>
+              <li><strong>¿2–4 personas?</strong> → 150–200 litros</li>
+              <li><strong>¿5+ personas?</strong> → 250–300 litros</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card decision-card">
+          <div class="card__body">
+            <h3 class="card__title">🏢 Para tu Negocio</h3>
+            <ul class="decision-list">
+              <li><strong>¿Hotel o gimnasio?</strong> → Comercial (500–2,000 L)</li>
+              <li><strong>¿Restaurante?</strong> → Comercial de media capacidad</li>
+              <li><strong>¿Lavandería industrial?</strong> → Industrial a medida</li>
+              <li><strong>¿Proceso de alta temperatura?</strong> → Industrial especial</li>
+              <li><strong>¿Condominio?</strong> → Sistema presurizado centralizado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-center">
+        <p>¿Aún tienes dudas? Un especialista te asesora sin costo ni compromiso.</p>
+        <a class="btn btn--primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+          Hablar con un Especialista
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="section section--alt" aria-labelledby="faq-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="faq-title">Preguntas Frecuentes</h2>
+        <p>Las dudas más comunes sobre tipos de calentadores solares.</p>
+      </header>
+
+      <div class="faq">
+        {faqItems.map((item) => (
+          <details class="faq__item">
+            <summary class="faq__question">
+              {item.pregunta}
+              <span class="faq__icon">+</span>
+            </summary>
+            <div class="faq__answer">
+              <p>{item.respuesta}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Tipo cards */
+  .tipo-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .tipo-card .card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .tipo-icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .tipo-specs {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tipo-specs li {
+    background: var(--bg-subtle, #f8f9fa);
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 6px;
+    padding: 0.3rem 0.65rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary, #555);
+  }
+  .tipo-btn {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+  /* Tabla comparativa */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+    font-size: 0.92rem;
+  }
+  .comp-table th,
+  .comp-table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+  }
+  .comp-table thead th {
+    background: var(--color-primary, #F97316);
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .comp-table tbody tr:hover {
+    background: var(--bg-subtle, #fff7ed);
+  }
+
+  /* Guía de decisión */
+  .decision-card {
+    border-left: 4px solid var(--color-primary, #F97316);
+  }
+  .decision-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .decision-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .decision-list li:last-child {
+    border-bottom: none;
+  }
+  .cta-center {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+  .cta-center p {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: var(--text-secondary, #555);
+  }
+
+  /* FAQ overrides */
+  .faq {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+  }
+  .faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.15rem 0;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    list-style: none;
+  }
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+  .faq__icon {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-primary, #F97316);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  .faq__item[open] .faq__icon {
+    transform: rotate(45deg);
+  }
+  .faq__answer {
+    padding: 0 0 1.25rem;
+    color: var(--text-secondary, #555);
+    line-height: 1.65;
+  }
+
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

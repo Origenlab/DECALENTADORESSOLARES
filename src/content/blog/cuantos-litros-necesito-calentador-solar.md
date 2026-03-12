@@ -6,7 +6,7 @@ author: "Consultoria Comercial"
 image: "/images/blog/litros-calentador-solar.svg"
 imageAlt: "Tabla de litros para calentadores solares"
 tags: ["litros", "capacidad", "calentador solar"]
-category: "productos"
+category: "Guías"
 ---
 
 Una de las preguntas mas buscadas en Google es cuantos litros necesita un calentador solar. La respuesta correcta depende de usuarios y simultaneidad.

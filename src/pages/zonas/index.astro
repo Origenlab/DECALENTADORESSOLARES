@@ -1,87 +1,165 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import Button from "../../components/ui/Button.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildLocalBusinessSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { WHATSAPP_NUMBER, SITE_URL, SITE_NAME, GEO } from '../../lib/config';
+
+const title = 'Zonas de Cobertura | Calentadores Solares en México';
+const description = 'Instalamos calentadores solares en CDMX, Estado de México, Puebla, Morelos, Hidalgo, Querétaro y Tlaxcala. Cobertura profesional en centro de México.';
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Zonas', url: '/zonas' },
+];
 
 const zonas = [
   {
-    title: "Ciudad de México",
-    description: "Instalación en todas las 16 alcaldías de CDMX. Técnicos asignados por zona para respuesta rápida.",
-    href: "/zonas/cdmx",
-    highlights: ["16 alcaldías", "Servicio mismo día", "Cobertura total"]
+    nombre: 'Ciudad de México',
+    slug: 'cdmx',
+    desc: 'Cobertura en las 16 alcaldías. Servicio mismo día en Benito Juárez, Coyoacán, Miguel Hidalgo, Tlalpan y todas las demarcaciones.',
+    municipios: '16 alcaldías',
   },
   {
-    title: "Estado de México",
-    description: "Servicio en Naucalpan, Tlalnepantla, Ecatepec, Cuautitlán Izcalli, Toluca y más municipios.",
-    href: "/zonas/estado-de-mexico",
-    highlights: ["Naucalpan", "Tlalnepantla", "Ecatepec", "Toluca"]
+    nombre: 'Estado de México',
+    slug: 'estado-de-mexico',
+    desc: 'Zona metropolitana y Valle de Toluca: Naucalpan, Tlalnepantla, Ecatepec, Huixquilucan, Metepec, Toluca y más.',
+    municipios: '20+ municipios',
   },
   {
-    title: "Puebla",
-    description: "Instalación en Puebla capital, Cholula, Atlixco y zona metropolitana de Puebla.",
-    href: "/zonas/puebla",
-    highlights: ["Puebla capital", "Cholula", "Atlixco", "Tehuacán"]
-  }
+    nombre: 'Puebla',
+    slug: 'puebla',
+    desc: 'Puebla capital, Cholula, Atlixco, Tehuacán, San Martín Texmelucan, Huejotzingo y zona metropolitana.',
+    municipios: '10+ municipios',
+  },
+  {
+    nombre: 'Morelos',
+    slug: 'morelos',
+    desc: 'Cuernavaca, Jiutepec, Temixco, Cuautla y más. Uno de los mejores climas para energía solar en México.',
+    municipios: '6+ municipios',
+  },
+  {
+    nombre: 'Hidalgo',
+    slug: 'hidalgo',
+    desc: 'Pachuca, Tulancingo, Tizayuca, Mineral de la Reforma, Actopan y Tula de Allende.',
+    municipios: '8+ municipios',
+  },
+  {
+    nombre: 'Querétaro',
+    slug: 'queretaro',
+    desc: 'Santiago de Querétaro, San Juan del Río, Corregidora, El Marqués, Juriquilla y Tequisquiapan.',
+    municipios: '6+ municipios',
+  },
+  {
+    nombre: 'Tlaxcala',
+    slug: null,
+    desc: 'Tlaxcala capital, Apizaco, Huamantla y zonas aledañas. Consulta disponibilidad directamente por WhatsApp.',
+    municipios: 'Consultar',
+  },
 ];
+
+const localBusiness = buildLocalBusinessSchema();
+const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 ---
 
-<LandingLayout
-  title="Zonas de Cobertura | Calentadores Solares CDMX, Edomex y Puebla"
-  description="Instalamos calentadores solares en CDMX, Estado de México (Naucalpan, Tlalnepantla, Ecatepec) y Puebla. Revisa cobertura en tu municipio."
+<BaseLayout
+  title={title}
+  description={description}
+  activePage="zonas"
+  heroTitle="Zonas de Cobertura | Calentadores Solares en México"
+  heroIntro="Instalamos en CDMX, Estado de México, Puebla, Morelos, Hidalgo, Querétaro y más."
+  heroBadge="7 zonas de servicio"
+  heroMetrics={[
+    { valor: '7', texto: 'zonas' },
+    { valor: '80+', texto: 'municipios' },
+    { valor: '+500', texto: 'instalaciones' },
+    { valor: '80%', texto: 'ahorro en gas' },
+  ]}
+  heroPrimaryText="Cotizar por WhatsApp"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar. ¿Cubren mi zona?')}`}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/productos"
+  heroFeatures={[
+    { icon: '📍', text: 'Cobertura en centro de México' },
+    { icon: '🚀', text: 'Respuesta en 24h' },
+    { icon: '🔧', text: 'Técnicos certificados' },
+  ]}
+  showLeadCapture={true}
+  breadcrumbs={breadcrumbs}
+  structuredData={[localBusiness, breadcrumbSchema]}
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Zonas de cobertura" }
-    ]}
-  />
-
-  <section class="hero-section">
-    <div class="hero-panel">
-      <span class="section-eyebrow">Cobertura nacional</span>
-      <h1 class="hero-title">Zonas de instalación de calentadores solares</h1>
-      <p class="hero-lead">
-        Atendemos proyectos en Ciudad de México, Estado de México y Puebla. Técnicos locales
-        certificados en cada región para respuesta rápida y seguimiento continuo.
-      </p>
-    </div>
-  </section>
 
   <section class="section" aria-labelledby="zonas-title">
-    <header class="section-header">
-      <h2 id="zonas-title">Selecciona tu zona</h2>
-    </header>
+    <div class="container">
+      <header class="section-header">
+        <h2 id="zonas-title">Nuestras Zonas de Cobertura</h2>
+        <p>Selecciona tu zona para conocer la cobertura detallada, municipios atendidos y tiempos de respuesta en tu área.</p>
+      </header>
 
-    <div class="offer-grid">
-      {zonas.map((zona) => (
-        <article class="offer-card">
-          <h3>{zona.title}</h3>
-          <p>{zona.description}</p>
-          <ul class="coverage-list">
-            {zona.highlights.map((h) => <li>{h}</li>)}
-          </ul>
-          <a class="btn btn-outline" href={zona.href}>Ver cobertura</a>
-        </article>
-      ))}
+      <div class="grid-3">
+        {zonas.map((zona) => (
+          <div class="card">
+            <div class="card__body">
+              <span class="badge badge--primary">{zona.municipios}</span>
+              <h3 class="card__title">{zona.nombre}</h3>
+              <p class="card__desc">{zona.desc}</p>
+              {zona.slug ? (
+                <a href={`/zonas/${zona.slug}`} class="btn btn--primary">Ver cobertura</a>
+              ) : (
+                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hola, ¿cubren la zona de ${zona.nombre}?`)}`} class="btn btn--secondary" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="zona-no-listada-title">
-    <header class="section-header">
-      <h2 id="zona-no-listada-title">¿Tu zona no aparece aquí?</h2>
-      <p class="section-description">
-        También atendemos Querétaro, Hidalgo, Morelos y otras zonas mediante agenda comercial.
-        Escríbenos con tu ubicación y evaluamos viabilidad sin costo.
-      </p>
-    </header>
-    <div style="text-align: center; margin-top: 2rem;">
-      <Button
-        href="https://wa.me/525500000000?text=Hola,%20quiero%20saber%20si%20tienen%20cobertura%20en%20mi%20zona"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Consultar mi zona
-      </Button>
+  <section class="section section--alt" aria-labelledby="no-zona-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="no-zona-title">¿No ves tu zona?</h2>
+        <p>Estamos expandiendo nuestra cobertura constantemente. Contáctanos por WhatsApp y te confirmamos si podemos atenderte en tu ubicación.</p>
+      </header>
+      <div style="text-align:center;">
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero saber si cubren mi zona para instalar un calentador solar.')}`} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Preguntar por mi zona</a>
+      </div>
     </div>
   </section>
-</LandingLayout>
+
+</BaseLayout>
+
+<style>
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    background: var(--color-surface, #fff);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  }
+  .card__body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+  }
+  .badge {
+    display: inline-block;
+    font-size: .8rem;
+    font-weight: 600;
+    padding: .25rem .75rem;
+    border-radius: 20px;
+    width: fit-content;
+  }
+  .badge--primary {
+    background: var(--color-primary-light, #FFF7ED);
+    color: var(--color-primary, #F97316);
+  }
+</style>

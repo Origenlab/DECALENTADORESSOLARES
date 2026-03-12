@@ -6,7 +6,7 @@ author: "Equipo Técnico"
 image: "/images/blog/ahorro-real-gas-solar.svg"
 imageAlt: "Mantenimiento preventivo de calentador solar en México"
 tags: ["vida útil", "mantenimiento", "durabilidad", "calentador solar"]
-category: "mantenimiento"
+category: "Mantenimiento"
 ---
 
 Un calentador solar bien mantenido puede durar entre **15 y 20 años**. Uno sin mantenimiento suele fallar entre los 6 y 10 años. La diferencia es el mantenimiento preventivo anual, que cuesta menos de lo que piensas y multiplica el retorno de inversión.

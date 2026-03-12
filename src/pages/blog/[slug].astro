@@ -1,36 +1,29 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import ArticleLayout from "../../layouts/ArticleLayout.astro";
-
-interface Props {
-  post: CollectionEntry<"blog">;
-}
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
 
 export async function getStaticPaths() {
-  const posts: CollectionEntry<"blog">[] = await getCollection("blog");
-  const publishedPosts = posts.filter((entry: CollectionEntry<"blog">) => !entry.data.draft);
-
-  return publishedPosts.map((post: CollectionEntry<"blog">) => ({
+  const posts: CollectionEntry<'blog'>[] = await getCollection('blog');
+  return posts.filter((p: CollectionEntry<'blog'>) => !p.data.draft).map((post: CollectionEntry<'blog'>) => ({
     params: { slug: post.slug },
-    props: { post }
+    props: { post },
   }));
 }
 
-const { post } = Astro.props as Props;
+const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<ArticleLayout
+<BlogLayout
   title={post.data.title}
   description={post.data.description}
-  ogImage={post.data.image}
-  pubDate={post.data.pubDate}
+  image={post.data.image}
+  imageAlt={post.data.imageAlt}
   author={post.data.author}
-  breadcrumbItems={[
-    { label: "Inicio", href: "/" },
-    { label: "Blog", href: "/blog" },
-    { label: post.data.title }
-  ]}
+  pubDate={post.data.pubDate}
+  tags={post.data.tags}
+  category={post.data.category}
+  slug={post.slug}
 >
   <Content />
-</ArticleLayout>
+</BlogLayout>

@@ -1,112 +1,268 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import Button from "../../components/ui/Button.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildLocalBusinessSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { WHATSAPP_NUMBER, SITE_URL, SITE_NAME, GEO } from '../../lib/config';
+
+const title = 'Calentadores Solares en CDMX | Instalación Profesional en 16 Alcaldías';
+const description = 'Instalación profesional de calentadores solares en toda la Ciudad de México. Cobertura en las 16 alcaldías, respuesta en 24h, servicio mismo día. Cotiza ahora.';
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Zonas', url: '/zonas' },
+  { name: 'CDMX', url: '/zonas/cdmx' },
+];
 
 const alcaldias = [
-  "Álvaro Obregón", "Azcapotzalco", "Benito Juárez", "Coyoacán",
-  "Cuajimalpa", "Cuauhtémoc", "Gustavo A. Madero", "Iztacalco",
-  "Iztapalapa", "La Magdalena Contreras", "Miguel Hidalgo", "Milpa Alta",
-  "Tláhuac", "Tlalpan", "Venustiano Carranza", "Xochimilco"
+  'Álvaro Obregón', 'Azcapotzalco', 'Benito Juárez', 'Coyoacán',
+  'Cuajimalpa', 'Cuauhtémoc', 'Gustavo A. Madero', 'Iztacalco',
+  'Iztapalapa', 'La Magdalena Contreras', 'Miguel Hidalgo', 'Milpa Alta',
+  'Tláhuac', 'Tlalpan', 'Venustiano Carranza', 'Xochimilco',
 ];
+
+const faqs = [
+  {
+    pregunta: '¿Cubren todas las alcaldías de la Ciudad de México?',
+    respuesta: 'Sí, tenemos cobertura en las 16 alcaldías de CDMX. Contamos con técnicos asignados por zona para garantizar tiempos de respuesta rápidos en toda la ciudad.',
+  },
+  {
+    pregunta: '¿Cuál es el tiempo de respuesta para instalación en CDMX?',
+    respuesta: 'Nuestro tiempo de respuesta promedio en CDMX es de 24 horas para cotización y 1-3 días hábiles para instalación, dependiendo de la disponibilidad y el tipo de proyecto.',
+  },
+  {
+    pregunta: '¿Cuánto cuesta instalar un calentador solar en CDMX?',
+    respuesta: 'El costo varía según la capacidad y tipo de sistema. Un calentador solar residencial para 3-4 personas inicia desde $8,500 MXN instalado. Solicita tu cotización personalizada sin compromiso.',
+  },
+  {
+    pregunta: '¿Cuáles son las mejores alcaldías para instalar calentadores solares?',
+    respuesta: 'Toda la CDMX tiene excelente irradiación solar (5.5-6.5 horas pico diarias). Las alcaldías con mayor demanda son Coyoacán, Tlalpan, Benito Juárez y Miguel Hidalgo por su densidad residencial y azoteas disponibles.',
+  },
+  {
+    pregunta: '¿Necesito permisos para instalar un calentador solar en CDMX?',
+    respuesta: 'Para instalaciones residenciales estándar no se requieren permisos especiales en CDMX. En proyectos comerciales o de gran escala, nosotros nos encargamos de la gestión de permisos necesarios.',
+  },
+];
+
+const localBusiness = {
+  ...buildLocalBusinessSchema(),
+  areaServed: [
+    { '@type': 'City', name: 'Ciudad de México' },
+    ...alcaldias.map(a => ({ '@type': 'AdministrativeArea', name: a })),
+  ],
+};
+const faqSchema = buildFAQSchema(faqs);
+const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 ---
 
-<LandingLayout
-  title="Instalación de Calentadores Solares en CDMX | Todas las Alcaldías"
-  description="Instalamos calentadores solares en todas las alcaldías de la Ciudad de México. Técnicos certificados, servicio mismo día, garantía de mano de obra. Cotiza ahora."
+<BaseLayout
+  title={title}
+  description={description}
+  activePage="zonas"
+  heroTitle="Calentadores Solares en CDMX | Instalación Profesional"
+  heroIntro="Instalación, mantenimiento y asesoría en calentadores solares para toda la Ciudad de México. Técnicos certificados en las 16 alcaldías con respuesta en menos de 24 horas."
+  heroBadge="16 alcaldías"
+  heroMetrics={[
+    { valor: '16', texto: 'alcaldías' },
+    { valor: '24h', texto: 'respuesta' },
+    { valor: 'Mismo día', texto: 'servicio' },
+    { valor: '+200', texto: 'proyectos CDMX' },
+  ]}
+  heroPrimaryText="Cotizar en CDMX"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en CDMX.')}`}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/productos"
+  heroFeatures={[
+    { icon: '🏙️', text: 'Cobertura total en CDMX' },
+    { icon: '⚡', text: 'Servicio mismo día disponible' },
+    { icon: '🔧', text: 'Técnicos certificados NOM' },
+  ]}
+  showLeadCapture={true}
+  breadcrumbs={breadcrumbs}
+  structuredData={[localBusiness, faqSchema, breadcrumbSchema]}
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Zonas", href: "/zonas" },
-      { label: "Ciudad de México" }
-    ]}
-  />
 
-  <section class="hero-section">
-    <div class="hero-layout">
-      <div class="hero-panel">
-        <span class="section-eyebrow">Cobertura completa</span>
-        <h1 class="hero-title">Instalación de calentadores solares en Ciudad de México</h1>
-        <p class="hero-lead">
-          Atendemos las 16 alcaldías de la Ciudad de México con servicio profesional de instalación,
-          mantenimiento y conversión de gas a solar. Técnicos certificados, respuesta en menos de
-          24 horas y garantía de mano de obra en cada proyecto.
-        </p>
-        <div class="hero-cta-row">
-          <Button
-            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20calentador%20solar%20en%20CDMX"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Cotizar en CDMX
-          </Button>
-          <Button href="/servicios/instalacion-profesional" variant="outline">Ver servicio de instalación</Button>
+  <!-- Alcaldías con cobertura -->
+  <section class="section" aria-labelledby="alcaldias-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="alcaldias-title">Cobertura en las 16 Alcaldías de CDMX</h2>
+        <p>Instalamos calentadores solares en toda la Ciudad de México. Si tu colonia está en alguna de estas demarcaciones, un técnico asignado en tu zona te atiende.</p>
+      </header>
+
+      <div class="grid-4">
+        {alcaldias.map((alcaldia) => (
+          <div class="card">
+            <div class="card__body">
+              <h3 class="card__title">{alcaldia}</h3>
+              <p class="card__desc">Instalación y mantenimiento de calentadores solares en {alcaldia}, CDMX.</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Viabilidad solar -->
+  <section class="section section--alt" aria-labelledby="solar-cdmx-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="solar-cdmx-title">¿Por qué CDMX es ideal para calentadores solares?</h2>
+        <p>La Ciudad de México tiene condiciones excepcionales para el aprovechamiento de energía solar térmica.</p>
+      </header>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Alta irradiación solar</h3>
+            <p class="card__desc">La Ciudad de México recibe en promedio 5.5 a 6.5 horas de sol pico diarias, suficiente para calentar agua durante todo el año, incluso en temporada de lluvias con sistema de respaldo.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Precio del gas en alza</h3>
+            <p class="card__desc">El gas LP y natural en CDMX han incrementado su precio más del 40% en los últimos 5 años. Un calentador solar te protege de estas alzas con un ahorro de hasta 80% en tu consumo de gas.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Apoyos FIDE disponibles</h3>
+            <p class="card__desc">Programas FIDE y SENER tienen subsidios activos para instalación de calentadores solares en hogares de CDMX que cumplen con la norma NOM-027-ENER/SCFI-2018.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Azoteas disponibles</h3>
+            <p class="card__desc">La gran mayoría de casas y edificios en CDMX tienen azotea con orientación sur disponible, la posición óptima para captar la mayor cantidad de energía solar durante todo el año.</p>
+          </div>
         </div>
       </div>
-
-      <aside class="hero-aside">
-        <h2>Servicios en CDMX</h2>
-        <ul class="trust-list">
-          <li>Instalación residencial y comercial.</li>
-          <li>Mantenimiento preventivo anual.</li>
-          <li>Conversión de gas a solar.</li>
-          <li>Asesoría técnica sin costo.</li>
-        </ul>
-      </aside>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="alcaldias-title">
-    <header class="section-header">
-      <h2 id="alcaldias-title">Alcaldías con cobertura de servicio</h2>
-      <p class="section-description">
-        Instalamos calentadores solares en las 16 alcaldías de CDMX. Si tu colonia está en alguna
-        de estas demarcaciones, te atendemos con técnico asignado en tu zona.
-      </p>
-    </header>
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-cdmx-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="faq-cdmx-title">Preguntas Frecuentes — Calentadores Solares en CDMX</h2>
+      </header>
 
-    <div class="coverage-grid">
-      <article class="coverage-card">
-        <h3>Cobertura inmediata</h3>
-        <ul class="coverage-list">
-          {alcaldias.slice(0, 8).map((a) => <li>{a}</li>)}
-        </ul>
-      </article>
-      <article class="coverage-card">
-        <h3>Toda la ciudad</h3>
-        <ul class="coverage-list">
-          {alcaldias.slice(8).map((a) => <li>{a}</li>)}
-        </ul>
-      </article>
+      <div class="faq">
+        {faqs.map((faq) => (
+          <div class="faq__item">
+            <button class="faq__question">
+              <span>{faq.pregunta}</span>
+              <span class="faq__icon">+</span>
+            </button>
+            <div class="faq__answer">
+              <p>{faq.respuesta}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="solar-cdmx-title">
-    <header class="section-header">
-      <h2 id="solar-cdmx-title">¿Por qué CDMX es ideal para calentadores solares?</h2>
-    </header>
-
-    <div class="offer-grid">
-      <article class="offer-card">
-        <h3>Alta irradiación solar</h3>
-        <p>La Ciudad de México recibe en promedio 5.5 a 6.5 horas de sol pico diarias, suficiente para calentar agua incluso en temporada de lluvias.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Precio del gas en alza</h3>
-        <p>El gas LP y natural en CDMX han incrementado su precio más del 40% en los últimos 5 años. El solar te protege de estas alzas.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Apoyos disponibles</h3>
-        <p>Programas FIDE y SENER tienen subsidios activos para instalación de calentadores solares en hogares de CDMX que cumplen NOM-021-ENER-2017.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Densidad de azoteas</h3>
-        <p>La gran mayoría de casas y edificios en CDMX tienen azotea disponible con orientación sur, la óptima para captar la mayor cantidad de energía solar.</p>
-      </article>
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="cta-cdmx-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="cta-cdmx-title">¿Listo para ahorrar en gas en CDMX?</h2>
+        <p>Solicita tu cotización gratuita y sin compromiso. Te respondemos en menos de 24 horas.</p>
+      </header>
+      <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en CDMX.')}`} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
+        <a href="/productos" class="btn btn--secondary">Ver productos</a>
+      </div>
     </div>
   </section>
 
-  <LeadCapture source="zona-cdmx" />
-</LandingLayout>
+</BaseLayout>
+
+<style>
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    background: var(--color-surface, #fff);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  }
+  .card__body {
+    padding: 1.25rem;
+  }
+  .card__title {
+    font-size: 1rem;
+    margin-bottom: .5rem;
+    color: var(--color-heading, #1a1a1a);
+  }
+  .card__desc {
+    font-size: .9rem;
+    color: var(--color-text-muted, #666);
+    line-height: 1.5;
+  }
+  .faq {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--color-border, #e5e7eb);
+  }
+  .faq__question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    background: none;
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-heading, #1a1a1a);
+    cursor: pointer;
+    text-align: left;
+    gap: 1rem;
+  }
+  .faq__icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--color-primary, #F97316);
+    flex-shrink: 0;
+  }
+  .faq__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .faq__answer p {
+    padding: 0 0 1.25rem;
+    color: var(--color-text-muted, #666);
+    line-height: 1.6;
+  }
+  .faq__item.active .faq__answer {
+    max-height: 300px;
+  }
+  .faq__item.active .faq__icon {
+    transform: rotate(45deg);
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      item?.classList.toggle('active');
+    });
+  });
+</script>

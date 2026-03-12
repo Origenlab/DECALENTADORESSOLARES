@@ -1,0 +1,221 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildLocalBusinessSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { WHATSAPP_NUMBER, SITE_URL, SITE_NAME, GEO } from '../../lib/config';
+
+const title = 'Calentadores Solares en Morelos | Instalación Profesional';
+const description = 'Instalación profesional de calentadores solares en Morelos: Cuernavaca, Jiutepec, Temixco, Cuautla, Yautepec y Xochitepec. Clima ideal para energía solar. Hasta 85% de ahorro en gas.';
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Zonas', url: '/zonas' },
+  { name: 'Morelos', url: '/zonas/morelos' },
+];
+
+const municipios = [
+  'Cuernavaca', 'Jiutepec', 'Temixco',
+  'Cuautla', 'Yautepec', 'Xochitepec',
+];
+
+const faqs = [
+  {
+    pregunta: '¿Qué ventaja tiene el clima de Morelos para calentadores solares?',
+    respuesta: 'Morelos es conocido como "la tierra de la eterna primavera". Su clima cálido y soleado durante la mayor parte del año lo convierte en uno de los mejores estados de México para calentadores solares, con rendimiento excepcional y ahorro de hasta 85% en gas.',
+  },
+  {
+    pregunta: '¿Qué municipios de Morelos cubren?',
+    respuesta: 'Cubrimos Cuernavaca, Jiutepec, Temixco, Cuautla, Yautepec y Xochitepec. Si tu municipio no aparece en la lista, contáctanos por WhatsApp para confirmar cobertura en tu zona.',
+  },
+  {
+    pregunta: '¿Cuánto cuesta un calentador solar en Morelos?',
+    respuesta: 'Los precios de calentadores solares en Morelos inician desde $8,500 MXN instalados para sistemas residenciales de 3-4 personas. Solicita tu cotización personalizada sin compromiso por WhatsApp.',
+  },
+  {
+    pregunta: '¿Cada cuánto se da mantenimiento al calentador solar en Morelos?',
+    respuesta: 'En Morelos recomendamos mantenimiento preventivo cada 12-18 meses. Gracias al clima cálido y la menor incidencia de heladas, los sistemas tienen una vida útil más prolongada que en zonas de clima frío.',
+  },
+  {
+    pregunta: '¿El calentador solar funciona en temporada de lluvias en Morelos?',
+    respuesta: 'Sí. Incluso en temporada de lluvias, Morelos mantiene buena irradiación solar. En días nublados consecutivos, el sistema de respaldo de gas se activa automáticamente para garantizar agua caliente sin interrupciones.',
+  },
+];
+
+const localBusiness = {
+  ...buildLocalBusinessSchema(),
+  areaServed: [
+    { '@type': 'State', name: 'Morelos' },
+    ...municipios.map(m => ({ '@type': 'City', name: m })),
+  ],
+};
+const faqSchema = buildFAQSchema(faqs);
+const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  activePage="zonas"
+  heroTitle="Calentadores Solares en Morelos | Instalación Profesional"
+  heroIntro="Morelos tiene uno de los mejores climas para calentadores solares en todo México. Instalación profesional en Cuernavaca, Jiutepec, Temixco, Cuautla, Yautepec y Xochitepec con técnicos certificados."
+  heroBadge="Clima ideal para solar"
+  heroMetrics={[
+    { valor: 'Clima ideal', texto: 'para solar' },
+    { valor: '24-48h', texto: 'respuesta' },
+    { valor: '+40', texto: 'proyectos' },
+    { valor: '85%', texto: 'ahorro' },
+  ]}
+  heroPrimaryText="Cotizar en Morelos"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Morelos.')}`}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/productos"
+  heroFeatures={[
+    { icon: '☀️', text: 'Clima cálido todo el año' },
+    { icon: '💰', text: 'Hasta 85% ahorro en gas' },
+    { icon: '🔧', text: 'Técnicos certificados' },
+  ]}
+  showLeadCapture={true}
+  breadcrumbs={breadcrumbs}
+  structuredData={[localBusiness, faqSchema, breadcrumbSchema]}
+>
+
+  <!-- Áreas de cobertura -->
+  <section class="section" aria-labelledby="areas-morelos-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="areas-morelos-title">Municipios con Cobertura en Morelos</h2>
+        <p>Instalamos calentadores solares en los principales municipios de Morelos con técnicos locales certificados y respuesta en 24-48 horas.</p>
+      </header>
+
+      <div class="grid-3">
+        {municipios.map((municipio) => (
+          <div class="card">
+            <div class="card__body">
+              <h3 class="card__title">{municipio}</h3>
+              <p class="card__desc">Venta, instalación y mantenimiento de calentadores solares en {municipio}, Morelos. Aprovecha el clima ideal del estado.</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Viabilidad solar Morelos -->
+  <section class="section section--alt" aria-labelledby="solar-morelos-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="solar-morelos-title">¿Por qué Morelos es el estado ideal para calentadores solares?</h2>
+        <p>El estado de Morelos cuenta con condiciones climáticas privilegiadas que maximizan el rendimiento de los calentadores solares y el ahorro en gas.</p>
+      </header>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Clima cálido todo el año</h3>
+            <p class="card__desc">Conocido como "la tierra de la eterna primavera", Morelos tiene temperaturas templadas a cálidas durante todo el año. Esto reduce la demanda energética para calentar agua y maximiza el rendimiento del calentador solar.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Alta irradiación solar</h3>
+            <p class="card__desc">Morelos recibe entre 5.5 y 6.8 horas de sol pico diarias en promedio anual. Esta irradiación es suficiente para cubrir más del 85% de las necesidades de agua caliente de un hogar promedio.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Ahorro superior al promedio</h3>
+            <p class="card__desc">Gracias al clima favorable, los calentadores solares en Morelos alcanzan hasta 85% de ahorro en gas, superior al promedio nacional. El retorno de inversión promedio es de solo 12-18 meses.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Menor desgaste de equipos</h3>
+            <p class="card__desc">La ausencia de heladas y el clima templado reducen el desgaste de los equipos. Los calentadores solares en Morelos requieren mantenimiento menos frecuente y disfrutan de mayor vida útil.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-morelos-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="faq-morelos-title">Preguntas Frecuentes — Calentadores Solares en Morelos</h2>
+      </header>
+
+      <div class="faq">
+        {faqs.map((faq) => (
+          <div class="faq__item">
+            <button class="faq__question">
+              <span>{faq.pregunta}</span>
+              <span class="faq__icon">+</span>
+            </button>
+            <div class="faq__answer">
+              <p>{faq.respuesta}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="cta-morelos-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="cta-morelos-title">Aprovecha el sol de Morelos</h2>
+        <p>Cotización gratuita y sin compromiso. El clima privilegiado de Morelos hace que tu calentador solar rinda al máximo.</p>
+      </header>
+      <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Morelos.')}`} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
+        <a href="/productos" class="btn btn--secondary">Ver productos</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    background: var(--color-surface, #fff);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+  .card__body { padding: 1.25rem; }
+  .card__title { font-size: 1rem; margin-bottom: .5rem; }
+  .card__desc { font-size: .9rem; color: var(--color-text-muted, #666); line-height: 1.5; }
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq__item { border-bottom: 1px solid var(--color-border, #e5e7eb); }
+  .faq__question {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 0; background: none; border: none; font-size: 1.05rem;
+    font-weight: 600; color: var(--color-heading, #1a1a1a); cursor: pointer; text-align: left; gap: 1rem;
+  }
+  .faq__icon { font-size: 1.5rem; font-weight: 300; color: var(--color-primary, #F97316); flex-shrink: 0; }
+  .faq__answer { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+  .faq__answer p { padding: 0 0 1.25rem; color: var(--color-text-muted, #666); line-height: 1.6; }
+  .faq__item.active .faq__answer { max-height: 300px; }
+  .faq__item.active .faq__icon { transform: rotate(45deg); }
+</style>
+
+<script>
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      item?.classList.toggle('active');
+    });
+  });
+</script>

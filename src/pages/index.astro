@@ -1,325 +1,416 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/sections/Hero.astro";
-import Features from "../components/sections/Features.astro";
-import ProductGrid from "../components/sections/ProductGrid.astro";
-import Testimonials from "../components/sections/Testimonials.astro";
-import CallToAction from "../components/sections/CallToAction.astro";
-import FAQSection from "../components/sections/FAQSection.astro";
-import LeadCapture from "../components/sections/LeadCapture.astro";
-import SEOContentBlock from "../components/sections/SEOContentBlock.astro";
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import LeadCapture from '../components/LeadCapture.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { buildOrganizationSchema, buildLocalBusinessSchema, buildWebSiteSchema, buildFAQSchema } from '../lib/seo';
+import { PHONE_DISPLAY } from '../lib/config';
 
-const products: CollectionEntry<"productos">[] = (await getCollection("productos")).sort(
-  (a: CollectionEntry<"productos">, b: CollectionEntry<"productos">) => a.data.order - b.data.order
-);
-const featuredProducts = products.filter((item: CollectionEntry<"productos">) => item.data.featured);
-
-const services = [
-  {
-    title: "Instalacion profesional",
-    description:
-      "Proyecto llave en mano con montaje, pruebas y puesta en marcha para asegurar agua caliente estable.",
-    href: "/servicios/instalacion-profesional"
-  },
-  {
-    title: "Mantenimiento preventivo",
-    description:
-      "Plan de visitas para sostener eficiencia termica, prevenir fallas y prolongar la vida util del sistema.",
-    href: "/servicios/mantenimiento-preventivo"
-  },
-  {
-    title: "Asesoria tecnica",
-    description:
-      "Dimensionamiento y comparativa de opciones para evitar sobreinversion o capacidad insuficiente.",
-    href: "/servicios/asesoria-tecnica"
-  },
-  {
-    title: "Proyectos comerciales",
-    description:
-      "Implementacion para hoteles, gimnasios, restaurantes y procesos de alta demanda de agua caliente.",
-    href: "/servicios/proyectos-comerciales"
-  }
-];
+const allPosts = (await getCollection('blog')).filter((p: CollectionEntry<'blog'>) => !p.data.draft);
+const recentPosts = allPosts
+  .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3);
 
 const faqItems = [
   {
-    question: "Cuanto puedo ahorrar con un calentador solar?",
-    answer:
-      "En la mayoria de los casos residenciales el ahorro anual puede estar entre 60% y 80% del gasto de gas destinado a agua caliente, dependiendo de consumo, clima y calidad de instalacion."
+    pregunta: '¿Cuánto puedo ahorrar con un calentador solar?',
+    respuesta: 'En la mayoría de los casos residenciales el ahorro es entre 60% y 80% del gasto de gas destinado a agua caliente. Depende del consumo, el clima y la calidad de la instalación. En zonas soleadas como CDMX el resultado es excelente durante todo el año.',
   },
   {
-    question: "Como se calcula la capacidad correcta?",
-    answer:
-      "Se considera numero de usuarios, regaderas simultaneas, horarios de uso y tipo de inmueble. Por eso recomendamos una evaluacion tecnica antes de comprar."
+    pregunta: '¿Funciona el calentador solar en días nublados o en invierno?',
+    respuesta: 'Sí. Los calentadores con tubos evacuados (tecnología al vacío) funcionan incluso con cielos nublados y temperaturas bajas porque absorben radiación difusa. Solo los días con lluvia intensa reducen significativamente el rendimiento, y en esos casos el sistema retiene el agua caliente acumulada.',
   },
   {
-    question: "Que diferencia hay entre sistema presurizado y de tubos?",
-    answer:
-      "El sistema presurizado ofrece mejor comportamiento para demandas simultaneas y redes exigentes; el sistema de tubos suele ser una alternativa competitiva para proyectos residenciales estandar."
+    pregunta: '¿Cuántas personas puede abastecer un calentador solar?',
+    respuesta: 'Depende del modelo: uno de 10 tubos (115 L) abastece 2-3 personas; uno de 20 tubos (200+ L) es ideal para 5-6 personas. Para familias grandes o negocios recomendamos hacer un cálculo personalizado —lo hacemos gratis.',
   },
   {
-    question: "Incluyen instalacion y garantia?",
-    answer:
-      "Si. Nuestros proyectos incluyen instalacion profesional, puesta en marcha y garantia sobre mano de obra. La garantia del equipo depende de modelo y fabricante."
+    pregunta: '¿Cuánto tarda la instalación de un calentador solar?',
+    respuesta: 'La instalación residencial estándar dura entre 3 y 5 horas el mismo día. Incluye montaje en techo, conexión al sistema hidráulico existente, pruebas de funcionamiento y explicación de uso al cliente.',
   },
   {
-    question: "Atienden fuera de CDMX?",
-    answer:
-      "Si. Coordinamos proyectos en CDMX, Estado de Mexico, Queretaro, Puebla, Hidalgo, Morelos y otras zonas mediante agenda comercial y tecnica."
+    pregunta: '¿Qué mantenimiento requiere un calentador solar?',
+    respuesta: 'El mantenimiento es mínimo: revisar conexiones y anodos de magnesio cada 2-3 años, y limpiar el tanque cada 3-5 años según la calidad del agua local. Ofrecemos planes de mantenimiento preventivo para garantizar la vida útil máxima del equipo (15-20 años).',
   },
   {
-    question: "Que mantenimiento requiere el sistema?",
-    answer:
-      "Se recomienda mantenimiento cada 6 a 12 meses para limpieza, revision de conexiones, valvulas y estado general del sistema, evitando perdida de rendimiento."
+    pregunta: '¿En qué zonas de México instalan calentadores solares?',
+    respuesta: 'Instalamos en toda la CDMX, Estado de México, Morelos, Hidalgo, Puebla, Querétaro y Tlaxcala. Para proyectos de mayor envergadura coordinamos envío e instalación a toda la República Mexicana.',
   },
-  {
-    question: "En cuanto tiempo se instala?",
-    answer:
-      "Un proyecto residencial promedio suele instalarse en 1 dia, mientras que proyectos comerciales pueden requerir fases segun alcance y complejidad."
-  },
-  {
-    question: "Puedo cotizar por WhatsApp?",
-    answer:
-      "Si. Puedes enviar datos de tu consumo y ciudad para recibir una propuesta inicial en menos de 24 horas."
-  }
 ];
 
-const homeSchema = [
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "De Calentadores Solares",
-    url: "https://decalentadoressolares.com"
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "De Calentadores Solares",
-    url: "https://decalentadoressolares.com",
-    telephone: "+52-55-1234-5678",
-    areaServed: "MX",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Ciudad de Mexico",
-      addressRegion: "CDMX",
-      addressCountry: "MX"
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer
-      }
-    }))
-  }
-];
-
-const seoParagraphs = [
-  "En De Calentadores Solares trabajamos con un enfoque de ingenieria comercial: primero entendemos tu patron de consumo de agua caliente, despues proponemos la capacidad correcta y finalmente ejecutamos instalacion con criterios tecnicos que reducen riesgos de bajo rendimiento. Esta metodologia evita los errores mas comunes del mercado, como vender equipos sobredimensionados o instalaciones sin puesta en marcha real.",
-  "Nuestro servicio atiende tanto clientes residenciales como comerciales en Mexico. En casas y departamentos priorizamos equilibrio entre inversion y ahorro; en negocios como hoteles, gimnasios, restaurantes y desarrollos multifamiliares estructuramos soluciones escalables con mantenimiento programado. Si necesitas comparar opciones, revisa nuestra pagina de servicios y el catalogo de productos para identificar la configuracion mas conveniente.",
-  "A nivel SEO y contenido util, nos enfocamos en resolver las preguntas reales de compra: cuanto cuesta un calentador solar instalado, cuantos litros necesito por numero de personas, que diferencia existe entre equipos de tubos y sistemas presurizados, y cada cuanto se debe dar mantenimiento. Por eso nuestro blog tecnico esta orientado a decision de compra y no solo a informacion superficial.",
-  "Si buscas cotizar calentadores solares en CDMX, Estado de Mexico o zonas cercanas, puedes enviarnos tu informacion por WhatsApp y recibir una propuesta base con capacidad sugerida, rango de inversion y recomendaciones de instalacion. Tambien podemos auditar cotizaciones de terceros para validar si realmente cubren tu demanda diaria de agua caliente."
+const structuredData = [
+  buildOrganizationSchema(),
+  buildLocalBusinessSchema(),
+  buildWebSiteSchema(),
+  buildFAQSchema(faqItems),
 ];
 ---
 
 <BaseLayout
-  title="Calentadores Solares en Mexico | Cotizacion, Instalacion y Mantenimiento"
-  description="Calentadores solares residenciales y comerciales en Mexico. Cotiza instalacion profesional, mantenimiento y asesoria tecnica para ahorrar gas de forma real."
-  structuredData={homeSchema}
+  title="Calentadores Solares CDMX y México | De Calentadores Solares"
+  description="Venta e instalación de calentadores solares en CDMX y México. Residencial, comercial e industrial. Más de 500 proyectos. Ahorra hasta 80% en gas."
+  activePage="inicio"
+  structuredData={structuredData}
+  showHero={true}
+  heroTitle="Calentadores Solares en CDMX y México | Ahorra hasta 80% en Gas"
+  heroIntro="Instalamos calentadores solares residenciales y comerciales en CDMX, Edomex y toda la República. Más de 500 proyectos exitosos. Garantía en equipos e instalación."
+  heroBadge="Instaladores certificados"
+  heroMetrics={[
+    { valor: '+500', texto: 'Instalaciones' },
+    { valor: '80%', texto: 'Ahorro en gas' },
+    { valor: '15+', texto: 'Años de experiencia' },
+    { valor: '100%', texto: 'Garantía' },
+  ]}
+  heroPrimaryText="Solicitar Cotización"
+  heroPrimaryLink="#cotizar"
+  heroSecondaryText="Ver Calentadores"
+  heroSecondaryLink="#tipos"
+  heroFeatures={[
+    { icon: '☀️', text: 'Energía solar gratis' },
+    { icon: '💧', text: 'Agua caliente 24/7' },
+    { icon: '🌿', text: 'Reduce CO₂' },
+    { icon: '💰', text: 'ROI en 2-3 años' },
+    { icon: '🔧', text: 'Instalación profesional' },
+    { icon: '📋', text: 'Asesoría gratuita' },
+  ]}
 >
-  <Hero />
 
-  <section class="section-tight" aria-labelledby="market-title">
-    <header class="section-header">
-      <span class="section-eyebrow">Para quien trabajamos</span>
-      <h2 id="market-title">Soluciones por tipo de proyecto</h2>
-      <p class="section-description">
-        Disenamos propuestas diferentes para cada necesidad: hogar, condominio y negocio con alta
-        demanda de agua caliente.
-      </p>
-    </header>
+  <!-- BENEFICIOS STRIP -->
+  <div class="benefits-strip" aria-label="Beneficios principales">
+    <div class="container">
+      <div class="benefits-strip__grid">
+        <div class="benefit-item">
+          <span class="benefit-item__icon" aria-hidden="true">⚡</span>
+          <div>
+            <strong>Ahorro del 80%</strong>
+            <span>en consumo de gas</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-item__icon" aria-hidden="true">🔧</span>
+          <div>
+            <strong>Instalación ese día</strong>
+            <span>en 3 a 5 horas</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-item__icon" aria-hidden="true">🛡️</span>
+          <div>
+            <strong>Garantía total</strong>
+            <span>en equipo y mano de obra</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-item__icon" aria-hidden="true">💳</span>
+          <div>
+            <strong>Financiamiento</strong>
+            <span>hasta 12 meses sin intereses</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <div class="market-grid">
-      <article class="market-card">
-        <p class="mini-title">Residencial</p>
-        <h3>Casas y departamentos</h3>
-        <p>
-          Configuraciones de 150 a 300 litros para 2 a 8 usuarios con enfoque en ahorro y retorno
-          de inversion en corto plazo.
-        </p>
-      </article>
-      <article class="market-card">
-        <p class="mini-title">Condominios</p>
-        <h3>Demanda compartida</h3>
-        <p>
-          Esquemas centralizados o por unidad para mejorar cobertura y reducir costos de operacion
-          colectiva.
-        </p>
-      </article>
-      <article class="market-card">
-        <p class="mini-title">Comercial</p>
-        <h3>Hoteles, gimnasios y restaurantes</h3>
-        <p>
-          Proyectos de mayor capacidad con estrategia de continuidad operativa y plan de
-          mantenimiento para alta exigencia.
-        </p>
-      </article>
+  <!-- TIPOS DE CALENTADORES -->
+  <section class="section section--alt" id="tipos" aria-labelledby="tipos-title">
+    <div class="container">
+      <SectionHeader
+        titulo="Calentadores Solares: Residencial, Comercial e Industrial"
+        subtitulo="Tenemos el modelo ideal para cada necesidad. Desde departamentos hasta hoteles y plantas industriales."
+        enlaceTexto="Ver catálogo completo"
+        enlaceUrl="/productos"
+        idTitulo="tipos-title"
+        parrafo1="Nuestro catálogo integra la tecnología más avanzada en calentadores solares térmicos: sistemas de tubos evacuados al vacío de alta eficiencia, calentadores presurizados para redes exigentes, y soluciones industriales de alto volumen para hoteles, gimnasios y procesos con demanda continua."
+        parrafo2="Cada equipo se selecciona según el consumo real, el número de usuarios, la presión de la red y las horas pico de uso. Te asesoramos sin costo para que no compres de más ni te quedes corto."
+      />
+      <div class="grid-3 tipos-grid">
+        <CategoryCard
+          titulo="Residencial"
+          subtitulo="Para casas y departamentos de 2 a 6 personas"
+          enlace="/calentadores/residencial"
+          imagen="/img/categorias/calentador-solar-residencial-casa-cdmx.avif"
+          icono="🏠"
+          tipos={[
+            { nombre: '10 tubos — 2 a 3 personas', enlace: '/productos/calentador-solar-10-tubos-115-litros' },
+            { nombre: '15 tubos — 3 a 4 personas', enlace: '/productos/calentador-solar-15-tubos' },
+            { nombre: '20 tubos — 5 a 6 personas', enlace: '/productos/calentador-solar-20-tubos' },
+            { nombre: 'Ver todos los residenciales', enlace: '/calentadores/residencial' },
+          ]}
+        />
+        <CategoryCard
+          titulo="Presurizado"
+          subtitulo="Mayor rendimiento para redes de alta demanda"
+          enlace="/calentadores/presurizado"
+          imagen="/img/categorias/calentador-solar-presurizado-alta-presion.avif"
+          icono="💧"
+          tipos={[
+            { nombre: 'Presurizado 150 L', enlace: '/calentadores/presurizado' },
+            { nombre: 'Presurizado 200 L', enlace: '/calentadores/presurizado' },
+            { nombre: 'Presurizado 300 L', enlace: '/calentadores/presurizado' },
+            { nombre: 'Ver todos los presurizados', enlace: '/calentadores/presurizado' },
+          ]}
+        />
+        <CategoryCard
+          titulo="Comercial e Industrial"
+          subtitulo="Para hoteles, gimnasios, restaurantes y plantas"
+          enlace="/calentadores/comercial"
+          imagen="/img/categorias/calentador-solar-comercial-hotel-mexico.avif"
+          icono="🏭"
+          tipos={[
+            { nombre: 'Hotel y posada', enlace: '/calentadores/comercial' },
+            { nombre: 'Gimnasio y spa', enlace: '/calentadores/comercial' },
+            { nombre: 'Industrial de alto volumen', enlace: '/calentadores/industrial' },
+            { nombre: 'Ver proyectos comerciales', enlace: '/servicios/proyectos-comerciales' },
+          ]}
+        />
+      </div>
     </div>
   </section>
 
-  <Features />
-
-  <section class="section" aria-labelledby="capacity-title">
-    <header class="section-header">
-      <span class="section-eyebrow">Guia de compra</span>
-      <h2 id="capacity-title">Capacidad sugerida por numero de personas</h2>
-      <p class="section-description">
-        Esta tabla es orientativa. La recomendacion final se valida con diagnostico tecnico para no
-        sobredimensionar ni quedarte corto en cobertura.
-      </p>
-    </header>
-
-    <div class="capacity-table-wrap">
-      <table class="capacity-table">
-        <thead>
-          <tr>
-            <th>Usuarios</th>
-            <th>Capacidad sugerida</th>
-            <th>Tipo de uso</th>
-            <th>Rango de inversion estimado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2 a 3 personas</td>
-            <td>120 a 150 litros</td>
-            <td>Departamento o casa pequena</td>
-            <td>$14,000 a $20,000 MXN</td>
-          </tr>
-          <tr>
-            <td>4 a 5 personas</td>
-            <td>180 a 220 litros</td>
-            <td>Casa familiar media</td>
-            <td>$18,000 a $29,000 MXN</td>
-          </tr>
-          <tr>
-            <td>6 a 8 personas</td>
-            <td>250 a 320 litros</td>
-            <td>Casa grande o multifamiliar</td>
-            <td>$27,000 a $42,000 MXN</td>
-          </tr>
-          <tr>
-            <td>Alta demanda</td>
-            <td>Proyecto especial</td>
-            <td>Comercial o procesos continuos</td>
-            <td>Cotizacion por ingenieria</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- ¿POR QUÉ SOLAR? -->
+  <section class="section" aria-labelledby="porque-title">
+    <div class="container">
+      <SectionHeader
+        titulo="¿Por qué instalar un calentador solar?"
+        subtitulo="Tres razones que cambian la ecuación energética de tu hogar o negocio para siempre"
+        idTitulo="porque-title"
+      />
+      <div class="grid-3 porque-grid">
+        <div class="porque-card">
+          <div class="porque-card__icon" aria-hidden="true">💰</div>
+          <h3 class="porque-card__title">Ahorro económico real</h3>
+          <p class="porque-card__desc">El calentador solar genera agua caliente gratis con la energía del sol. El costo del gas se reduce entre 60% y 80% desde el primer mes. El equipo se paga solo en 2 a 3 años y dura 15 o más.</p>
+          <div class="porque-card__stat">
+            <strong>$300–$600</strong>
+            <span>pesos ahorrados al mes en promedio</span>
+          </div>
+        </div>
+        <div class="porque-card">
+          <div class="porque-card__icon" aria-hidden="true">🌿</div>
+          <h3 class="porque-card__title">Energía limpia y ecológica</h3>
+          <p class="porque-card__desc">Cada calentador solar evita la quema de aproximadamente 600 kg de CO₂ al año. Es energía 100% renovable sin emisiones, sin ruido y sin contaminación. La elección correcta para un futuro sostenible.</p>
+          <div class="porque-card__stat">
+            <strong>600 kg CO₂</strong>
+            <span>evitados por año por hogar</span>
+          </div>
+        </div>
+        <div class="porque-card">
+          <div class="porque-card__icon" aria-hidden="true">🔋</div>
+          <h3 class="porque-card__title">Independencia energética</h3>
+          <p class="porque-card__desc">Deja de depender del precio del gas, que sube cada año. Con un calentador solar tienes agua caliente garantizada aunque el gas escasee. Los tubos evacuados funcionan incluso en días nublados.</p>
+          <div class="porque-card__stat">
+            <strong>15-20 años</strong>
+            <span>de vida útil sin combustible</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <ProductGrid products={featuredProducts} title="Modelos mas consultados" />
-
-  <section class="section" aria-labelledby="offers-title">
-    <header class="section-header">
-      <span class="section-eyebrow">Servicios</span>
-      <h2 id="offers-title">Como vendemos y ejecutamos el proyecto</h2>
-      <p class="section-description">
-        Siguiendo las mejores practicas de la competencia lider, estructuramos una venta consultiva
-        con etapas claras y conversion directa por WhatsApp.
-      </p>
-    </header>
-
-    <div class="offer-grid">
-      {services.map((service) => (
-        <article class="offer-card">
-          <h3>{service.title}</h3>
-          <p>{service.description}</p>
-          <a class="btn btn-outline" href={service.href}>Ver detalle</a>
-        </article>
-      ))}
+  <!-- SERVICIOS -->
+  <section class="section section--alt" aria-labelledby="servicios-title">
+    <div class="container">
+      <SectionHeader
+        titulo="Servicios de Instalación y Mantenimiento Solar"
+        subtitulo="No solo vendemos el equipo — garantizamos que funcione perfectamente desde el día uno"
+        enlaceTexto="Ver todos los servicios"
+        enlaceUrl="/servicios"
+        idTitulo="servicios-title"
+      />
+      <div class="grid-3">
+        <ServiceCard
+          titulo="Instalación profesional"
+          descripcion="Proyecto llave en mano: montaje en techo, conexión hidráulica, pruebas de presión y puesta en marcha el mismo día."
+          enlace="/servicios/instalacion-profesional"
+          icono="🔧"
+          beneficios={['Instalación en 1 día', 'Prueba de presión incluida', 'Garantía de mano de obra']}
+        />
+        <ServiceCard
+          titulo="Mantenimiento preventivo"
+          descripcion="Plan de visitas periódicas para sostener la eficiencia térmica y prolongar la vida útil del sistema solar."
+          enlace="/servicios/mantenimiento-preventivo"
+          icono="🛡️"
+          beneficios={['Revisión de ánodos', 'Limpieza de tubos', 'Informe técnico escrito']}
+        />
+        <ServiceCard
+          titulo="Proyectos comerciales"
+          descripcion="Diseño e instalación de sistemas solares para hoteles, gimnasios, restaurantes y plantas industriales."
+          enlace="/servicios/proyectos-comerciales"
+          icono="🏗️"
+          beneficios={['Estudio de factibilidad', 'Diseño a medida', 'Soporte post-instalación']}
+        />
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="comparison-title">
-    <header class="section-header">
-      <span class="section-eyebrow">Diferenciador</span>
-      <h2 id="comparison-title">Diferencia entre compra comun y proyecto profesional</h2>
-    </header>
-
-    <div class="comparison-grid">
-      <article class="comparison-card comparison-card--bad">
-        <h3>Compra basada solo en precio</h3>
-        <ul class="features-list">
-          <li>Capacidad sugerida sin analisis real de consumo.</li>
-          <li>Instalacion rapida sin pruebas completas.</li>
-          <li>Sin plan de mantenimiento ni seguimiento.</li>
-          <li>Mayor riesgo de inconformidad y bajo rendimiento.</li>
-        </ul>
-      </article>
-
-      <article class="comparison-card comparison-card--good">
-        <h3>Proyecto con asesoria tecnica</h3>
-        <ul class="features-list">
-          <li>Dimensionamiento por usuarios y habitos de consumo.</li>
-          <li>Instalacion profesional con puesta en marcha documentada.</li>
-          <li>Mantenimiento preventivo programado.</li>
-          <li>Soporte postventa y optimizacion continua.</li>
-        </ul>
-      </article>
+  <!-- TESTIMONIALES -->
+  <section class="section" aria-labelledby="testimonios-title">
+    <div class="container">
+      <SectionHeader
+        titulo="Lo que dicen nuestros clientes"
+        subtitulo="Más de 500 familias y negocios ya ahorran con energía solar. Estos son algunos de sus casos."
+        idTitulo="testimonios-title"
+      />
+      <div class="grid-4 testimonios-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 estrellas">★★★★★</div>
+          <blockquote class="testimonial-card__text">"Instalaron en 4 horas, limpio y puntual. Mi recibo de gas bajó más del 70% desde el primer mes. Ya se lo recomendé a toda mi familia."</blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true">MG</div>
+            <div>
+              <div class="testimonial-card__name">Martha G.</div>
+              <div class="testimonial-card__role">Casa habitación · Coyoacán, CDMX</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 estrellas">★★★★★</div>
+          <blockquote class="testimonial-card__text">"Tenemos un hotel pequeño con 18 habitaciones. Instalaron un sistema de alta capacidad y ahorramos casi $8,000 pesos al mes en gas. Excelente inversión."</blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true">RL</div>
+            <div>
+              <div class="testimonial-card__name">Roberto L.</div>
+              <div class="testimonial-card__role">Hotel boutique · Valle de Bravo</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 estrellas">★★★★★</div>
+          <blockquote class="testimonial-card__text">"El asesor nos ayudó a elegir el tamaño correcto para 5 personas. Funciona perfecto incluso en días nublados. El servicio postventa es muy bueno."</blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true">CP</div>
+            <div>
+              <div class="testimonial-card__name">Carlos P.</div>
+              <div class="testimonial-card__role">Familia · Naucalpan, Edomex</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 estrellas">★★★★★</div>
+          <blockquote class="testimonial-card__text">"Para nuestro gimnasio era fundamental agua caliente constante. El sistema industrial que instalaron lleva 2 años sin fallas. La inversión se pagó en 18 meses."</blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true">AS</div>
+            <div>
+              <div class="testimonial-card__name">Ana S.</div>
+              <div class="testimonial-card__role">Gimnasio y spa · Polanco, CDMX</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="coverage-title">
-    <header class="section-header">
-      <span class="section-eyebrow">Cobertura y confianza</span>
-      <h2 id="coverage-title">Zonas de atencion y soporte tecnico</h2>
-    </header>
+  <!-- LEAD CAPTURE -->
+  <LeadCapture />
 
-    <div class="coverage-grid">
-      <article class="coverage-card">
-        <h3>Cobertura principal</h3>
-        <ul class="coverage-list">
-          <li>Ciudad de Mexico</li>
-          <li>Estado de Mexico</li>
-          <li>Queretaro</li>
-          <li>Puebla</li>
-          <li>Hidalgo</li>
-          <li>Morelos</li>
-        </ul>
-      </article>
-      <article class="coverage-card">
-        <h3>Compromiso comercial</h3>
-        <p class="coverage-note">
-          Te respondemos en menos de 24 horas con una ruta clara: diagnostico, propuesta, instalacion
-          y mantenimiento.
-        </p>
-        <a class="btn btn-primary" href="/servicios">Conocer proceso completo</a>
-      </article>
-    </div>
-  </section>
+  <!-- FAQ -->
+  {faqItems.length > 0 && (
+    <section class="section section--alt" aria-labelledby="faq-title">
+      <div class="container" style="max-width: 800px;">
+        <SectionHeader
+          titulo="Preguntas frecuentes sobre calentadores solares"
+          subtitulo="Todo lo que necesitas saber antes de tomar la decisión"
+          idTitulo="faq-title"
+        />
+        <div class="faq" role="list">
+          {faqItems.map((item, i) => (
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls={`faq-ans-${i}`}>
+                {item.pregunta}
+                <span class="faq__icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq__answer" id={`faq-ans-${i}`}>
+                <p>{item.respuesta}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
-  <Testimonials />
+  <!-- BLOG PREVIEW -->
+  {recentPosts.length > 0 && (
+    <section class="section" aria-labelledby="blog-title">
+      <div class="container">
+        <SectionHeader
+          titulo="Guías y Consejos sobre Calentadores Solares"
+          subtitulo="Artículos técnicos para tomar la mejor decisión y sacar el máximo provecho a tu inversión"
+          enlaceTexto="Ver todos los artículos"
+          enlaceUrl="/blog"
+          idTitulo="blog-title"
+        />
+        <div class="grid-3">
+          {recentPosts.map((post: CollectionEntry<'blog'>) => (
+            <BlogCard
+              titulo={post.data.title}
+              descripcion={post.data.description}
+              enlace={`/blog/${post.slug}`}
+              imagen={post.data.image}
+              imageAlt={post.data.imageAlt}
+              categoria={post.data.category}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
-  <FAQSection
-    id="faq-home"
-    title="Preguntas frecuentes antes de cotizar"
-    subtitle="Estas preguntas concentran las principales dudas de compra detectadas en el mercado de calentadores solares."
-    faqs={faqItems}
-  />
-
-  <SEOContentBlock
-    title="Calentadores solares en Mexico: contenido comercial y tecnico para decidir mejor"
-    paragraphs={seoParagraphs}
-  />
-
-  <LeadCapture source="home" />
-  <CallToAction />
 </BaseLayout>
+
+<style>
+/* Benefits strip */
+.benefits-strip {
+  background: var(--color-dark);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.benefits-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+.benefit-item {
+  display: flex; align-items: center; gap: var(--space-3);
+  color: rgba(255,255,255,0.85);
+}
+.benefit-item__icon { font-size: 1.6rem; flex-shrink: 0; }
+.benefit-item strong { display: block; font-weight: var(--weight-bold); color: #fff; font-size: var(--text-sm); }
+.benefit-item span { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
+
+@media (max-width: 1024px) { .benefits-strip__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .benefits-strip__grid { grid-template-columns: 1fr; } }
+
+/* Por qué solar cards */
+.porque-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.porque-card__icon { font-size: 3rem; margin-bottom: var(--space-4); display: block; }
+.porque-card__title {
+  font-size: var(--text-xl); font-weight: var(--weight-bold);
+  color: var(--color-dark); margin: 0 0 var(--space-3);
+}
+.porque-card__desc {
+  font-size: var(--text-sm); color: var(--color-text-secondary);
+  line-height: var(--line-relaxed); margin: 0 0 var(--space-5);
+}
+.porque-card__stat {
+  background: var(--color-primary-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  margin-top: auto;
+}
+.porque-card__stat strong {
+  display: block; font-size: var(--text-2xl); font-weight: var(--weight-extrabold);
+  color: var(--color-brand); line-height: 1;
+}
+.porque-card__stat span { font-size: var(--text-xs); color: var(--color-text-muted); }
+</style>

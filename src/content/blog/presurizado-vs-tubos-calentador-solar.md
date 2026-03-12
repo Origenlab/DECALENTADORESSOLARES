@@ -6,7 +6,7 @@ author: "Ingenieria Aplicada"
 image: "/images/blog/presurizado-vs-tubos.svg"
 imageAlt: "Comparativa de sistema presurizado vs tubos"
 tags: ["presurizado", "tubos", "comparativa"]
-category: "productos"
+category: "Guías"
 ---
 
 Ambas tecnologias pueden funcionar bien. La decision depende de tu demanda y condiciones de instalacion.

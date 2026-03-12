@@ -1,0 +1,221 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildLocalBusinessSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { WHATSAPP_NUMBER, SITE_URL, SITE_NAME, GEO } from '../../lib/config';
+
+const title = 'Calentadores Solares en Hidalgo | Instalación Profesional';
+const description = 'Instalación profesional de calentadores solares en Hidalgo: Pachuca, Tulancingo, Tizayuca, Mineral de la Reforma, Actopan y Tula de Allende. Equipos para clima frío. Cotiza ahora.';
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Zonas', url: '/zonas' },
+  { name: 'Hidalgo', url: '/zonas/hidalgo' },
+];
+
+const municipios = [
+  'Pachuca de Soto', 'Tulancingo de Bravo', 'Tizayuca',
+  'Mineral de la Reforma', 'Actopan', 'Tula de Allende',
+];
+
+const faqs = [
+  {
+    pregunta: '¿Qué municipios de Hidalgo cubren?',
+    respuesta: 'Cubrimos Pachuca de Soto, Tulancingo de Bravo, Tizayuca, Mineral de la Reforma, Actopan y Tula de Allende. Para otros municipios del estado, contáctanos por WhatsApp para confirmar disponibilidad.',
+  },
+  {
+    pregunta: '¿Cuál es el tiempo de respuesta en Hidalgo?',
+    respuesta: 'En Pachuca y zona metropolitana respondemos en 24 horas. Para municipios como Tulancingo, Tula o Actopan, coordinamos visita técnica en 24-48 horas hábiles.',
+  },
+  {
+    pregunta: '¿El clima frío de Hidalgo afecta el rendimiento del calentador solar?',
+    respuesta: 'Los calentadores solares de tubos al vacío funcionan eficientemente incluso en climas fríos como Pachuca. Los tubos mantienen el calor por efecto de vacío, alcanzando temperaturas de 60-80°C incluso en días fríos con sol. Recomendamos sistemas con mejor aislamiento térmico para esta zona.',
+  },
+  {
+    pregunta: '¿La altitud de Pachuca afecta la instalación?',
+    respuesta: 'La altitud de Pachuca (2,400 msnm) en realidad beneficia la irradiación solar, ya que hay menos atmósfera que filtre los rayos. Los técnicos adaptan la instalación considerando vientos fuertes típicos de la zona para asegurar fijación correcta.',
+  },
+  {
+    pregunta: '¿Cuánto cuesta un calentador solar en Hidalgo?',
+    respuesta: 'Un sistema residencial para 3-4 personas inicia desde $8,500 MXN instalado en zona metropolitana de Pachuca. Para sistemas presurizados heat-pipe (recomendados para clima frío), el precio inicia desde $12,000 MXN. Solicita cotización sin compromiso.',
+  },
+];
+
+const localBusiness = {
+  ...buildLocalBusinessSchema(),
+  areaServed: [
+    { '@type': 'State', name: 'Hidalgo' },
+    ...municipios.map(m => ({ '@type': 'City', name: m })),
+  ],
+};
+const faqSchema = buildFAQSchema(faqs);
+const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  activePage="zonas"
+  heroTitle="Calentadores Solares en Hidalgo | Instalación Profesional"
+  heroIntro="Instalación profesional de calentadores solares en Pachuca, Tulancingo, Tizayuca, Mineral de la Reforma, Actopan y Tula de Allende. Equipos de tubos al vacío ideales para el clima de Hidalgo."
+  heroBadge="Cobertura Hidalgo"
+  heroMetrics={[
+    { valor: '8+', texto: 'municipios' },
+    { valor: '24-48h', texto: 'respuesta' },
+    { valor: '+30', texto: 'proyectos' },
+    { valor: '75%', texto: 'ahorro' },
+  ]}
+  heroPrimaryText="Cotizar en Hidalgo"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Hidalgo.')}`}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/productos"
+  heroFeatures={[
+    { icon: '🏔️', text: 'Equipos para clima frío' },
+    { icon: '🔧', text: 'Técnicos certificados' },
+    { icon: '📍', text: 'Pachuca y zona metropolitana' },
+  ]}
+  showLeadCapture={true}
+  breadcrumbs={breadcrumbs}
+  structuredData={[localBusiness, faqSchema, breadcrumbSchema]}
+>
+
+  <!-- Municipios de cobertura -->
+  <section class="section" aria-labelledby="municipios-hidalgo-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="municipios-hidalgo-title">Municipios con Cobertura en Hidalgo</h2>
+        <p>Contamos con técnicos asignados en los principales municipios del estado de Hidalgo para garantizar tiempos de respuesta rápidos.</p>
+      </header>
+
+      <div class="grid-3">
+        {municipios.map((municipio) => (
+          <div class="card">
+            <div class="card__body">
+              <h3 class="card__title">{municipio}</h3>
+              <p class="card__desc">Instalación y mantenimiento de calentadores solares en {municipio}, Hidalgo. Equipos adaptados al clima local.</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Viabilidad solar Hidalgo -->
+  <section class="section section--alt" aria-labelledby="solar-hidalgo-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="solar-hidalgo-title">Calentadores Solares Adaptados al Clima de Hidalgo</h2>
+        <p>Seleccionamos la tecnología adecuada para maximizar el rendimiento en las condiciones climáticas de cada municipio de Hidalgo.</p>
+      </header>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Tubos al vacío de alto rendimiento</h3>
+            <p class="card__desc">Los tubos al vacío son la mejor tecnología para climas fríos como Pachuca. El vacío actúa como aislante térmico, permitiendo captar energía solar y mantener el calor incluso con temperaturas exteriores bajas.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Sistemas presurizados heat-pipe</h3>
+            <p class="card__desc">Para hogares con hidroneumático o que necesitan mayor presión de agua, los sistemas presurizados heat-pipe ofrecen rendimiento superior en clima frío con presión constante en todas las salidas.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Buena irradiación a pesar del frío</h3>
+            <p class="card__desc">A pesar del clima frío, Hidalgo recibe buena irradiación solar durante todo el año. La altitud de Pachuca (2,400 msnm) reduce la filtración atmosférica, con un promedio de 5-6 horas pico solares diarias.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Ahorro significativo en gas</h3>
+            <p class="card__desc">En Hidalgo, donde el consumo de gas para agua caliente es mayor por las temperaturas frías, un calentador solar genera un ahorro proporcionalmente mayor: hasta 75% en tu gasto mensual de gas LP.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-hidalgo-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="faq-hidalgo-title">Preguntas Frecuentes — Calentadores Solares en Hidalgo</h2>
+      </header>
+
+      <div class="faq">
+        {faqs.map((faq) => (
+          <div class="faq__item">
+            <button class="faq__question">
+              <span>{faq.pregunta}</span>
+              <span class="faq__icon">+</span>
+            </button>
+            <div class="faq__answer">
+              <p>{faq.respuesta}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="cta-hidalgo-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="cta-hidalgo-title">¿Listo para ahorrar en gas en Hidalgo?</h2>
+        <p>Cotización gratuita y sin compromiso. Te asesoramos sobre el mejor equipo para el clima de tu municipio.</p>
+      </header>
+      <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Hidalgo.')}`} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
+        <a href="/productos" class="btn btn--secondary">Ver productos</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    background: var(--color-surface, #fff);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+  .card__body { padding: 1.25rem; }
+  .card__title { font-size: 1rem; margin-bottom: .5rem; }
+  .card__desc { font-size: .9rem; color: var(--color-text-muted, #666); line-height: 1.5; }
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq__item { border-bottom: 1px solid var(--color-border, #e5e7eb); }
+  .faq__question {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 0; background: none; border: none; font-size: 1.05rem;
+    font-weight: 600; color: var(--color-heading, #1a1a1a); cursor: pointer; text-align: left; gap: 1rem;
+  }
+  .faq__icon { font-size: 1.5rem; font-weight: 300; color: var(--color-primary, #F97316); flex-shrink: 0; }
+  .faq__answer { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+  .faq__answer p { padding: 0 0 1.25rem; color: var(--color-text-muted, #666); line-height: 1.6; }
+  .faq__item.active .faq__answer { max-height: 300px; }
+  .faq__item.active .faq__icon { transform: rotate(45deg); }
+</style>
+
+<script>
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      item?.classList.toggle('active');
+    });
+  });
+</script>

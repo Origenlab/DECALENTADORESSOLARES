@@ -6,7 +6,7 @@ author: "Area de Operaciones"
 image: "/images/blog/mantenimiento-calentadores-solares.svg"
 imageAlt: "Mantenimiento de calentadores solares"
 tags: ["mantenimiento", "solar", "eficiencia"]
-category: "servicios"
+category: "Mantenimiento"
 ---
 
 Un sistema solar puede perder rendimiento de forma gradual si no recibe mantenimiento periodico.

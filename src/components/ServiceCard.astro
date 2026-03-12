@@ -1,0 +1,76 @@
+---
+interface Props {
+  titulo: string;
+  descripcion: string;
+  enlace: string;
+  icono?: string;
+  imagen?: string;
+  beneficios?: string[];
+}
+const { titulo, descripcion, enlace, icono = '🔧', imagen, beneficios = [] } = Astro.props;
+---
+<article class="srv-card">
+  <div class="srv-card__img-wrap">
+    {imagen
+      ? <img src={imagen} alt={titulo} class="srv-card__img" loading="lazy" decoding="async" width="640" height="360" />
+      : <div class="srv-card__icon-wrap"><span aria-hidden="true">{icono}</span></div>
+    }
+  </div>
+  <div class="srv-card__body">
+    <h3 class="srv-card__title">{titulo}</h3>
+    <p class="srv-card__desc">{descripcion}</p>
+    {beneficios.length > 0 && (
+      <ul class="srv-card__benefits">
+        {beneficios.map(b => <li>{b}</li>)}
+      </ul>
+    )}
+    <a href={enlace} class="btn btn--secondary srv-card__btn">Conocer más →</a>
+  </div>
+</article>
+
+<style>
+.srv-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+.srv-card:hover { box-shadow: var(--shadow-md); }
+
+.srv-card__img-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.srv-card__img { width: 100%; height: 100%; object-fit: cover; }
+.srv-card__icon-wrap {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, var(--color-secondary-50), #dbeafe);
+}
+
+.srv-card__body {
+  padding: var(--space-6);
+  display: flex; flex-direction: column; flex: 1; gap: var(--space-3);
+}
+.srv-card__title {
+  font-size: var(--text-lg); font-weight: var(--weight-bold);
+  color: var(--color-dark); margin: 0;
+}
+.srv-card__desc {
+  font-size: var(--text-sm); color: var(--color-text-secondary);
+  line-height: var(--line-relaxed); margin: 0;
+}
+.srv-card__benefits {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: var(--space-2); flex: 1;
+}
+.srv-card__benefits li {
+  font-size: var(--text-sm); color: var(--color-text-secondary);
+  padding-left: 1.25rem; position: relative;
+}
+.srv-card__benefits li::before {
+  content: '✓'; position: absolute; left: 0;
+  color: var(--color-success); font-weight: var(--weight-bold);
+}
+.srv-card__btn { margin-top: auto; border-radius: var(--radius-md); }
+</style>

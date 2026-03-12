@@ -6,7 +6,7 @@ author: "Analisis Energetico"
 image: "/images/blog/ahorro-real-gas-solar.svg"
 imageAlt: "Ahorro real de gas con calentador solar"
 tags: ["ahorro", "gas", "retorno de inversion"]
-category: "ahorro"
+category: "Ahorro"
 ---
 
 El ahorro real depende de tres factores: consumo previo, calidad de instalacion y mantenimiento posterior.

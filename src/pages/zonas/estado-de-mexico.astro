@@ -1,112 +1,226 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import Button from "../../components/ui/Button.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildLocalBusinessSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { WHATSAPP_NUMBER, SITE_URL, SITE_NAME, GEO } from '../../lib/config';
+
+const title = 'Calentadores Solares en Estado de México | Instalación Profesional';
+const description = 'Instalación profesional de calentadores solares en Estado de México: Naucalpan, Tlalnepantla, Ecatepec, Toluca, Metepec y 20+ municipios. Cotiza ahora.';
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Zonas', url: '/zonas' },
+  { name: 'Estado de México', url: '/zonas/estado-de-mexico' },
+];
 
 const municipios = [
-  "Naucalpan de Juárez", "Tlalnepantla de Baz", "Ecatepec de Morelos",
-  "Nezahualcóyotl", "Chimalhuacán", "Atizapán de Zaragoza",
-  "Cuautitlán Izcalli", "Huixquilucan", "Toluca", "Metepec",
-  "Tultitlán", "Coacalco de Berriozábal"
+  'Naucalpan de Juárez', 'Tlalnepantla de Baz', 'Ecatepec de Morelos',
+  'Cuautitlán Izcalli', 'Atizapán de Zaragoza', 'Huixquilucan',
+  'Metepec', 'Toluca', 'Coacalco de Berriozábal', 'Tultitlán',
+  'Nezahualcóyotl', 'Texcoco',
 ];
+
+const faqs = [
+  {
+    pregunta: '¿Qué municipios del Estado de México cubren?',
+    respuesta: 'Cubrimos más de 20 municipios del Estado de México, incluyendo Naucalpan, Tlalnepantla, Ecatepec, Cuautitlán Izcalli, Atizapán, Huixquilucan, Metepec, Toluca, Coacalco, Tultitlán, Nezahualcóyotl y Texcoco. Si tu municipio no aparece en la lista, contáctanos para confirmar cobertura.',
+  },
+  {
+    pregunta: '¿Los precios son diferentes a los de CDMX?',
+    respuesta: 'Los precios base de los equipos son iguales. En municipios cercanos a CDMX (Naucalpan, Tlalnepantla, Huixquilucan) no hay costo adicional de traslado. Para municipios más lejanos como Toluca o Texcoco puede aplicar un costo de traslado mínimo.',
+  },
+  {
+    pregunta: '¿Atienden zonas rurales del Estado de México?',
+    respuesta: 'Sí, atendemos zonas rurales y semiurbanas del Estado de México bajo evaluación de viabilidad. Contáctanos con tu ubicación exacta y evaluamos la logística sin costo.',
+  },
+  {
+    pregunta: '¿Cuánto tarda la instalación en Estado de México?',
+    respuesta: 'La instalación residencial estándar se completa en 1 día hábil. Para proyectos comerciales puede tomar de 2 a 5 días. El tiempo de respuesta para cotización es menor a 24 horas.',
+  },
+  {
+    pregunta: '¿Cuáles son los mejores municipios para calentadores solares en Edomex?',
+    respuesta: 'La zona metropolitana (Naucalpan, Tlalnepantla, Huixquilucan) tiene irradiación solar similar a CDMX, excelente para calentadores solares. En la zona de Toluca y Metepec, recomendamos sistemas presurizados con mejor aislamiento por las temperaturas más bajas.',
+  },
+];
+
+const localBusiness = {
+  ...buildLocalBusinessSchema(),
+  areaServed: [
+    { '@type': 'State', name: 'Estado de México' },
+    ...municipios.map(m => ({ '@type': 'City', name: m })),
+  ],
+};
+const faqSchema = buildFAQSchema(faqs);
+const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 ---
 
-<LandingLayout
-  title="Calentadores Solares en Estado de México | Naucalpan, Tlalnepantla, Ecatepec"
-  description="Instalación de calentadores solares en Estado de México: Naucalpan, Tlalnepantla, Ecatepec, Cuautitlán y más municipios. Servicio profesional con técnicos certificados."
+<BaseLayout
+  title={title}
+  description={description}
+  activePage="zonas"
+  heroTitle="Calentadores Solares en Estado de México | Instalación Profesional"
+  heroIntro="Instalamos calentadores solares en toda la zona metropolitana y Valle de Toluca. Técnicos certificados con respuesta en 24 horas en más de 20 municipios."
+  heroBadge="Zona metropolitana"
+  heroMetrics={[
+    { valor: '20+', texto: 'municipios' },
+    { valor: '24h', texto: 'respuesta' },
+    { valor: '+150', texto: 'proyectos Edomex' },
+    { valor: '80%', texto: 'ahorro' },
+  ]}
+  heroPrimaryText="Cotizar en Edomex"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Estado de México.')}`}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/productos"
+  heroFeatures={[
+    { icon: '🏘️', text: 'Zona metropolitana completa' },
+    { icon: '🏔️', text: 'Valle de Toluca incluido' },
+    { icon: '🔧', text: 'Técnicos locales certificados' },
+  ]}
+  showLeadCapture={true}
+  breadcrumbs={breadcrumbs}
+  structuredData={[localBusiness, faqSchema, breadcrumbSchema]}
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Zonas", href: "/zonas" },
-      { label: "Estado de México" }
-    ]}
-  />
 
-  <section class="hero-section">
-    <div class="hero-layout">
-      <div class="hero-panel">
-        <span class="section-eyebrow">Estado de México</span>
-        <h1 class="hero-title">Calentadores solares en Estado de México: Naucalpan, Tlalnepantla y Ecatepec</h1>
-        <p class="hero-lead">
-          Instalamos calentadores solares en los principales municipios del Estado de México y zona
-          metropolitana. Naucalpan, Tlalnepantla, Ecatepec, Cuautitlán Izcalli, Atizapán,
-          Huixquilucan y más. Técnicos asignados en cada zona para respuesta rápida.
-        </p>
-        <div class="hero-cta-row">
-          <Button
-            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20calentador%20solar%20en%20Estado%20de%20Mexico"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Cotizar en Edomex
-          </Button>
-          <Button href="/servicios/instalacion-profesional" variant="outline">Ver instalación profesional</Button>
+  <!-- Municipios con cobertura -->
+  <section class="section" aria-labelledby="municipios-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="municipios-title">Municipios con Cobertura en Estado de México</h2>
+        <p>Contamos con técnicos asignados por zona en los principales municipios del Edomex para garantizar tiempos de respuesta rápidos.</p>
+      </header>
+
+      <div class="grid-3">
+        {municipios.map((municipio) => (
+          <div class="card">
+            <div class="card__body">
+              <h3 class="card__title">{municipio}</h3>
+              <p class="card__desc">Venta e instalación de calentadores solares en {municipio}, Estado de México.</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Viabilidad solar -->
+  <section class="section section--alt" aria-labelledby="solar-edomex-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="solar-edomex-title">Calentadores Solares Adaptados al Estado de México</h2>
+        <p>Recomendamos el sistema ideal según tu zona: metropolitana o Valle de Toluca.</p>
+      </header>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Zona Metropolitana</h3>
+            <p class="card__desc">Naucalpan, Tlalnepantla, Ecatepec, Huixquilucan y municipios cercanos a CDMX tienen alta irradiación solar equivalente a la Ciudad de México. Termosifón estándar con excelente rendimiento y mantenimiento cada 12 meses.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Valle de Toluca y Metepec</h3>
+            <p class="card__desc">Mayor diferencia de temperatura día-noche. Recomendamos sistemas presurizados con mejor aislamiento térmico y respaldo de gas integrado como complemento para días nublados.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Ahorro comprobado</h3>
+            <p class="card__desc">Familias en Estado de México ahorran hasta 80% en gas LP con calentadores solares. El retorno de inversión promedio es de 18-24 meses, protegiendo tu economía de las alzas constantes del gas.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="card__title">Proyectos residenciales y comerciales</h3>
+            <p class="card__desc">Atendemos desde casas habitación hasta condominios, hoteles y negocios. Dimensionamos el sistema según tu consumo real para maximizar el ahorro y rendimiento.</p>
+          </div>
         </div>
       </div>
-
-      <aside class="hero-aside">
-        <h2>Municipios principales</h2>
-        <ul class="trust-list">
-          <li>Naucalpan de Juárez.</li>
-          <li>Tlalnepantla de Baz.</li>
-          <li>Ecatepec de Morelos.</li>
-          <li>Cuautitlán Izcalli.</li>
-          <li>Atizapán de Zaragoza.</li>
-          <li>Toluca y Metepec.</li>
-        </ul>
-      </aside>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="municipios-title">
-    <header class="section-header">
-      <h2 id="municipios-title">Municipios con cobertura de servicio</h2>
-    </header>
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-edomex-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="faq-edomex-title">Preguntas Frecuentes — Calentadores Solares en Edomex</h2>
+      </header>
 
-    <div class="coverage-grid">
-      <article class="coverage-card">
-        <h3>Zona norte y poniente</h3>
-        <ul class="coverage-list">
-          {municipios.slice(0, 6).map((m) => <li>{m}</li>)}
-        </ul>
-      </article>
-      <article class="coverage-card">
-        <h3>Zona oriente y sur</h3>
-        <ul class="coverage-list">
-          {municipios.slice(6).map((m) => <li>{m}</li>)}
-        </ul>
-      </article>
+      <div class="faq">
+        {faqs.map((faq) => (
+          <div class="faq__item">
+            <button class="faq__question">
+              <span>{faq.pregunta}</span>
+              <span class="faq__icon">+</span>
+            </button>
+            <div class="faq__answer">
+              <p>{faq.respuesta}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="edomex-info-title">
-    <header class="section-header">
-      <h2 id="edomex-info-title">Calentadores solares adaptados al Estado de México</h2>
-    </header>
-
-    <div class="comparison-grid">
-      <article class="comparison-card comparison-card--good">
-        <h3>Zonas altas (Toluca, Metepec)</h3>
-        <ul class="features-list">
-          <li>Mayor diferencia de temperatura día-noche.</li>
-          <li>Sistemas con mejor aislamiento térmico.</li>
-          <li>Recomendamos sistemas presurizados en zonas frías.</li>
-          <li>Respaldo de gas integrado como complemento.</li>
-        </ul>
-      </article>
-      <article class="comparison-card comparison-card--good">
-        <h3>Zona metropolitana (Naucalpan, Tlalnepantla)</h3>
-        <ul class="features-list">
-          <li>Alta irradiación solar equivalente a CDMX.</li>
-          <li>Termosifón estándar con excelente rendimiento.</li>
-          <li>Agua relativamente dura: mantenimiento cada 12 meses.</li>
-          <li>Proyectos residenciales y condominios.</li>
-        </ul>
-      </article>
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="cta-edomex-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="cta-edomex-title">¿Listo para ahorrar en gas en Estado de México?</h2>
+        <p>Cotización gratuita y sin compromiso. Respuesta en menos de 24 horas.</p>
+      </header>
+      <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Estado de México.')}`} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
+        <a href="/productos" class="btn btn--secondary">Ver productos</a>
+      </div>
     </div>
   </section>
 
-  <LeadCapture source="zona-estado-de-mexico" />
-</LandingLayout>
+</BaseLayout>
+
+<style>
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    background: var(--color-surface, #fff);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  }
+  .card__body { padding: 1.25rem; }
+  .card__title { font-size: 1rem; margin-bottom: .5rem; }
+  .card__desc { font-size: .9rem; color: var(--color-text-muted, #666); line-height: 1.5; }
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq__item { border-bottom: 1px solid var(--color-border, #e5e7eb); }
+  .faq__question {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 0; background: none; border: none; font-size: 1.05rem;
+    font-weight: 600; color: var(--color-heading, #1a1a1a); cursor: pointer; text-align: left; gap: 1rem;
+  }
+  .faq__icon { font-size: 1.5rem; font-weight: 300; color: var(--color-primary, #F97316); flex-shrink: 0; }
+  .faq__answer { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+  .faq__answer p { padding: 0 0 1.25rem; color: var(--color-text-muted, #666); line-height: 1.6; }
+  .faq__item.active .faq__answer { max-height: 300px; }
+  .faq__item.active .faq__icon { transform: rotate(45deg); }
+</style>
+
+<script>
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      item?.classList.toggle('active');
+    });
+  });
+</script>

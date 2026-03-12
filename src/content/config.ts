@@ -33,7 +33,7 @@ const blogCollection = defineCollection({
     image: z.string(),
     imageAlt: z.string(),
     tags: z.array(z.string()),
-    category: z.string(),
+    category: z.enum(["Guías", "Ahorro", "Ecología", "Mantenimiento", "Comparativas", "Proyectos", "Técnico", "Zonas"]),
     draft: z.boolean().default(false)
   })
 });

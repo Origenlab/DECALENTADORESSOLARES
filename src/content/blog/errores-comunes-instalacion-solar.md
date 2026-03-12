@@ -6,7 +6,7 @@ author: "Ingenieria de Campo"
 image: "/images/blog/errores-instalacion-solar.svg"
 imageAlt: "Errores comunes de instalacion de calentadores solares"
 tags: ["instalacion", "calentadores", "calidad"]
-category: "instalacion"
+category: "Guías"
 ---
 
 Muchos problemas de calentadores solares no vienen del equipo, sino de una ejecucion deficiente.

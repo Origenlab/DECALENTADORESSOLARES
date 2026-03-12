@@ -1,133 +1,377 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import ProductGrid from "../../components/sections/ProductGrid.astro";
-import FAQSection from "../../components/sections/FAQSection.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
-import SEOContentBlock from "../../components/sections/SEOContentBlock.astro";
-import CallToAction from "../../components/sections/CallToAction.astro";
+import { buildProductSchema } from "../../lib/seo";
+import { SITE_URL, SITE_NAME, PRODUCT_CATEGORIES } from "../../lib/config";
 
-const products: CollectionEntry<"productos">[] = (await getCollection("productos")).sort(
-  (a: CollectionEntry<"productos">, b: CollectionEntry<"productos">) => a.data.order - b.data.order
+const products: CollectionEntry<"productos">[] = (
+  await getCollection("productos")
+).sort(
+  (a: CollectionEntry<"productos">, b: CollectionEntry<"productos">) =>
+    a.data.order - b.data.order
 );
 
-const faqItems = [
-  {
-    question: "Que capacidad de calentador solar necesito?",
-    answer:
-      "Depende de numero de usuarios, horarios de regadera y simultaneidad. Como referencia, 150 litros para 2-4 personas y 200-240 litros para 4-6 personas."
-  },
-  {
-    question: "Es mejor un modelo de tubos o presurizado?",
-    answer:
-      "Los modelos de tubos son competitivos para uso residencial estandar. Los presurizados suelen rendir mejor cuando hay mayor exigencia de presion y demanda simultanea."
-  },
-  {
-    question: "El precio incluye instalacion?",
-    answer:
-      "El precio publicado es referencial del equipo. La cotizacion final integra instalacion segun condiciones reales del sitio y alcance requerido."
-  },
-  {
-    question: "Puedo financiar la compra?",
-    answer:
-      "Dependiendo del proyecto podemos evaluar esquemas de pago por etapas para facilitar la implementacion."
-  }
-];
+// Categorías con productos existentes
+const categoryOrder = ["residencial", "presurizado", "termosifon", "comercial", "industrial"];
+const activeCategories = categoryOrder.filter((cat) =>
+  products.some((p) => p.data.category === cat)
+);
 
-const seoParagraphs = [
-  "Nuestro catalogo de calentadores solares esta organizado para facilitar una compra por criterios reales de consumo: numero de usuarios, tipo de inmueble y nivel de demanda diaria. En lugar de vender por moda o por precio aislado, recomendamos equipo y capacidad con base en una evaluacion tecnica simple.",
-  "En esta pagina puedes comparar modelos residenciales de 15, 20 y 30 tubos, asi como sistemas presurizados para demandas mas altas. Si no sabes cual te conviene, en la seccion de servicios contamos con asesoria para definir la mejor alternativa en rendimiento y retorno de inversion.",
-  "Tambien publicamos contenido en el blog para resolver dudas frecuentes de compra: diferencia entre tecnologias, mantenimiento preventivo, errores comunes de instalacion y recomendaciones para estimar ahorro anual. Esto te ayuda a decidir con informacion util antes de invertir.",
-  "Si deseas una recomendacion rapida, compartenos por WhatsApp cuantas personas usan agua caliente, en que ciudad estas y que tipo de inmueble tienes. Te devolvemos una propuesta inicial con capacidad sugerida y rango de inversion."
-];
+const categoryLabels: Record<string, string> = {
+  residencial: "Residencial",
+  comercial: "Comercial",
+  industrial: "Industrial",
+  presurizado: "Presurizado",
+  termosifon: "Termosifón",
+  "de-paso-solar": "Paso solar",
+};
+
+// Schema ItemList
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Catálogo de Calentadores Solares",
+  description: "Modelos residenciales, comerciales e industriales desde 120 hasta 10,000 litros.",
+  numberOfItems: products.length,
+  itemListElement: products.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: p.data.title,
+    url: `${SITE_URL}/productos/${p.slug}`,
+  })),
+};
+
+function formatPrice(min?: number, max?: number, price?: number): string {
+  if (min && max) {
+    return `$${min.toLocaleString("es-MX")} – $${max.toLocaleString("es-MX")}`;
+  }
+  if (price) {
+    return `Desde $${price.toLocaleString("es-MX")}`;
+  }
+  return "Cotizar";
+}
 ---
 
 <BaseLayout
-  title="Catalogo de Calentadores Solares | Modelos Residenciales y Comerciales"
-  description="Conoce nuestro catalogo de calentadores solares por capacidad y tipo de proyecto. Cotiza equipo, instalacion y soporte tecnico en Mexico."
+  title="Catálogo de Calentadores Solares | Residencial, Comercial e Industrial"
+  description="Encuentra el calentador solar ideal. Modelos desde 120 hasta 10,000 litros para casa, negocio o industria. Cotiza equipo con instalación en México."
+  activePage="productos"
+  heroTitle="Catálogo de Calentadores Solares | Residencial, Comercial e Industrial"
+  heroIntro="Encuentra el calentador solar ideal. Modelos desde 120 hasta 10,000 litros."
+  heroBadge="Catálogo completo"
+  heroMetrics={[
+    { valor: String(products.length) + "+", texto: "modelos" },
+    { valor: "120–10k", texto: "litros" },
+    { valor: "5", texto: "categorías" },
+    { valor: "MXN", texto: "precios directos" },
+  ]}
+  heroPrimaryText="Cotizar por WhatsApp"
+  heroPrimaryLink="https://wa.me/5215547868402?text=Hola%2C%20quiero%20cotizar%20un%20calentador%20solar"
+  heroSecondaryText="Ver Servicios"
+  heroSecondaryLink="/servicios"
+  breadcrumbs={[
+    { name: "Inicio", url: "/" },
+    { name: "Productos", url: "/productos" },
+  ]}
+  showLeadCapture={true}
+  structuredData={itemListSchema}
 >
-  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Productos" }]} />
 
-  <section class="page-intro">
-    <h1>Catalogo de calentadores solares</h1>
-    <p>
-      Selecciona el equipo adecuado segun consumo y demanda de agua caliente. Si quieres validar
-      capacidad y costos con mas precision, revisa nuestra seccion de <a href="/servicios">servicios
-      tecnicos</a> o consulta articulos en el <a href="/blog">blog especializado</a>.
-    </p>
-    <p>
-      Si quieres empezar por alta probabilidad de conversion, revisa nuestro ranking de
-      <a href="/productos/mas-vendidos"> productos mas vendidos</a>.
-    </p>
-    <p>
-      Para control de rentabilidad y pauta, revisa la
-      <a href="/productos/estrategia-comercial"> matriz comercial por SKU</a>.
-    </p>
-  </section>
-
-  <section class="section-tight" aria-labelledby="type-title">
-    <header class="section-header">
-      <span class="section-eyebrow">Comparativa rapida</span>
-      <h2 id="type-title">Que tecnologia te conviene segun tu escenario</h2>
-    </header>
-
-    <div class="comparison-grid">
-      <article class="comparison-card">
-        <h3>Modelos de tubos al vacio</h3>
-        <ul class="features-list">
-          <li>Excelente punto de entrada para vivienda.</li>
-          <li>Buena relacion costo-beneficio.</li>
-          <li>Ideal para consumo residencial estandar.</li>
-        </ul>
-      </article>
-      <article class="comparison-card">
-        <h3>Sistemas presurizados</h3>
-        <ul class="features-list">
-          <li>Mejor respuesta en demanda simultanea.</li>
-          <li>Mayor estabilidad para usos exigentes.</li>
-          <li>Opcion recomendada para proyectos comerciales.</li>
-        </ul>
-      </article>
+  <!-- Filtros por categoría -->
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        {activeCategories.map((cat) => (
+          <button class="filter-btn" data-filter={cat}>
+            {categoryLabels[cat] || cat}
+          </button>
+        ))}
+      </div>
     </div>
   </section>
 
-  <ProductGrid products={products} title="Modelos disponibles" />
+  <!-- Productos agrupados por categoría -->
+  {activeCategories.map((cat) => {
+    const catProducts = products.filter((p) => p.data.category === cat);
+    const catInfo = PRODUCT_CATEGORIES.find((c) => c.slug === cat);
+    return (
+      <section
+        class="section section--alt product-category-section"
+        data-category={cat}
+        aria-labelledby={`cat-${cat}`}
+      >
+        <div class="container">
+          <header class="section-header">
+            <span class="badge badge--primary">{categoryLabels[cat] || cat}</span>
+            <h2 id={`cat-${cat}`}>
+              Calentadores Solares {categoryLabels[cat] || cat}
+              {catInfo?.desc ? ` — ${catInfo.desc}` : ""}
+            </h2>
+          </header>
 
-  <section class="section" aria-labelledby="selection-title">
-    <header class="section-header">
-      <span class="section-eyebrow">Ruta de seleccion</span>
-      <h2 id="selection-title">Como elegir tu calentador solar en 3 pasos</h2>
-    </header>
+          <div class="grid-3">
+            {catProducts.map((product) => (
+              <article class="card product-card" data-category={product.data.category}>
+                <div class="card__img">
+                  <img
+                    src={product.data.image}
+                    alt={product.data.imageAlt}
+                    loading="lazy"
+                    width="320"
+                    height="240"
+                  />
+                  {product.data.capacityLiters && (
+                    <span class="badge badge--eco capacity-badge">
+                      {product.data.capacityLiters} L
+                    </span>
+                  )}
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">{product.data.title}</h3>
+                  <p class="card__price">
+                    {formatPrice(
+                      product.data.priceRangeMin,
+                      product.data.priceRangeMax,
+                      product.data.price
+                    )}
+                  </p>
+                  <ul class="card__features">
+                    {product.data.features.slice(0, 3).map((f: string) => (
+                      <li>{f}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="card__footer">
+                  <a class="btn btn--primary" href={`/productos/${product.slug}`}>
+                    Ver detalles
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  })}
 
-    <div class="process-grid">
-      <article class="process-step">
-        <span class="step-number">1</span>
-        <p>Define numero de usuarios y horario de uso de agua caliente.</p>
-      </article>
-      <article class="process-step">
-        <span class="step-number">2</span>
-        <p>Elige tecnologia: tubos o presurizado segun nivel de demanda.</p>
-      </article>
-      <article class="process-step">
-        <span class="step-number">3</span>
-        <p>Solicita cotizacion con instalacion para validar inversion total.</p>
-      </article>
+  <!-- Guía de selección -->
+  <section class="section" aria-labelledby="guia-title">
+    <div class="container">
+      <header class="section-header">
+        <span class="badge badge--primary">Guía rápida</span>
+        <h2 id="guia-title">¿Cómo elegir tu calentador solar?</h2>
+        <p>Tres criterios simples para encontrar el modelo correcto.</p>
+      </header>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card__body" style="text-align:center;">
+            <span style="font-size:2.5rem;">👥</span>
+            <h3 class="card__title">Número de usuarios</h3>
+            <p class="card__desc">2-3 personas: 120-150 L. 4-5 personas: 170-200 L. 6+: 240 L o más.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body" style="text-align:center;">
+            <span style="font-size:2.5rem;">⚡</span>
+            <h3 class="card__title">Tipo de presión</h3>
+            <p class="card__desc">Baja presión para tinaco. Presurizado para hidroneumático o demanda simultánea.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body" style="text-align:center;">
+            <span style="font-size:2.5rem;">🏠</span>
+            <h3 class="card__title">Tipo de inmueble</h3>
+            <p class="card__desc">Casa: residencial. Hotel o negocio: comercial. Fábrica: industrial.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <FAQSection
-    id="faq-productos"
-    title="Preguntas frecuentes del catalogo"
-    subtitle="Dudas comunes antes de elegir capacidad, tecnologia y rango de inversion."
-    faqs={faqItems}
-  />
+  <!-- FAQ -->
+  <section class="section section--alt" aria-labelledby="faq-productos-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="faq-productos-title">Preguntas frecuentes sobre nuestros productos</h2>
+        <p>Dudas comunes antes de elegir capacidad, tecnología y rango de inversión.</p>
+      </header>
 
-  <SEOContentBlock
-    title="Compra de calentadores solares: enfoque practico para decidir"
-    paragraphs={seoParagraphs}
-  />
+      <div class="faq">
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿Qué capacidad de calentador solar necesito?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Depende del número de usuarios y horarios de uso. Como referencia: 120-150 litros para 2-3 personas, 170-200 litros para 4-5 personas, y 240+ litros para 6 o más.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿Es mejor un modelo de tubos o presurizado?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Los modelos de tubos al vacío son competitivos para uso residencial estándar con tinaco. Los presurizados rinden mejor cuando hay mayor exigencia de presión y demanda simultánea (hidroneumático).</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿El precio incluye instalación?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>El precio publicado es referencial del equipo. La cotización final integra instalación según condiciones reales del sitio y alcance requerido. Solicita tu cotización completa por WhatsApp.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿Qué garantía tienen los calentadores solares?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Todos nuestros equipos incluyen garantía de fábrica que varía según marca y modelo (generalmente 5 a 15 años en tanque). Además, ofrecemos garantía en mano de obra de instalación.</p>
+          </div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿Puedo financiar la compra?
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Dependiendo del proyecto podemos evaluar esquemas de pago por etapas o a meses sin intereses con tarjeta. Consúltanos las opciones disponibles.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <LeadCapture source="productos" />
-  <CallToAction />
+  <!-- CTA final -->
+  <section class="section section--dark">
+    <div class="container" style="text-align:center;">
+      <h2>¿No encuentras el modelo ideal?</h2>
+      <p>Cuéntanos cuántas personas usan agua caliente, tu ciudad y tipo de inmueble. Te recomendamos el equipo perfecto.</p>
+      <a
+        class="btn btn--primary"
+        href="https://wa.me/5215547868402?text=Hola%2C%20quiero%20cotizar%20un%20calentador%20solar"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Cotizar por WhatsApp
+      </a>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1.25rem;
+    border: 2px solid var(--color-primary, #F97316);
+    background: transparent;
+    color: var(--color-primary, #F97316);
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--color-primary, #F97316);
+    color: #fff;
+  }
+
+  /* Product card extras */
+  .card__img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem 0.5rem 0 0;
+    aspect-ratio: 4/3;
+    background: #f5f5f5;
+  }
+
+  .card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 1rem;
+  }
+
+  .capacity-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .card__price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary, #F97316);
+    margin: 0.5rem 0;
+  }
+
+  .card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+  }
+
+  .card__features li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #555);
+  }
+
+  .card__features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary, #F97316);
+    font-weight: 700;
+  }
+
+  .product-category-section[hidden] {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const sections = document.querySelectorAll<HTMLElement>(".product-category-section");
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.filter;
+
+        filterBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        sections.forEach((section) => {
+          if (filter === "todos" || section.dataset.category === filter) {
+            section.removeAttribute("hidden");
+          } else {
+            section.setAttribute("hidden", "");
+          }
+        });
+      });
+    });
+  });
+</script>

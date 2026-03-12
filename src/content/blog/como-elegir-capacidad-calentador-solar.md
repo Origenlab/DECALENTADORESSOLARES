@@ -6,7 +6,7 @@ author: "Equipo Tecnico"
 image: "/images/blog/capacidad-calentador-solar.svg"
 imageAlt: "Guia de capacidad para calentador solar"
 tags: ["calentadores", "solar", "ahorro", "dimensionamiento"]
-category: "productos"
+category: "Guías"
 ---
 
 Elegir capacidad de forma correcta evita dos costos ocultos: comprar un equipo que no cubre tu demanda o pagar de mas por una capacidad innecesaria.

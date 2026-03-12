@@ -1,51 +1,413 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumb from "../components/ui/Breadcrumb.astro";
-import LeadCapture from "../components/sections/LeadCapture.astro";
+import { buildOrganizationSchema } from "../lib/seo";
+import { WHATSAPP_URL } from "../lib/config";
 
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  name: "Nosotros - De Calentadores Solares",
-  url: "https://decalentadoressolares.com/nosotros"
-};
+const schema = buildOrganizationSchema();
+
+const valores = [
+  {
+    icon: "🏅",
+    titulo: "Calidad",
+    desc: "Utilizamos equipos certificados y técnicas de instalación que cumplen las normas más exigentes del sector solar térmico en México.",
+  },
+  {
+    icon: "🤝",
+    titulo: "Honestidad",
+    desc: "Presupuestos transparentes sin letras chicas. Te decimos exactamente qué incluye tu proyecto, cuánto cuesta y en cuánto tiempo.",
+  },
+  {
+    icon: "💡",
+    titulo: "Innovación",
+    desc: "Adoptamos las tecnologías más recientes — sistemas presurizados, híbridos y monitoreo remoto — para maximizar tu ahorro.",
+  },
+];
+
+const equipo = [
+  {
+    iniciales: "RM",
+    nombre: "Ing. Roberto Méndez",
+    puesto: "Director General",
+    bio: "Ingeniero mecánico con más de 18 años de experiencia en energía solar térmica. Fundó De Calentadores Solares en 2009 con la visión de profesionalizar el sector.",
+    color: "#F97316",
+  },
+  {
+    iniciales: "ML",
+    nombre: "Lic. María Fernanda López",
+    puesto: "Directora Comercial",
+    bio: "Especialista en ventas consultivas y desarrollo de mercado. Ha liderado la expansión comercial a 7 estados y el crecimiento de la cartera de clientes corporativos.",
+    color: "#0EA5E9",
+  },
+  {
+    iniciales: "CR",
+    nombre: "Ing. Carlos Ramírez",
+    puesto: "Jefe de Proyectos",
+    bio: "Ingeniero en energías renovables responsable del dimensionamiento, supervisión de instalaciones y control de calidad en cada proyecto residencial y comercial.",
+    color: "#10B981",
+  },
+];
+
+const hitos = [
+  { anio: "2009", titulo: "Fundación", desc: "Nace De Calentadores Solares en la Ciudad de México con la misión de ofrecer soluciones solares térmicas profesionales." },
+  { anio: "2012", titulo: "100 Instalaciones", desc: "Alcanzamos nuestras primeras 100 instalaciones residenciales exitosas en CDMX y zona metropolitana." },
+  { anio: "2015", titulo: "Expansión Edomex", desc: "Ampliamos cobertura al Estado de México y abrimos líneas de servicio para proyectos comerciales." },
+  { anio: "2019", titulo: "300 Proyectos Comerciales", desc: "Consolidamos nuestra presencia en hoteles, gimnasios, restaurantes e industria con más de 300 proyectos ejecutados." },
+  { anio: "2024", titulo: "500+ Instalaciones", desc: "Superamos las 500 instalaciones en 7 estados, posicionándonos como referente del sector solar térmico en México." },
+];
+
+const certificaciones = [
+  { icon: "📋", nombre: "NOM-021-ENER", desc: "Cumplimiento con la Norma Oficial Mexicana de eficiencia energética para calentadores solares de agua." },
+  { icon: "🔬", nombre: "Conciencia ISO", desc: "Procesos internos alineados a estándares de gestión de calidad ISO 9001 para mejora continua." },
+  { icon: "🛡️", nombre: "Garantía Total", desc: "Todos nuestros proyectos incluyen garantía en mano de obra y respaldo del fabricante en equipos." },
+  { icon: "🌱", nombre: "Compromiso Ambiental", desc: "Cada instalación evita la emisión de aproximadamente 1.5 toneladas de CO₂ al año." },
+];
 ---
 
 <BaseLayout
-  title="Nosotros | De Calentadores Solares"
-  description="Conoce nuestro enfoque profesional para proyectos de calentadores solares residenciales y comerciales en Mexico."
+  title="Sobre Nosotros | De Calentadores Solares"
+  description="Más de 15 años instalando calentadores solares en México. Conoce nuestra historia, equipo y compromiso con la energía solar."
+  activePage="nosotros"
+  heroTitle="Sobre Nosotros | De Calentadores Solares"
+  heroIntro="Más de 15 años instalando calentadores solares en México. Conoce nuestra historia, equipo y compromiso."
+  heroBadge="Desde 2009"
+  heroMetrics={[
+    { valor: "+500", texto: "instalaciones" },
+    { valor: "15+", texto: "años experiencia" },
+    { valor: "7", texto: "estados" },
+    { valor: "100%", texto: "garantía" },
+  ]}
+  heroPrimaryText="Solicitar Cotización"
+  heroPrimaryLink={WHATSAPP_URL}
+  heroSecondaryText="Ver Productos"
+  heroSecondaryLink="/calentadores"
+  breadcrumbs={[
+    { name: "Inicio", url: "/" },
+    { name: "Nosotros", url: "/nosotros" },
+  ]}
+  showLeadCapture={true}
   structuredData={schema}
 >
-  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Nosotros" }]} />
 
-  <section class="page-intro">
-    <h1>Nosotros</h1>
-    <p>
-      Somos un equipo enfocado en proyectos de calentamiento solar con metodologia tecnica y
-      orientacion a resultados medibles de ahorro.
-    </p>
-  </section>
+  <!-- ========== NUESTRA HISTORIA ========== -->
+  <section class="section" aria-labelledby="historia-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="historia-title">Nuestra Historia</h2>
+        <p>Desde 2009 transformando hogares y negocios con energía solar térmica en México.</p>
+      </header>
 
-  <section class="section" aria-labelledby="values-title">
-    <header class="section-header">
-      <h2 id="values-title">Nuestra forma de trabajar</h2>
-    </header>
+      <div class="story-block">
+        <div class="story-text">
+          <h3>¿Cómo empezamos?</h3>
+          <p>
+            De Calentadores Solares nació en 2009 en la Ciudad de México, fundada por el Ing. Roberto Méndez
+            con una visión clara: profesionalizar el mercado de calentadores solares y ofrecer a familias y
+            empresas una alternativa real para reducir su dependencia del gas.
+          </p>
+          <p>
+            Lo que comenzó como un pequeño taller de instalación se ha convertido en una empresa con presencia
+            en 7 estados y más de 500 proyectos ejecutados. Nuestra misión sigue siendo la misma:
+            <strong>entregar soluciones solares térmicas con rigor técnico, honestidad comercial y servicio postventa real.</strong>
+          </p>
+        </div>
+      </div>
 
-    <div class="comparison-grid">
-      <article class="comparison-card">
-        <h3>Claridad comercial</h3>
-        <p>Propuestas con alcance, costo y tiempos definidos desde el inicio.</p>
-      </article>
-      <article class="comparison-card">
-        <h3>Rigor tecnico</h3>
-        <p>Dimensionamiento por consumo real y criterios de instalacion profesional.</p>
-      </article>
-      <article class="comparison-card">
-        <h3>Seguimiento postventa</h3>
-        <p>Mantenimiento preventivo y soporte para sostener rendimiento del sistema.</p>
-      </article>
+      <h3 class="valores-titulo">Nuestros Valores</h3>
+      <div class="grid-3">
+        {valores.map((v) => (
+          <div class="card">
+            <div class="card__body">
+              <span class="valor-icon">{v.icon}</span>
+              <h4 class="card__title">{v.titulo}</h4>
+              <p class="card__desc">{v.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <LeadCapture source="nosotros" />
+  <!-- ========== EQUIPO ========== -->
+  <section class="section section--alt" aria-labelledby="equipo-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="equipo-title">Nuestro Equipo</h2>
+        <p>Profesionales comprometidos con cada proyecto solar.</p>
+      </header>
+
+      <div class="grid-3">
+        {equipo.map((m) => (
+          <div class="card equipo-card">
+            <div class="card__body">
+              <div class="avatar" style={`background-color: ${m.color}`}>
+                <span class="avatar__iniciales">{m.iniciales}</span>
+              </div>
+              <h3 class="card__title">{m.nombre}</h3>
+              <p class="equipo-puesto">{m.puesto}</p>
+              <p class="card__desc">{m.bio}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LÍNEA DE TIEMPO ========== -->
+  <section class="section" aria-labelledby="timeline-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="timeline-title">Nuestra Trayectoria</h2>
+        <p>Hitos clave en más de 15 años de trabajo.</p>
+      </header>
+
+      <div class="timeline">
+        {hitos.map((h, i) => (
+          <div class={`timeline__item ${i % 2 === 0 ? 'timeline__item--left' : 'timeline__item--right'}`}>
+            <div class="timeline__marker">
+              <span class="timeline__year">{h.anio}</span>
+            </div>
+            <div class="timeline__content">
+              <h3>{h.titulo}</h3>
+              <p>{h.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CERTIFICACIONES ========== -->
+  <section class="section section--alt" aria-labelledby="cert-title">
+    <div class="container">
+      <header class="section-header">
+        <h2 id="cert-title">Certificaciones y Respaldos</h2>
+        <p>Trabajamos bajo estándares que garantizan calidad y confianza en cada instalación.</p>
+      </header>
+
+      <div class="grid-4">
+        {certificaciones.map((c) => (
+          <div class="card cert-card">
+            <div class="card__body">
+              <span class="cert-icon">{c.icon}</span>
+              <h4 class="card__title">{c.nombre}</h4>
+              <p class="card__desc">{c.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== STATS BAR ========== -->
+  <section class="section section--dark" aria-labelledby="stats-title">
+    <div class="container">
+      <h2 id="stats-title" class="sr-only">Nuestras Cifras</h2>
+      <div class="stats-bar">
+        <div class="stats-bar__item">
+          <span class="stats-bar__valor">500+</span>
+          <span class="stats-bar__texto">Instalaciones</span>
+        </div>
+        <div class="stats-bar__item">
+          <span class="stats-bar__valor">15</span>
+          <span class="stats-bar__texto">Años de Experiencia</span>
+        </div>
+        <div class="stats-bar__item">
+          <span class="stats-bar__valor">7</span>
+          <span class="stats-bar__texto">Estados</span>
+        </div>
+        <div class="stats-bar__item">
+          <span class="stats-bar__valor">100%</span>
+          <span class="stats-bar__texto">Garantía</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA FINAL ========== -->
+  <section class="section" aria-labelledby="cta-title">
+    <div class="container" style="text-align:center;">
+      <h2 id="cta-title">¿Listo para ahorrar en gas?</h2>
+      <p style="max-width:600px;margin:0 auto 2rem;">
+        Solicita tu cotización sin compromiso. Nuestro equipo te contacta en menos de 24 horas con una propuesta personalizada.
+      </p>
+      <a class="btn btn--primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+        Cotizar por WhatsApp
+      </a>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  /* Historia */
+  .story-block {
+    max-width: 800px;
+    margin: 0 auto 2.5rem;
+  }
+  .story-text p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text-secondary, #555);
+    margin-bottom: 1rem;
+  }
+  .valores-titulo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+  }
+  .valor-icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Equipo */
+  .equipo-card {
+    text-align: center;
+  }
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+  }
+  .avatar__iniciales {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .equipo-puesto {
+    font-size: 0.9rem;
+    color: var(--color-primary, #F97316);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-primary, #F97316);
+    transform: translateX(-50%);
+  }
+  .timeline__item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: flex-start;
+  }
+  .timeline__item--left {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+  .timeline__item--right {
+    text-align: left;
+  }
+  .timeline__marker {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--color-primary, #F97316);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin: 0 1rem;
+  }
+  .timeline__year {
+    line-height: 1;
+  }
+  .timeline__content {
+    flex: 1;
+    max-width: 280px;
+  }
+  .timeline__content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+  }
+  .timeline__content p {
+    font-size: 0.92rem;
+    color: var(--text-secondary, #555);
+    line-height: 1.55;
+  }
+
+  /* Certificaciones */
+  .cert-card {
+    text-align: center;
+  }
+  .cert-icon {
+    display: block;
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Stats Bar */
+  .stats-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    padding: 1rem 0;
+  }
+  .stats-bar__item {
+    text-align: center;
+  }
+  .stats-bar__valor {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-primary, #F97316);
+  }
+  .stats-bar__texto {
+    display: block;
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-top: 0.25rem;
+  }
+
+  /* Responsivo */
+  @media (max-width: 640px) {
+    .timeline::before {
+      left: 20px;
+    }
+    .timeline__item,
+    .timeline__item--left {
+      flex-direction: row;
+      text-align: left;
+    }
+    .timeline__marker {
+      width: 44px;
+      height: 44px;
+      font-size: 0.75rem;
+      margin: 0 0.75rem 0 0;
+    }
+    .timeline__content {
+      max-width: 100%;
+    }
+    .stats-bar {
+      gap: 1.5rem;
+    }
+    .stats-bar__valor {
+      font-size: 1.8rem;
+    }
+  }
+</style>
