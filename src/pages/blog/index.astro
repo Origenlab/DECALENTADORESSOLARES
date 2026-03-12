@@ -6,16 +6,19 @@ import BlogCard from '../../components/BlogCard.astro';
 import LeadCapture from '../../components/LeadCapture.astro';
 import { buildBreadcrumbSchema } from '../../lib/seo';
 
-const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+import type { CollectionEntry } from 'astro:content';
+type BlogPost = CollectionEntry<'blog'>;
+
+const allPosts = (await getCollection('blog', ({ data }: { data: BlogPost['data'] }) => !data.draft))
+  .sort((a: BlogPost, b: BlogPost) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
 
 // Categorías con conteo
-const cats = allPosts.reduce((acc, p) => {
+const cats = allPosts.reduce((acc: Record<string, number>, p: BlogPost) => {
   acc[p.data.category] = (acc[p.data.category] || 0) + 1;
   return acc;
 }, {} as Record<string, number>);
 
-const categorias = Object.entries(cats).sort((a, b) => b[1] - a[1]);
+const categorias = (Object.entries(cats) as [string, number][]).sort((a, b) => b[1] - a[1]);
 
 const structuredData = [
   buildBreadcrumbSchema([
@@ -80,7 +83,7 @@ const structuredData = [
             </h2>
             <p class="blog-featured__desc">{allPosts[0].data.description}</p>
             <div class="blog-featured__tags">
-              {allPosts[0].data.tags.slice(0, 3).map(tag => (
+              {allPosts[0].data.tags.slice(0, 3).map((tag: string) => (
                 <span class="blog-featured__tag">{tag}</span>
               ))}
             </div>
@@ -91,7 +94,7 @@ const structuredData = [
 
       <!-- Grid de artículos -->
       <div class="grid-3 blog-grid" aria-label="Artículos del blog">
-        {allPosts.slice(1).map(post => (
+        {allPosts.slice(1).map((post: BlogPost) => (
           <BlogCard
             titulo={post.data.title}
             descripcion={post.data.description}
