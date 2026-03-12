@@ -1,263 +1,181 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
-import { WHATSAPP_NUMBER, SITE_NAME } from '../../lib/config';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
-const categoryFilter = 'industrial';
-const pageTitle = 'Sistemas Solares Industriales | Alta Capacidad y Temperatura';
-const pageDescription = 'Sistemas solares industriales de 5,000 a 10,000 litros con temperaturas de 60-80 grados. Ingenieria de proyecto para fabricas, hospitales y grandes hoteles en Mexico.';
-const pageUrl = '/calentadores/industrial';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
 
 const allProducts = await getCollection('productos');
-const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === categoryFilter);
-
-const breadcrumbs = [
-  { name: 'Inicio', url: '/' },
-  { name: 'Calentadores', url: '/calentadores' },
-  { name: 'Industrial', url: pageUrl },
-];
+const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === 'industrial');
 
 const faqItems = [
-  { pregunta: '¿Que rango de temperatura alcanzan los sistemas solares industriales?', respuesta: 'Nuestros sistemas industriales alcanzan temperaturas de 60 a 80 grados centigrados de forma consistente. Para procesos que requieren mayor temperatura, disenamos sistemas de precalentamiento solar que reducen significativamente el consumo del sistema de calor convencional.' },
-  { pregunta: '¿Cuanto tiempo tarda la instalacion de un sistema solar industrial?', respuesta: 'La instalacion industrial se realiza por etapas para minimizar el impacto en la operacion. Tipicamente toma de 2 a 8 semanas dependiendo de la escala del proyecto, incluyendo ingenieria de detalle, instalacion mecanica, conexiones y puesta en marcha.' },
-  { pregunta: '¿Cual es el retorno de inversion en un proyecto solar industrial?', respuesta: 'El ROI tipico es de 4 a 6 anos. Para una planta que consume $100,000 MXN mensuales en combustible para agua caliente, el ahorro puede ser de $40,000 a $70,000 al mes, dependiendo de la fraccion solar alcanzada.' },
-  { pregunta: '¿Que tipo de mantenimiento requiere un sistema solar industrial?', respuesta: 'Se requiere mantenimiento programado mensual o trimestral que incluye limpieza de colectores, revision de bombas y valvulas, monitoreo de temperaturas y presiones, y verificacion del sistema de control. Ofrecemos contratos de mantenimiento integral.' },
-  { pregunta: '¿Que certificaciones cumplen los sistemas industriales?', respuesta: 'Nuestros sistemas cumplen con la NOM-021-ENER-2017 para colectores solares, normas NOM de instalaciones hidraulicas y electricas aplicables, y pueden ser elegibles para incentivos FIDE, SENER y certificaciones de edificacion sustentable.' },
+  { pregunta: "¿A qué temperatura llega el agua con sistema industrial?", respuesta: "Los sistemas industriales pueden alcanzar temperaturas de 60-95°C según el diseño. Para aplicaciones que requieren más temperatura se usan colectores de concentración parabólica." },
+  { pregunta: "¿Pueden integrarse con el sistema de vapor existente?", respuesta: "Sí. El sistema solar se integra como precalentador al sistema de vapor o caldera existente, reduciendo el combustible necesario sin reemplazar la infraestructura actual." },
+  { pregunta: "¿Qué normas aplican a instalaciones industriales?", respuesta: "NOM-001-SEDE (instalaciones eléctricas), NOM-020-STPS (recipientes sujetos a presión), y dependiendo del sector: NOM-251-SSA1 para alimentos, entre otras." },
+  { pregunta: "¿Ofrecen servicio de ingeniería de detalle?", respuesta: "Sí. Para proyectos industriales elaboramos ingeniería de detalle: planos isométricos, memoria de cálculo, especificaciones técnicas completas y acompañamiento en la gestión con protección civil si aplica." },
+  { pregunta: "¿Cuál es el tiempo de respuesta para proyectos industriales?", respuesta: "Visita técnica: 3-5 días hábiles. Propuesta técnico-económica: 5-10 días. Instalación: según complejidad, de 2 semanas a 2 meses para proyectos grandes." }
 ];
 
 const structuredData = [
-  buildServiceSchema({ name: 'Sistemas Solares Industriales', description: pageDescription, url: pageUrl }),
+  buildServiceSchema({ name: 'Sistemas Solares Industriales de Alta Capacidad', description: 'Sistemas solares térmicos industriales para procesos de alta temperatura y gran volumen en México. Diseño de ingeniería, instalación certificada y soporte técnico.', url: '/calentadores/industrial' }),
   buildFAQSchema(faqItems),
-  buildBreadcrumbSchema(breadcrumbs),
-];
-
-const features = [
-  { icon: '🏭', title: 'Capacidad masiva', desc: 'Sistemas de 5,000 a 10,000 litros diarios para satisfacer la demanda de procesos industriales de gran escala.' },
-  { icon: '🌡️', title: 'Alta temperatura', desc: 'Alcanza temperaturas de 60 a 80 grados centigrados de forma consistente para procesos industriales exigentes.' },
-  { icon: '📐', title: 'Ingenieria especializada', desc: 'Estudio de demanda, diseno de campo solar, calculos termicos y planos de integracion a medida de tu planta.' },
-  { icon: '📡', title: 'Monitoreo remoto', desc: 'Sistema de monitoreo en tiempo real de temperaturas, presiones y rendimiento para optimizar la operacion.' },
-  { icon: '🔥', title: 'Respaldo gas/electrico', desc: 'Sistema hibrido con respaldo automatico de gas o caldera electrica para garantizar continuidad operativa 24/7.' },
-  { icon: '📋', title: 'Cumplimiento normativo', desc: 'Cumple NOM-021-ENER-2017 y normativas aplicables. Elegible para incentivos FIDE y SENER.' },
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Sistemas Solares Industriales de Alta Capacidad', url: '/calentadores/industrial' },
+  ]),
 ];
 ---
 
 <BaseLayout
-  title={pageTitle}
-  description={pageDescription}
+  title="Calentadores Solares Industriales | Alta Capacidad para Industria"
+  description="Sistemas solares térmicos industriales para procesos de alta temperatura y gran volumen en México. Diseño de ingeniería, instalación certificada y soporte técnico."
   activePage="calentadores"
-  heroTitle="Sistemas Solares Industriales | Alta Capacidad y Temperatura"
-  heroIntro="Soluciones de ingenieria para procesos industriales con alta demanda de agua caliente. Ahorro de 40-70% en combustible con sistemas de 5,000 a 10,000 litros."
-  heroBadge="Gran escala"
-  heroMetrics={[
-    { valor: '5,000-10,000L', texto: 'capacidad' },
-    { valor: '60-80°C', texto: 'temperatura' },
-    { valor: 'Ingenieria', texto: 'proyecto' },
-    { valor: 'ROI', texto: '4-6 anos' },
-  ]}
-  heroPrimaryText="Solicitar Ingenieria"
-  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, necesito cotizar un sistema solar industrial. ¿Pueden agendar una visita tecnica?')}`}
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/productos"
-  heroFeatures={[
-    { icon: '🏭', text: 'Fabricas y plantas industriales' },
-    { icon: '🏥', text: 'Hospitales y centros de salud' },
-    { icon: '🏨', text: 'Grandes hoteles y resorts' },
-    { icon: '✅', text: 'Cumplimiento normativo NOM' },
-  ]}
-  showLeadCapture={true}
-  breadcrumbs={breadcrumbs}
   structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Sistemas Solares Industriales de Alta Capacidad', url: '/calentadores/industrial' },
+  ]}
+  showHero={true}
+  heroTitle="Sistemas Solares Industriales de Alta Capacidad"
+  heroIntro="Soluciones de calentamiento solar para procesos industriales: lavandería, manufactura, alimentos y bebidas, farmacéutica y cualquier proceso con demanda de agua caliente o vapor."
+  heroBadge="Alta capacidad"
+  heroMetrics={[
+        { valor: "+5000L", texto: "Capacidad" },
+    { valor: "70-85%", texto: "Sustitución GN/LP" },
+    { valor: "Ingeniería", texto: "Diseño a medida" },
+    { valor: "ISO", texto: "Estándares" }
+  ]}
+  heroPrimaryText="Cotizar este sistema"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los calentadores"
+  heroSecondaryLink="/calentadores"
 >
 
-  <!-- Caracteristicas principales -->
-  <section class="section" aria-labelledby="features-title">
+  <!-- Por qué elegir este sistema -->
+  <section class="section section--alt" aria-labelledby="why-title">
     <div class="container">
-      <div class="section-header">
-        <span class="badge badge--primary">Beneficios</span>
-        <h2 id="features-title">Caracteristicas del sistema solar industrial</h2>
-        <p>Ingenieria de proyecto con los mas altos estandares para tu operacion industrial.</p>
-      </div>
-      <div class="grid-3">
-        {features.map(f => (
-          <div class="card">
-            <div class="card__body">
-              <span class="feature-icon" aria-hidden="true">{f.icon}</span>
-              <h3 class="card__title">{f.title}</h3>
-              <p class="card__desc">{f.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <SectionHeader
+        titulo="¿Por qué elegir Sistemas Solares Industriales de Alta Capacidad?"
+        subtitulo="Ventajas técnicas y económicas que hacen la diferencia"
+        idTitulo="why-title"
+        parrafo1="El calentamiento de agua es uno de los mayores consumidores de energía en la industria mexicana. Las plantas de manufactura, lavanderías industriales, procesadoras de alimentos y empresas farmacéuticas consumen miles de litros de agua caliente al día, pagando enormes facturas de gas natural o LP."
+        parrafo2="Los sistemas solares industriales pueden sustituir entre el 50% y el 85% de ese consumo según el proceso y la zona geográfica. A esta escala, el ahorro puede representar millones de pesos anuales."
+      />
     </div>
   </section>
 
-  <!-- Para quien es -->
-  <section class="section section--alt" aria-labelledby="audience-title">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge badge--eco">Aplicaciones industriales</span>
-        <h2 id="audience-title">¿Para quien es el sistema solar industrial?</h2>
+  <!-- Productos del catálogo -->
+  {products.length > 0 && (
+    <section class="section" aria-labelledby="products-title">
+      <div class="container">
+        <SectionHeader
+          titulo="Modelos disponibles"
+          subtitulo="Selecciona el que mejor se adapta a tu consumo y presupuesto"
+          enlaceTexto="Ver catálogo completo"
+          enlaceUrl="/productos"
+          idTitulo="products-title"
+        />
+        <div class="grid-3 products-grid">
+          {products.map((p: CollectionEntry<'productos'>, i: number) => (
+            <ProductCard
+              titulo={p.data.title}
+              descripcion={p.data.description}
+              enlace={`/productos/${p.slug}`}
+              imagen={p.data.image.startsWith('/img') ? p.data.image : '/img/categorias/calentador-solar-residencial-casa-cdmx.avif'}
+              precio={p.data.price}
+              precioMin={p.data.priceRangeMin}
+              precioMax={p.data.priceRangeMax}
+              capacidad={p.data.capacityLiters}
+              tubos={p.data.tubeCount}
+              usuarios={p.data.targetUsers}
+              features={p.data.features}
+              featured={i === 0}
+            />
+          ))}
+        </div>
+        {products.length === 0 && (
+          <div class="no-products">
+            <p>Contáctanos para conocer los modelos disponibles para este tipo de sistema.</p>
+            <a href="/cotizar" class="btn btn--primary">Solicitar cotización →</a>
+          </div>
+        )}
       </div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Fabricas y plantas de produccion</h3>
-            <p class="card__desc">Procesos de manufactura que requieren agua caliente o precalentamiento: alimentos, bebidas, textiles, quimicos y farmaceuticos.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Hospitales y centros de salud</h3>
-            <p class="card__desc">Agua caliente continua para esterilizacion, lavanderia hospitalaria, cocinas y uso general con los mas altos estandares sanitarios.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Grandes hoteles y resorts</h3>
-            <p class="card__desc">Hoteles de 50+ habitaciones, resorts y complejos turisticos con alta demanda de agua caliente en multiples areas simultaneas.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Procesamiento industrial</h3>
-            <p class="card__desc">Lavanderias industriales, plantas agroindustriales, establos, rastros y cualquier proceso con demanda masiva de agua caliente.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- Comparativa -->
-  <section class="section" aria-labelledby="compare-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="compare-title">Comparativa: Industrial vs. otros tipos</h2>
-        <p>Entiende la escala y diferencias de cada tipo de sistema.</p>
-      </div>
-      <div class="table-wrap">
-        <table class="compare-table">
+  <!-- Tabla comparativa -->
+  <section class="section section--alt" aria-labelledby="comp-title">
+    <div class="container" style="max-width: 900px;">
+      <SectionHeader
+        titulo="Comparativa de modelos"
+        subtitulo="Elige el tamaño correcto para tu consumo"
+        idTitulo="comp-title"
+      />
+      <div class="comp-table-wrap">
+        <table class="comp-table" aria-label="Comparativa de modelos">
           <thead>
             <tr>
-              <th>Caracteristica</th>
-              <th>Industrial</th>
-              <th>Comercial</th>
-              <th>Residencial</th>
+              <th>Escala</th><th>Aplicación</th><th>Inversión aprox.</th><th>ROI aprox.</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Capacidad</td><td><strong>5,000-10,000L</strong></td><td>500-2,000L</td><td>150-300L</td></tr>
-            <tr><td>Temperatura</td><td><strong>60-80°C</strong></td><td>45-65°C</td><td>40-60°C</td></tr>
-            <tr><td>Ingenieria</td><td><strong>Proyecto completo</strong></td><td>Diseno tecnico</td><td>Estandar</td></tr>
-            <tr><td>Monitoreo</td><td><strong>Remoto 24/7</strong></td><td>Opcional</td><td>No aplica</td></tr>
-            <tr><td>Instalacion</td><td><strong>2-8 semanas</strong></td><td>2-5 dias</td><td>1 dia</td></tr>
-            <tr><td>ROI</td><td><strong>4-6 anos</strong></td><td>3-5 anos</td><td>2-3 anos</td></tr>
+            <tr><td>Sistema 5,000 L</td><td>Lavandería mediana / planta pequeña</td><td>~$280,000</td><td>~14 meses</td></tr>
+            <tr><td>Sistema 10,000 L</td><td>Planta manufactura / hospital</td><td>~$480,000</td><td>~12 meses</td></tr>
+            <tr><td>Sistema 20,000 L</td><td>Procesadora alimentos / farmacéutica</td><td>~$850,000</td><td>~10 meses</td></tr>
+            
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- Productos relacionados -->
-  <section class="section section--alt" aria-labelledby="products-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="products-title">Sistemas solares industriales disponibles</h2>
-        <p>Equipos de gran escala con ingenieria de proyecto incluida.</p>
-      </div>
-      {products.length > 0 ? (
-        <div class="grid-3">
-          {products.map((prod: CollectionEntry<'productos'>) => (
-            <a href={`/productos/${prod.slug}`} class="card card--link">
-              <div class="card__body">
-                <h3 class="card__title">{prod.data.title}</h3>
-                <p class="card__desc">{prod.data.description}</p>
-                {prod.data.price && <span class="price-tag">${prod.data.price.toLocaleString('es-MX')} MXN</span>}
-              </div>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <p>Cada proyecto industrial es unico. <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, necesito cotizar un sistema solar industrial')}`}>Contactanos por WhatsApp</a> para agendar una visita tecnica y recibir una propuesta a medida.</p>
-      )}
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section class="section section--dark" aria-labelledby="faq-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="faq-title">Preguntas frecuentes sobre sistemas solares industriales</h2>
-      </div>
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber sobre sistemas solares industriales de alta capacidad"
+        idTitulo="faq-title"
+      />
       <div class="faq">
-        {faqItems.map(item => (
+        {faqItems.map((item, i) => (
           <div class="faq__item">
-            <button class="faq__question">
-              <span>{item.pregunta}</span>
-              <span class="faq__icon">+</span>
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq__answer">
-              <p>{item.respuesta}</p>
-            </div>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
+  <LeadCapture />
+
 </BaseLayout>
 
 <style>
-  .feature-icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--color-white, #fff);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  .compare-table th,
-  .compare-table td {
-    padding: 0.875rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--color-gray-200, #e5e7eb);
-  }
-  .compare-table thead th {
-    background: var(--color-gray-50, #f9fafb);
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-  }
-  .compare-table tbody td:first-child {
-    font-weight: 500;
-  }
-  .price-tag {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    background: var(--color-primary-50, #fff7ed);
-    color: var(--color-primary-700, #c2410c);
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-  .card--link {
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .card--link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  }
+.products-grid { margin-top: var(--space-4); }
+.no-products {
+  text-align: center; padding: var(--space-12);
+  background: var(--color-bg-alt); border-radius: var(--radius-xl);
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-4);
+}
+.comp-table-wrap { overflow-x: auto; border-radius: var(--radius-xl); border: 1px solid var(--color-border); }
+.comp-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.comp-table th {
+  background: var(--color-dark); color: #fff;
+  padding: var(--space-4) var(--space-5); text-align: left;
+  font-weight: var(--weight-semibold); white-space: nowrap;
+}
+.comp-table td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:nth-child(even) td { background: var(--color-bg-alt); }
 </style>

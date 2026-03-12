@@ -1,262 +1,181 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
-import { WHATSAPP_NUMBER, SITE_NAME } from '../../lib/config';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
-const categoryFilter = 'presurizado';
-const pageTitle = 'Calentadores Solares Presurizados | Mayor Rendimiento y Presion';
-const pageDescription = 'Calentadores solares presurizados de 120 a 360 litros con tecnologia heat pipe. Alta presion constante para uso simultaneo en multiples regaderas. Ideal para casas de 2+ pisos.';
-const pageUrl = '/calentadores/presurizado';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
 
 const allProducts = await getCollection('productos');
-const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === categoryFilter);
-
-const breadcrumbs = [
-  { name: 'Inicio', url: '/' },
-  { name: 'Calentadores', url: '/calentadores' },
-  { name: 'Presurizado', url: pageUrl },
-];
+const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === 'presurizado');
 
 const faqItems = [
-  { pregunta: '¿Cual es la diferencia entre un calentador presurizado y uno de baja presion?', respuesta: 'El sistema presurizado mantiene la presion del agua constante mediante un tanque sellado con tecnologia heat pipe, permitiendo uso simultaneo en multiples puntos. El de baja presion funciona por gravedad y pierde presion al abrir varias llaves a la vez.' },
-  { pregunta: '¿Cuando necesito un calentador solar presurizado?', respuesta: 'Se recomienda cuando tienes una casa de 2 o mas pisos, necesitas usar varias regaderas al mismo tiempo, tu presion de agua es baja, o ya cuentas con un sistema hidroneumatico instalado.' },
-  { pregunta: '¿Cuanto cuesta un calentador solar presurizado comparado con uno convencional?', respuesta: 'Un sistema presurizado cuesta entre 30-50% mas que uno convencional de la misma capacidad, pero ofrece mejor rendimiento, mayor presion y posibilidad de uso simultaneo. La inversion adicional se justifica con el confort.' },
-  { pregunta: '¿Que mantenimiento necesita un calentador solar presurizado?', respuesta: 'Requiere mantenimiento anual: revision de conexiones, limpieza exterior de tubos y verificacion del anodo de magnesio. Los tubos heat pipe son mas resistentes a calcificacion que los tubos convencionales.' },
-  { pregunta: '¿Es compatible el calentador presurizado con mi sistema hidroneumatico?', respuesta: 'Si, los calentadores solares presurizados son 100% compatibles con sistemas hidroneumaticos. Es la opcion recomendada cuando ya cuentas con hidroneumatico para mantener presion uniforme en toda la casa.' },
+  { pregunta: "¿En qué se diferencia el presurizado del termosifón?", respuesta: "El termosifón usa convección natural (sin bomba), es más económico pero requiere el tanque elevado. El presurizado usa bomba eléctrica de bajo consumo (~50W) y puede instalar el tanque donde sea necesario." },
+  { pregunta: "¿Cuánta electricidad consume la bomba?", respuesta: "La bomba circuladora consume aproximadamente 50-80W y solo opera cuando hay diferencia de temperatura entre el colector y el tanque. El consumo mensual adicional es de $40-$80 pesos, insignificante frente al ahorro en gas." },
+  { pregunta: "¿Es compatible con mi sistema hidro-neumático?", respuesta: "Sí. El sistema presurizado entrega agua a la misma presión que tu red existente. Es totalmente compatible con hidro-neumático y no requiere modificar el sistema de presión del inmueble." },
+  { pregunta: "¿Puede instalarse en edificio de departamentos?", respuesta: "Sí, es la mejor opción para edificios porque el tanque puede ir en el cuarto de máquinas o un local técnico, sin ocupar espacio visual en el techo de forma permanente." },
+  { pregunta: "¿Qué pasa si se va la luz?", respuesta: "En caso de corte eléctrico, el sistema deja de circular activamente pero el agua caliente almacenada en el tanque permanece disponible. Al regresar la luz el sistema retoma operación automáticamente." }
 ];
 
 const structuredData = [
-  buildServiceSchema({ name: 'Calentadores Solares Presurizados', description: pageDescription, url: pageUrl }),
+  buildServiceSchema({ name: 'Calentadores Solares Presurizados', description: 'Sistemas de calentamiento solar presurizado para redes de alta demanda en México. Mayor flujo, mejor rendimiento y compatible con hidro-neumático. Instalación profesional.', url: '/calentadores/presurizado' }),
   buildFAQSchema(faqItems),
-  buildBreadcrumbSchema(breadcrumbs),
-];
-
-const features = [
-  { icon: '💧', title: 'Alta presion constante', desc: 'Mantiene la presion del agua uniforme en todos los puntos de uso, sin importar la altura del bano.' },
-  { icon: '🚿', title: 'Uso simultaneo', desc: 'Permite usar varias regaderas y llaves al mismo tiempo sin perder presion ni temperatura.' },
-  { icon: '⚡', title: 'Mejor rendimiento', desc: 'Los tubos heat pipe transfieren calor de forma mas eficiente, logrando mayor temperatura en menos tiempo.' },
-  { icon: '🏢', title: 'Ideal para 2+ pisos', desc: 'Disenado para casas de multiples niveles donde la gravedad no es suficiente para una buena presion.' },
-  { icon: '❄️', title: 'Resistente a heladas', desc: 'Los tubos heat pipe no se danan con temperaturas bajo cero, ideal para climas frios y zonas de montana.' },
-  { icon: '🔌', title: 'Compatible con hidroneumatico', desc: 'Se integra perfectamente con tu sistema de presion existente sin modificaciones costosas.' },
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Calentadores Solares Presurizados', url: '/calentadores/presurizado' },
+  ]),
 ];
 ---
 
 <BaseLayout
-  title={pageTitle}
-  description={pageDescription}
+  title="Calentadores Solares Presurizados | Alta Presión y Máximo Rendimiento"
+  description="Sistemas de calentamiento solar presurizado para redes de alta demanda en México. Mayor flujo, mejor rendimiento y compatible con hidro-neumático. Instalación profesional."
   activePage="calentadores"
-  heroTitle="Calentadores Solares Presurizados | Mayor Rendimiento y Presion"
-  heroIntro="Sistemas de alta presion con tecnologia heat pipe. Usa varias regaderas al mismo tiempo sin perder presion ni temperatura en ningun piso de tu casa."
-  heroBadge="Alta presion"
-  heroMetrics={[
-    { valor: '120-360L', texto: 'capacidad' },
-    { valor: 'Alta', texto: 'presion' },
-    { valor: 'Simultaneo', texto: 'uso multiple' },
-    { valor: '15+ anos', texto: 'vida util' },
-  ]}
-  heroPrimaryText="Solicitar Cotizacion"
-  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa un calentador solar presurizado. ¿Pueden asesorarme?')}`}
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/productos"
-  heroFeatures={[
-    { icon: '💧', text: 'Presion constante en toda la casa' },
-    { icon: '🚿', text: 'Multiples regaderas a la vez' },
-    { icon: '❄️', text: 'Resistente a heladas' },
-    { icon: '✅', text: 'Compatible con hidroneumatico' },
-  ]}
-  showLeadCapture={true}
-  breadcrumbs={breadcrumbs}
   structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Calentadores Solares Presurizados', url: '/calentadores/presurizado' },
+  ]}
+  showHero={true}
+  heroTitle="Calentadores Solares Presurizados"
+  heroIntro="Mayor rendimiento, flujo constante y compatibilidad con cualquier red hidráulica. El sistema ideal para casas con hidro-neumático, edificios y proyectos exigentes."
+  heroBadge="Tecnología premium"
+  heroMetrics={[
+        { valor: "150-500L", texto: "Capacidad" },
+    { valor: "85%", texto: "Eficiencia" },
+    { valor: "Alta presión", texto: "Compatible" },
+    { valor: "20 años", texto: "Vida útil" }
+  ]}
+  heroPrimaryText="Cotizar este sistema"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los calentadores"
+  heroSecondaryLink="/calentadores"
 >
 
-  <!-- Caracteristicas principales -->
-  <section class="section" aria-labelledby="features-title">
+  <!-- Por qué elegir este sistema -->
+  <section class="section section--alt" aria-labelledby="why-title">
     <div class="container">
-      <div class="section-header">
-        <span class="badge badge--primary">Beneficios</span>
-        <h2 id="features-title">Caracteristicas del calentador solar presurizado</h2>
-        <p>Tecnologia heat pipe para maxima eficiencia y confort en tu hogar.</p>
-      </div>
-      <div class="grid-3">
-        {features.map(f => (
-          <div class="card">
-            <div class="card__body">
-              <span class="feature-icon" aria-hidden="true">{f.icon}</span>
-              <h3 class="card__title">{f.title}</h3>
-              <p class="card__desc">{f.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <SectionHeader
+        titulo="¿Por qué elegir Calentadores Solares Presurizados?"
+        subtitulo="Ventajas técnicas y económicas que hacen la diferencia"
+        idTitulo="why-title"
+        parrafo1="El sistema presurizado usa una bomba de circulación y controlador electrónico para mover el agua entre los colectores y el tanque. A diferencia del termosifón —que depende de la convección natural— el presurizado funciona con el tanque en cualquier posición y a cualquier altura."
+        parrafo2="Esta flexibilidad lo hace ideal para casas de varios pisos, edificios de departamentos, inmuebles con sistema hidro-neumático o cualquier proyecto donde no se pueda instalar el tanque por encima de los colectores."
+      />
     </div>
   </section>
 
-  <!-- Para quien es -->
-  <section class="section section--alt" aria-labelledby="audience-title">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge badge--eco">Ideal para ti</span>
-        <h2 id="audience-title">¿Para quien es el calentador solar presurizado?</h2>
+  <!-- Productos del catálogo -->
+  {products.length > 0 && (
+    <section class="section" aria-labelledby="products-title">
+      <div class="container">
+        <SectionHeader
+          titulo="Modelos disponibles"
+          subtitulo="Selecciona el que mejor se adapta a tu consumo y presupuesto"
+          enlaceTexto="Ver catálogo completo"
+          enlaceUrl="/productos"
+          idTitulo="products-title"
+        />
+        <div class="grid-3 products-grid">
+          {products.map((p: CollectionEntry<'productos'>, i: number) => (
+            <ProductCard
+              titulo={p.data.title}
+              descripcion={p.data.description}
+              enlace={`/productos/${p.slug}`}
+              imagen={p.data.image.startsWith('/img') ? p.data.image : '/img/categorias/calentador-solar-residencial-casa-cdmx.avif'}
+              precio={p.data.price}
+              precioMin={p.data.priceRangeMin}
+              precioMax={p.data.priceRangeMax}
+              capacidad={p.data.capacityLiters}
+              tubos={p.data.tubeCount}
+              usuarios={p.data.targetUsers}
+              features={p.data.features}
+              featured={i === 0}
+            />
+          ))}
+        </div>
+        {products.length === 0 && (
+          <div class="no-products">
+            <p>Contáctanos para conocer los modelos disponibles para este tipo de sistema.</p>
+            <a href="/cotizar" class="btn btn--primary">Solicitar cotización →</a>
+          </div>
+        )}
       </div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Casas de 2 o mas pisos</h3>
-            <p class="card__desc">Si tu hogar tiene multiples niveles, el sistema presurizado garantiza agua caliente con buena presion en todos los pisos, incluyendo la planta baja.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Departamentos con baja presion</h3>
-            <p class="card__desc">Mejora la presion de agua caliente en departamentos donde la presion municipal es insuficiente para una ducha confortable.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Uso simultaneo multiple</h3>
-            <p class="card__desc">Familias que necesitan usar 2 o mas regaderas al mismo tiempo sin sacrificar presion ni temperatura del agua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Climas frios o con heladas</h3>
-            <p class="card__desc">Los tubos heat pipe son resistentes a congelamiento, ideales para zonas de montana, altiplano o lugares con temperaturas bajo cero.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- Comparativa -->
-  <section class="section" aria-labelledby="compare-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="compare-title">Comparativa: Presurizado vs. otros tipos</h2>
-        <p>Entiende las diferencias clave para elegir el sistema correcto.</p>
-      </div>
-      <div class="table-wrap">
-        <table class="compare-table">
+  <!-- Tabla comparativa -->
+  <section class="section section--alt" aria-labelledby="comp-title">
+    <div class="container" style="max-width: 900px;">
+      <SectionHeader
+        titulo="Comparativa de modelos"
+        subtitulo="Elige el tamaño correcto para tu consumo"
+        idTitulo="comp-title"
+      />
+      <div class="comp-table-wrap">
+        <table class="comp-table" aria-label="Comparativa de modelos">
           <thead>
             <tr>
-              <th>Caracteristica</th>
-              <th>Presurizado</th>
-              <th>Residencial (gravedad)</th>
-              <th>Termosifon</th>
+              <th>Sistema</th><th>Circulación</th><th>Instalación</th><th>Uso recomendado</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Presion</td><td><strong>Alta constante</strong></td><td>Gravedad</td><td>Gravedad</td></tr>
-            <tr><td>Uso simultaneo</td><td><strong>Si, multiples puntos</strong></td><td>Limitado</td><td>Limitado</td></tr>
-            <tr><td>Tecnologia</td><td><strong>Heat pipe</strong></td><td>Tubos al vacio</td><td>Placa plana</td></tr>
-            <tr><td>Resistencia heladas</td><td><strong>Excelente</strong></td><td>Buena</td><td>Regular</td></tr>
-            <tr><td>Inversion</td><td>$18,000-$55,000</td><td>$10,900-$45,000</td><td>$15,000-$28,000</td></tr>
+            <tr><td>Termosifón</td><td>Convección natural</td><td>Tanque debe estar arriba</td><td>Residencial estándar</td></tr>
+            <tr><td>Presurizado</td><td>Bomba + controlador</td><td>Tanque en cualquier posición</td><td>Residencial premium / comercial</td></tr>
+            <tr><td>Sistema doble</td><td>2 circuitos</td><td>Máxima capacidad</td><td>Industrial / hotel grande</td></tr>
+            
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- Productos relacionados -->
-  <section class="section section--alt" aria-labelledby="products-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="products-title">Calentadores solares presurizados disponibles</h2>
-        <p>Equipos con tecnologia heat pipe para maxima presion y rendimiento.</p>
-      </div>
-      {products.length > 0 ? (
-        <div class="grid-3">
-          {products.map((prod: CollectionEntry<'productos'>) => (
-            <a href={`/productos/${prod.slug}`} class="card card--link">
-              <div class="card__body">
-                <h3 class="card__title">{prod.data.title}</h3>
-                <p class="card__desc">{prod.data.description}</p>
-                {prod.data.price && <span class="price-tag">${prod.data.price.toLocaleString('es-MX')} MXN</span>}
-              </div>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <p>Proximamente agregaremos productos a esta categoria. <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesan calentadores solares presurizados')}`}>Contactanos por WhatsApp</a> para cotizar.</p>
-      )}
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section class="section section--dark" aria-labelledby="faq-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="faq-title">Preguntas frecuentes sobre calentadores solares presurizados</h2>
-      </div>
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber sobre calentadores solares presurizados"
+        idTitulo="faq-title"
+      />
       <div class="faq">
-        {faqItems.map(item => (
+        {faqItems.map((item, i) => (
           <div class="faq__item">
-            <button class="faq__question">
-              <span>{item.pregunta}</span>
-              <span class="faq__icon">+</span>
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq__answer">
-              <p>{item.respuesta}</p>
-            </div>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
+  <LeadCapture />
+
 </BaseLayout>
 
 <style>
-  .feature-icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--color-white, #fff);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  .compare-table th,
-  .compare-table td {
-    padding: 0.875rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--color-gray-200, #e5e7eb);
-  }
-  .compare-table thead th {
-    background: var(--color-gray-50, #f9fafb);
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-  }
-  .compare-table tbody td:first-child {
-    font-weight: 500;
-  }
-  .price-tag {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    background: var(--color-primary-50, #fff7ed);
-    color: var(--color-primary-700, #c2410c);
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-  .card--link {
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .card--link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  }
+.products-grid { margin-top: var(--space-4); }
+.no-products {
+  text-align: center; padding: var(--space-12);
+  background: var(--color-bg-alt); border-radius: var(--radius-xl);
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-4);
+}
+.comp-table-wrap { overflow-x: auto; border-radius: var(--radius-xl); border: 1px solid var(--color-border); }
+.comp-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.comp-table th {
+  background: var(--color-dark); color: #fff;
+  padding: var(--space-4) var(--space-5); text-align: left;
+  font-weight: var(--weight-semibold); white-space: nowrap;
+}
+.comp-table td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:nth-child(even) td { background: var(--color-bg-alt); }
 </style>

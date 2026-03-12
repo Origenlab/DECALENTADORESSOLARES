@@ -1,262 +1,182 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
-import { WHATSAPP_NUMBER, SITE_NAME } from '../../lib/config';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
-const categoryFilter = 'termosifon';
-const pageTitle = 'Calentadores Solares Termosifon | Sistema Clasico y Confiable';
-const pageDescription = 'Calentadores solares de termosifon con circulacion natural. Sin bomba electrica, bajo mantenimiento y vida util de 20+ anos. El sistema mas confiable y economico para casas de 1 piso.';
-const pageUrl = '/calentadores/termosifon';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
 
 const allProducts = await getCollection('productos');
-const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === categoryFilter);
-
-const breadcrumbs = [
-  { name: 'Inicio', url: '/' },
-  { name: 'Calentadores', url: '/calentadores' },
-  { name: 'Termosifon', url: pageUrl },
-];
+const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === 'termosifon');
 
 const faqItems = [
-  { pregunta: '¿Como funciona un calentador solar de termosifon?', respuesta: 'El sistema termosifon aprovecha la conveccion natural: el agua fria baja desde el tanque hacia los colectores solares donde se calienta. Al calentarse se vuelve menos densa y sube naturalmente al tanque de almacenamiento. Este ciclo se repite sin necesidad de bomba electrica.' },
-  { pregunta: '¿Cual es la diferencia entre termosifon y tubos al vacio?', respuesta: 'El termosifon clasico usa colectores de placa plana, mientras que otros sistemas usan tubos al vacio. La placa plana es mas durable y economica, ideal para climas calidos. Los tubos al vacio son mas eficientes en climas frios pero requieren mayor inversion.' },
-  { pregunta: '¿Que limitaciones tiene el sistema termosifon?', respuesta: 'Funciona mejor en casas de 1 piso ya que depende de la gravedad. No es ideal para casas de multiples pisos o donde se necesite alta presion. Tambien requiere que el tanque este por encima de los puntos de uso del agua.' },
-  { pregunta: '¿En que climas funciona mejor el termosifon?', respuesta: 'Funciona excelentemente en climas calidos y templados como CDMX, Estado de Mexico y la mayor parte de la republica. En zonas con heladas frecuentes se recomienda considerar un sistema presurizado con tubos heat pipe.' },
-  { pregunta: '¿Como es la instalacion de un calentador termosifon?', respuesta: 'La instalacion es sencilla y se completa en 1 dia habil. Se coloca el tanque y los colectores en la azotea, se conecta a la tuberia existente de agua fria y caliente. No requiere conexion electrica ni modificaciones estructurales mayores.' },
+  { pregunta: "¿Por qué el termosifón no necesita electricidad?", respuesta: "Funciona por convección natural: el agua caliente es menos densa y sube sola al tanque, el agua fría baja al colector por gravedad. Es física pura, sin partes eléctricas." },
+  { pregunta: "¿El tanque puede estar al mismo nivel que los tubos?", respuesta: "No. El tanque debe estar al menos 30 cm por encima del colector para que la convección funcione. En práctica, en azoteas estándar esto siempre se cumple." },
+  { pregunta: "¿Cómo se compara con el presurizado?", respuesta: "El termosifón es más económico (20-30% menos), más simple y más duradero (sin bomba que desgastar). El presurizado gana en flexibilidad de instalación y rendimiento en días con poca radiación." },
+  { pregunta: "¿Qué pasa en días sin sol?", respuesta: "El tanque de acero inoxidable con aislamiento de poliuretano mantiene el agua caliente 24-36 horas. Si el día anterior fue soleado, tienes agua caliente aunque hoy esté nublado." },
+  { pregunta: "¿Cuánto ahorro con el termosifón vs gas?", respuesta: "Exactamente lo mismo que con el presurizado: 70-80% anual. La diferencia no está en el ahorro sino en la flexibilidad de instalación." }
 ];
 
 const structuredData = [
-  buildServiceSchema({ name: 'Calentadores Solares Termosifon', description: pageDescription, url: pageUrl }),
+  buildServiceSchema({ name: 'Calentadores Solares Termosifón', description: 'Calentadores solares de termosifón para casas en México. Sin bomba, sin electricidad, máxima confiabilidad. El modelo más vendido en el mercado residencial mexicano.', url: '/calentadores/termosifon' }),
   buildFAQSchema(faqItems),
-  buildBreadcrumbSchema(breadcrumbs),
-];
-
-const features = [
-  { icon: '🔋', title: 'No requiere bomba', desc: 'Funciona por conveccion natural sin necesidad de energia electrica ni bomba de recirculacion.' },
-  { icon: '🔧', title: 'Bajo mantenimiento', desc: 'Menos partes moviles significa menos fallas. Solo requiere limpieza y revision anual.' },
-  { icon: '⏱️', title: 'Larga vida util', desc: 'Con mantenimiento adecuado, un sistema termosifon puede durar 20 anos o mas.' },
-  { icon: '📐', title: 'Placa plana', desc: 'Colectores de placa plana de alta durabilidad, resistentes a la intemperie y faciles de mantener.' },
-  { icon: '🔇', title: 'Silencioso', desc: 'Al no tener bomba ni partes mecanicas en movimiento, opera en completo silencio.' },
-  { icon: '💰', title: 'Economico', desc: 'La opcion mas accesible en calentadores solares con excelente relacion costo-beneficio.' },
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Calentadores Solares Termosifón', url: '/calentadores/termosifon' },
+  ]),
 ];
 ---
 
 <BaseLayout
-  title={pageTitle}
-  description={pageDescription}
+  title="Calentadores Solares Termosifón | Clásico, Confiable y Económico"
+  description="Calentadores solares de termosifón para casas en México. Sin bomba, sin electricidad, máxima confiabilidad. El modelo más vendido en el mercado residencial mexicano."
   activePage="calentadores"
-  heroTitle="Calentadores Solares Termosifon | Sistema Clasico y Confiable"
-  heroIntro="El sistema de circulacion natural mas popular en Mexico. Sin bomba, sin ruido, sin consumo electrico. Agua caliente confiable con la menor inversion."
-  heroBadge="Circulacion natural"
-  heroMetrics={[
-    { valor: '150-200L', texto: 'capacidad' },
-    { valor: 'Sin bomba', texto: 'circulacion' },
-    { valor: 'Bajo', texto: 'mantenimiento' },
-    { valor: '20+ anos', texto: 'vida util' },
-  ]}
-  heroPrimaryText="Solicitar Cotizacion"
-  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa un calentador solar de termosifon. ¿Pueden asesorarme?')}`}
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/productos"
-  heroFeatures={[
-    { icon: '🔋', text: 'Sin bomba electrica' },
-    { icon: '🔇', text: 'Operacion silenciosa' },
-    { icon: '💰', text: 'Menor inversion inicial' },
-    { icon: '✅', text: 'El mas popular en Mexico' },
-  ]}
-  showLeadCapture={true}
-  breadcrumbs={breadcrumbs}
   structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Calentadores Solares Termosifón', url: '/calentadores/termosifon' },
+  ]}
+  showHero={true}
+  heroTitle="Calentadores Solares Termosifón"
+  heroIntro="El sistema más simple y confiable del mercado solar. Sin bomba, sin electrónica, sin fallas. El agua sube sola por convección y se mantiene caliente 24+ horas."
+  heroBadge="El más confiable"
+  heroMetrics={[
+        { valor: "115-300L", texto: "Capacidad" },
+    { valor: "0W", texto: "Consumo eléctrico" },
+    { valor: "Sin bomba", texto: "Operación" },
+    { valor: "20 años", texto: "Durabilidad" }
+  ]}
+  heroPrimaryText="Cotizar este sistema"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los calentadores"
+  heroSecondaryLink="/calentadores"
 >
 
-  <!-- Caracteristicas principales -->
-  <section class="section" aria-labelledby="features-title">
+  <!-- Por qué elegir este sistema -->
+  <section class="section section--alt" aria-labelledby="why-title">
     <div class="container">
-      <div class="section-header">
-        <span class="badge badge--primary">Beneficios</span>
-        <h2 id="features-title">Caracteristicas del calentador solar termosifon</h2>
-        <p>La tecnologia mas probada y confiable en calentamiento solar de agua.</p>
-      </div>
-      <div class="grid-3">
-        {features.map(f => (
-          <div class="card">
-            <div class="card__body">
-              <span class="feature-icon" aria-hidden="true">{f.icon}</span>
-              <h3 class="card__title">{f.title}</h3>
-              <p class="card__desc">{f.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <SectionHeader
+        titulo="¿Por qué elegir Calentadores Solares Termosifón?"
+        subtitulo="Ventajas técnicas y económicas que hacen la diferencia"
+        idTitulo="why-title"
+        parrafo1="El termosifón es la tecnología más probada en calentadores solares: el agua fría baja al colector por gravedad, se calienta en los tubos evacuados y sube al tanque por convección natural. Sin partes móviles eléctricas, sin controladores que puedan fallar."
+        parrafo2="La condición única es que el tanque debe estar físicamente más alto que los colectores. En casas con azotea y tinaco, esto es natural. Si tienes tinaco, el termosifón es casi siempre la mejor opción."
+      />
     </div>
   </section>
 
-  <!-- Para quien es -->
-  <section class="section section--alt" aria-labelledby="audience-title">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge badge--eco">Ideal para ti</span>
-        <h2 id="audience-title">¿Para quien es el calentador solar termosifon?</h2>
+  <!-- Productos del catálogo -->
+  {products.length > 0 && (
+    <section class="section" aria-labelledby="products-title">
+      <div class="container">
+        <SectionHeader
+          titulo="Modelos disponibles"
+          subtitulo="Selecciona el que mejor se adapta a tu consumo y presupuesto"
+          enlaceTexto="Ver catálogo completo"
+          enlaceUrl="/productos"
+          idTitulo="products-title"
+        />
+        <div class="grid-3 products-grid">
+          {products.map((p: CollectionEntry<'productos'>, i: number) => (
+            <ProductCard
+              titulo={p.data.title}
+              descripcion={p.data.description}
+              enlace={`/productos/${p.slug}`}
+              imagen={p.data.image.startsWith('/img') ? p.data.image : '/img/categorias/calentador-solar-residencial-casa-cdmx.avif'}
+              precio={p.data.price}
+              precioMin={p.data.priceRangeMin}
+              precioMax={p.data.priceRangeMax}
+              capacidad={p.data.capacityLiters}
+              tubos={p.data.tubeCount}
+              usuarios={p.data.targetUsers}
+              features={p.data.features}
+              featured={i === 0}
+            />
+          ))}
+        </div>
+        {products.length === 0 && (
+          <div class="no-products">
+            <p>Contáctanos para conocer los modelos disponibles para este tipo de sistema.</p>
+            <a href="/cotizar" class="btn btn--primary">Solicitar cotización →</a>
+          </div>
+        )}
       </div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Casas de 1 piso</h3>
-            <p class="card__desc">El sistema termosifon funciona por gravedad, lo que lo hace perfecto para casas de un nivel con azotea accesible y tinaco elevado.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Climas calidos y templados</h3>
-            <p class="card__desc">En zonas con buena irradiacion solar como CDMX, Estado de Mexico, Puebla, Morelos y Queretaro, el termosifon ofrece rendimiento optimo.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Uso moderado de agua caliente</h3>
-            <p class="card__desc">Ideal para familias de 2 a 5 personas con uso moderado de regadera, sin necesidad de multiples puntos de uso simultaneo.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Presupuesto accesible</h3>
-            <p class="card__desc">La mejor opcion para quienes buscan iniciar con energia solar termica con la menor inversion y el mejor retorno.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- Comparativa -->
-  <section class="section" aria-labelledby="compare-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="compare-title">Comparativa: Termosifon vs. otros tipos</h2>
-        <p>Conoce las ventajas y diferencias de cada sistema solar.</p>
-      </div>
-      <div class="table-wrap">
-        <table class="compare-table">
+  <!-- Tabla comparativa -->
+  <section class="section section--alt" aria-labelledby="comp-title">
+    <div class="container" style="max-width: 900px;">
+      <SectionHeader
+        titulo="Comparativa de modelos"
+        subtitulo="Elige el tamaño correcto para tu consumo"
+        idTitulo="comp-title"
+      />
+      <div class="comp-table-wrap">
+        <table class="comp-table" aria-label="Comparativa de modelos">
           <thead>
             <tr>
-              <th>Caracteristica</th>
-              <th>Termosifon</th>
-              <th>Presurizado</th>
-              <th>Residencial (tubos)</th>
+              <th>Tubos</th><th>Capacidad</th><th>Personas</th><th>Tipo de inmueble</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Circulacion</td><td><strong>Natural (sin bomba)</strong></td><td>Presurizada</td><td>Gravedad</td></tr>
-            <tr><td>Colector</td><td><strong>Placa plana</strong></td><td>Heat pipe</td><td>Tubos al vacio</td></tr>
-            <tr><td>Mantenimiento</td><td><strong>Minimo</strong></td><td>Bajo</td><td>Bajo</td></tr>
-            <tr><td>Vida util</td><td><strong>20+ anos</strong></td><td>15+ anos</td><td>15-20 anos</td></tr>
-            <tr><td>Inversion</td><td><strong>$15,000-$28,000</strong></td><td>$18,000-$55,000</td><td>$10,900-$45,000</td></tr>
+            <tr><td>10 tubos</td><td>115 L</td><td>2-3 personas</td><td>Departamento / casa chica</td></tr>
+            <tr><td>15 tubos</td><td>150 L</td><td>3-4 personas</td><td>Casa estándar</td></tr>
+            <tr><td>20 tubos</td><td>200 L</td><td>5-6 personas</td><td>Casa mediana</td></tr>
+            <tr><td>30 tubos</td><td>300 L</td><td>7-9 personas</td><td>Casa grande</td></tr>
+            
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- Productos relacionados -->
-  <section class="section section--alt" aria-labelledby="products-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="products-title">Calentadores solares termosifon disponibles</h2>
-        <p>Sistemas de placa plana con la mejor relacion costo-beneficio del mercado.</p>
-      </div>
-      {products.length > 0 ? (
-        <div class="grid-3">
-          {products.map((prod: CollectionEntry<'productos'>) => (
-            <a href={`/productos/${prod.slug}`} class="card card--link">
-              <div class="card__body">
-                <h3 class="card__title">{prod.data.title}</h3>
-                <p class="card__desc">{prod.data.description}</p>
-                {prod.data.price && <span class="price-tag">${prod.data.price.toLocaleString('es-MX')} MXN</span>}
-              </div>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <p>Proximamente agregaremos productos a esta categoria. <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesan calentadores solares de termosifon')}`}>Contactanos por WhatsApp</a> para cotizar.</p>
-      )}
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section class="section section--dark" aria-labelledby="faq-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="faq-title">Preguntas frecuentes sobre calentadores solares termosifon</h2>
-      </div>
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber sobre calentadores solares termosifón"
+        idTitulo="faq-title"
+      />
       <div class="faq">
-        {faqItems.map(item => (
+        {faqItems.map((item, i) => (
           <div class="faq__item">
-            <button class="faq__question">
-              <span>{item.pregunta}</span>
-              <span class="faq__icon">+</span>
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq__answer">
-              <p>{item.respuesta}</p>
-            </div>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
+  <LeadCapture />
+
 </BaseLayout>
 
 <style>
-  .feature-icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--color-white, #fff);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  .compare-table th,
-  .compare-table td {
-    padding: 0.875rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--color-gray-200, #e5e7eb);
-  }
-  .compare-table thead th {
-    background: var(--color-gray-50, #f9fafb);
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-  }
-  .compare-table tbody td:first-child {
-    font-weight: 500;
-  }
-  .price-tag {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    background: var(--color-primary-50, #fff7ed);
-    color: var(--color-primary-700, #c2410c);
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-  .card--link {
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .card--link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  }
+.products-grid { margin-top: var(--space-4); }
+.no-products {
+  text-align: center; padding: var(--space-12);
+  background: var(--color-bg-alt); border-radius: var(--radius-xl);
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-4);
+}
+.comp-table-wrap { overflow-x: auto; border-radius: var(--radius-xl); border: 1px solid var(--color-border); }
+.comp-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.comp-table th {
+  background: var(--color-dark); color: #fff;
+  padding: var(--space-4) var(--space-5); text-align: left;
+  font-weight: var(--weight-semibold); white-space: nowrap;
+}
+.comp-table td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:nth-child(even) td { background: var(--color-bg-alt); }
 </style>

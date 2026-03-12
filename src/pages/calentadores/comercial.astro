@@ -1,274 +1,182 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
-import { WHATSAPP_NUMBER, SITE_NAME } from '../../lib/config';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
-const categoryFilter = 'comercial';
-const pageTitle = 'Calentadores Solares Comerciales | Hoteles, Gimnasios y Negocios';
-const pageDescription = 'Calentadores solares comerciales de 500 a 2,000 litros para hoteles, gimnasios, restaurantes y spas. Sistemas escalables con ROI en 3-5 anos. Cotiza tu proyecto.';
-const pageUrl = '/calentadores/comercial';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
 
 const allProducts = await getCollection('productos');
-const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === categoryFilter);
-
-const breadcrumbs = [
-  { name: 'Inicio', url: '/' },
-  { name: 'Calentadores', url: '/calentadores' },
-  { name: 'Comercial', url: pageUrl },
-];
+const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === 'comercial');
 
 const faqItems = [
-  { pregunta: '¿Como se calcula la capacidad necesaria para mi negocio?', respuesta: 'La capacidad se calcula con base en el numero de usuarios diarios, tipo de uso (regaderas, cocina, lavanderia), horarios pico y clima de la zona. Realizamos un estudio de demanda sin costo para dimensionar el sistema correcto.' },
-  { pregunta: '¿Cual es el retorno de inversion de un calentador solar comercial?', respuesta: 'El ROI tipico es de 3 a 5 anos dependiendo del consumo de gas actual. Un hotel que gasta $30,000 MXN mensuales en gas puede ahorrar entre $15,000 y $21,000 al mes, recuperando la inversion en menos de 3 anos.' },
-  { pregunta: '¿El sistema comercial incluye respaldo de gas?', respuesta: 'Si, todos nuestros sistemas comerciales incluyen respaldo de gas (LP o natural) integrado. El sistema solar precalienta el agua y el gas solo interviene cuando la temperatura solar no es suficiente, garantizando agua caliente 24/7.' },
-  { pregunta: '¿Que mantenimiento requiere un sistema solar comercial?', respuesta: 'Se recomienda mantenimiento trimestral que incluye limpieza de colectores, revision de bombas y valvulas, verificacion de temperaturas y presiones. Ofrecemos contratos de mantenimiento programado con tiempos de respuesta garantizados.' },
-  { pregunta: '¿Ofrecen financiamiento para proyectos comerciales?', respuesta: 'Si, trabajamos con esquemas de financiamiento y arrendamiento para proyectos comerciales. Tambien asesoramos sobre apoyos gubernamentales FIDE y SENER disponibles para proyectos de energia solar termica.' },
+  { pregunta: "¿Cómo se dimensiona un sistema para mi negocio?", respuesta: "Calculamos el volumen diario de agua caliente según el tipo de negocio y su capacidad, analizamos el techo disponible (orientación, área útil, estructura), diseñamos el sistema y presentamos propuesta con ROI detallado." },
+  { pregunta: "¿Cuánto tiempo lleva instalar un proyecto comercial?", respuesta: "Proyectos medianos (hotel 20-30 habitaciones): 2-3 días. Sistemas grandes industriales: 1-2 semanas. Siempre coordinamos para minimizar el impacto en la operación del negocio." },
+  { pregunta: "¿Qué garantías ofrecen en proyectos comerciales?", respuesta: "Garantía de equipo según fabricante (5-10 años en tanque), garantía de instalación 2 años, y plan de mantenimiento preventivo semestral disponible." },
+  { pregunta: "¿Funciona en cualquier tipo de techo?", respuesta: "Funcionamos con techos planos (los más comunes en construcción comercial), techos inclinados y estructuras especiales. Evaluamos en la visita técnica gratuita." },
+  { pregunta: "¿Pueden financiar proyectos grandes?", respuesta: "Para proyectos de más de $80,000 MXN ofrecemos esquemas de financiamiento propio con enganche del 30% y pagos a 12-18 meses. También asesoramos sobre créditos FIRA, FIDE y otros fondos para eficiencia energética." }
 ];
 
 const structuredData = [
-  buildServiceSchema({ name: 'Calentadores Solares Comerciales', description: pageDescription, url: pageUrl }),
+  buildServiceSchema({ name: 'Calentadores Solares para Negocios y Proyectos Comerciales', description: 'Sistemas de calentamiento solar para hoteles, posadas, gimnasios, spas y restaurantes en México. Alta capacidad, diseño a medida y ROI en menos de 12 meses.', url: '/calentadores/comercial' }),
   buildFAQSchema(faqItems),
-  buildBreadcrumbSchema(breadcrumbs),
-];
-
-const features = [
-  { icon: '🏗️', title: 'Alta capacidad', desc: 'Sistemas de 500 a 2,000 litros diarios para cubrir la demanda de tu negocio sin interrupciones.' },
-  { icon: '📈', title: 'Sistema escalable', desc: 'Diseno modular que permite ampliar la capacidad conforme crece tu negocio sin cambiar todo el sistema.' },
-  { icon: '🔥', title: 'Respaldo integrado', desc: 'Sistema hibrido solar + gas que garantiza agua caliente 24/7 sin importar las condiciones climaticas.' },
-  { icon: '🔧', title: 'Mantenimiento programado', desc: 'Contratos de servicio preventivo con tiempos de respuesta garantizados para cero paros operativos.' },
-  { icon: '💰', title: 'ROI calculado', desc: 'Estudio de retorno de inversion personalizado antes de la compra. Ahorro comprobable desde el mes 1.' },
-  { icon: '📋', title: 'Ingenieria de proyecto', desc: 'Diseno tecnico completo con planos, calculos termicos y especificaciones para tu aprobacion.' },
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Calentadores Solares para Negocios y Proyectos Comerciales', url: '/calentadores/comercial' },
+  ]),
 ];
 ---
 
 <BaseLayout
-  title={pageTitle}
-  description={pageDescription}
+  title="Calentadores Solares Comerciales | Hoteles, Gimnasios y Negocios"
+  description="Sistemas de calentamiento solar para hoteles, posadas, gimnasios, spas y restaurantes en México. Alta capacidad, diseño a medida y ROI en menos de 12 meses."
   activePage="calentadores"
-  heroTitle="Calentadores Solares Comerciales | Hoteles, Gimnasios y Negocios"
-  heroIntro="Sistemas de alta capacidad para negocios con gran demanda de agua caliente. Reduce hasta 70% tus costos de gas con un sistema solar escalable y confiable."
-  heroBadge="Alta capacidad"
-  heroMetrics={[
-    { valor: '500-2000L', texto: 'capacidad' },
-    { valor: '70%', texto: 'ahorro' },
-    { valor: 'ROI', texto: '3-5 anos' },
-    { valor: 'Escalable', texto: 'sistema' },
-  ]}
-  heroPrimaryText="Cotizar Proyecto"
-  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa cotizar un sistema solar comercial para mi negocio. ¿Pueden asesorarme?')}`}
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/productos"
-  heroFeatures={[
-    { icon: '🏨', text: 'Hoteles y posadas' },
-    { icon: '🏋️', text: 'Gimnasios y spas' },
-    { icon: '🍽️', text: 'Restaurantes y cocinas' },
-    { icon: '✅', text: 'Respaldo de gas integrado' },
-  ]}
-  showLeadCapture={true}
-  breadcrumbs={breadcrumbs}
   structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Calentadores Solares para Negocios y Proyectos Comerciales', url: '/calentadores/comercial' },
+  ]}
+  showHero={true}
+  heroTitle="Calentadores Solares para Negocios y Proyectos Comerciales"
+  heroIntro="Sistemas de alta capacidad para hoteles, gimnasios, spas, restaurantes y cualquier negocio con alta demanda de agua caliente. ROI promedio: 10-14 meses."
+  heroBadge="Proyectos comerciales"
+  heroMetrics={[
+        { valor: "500-5000L", texto: "Capacidad" },
+    { valor: "80%", texto: "Ahorro gas" },
+    { valor: "10-14 m", texto: "ROI promedio" },
+    { valor: "Diseño a medida", texto: "" }
+  ]}
+  heroPrimaryText="Cotizar este sistema"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los calentadores"
+  heroSecondaryLink="/calentadores"
 >
 
-  <!-- Caracteristicas principales -->
-  <section class="section" aria-labelledby="features-title">
+  <!-- Por qué elegir este sistema -->
+  <section class="section section--alt" aria-labelledby="why-title">
     <div class="container">
-      <div class="section-header">
-        <span class="badge badge--primary">Beneficios</span>
-        <h2 id="features-title">Caracteristicas del sistema solar comercial</h2>
-        <p>Soluciones profesionales disenadas para la demanda y exigencia de tu negocio.</p>
-      </div>
-      <div class="grid-3">
-        {features.map(f => (
-          <div class="card">
-            <div class="card__body">
-              <span class="feature-icon" aria-hidden="true">{f.icon}</span>
-              <h3 class="card__title">{f.title}</h3>
-              <p class="card__desc">{f.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <SectionHeader
+        titulo="¿Por qué elegir Calentadores Solares para Negocios y Proyectos Comerciales?"
+        subtitulo="Ventajas técnicas y económicas que hacen la diferencia"
+        idTitulo="why-title"
+        parrafo1="Los proyectos comerciales tienen características únicas: demanda concentrada en horas pico, altos volúmenes diarios y la posibilidad de un retorno de inversión extraordinariamente rápido. Un hotel que gasta $12,000/mes en gas para agua caliente puede recuperar la inversión solar en menos de un año."
+        parrafo2="Cada proyecto comercial requiere un estudio de factibilidad individualizado: medición del techo disponible, análisis de la red hidráulica, cálculo de la demanda real y diseño del sistema óptimo. Este estudio es gratuito."
+      />
     </div>
   </section>
 
-  <!-- Para quien es -->
-  <section class="section section--alt" aria-labelledby="audience-title">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge badge--eco">Sectores atendidos</span>
-        <h2 id="audience-title">¿Para quien es el calentador solar comercial?</h2>
+  <!-- Productos del catálogo -->
+  {products.length > 0 && (
+    <section class="section" aria-labelledby="products-title">
+      <div class="container">
+        <SectionHeader
+          titulo="Modelos disponibles"
+          subtitulo="Selecciona el que mejor se adapta a tu consumo y presupuesto"
+          enlaceTexto="Ver catálogo completo"
+          enlaceUrl="/productos"
+          idTitulo="products-title"
+        />
+        <div class="grid-3 products-grid">
+          {products.map((p: CollectionEntry<'productos'>, i: number) => (
+            <ProductCard
+              titulo={p.data.title}
+              descripcion={p.data.description}
+              enlace={`/productos/${p.slug}`}
+              imagen={p.data.image.startsWith('/img') ? p.data.image : '/img/categorias/calentador-solar-residencial-casa-cdmx.avif'}
+              precio={p.data.price}
+              precioMin={p.data.priceRangeMin}
+              precioMax={p.data.priceRangeMax}
+              capacidad={p.data.capacityLiters}
+              tubos={p.data.tubeCount}
+              usuarios={p.data.targetUsers}
+              features={p.data.features}
+              featured={i === 0}
+            />
+          ))}
+        </div>
+        {products.length === 0 && (
+          <div class="no-products">
+            <p>Contáctanos para conocer los modelos disponibles para este tipo de sistema.</p>
+            <a href="/cotizar" class="btn btn--primary">Solicitar cotización →</a>
+          </div>
+        )}
       </div>
-      <div class="grid-3">
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Hoteles y posadas</h3>
-            <p class="card__desc">Sistemas desde 500 hasta 2,000 litros diarios. Diseno para demanda nocturna y matutina simultanea con respaldo de gas.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Gimnasios y spas</h3>
-            <p class="card__desc">Alta demanda en horarios pico. Sistemas presurizados para multiples regaderas simultaneas con presion constante.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Restaurantes y cocinas</h3>
-            <p class="card__desc">Precalentamiento de agua para coccion y limpieza. Ahorro significativo en gas LP o natural en cocinas de alta produccion.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Spas y balnearios</h3>
-            <p class="card__desc">Grandes volumenes de agua caliente para albercas temperadas, tinas y servicios de hidroterapia con ahorro considerable.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Lavanderias comerciales</h3>
-            <p class="card__desc">Precalentamiento solar del agua de lavado para reducir el consumo de gas en ciclos de lavado de alta temperatura.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Desarrollos habitacionales</h3>
-            <p class="card__desc">Sistemas centralizados para condominios y desarrollos multifamiliares con medicion individual del consumo.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- Comparativa -->
-  <section class="section" aria-labelledby="compare-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="compare-title">Comparativa: Comercial vs. otros tipos</h2>
-        <p>Dimensiona correctamente tu proyecto con esta referencia.</p>
-      </div>
-      <div class="table-wrap">
-        <table class="compare-table">
+  <!-- Tabla comparativa -->
+  <section class="section section--alt" aria-labelledby="comp-title">
+    <div class="container" style="max-width: 900px;">
+      <SectionHeader
+        titulo="Comparativa de modelos"
+        subtitulo="Elige el tamaño correcto para tu consumo"
+        idTitulo="comp-title"
+      />
+      <div class="comp-table-wrap">
+        <table class="comp-table" aria-label="Comparativa de modelos">
           <thead>
             <tr>
-              <th>Caracteristica</th>
-              <th>Comercial</th>
-              <th>Residencial</th>
-              <th>Industrial</th>
+              <th>Tipo de negocio</th><th>Demanda diaria</th><th>Inversión estimada</th><th>ROI aproximado</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Capacidad</td><td><strong>500-2,000L</strong></td><td>150-300L</td><td>5,000-10,000L</td></tr>
-            <tr><td>Ahorro gas</td><td><strong>50-70%</strong></td><td>60-80%</td><td>40-70%</td></tr>
-            <tr><td>ROI</td><td><strong>3-5 anos</strong></td><td>2-3 anos</td><td>4-6 anos</td></tr>
-            <tr><td>Respaldo</td><td><strong>Gas integrado</strong></td><td>Opcional</td><td>Gas/Electrico</td></tr>
-            <tr><td>Instalacion</td><td><strong>2-5 dias</strong></td><td>1 dia</td><td>2-8 semanas</td></tr>
+            <tr><td>Hotel 20 hab.</td><td>~1,600 L/día</td><td>$85,000-$120,000</td><td>~12 meses</td></tr>
+            <tr><td>Gimnasio 200 socios</td><td>~3,000 L/día</td><td>$130,000-$180,000</td><td>~10 meses</td></tr>
+            <tr><td>Restaurante grande</td><td>~800 L/día</td><td>$65,000-$90,000</td><td>~8 meses</td></tr>
+            <tr><td>Spa / centro wellness</td><td>~1,200 L/día</td><td>$95,000-$150,000</td><td>~11 meses</td></tr>
+            
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- Productos relacionados -->
-  <section class="section section--alt" aria-labelledby="products-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="products-title">Sistemas solares comerciales disponibles</h2>
-        <p>Equipos de alta capacidad para la demanda de tu negocio.</p>
-      </div>
-      {products.length > 0 ? (
-        <div class="grid-3">
-          {products.map((prod: CollectionEntry<'productos'>) => (
-            <a href={`/productos/${prod.slug}`} class="card card--link">
-              <div class="card__body">
-                <h3 class="card__title">{prod.data.title}</h3>
-                <p class="card__desc">{prod.data.description}</p>
-                {prod.data.price && <span class="price-tag">${prod.data.price.toLocaleString('es-MX')} MXN</span>}
-              </div>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <p>Proximamente agregaremos productos a esta categoria. <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesan calentadores solares comerciales')}`}>Contactanos por WhatsApp</a> para cotizar.</p>
-      )}
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section class="section section--dark" aria-labelledby="faq-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="faq-title">Preguntas frecuentes sobre calentadores solares comerciales</h2>
-      </div>
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber sobre calentadores solares para negocios y proyectos comerciales"
+        idTitulo="faq-title"
+      />
       <div class="faq">
-        {faqItems.map(item => (
+        {faqItems.map((item, i) => (
           <div class="faq__item">
-            <button class="faq__question">
-              <span>{item.pregunta}</span>
-              <span class="faq__icon">+</span>
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq__answer">
-              <p>{item.respuesta}</p>
-            </div>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
+  <LeadCapture />
+
 </BaseLayout>
 
 <style>
-  .feature-icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--color-white, #fff);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  .compare-table th,
-  .compare-table td {
-    padding: 0.875rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--color-gray-200, #e5e7eb);
-  }
-  .compare-table thead th {
-    background: var(--color-gray-50, #f9fafb);
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-  }
-  .compare-table tbody td:first-child {
-    font-weight: 500;
-  }
-  .price-tag {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    background: var(--color-primary-50, #fff7ed);
-    color: var(--color-primary-700, #c2410c);
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-  .card--link {
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .card--link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  }
+.products-grid { margin-top: var(--space-4); }
+.no-products {
+  text-align: center; padding: var(--space-12);
+  background: var(--color-bg-alt); border-radius: var(--radius-xl);
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-4);
+}
+.comp-table-wrap { overflow-x: auto; border-radius: var(--radius-xl); border: 1px solid var(--color-border); }
+.comp-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.comp-table th {
+  background: var(--color-dark); color: #fff;
+  padding: var(--space-4) var(--space-5); text-align: left;
+  font-weight: var(--weight-semibold); white-space: nowrap;
+}
+.comp-table td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:nth-child(even) td { background: var(--color-bg-alt); }
 </style>

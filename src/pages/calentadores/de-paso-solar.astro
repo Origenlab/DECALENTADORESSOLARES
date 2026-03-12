@@ -1,263 +1,181 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
-import { WHATSAPP_NUMBER, SITE_NAME } from '../../lib/config';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
-const categoryFilter = 'de-paso-solar';
-const pageTitle = 'Calentadores Solares de Paso | Flujo Continuo con Energia Solar';
-const pageDescription = 'Calentadores solares de paso hibridos: flujo continuo sin tanque combinando energia solar y gas. Compactos, modernos y con ahorro del 50-70%. Ideales para departamentos.';
-const pageUrl = '/calentadores/de-paso-solar';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
 
 const allProducts = await getCollection('productos');
-const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === categoryFilter);
-
-const breadcrumbs = [
-  { name: 'Inicio', url: '/' },
-  { name: 'Calentadores', url: '/calentadores' },
-  { name: 'De Paso Solar', url: pageUrl },
-];
+const products = allProducts.filter((p: CollectionEntry<'productos'>) => p.data.category === 'de-paso-solar');
 
 const faqItems = [
-  { pregunta: '¿Como funciona un calentador de paso solar hibrido?', respuesta: 'Un colector solar termico en la azotea precalienta el agua que alimenta al calentador de paso. Si el agua ya alcanzo la temperatura deseada, el quemador de gas no se enciende. Si necesita mas calor, el gas complementa solo lo necesario, ahorrando entre 50% y 70% de gas.' },
-  { pregunta: '¿Cual es la diferencia entre un calentador de paso solar y un calentador solar tradicional?', respuesta: 'El sistema tradicional almacena agua caliente en un tanque en la azotea. El de paso solar no tiene tanque de almacenamiento: el colector solar precalienta el agua y el calentador de paso la lleva a la temperatura final. Es mas compacto y garantiza agua caliente ilimitada.' },
-  { pregunta: '¿Que limitaciones tiene el calentador de paso solar?', respuesta: 'Depende parcialmente del gas como respaldo, por lo que el ahorro es menor (50-70%) comparado con un sistema solar puro (60-80%). Requiere un colector solar en azotea o area con exposicion solar. No elimina completamente el uso de gas.' },
-  { pregunta: '¿Cuanto cuesta un sistema de paso solar hibrido?', respuesta: 'El costo incluye el colector solar y el calentador de paso. La inversion total va desde $15,000 hasta $35,000 MXN dependiendo de la capacidad del colector y el modelo de calentador de paso. Si ya tienes calentador de paso, solo necesitas agregar el colector solar.' },
-  { pregunta: '¿Como es la instalacion de un calentador de paso solar?', respuesta: 'La instalacion es sencilla y se completa en 1 dia. Se coloca el colector solar en azotea o area con exposicion solar, se conecta en linea antes del calentador de paso existente o nuevo. No requiere modificaciones estructurales mayores.' },
+  { pregunta: "¿En qué clima funciona mejor el de paso solar?", respuesta: "En zonas con temperatura ambiente alta todo el año: costas del Pacífico y Golfo, Oaxaca, Chiapas, norte árido (Sonora, Chihuahua). En CDMX y el altiplano es menos eficiente en invierno porque el agua fría requiere más calentamiento." },
+  { pregunta: "¿Necesita mantenimiento diferente?", respuesta: "Al no tener tanque, no necesita cambio de ánodo ni limpieza interior del tanque. Solo revisión anual del colector y conexiones." },
+  { pregunta: "¿Cuánto cuesta comparado con sistema de tanque?", respuesta: "El sistema de paso es 25-35% más económico que uno con tanque equivalente. Sin embargo, tiene limitaciones de rendimiento en climas fríos." },
+  { pregunta: "¿Puede instalarse en departamento?", respuesta: "Sí, es ideal para departamentos con poco espacio en azotea ya que no tiene tanque y el colector es delgado y liviano." },
+  { pregunta: "¿Qué pasa si no hay sol durante varios días?", respuesta: "A diferencia del sistema con tanque (que retiene agua caliente 24-36h), el sistema de paso no tiene almacenamiento. Se necesita respaldo de gas para días sin sol." }
 ];
 
 const structuredData = [
-  buildServiceSchema({ name: 'Calentadores Solares de Paso', description: pageDescription, url: pageUrl }),
+  buildServiceSchema({ name: 'Calentadores Solares de Paso: Flujo Continuo sin Tanque', description: 'Sistemas solares de paso instantáneo para zonas cálidas en México. Sin tanque, agua caliente continua con bajo perfil de instalación. Ideal para climas tropicales.', url: '/calentadores/de-paso-solar' }),
   buildFAQSchema(faqItems),
-  buildBreadcrumbSchema(breadcrumbs),
-];
-
-const features = [
-  { icon: '🚫', title: 'Sin tanque de almacenamiento', desc: 'No necesitas un tanque en la azotea. Solo un colector solar compacto que precalienta el agua antes de llegar al calentador de paso.' },
-  { icon: '🔥', title: 'Hibrido solar + gas', desc: 'Combina lo mejor de ambas tecnologias: el sol precalienta y el gas solo complementa cuando es necesario.' },
-  { icon: '📏', title: 'Espacio compacto', desc: 'Ideal para departamentos y casas con espacio limitado en azotea. El colector solar ocupa minimo espacio.' },
-  { icon: '♾️', title: 'Agua caliente ilimitada', desc: 'Al no depender de un tanque, nunca te quedas sin agua caliente. Flujo continuo para toda la familia.' },
-  { icon: '⚙️', title: 'Respaldo automatico', desc: 'El calentador de paso detecta automaticamente si el agua necesita mas calor y activa el quemador solo cuando es necesario.' },
-  { icon: '✨', title: 'Moderno y eficiente', desc: 'Tecnologia actual que combina eficiencia energetica con confort. Compatible con calentadores de paso de cualquier marca.' },
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Calentadores Solares de Paso: Flujo Continuo sin Tanque', url: '/calentadores/de-paso-solar' },
+  ]),
 ];
 ---
 
 <BaseLayout
-  title={pageTitle}
-  description={pageDescription}
+  title="Calentadores Solares de Paso | Agua Caliente al Instante con Energía Solar"
+  description="Sistemas solares de paso instantáneo para zonas cálidas en México. Sin tanque, agua caliente continua con bajo perfil de instalación. Ideal para climas tropicales."
   activePage="calentadores"
-  heroTitle="Calentadores Solares de Paso | Flujo Continuo con Energia Solar"
-  heroIntro="Lo mejor de dos mundos: un colector solar precalienta el agua y el calentador de paso la lleva a la temperatura perfecta. Sin tanque, sin limites, con ahorro del 50-70%."
-  heroBadge="Flujo continuo"
-  heroMetrics={[
-    { valor: 'Sin tanque', texto: 'diseno' },
-    { valor: 'Hibrido', texto: 'solar + gas' },
-    { valor: 'Compacto', texto: 'instalacion' },
-    { valor: 'Ahorro', texto: '50-70%' },
-  ]}
-  heroPrimaryText="Solicitar Cotizacion"
-  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa un calentador de paso solar hibrido. ¿Pueden asesorarme?')}`}
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/productos"
-  heroFeatures={[
-    { icon: '🚫', text: 'Sin tanque en azotea' },
-    { icon: '🔥', text: 'Hibrido solar + gas' },
-    { icon: '📏', text: 'Instalacion compacta' },
-    { icon: '✅', text: 'Compatible con tu calentador actual' },
-  ]}
-  showLeadCapture={true}
-  breadcrumbs={breadcrumbs}
   structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Calentadores', url: '/calentadores' },
+    { name: 'Calentadores Solares de Paso: Flujo Continuo sin Tanque', url: '/calentadores/de-paso-solar' },
+  ]}
+  showHero={true}
+  heroTitle="Calentadores Solares de Paso: Flujo Continuo sin Tanque"
+  heroIntro="La solución más compacta: calientas el agua directamente al fluir por el colector solar. Sin tanque de almacenamiento, sin pérdidas de calor nocturnas, menor espacio en techo."
+  heroBadge="Sistema compacto"
+  heroMetrics={[
+        { valor: "Sin tanque", texto: "Diseño" },
+    { valor: "Instantáneo", texto: "Flujo" },
+    { valor: "Climas cálidos", texto: "Óptimo" },
+    { valor: "–60%", texto: "En gas" }
+  ]}
+  heroPrimaryText="Cotizar este sistema"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los calentadores"
+  heroSecondaryLink="/calentadores"
 >
 
-  <!-- Caracteristicas principales -->
-  <section class="section" aria-labelledby="features-title">
+  <!-- Por qué elegir este sistema -->
+  <section class="section section--alt" aria-labelledby="why-title">
     <div class="container">
-      <div class="section-header">
-        <span class="badge badge--primary">Beneficios</span>
-        <h2 id="features-title">Caracteristicas del calentador de paso solar</h2>
-        <p>Tecnologia hibrida que combina eficiencia solar con la conveniencia del flujo continuo.</p>
-      </div>
-      <div class="grid-3">
-        {features.map(f => (
-          <div class="card">
-            <div class="card__body">
-              <span class="feature-icon" aria-hidden="true">{f.icon}</span>
-              <h3 class="card__title">{f.title}</h3>
-              <p class="card__desc">{f.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <SectionHeader
+        titulo="¿Por qué elegir Calentadores Solares de Paso: Flujo Continuo sin Tanque?"
+        subtitulo="Ventajas técnicas y económicas que hacen la diferencia"
+        idTitulo="why-title"
+        parrafo1="El calentador solar de paso es un sistema donde el agua fluye directamente a través del colector solar y sale caliente hacia los puntos de uso, sin almacenarse en un tanque. Es el sistema más simple posible: solo el colector y la red hidráulica."
+        parrafo2="Funciona mejor en climas cálidos con mucho sol (costas, Oaxaca, Chiapas, norte de México). En el altiplano central como CDMX, donde las noches son frías y se necesita agua caliente en la madrugada, un sistema con tanque es preferible."
+      />
     </div>
   </section>
 
-  <!-- Para quien es -->
-  <section class="section section--alt" aria-labelledby="audience-title">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge badge--eco">Ideal para ti</span>
-        <h2 id="audience-title">¿Para quien es el calentador de paso solar?</h2>
+  <!-- Productos del catálogo -->
+  {products.length > 0 && (
+    <section class="section" aria-labelledby="products-title">
+      <div class="container">
+        <SectionHeader
+          titulo="Modelos disponibles"
+          subtitulo="Selecciona el que mejor se adapta a tu consumo y presupuesto"
+          enlaceTexto="Ver catálogo completo"
+          enlaceUrl="/productos"
+          idTitulo="products-title"
+        />
+        <div class="grid-3 products-grid">
+          {products.map((p: CollectionEntry<'productos'>, i: number) => (
+            <ProductCard
+              titulo={p.data.title}
+              descripcion={p.data.description}
+              enlace={`/productos/${p.slug}`}
+              imagen={p.data.image.startsWith('/img') ? p.data.image : '/img/categorias/calentador-solar-residencial-casa-cdmx.avif'}
+              precio={p.data.price}
+              precioMin={p.data.priceRangeMin}
+              precioMax={p.data.priceRangeMax}
+              capacidad={p.data.capacityLiters}
+              tubos={p.data.tubeCount}
+              usuarios={p.data.targetUsers}
+              features={p.data.features}
+              featured={i === 0}
+            />
+          ))}
+        </div>
+        {products.length === 0 && (
+          <div class="no-products">
+            <p>Contáctanos para conocer los modelos disponibles para este tipo de sistema.</p>
+            <a href="/cotizar" class="btn btn--primary">Solicitar cotización →</a>
+          </div>
+        )}
       </div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Departamentos sin espacio en azotea</h3>
-            <p class="card__desc">Si no tienes espacio para un tanque solar en la azotea pero si para un colector compacto, el sistema de paso solar es tu mejor opcion.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Casas con espacio limitado</h3>
-            <p class="card__desc">Viviendas donde la azotea ya esta ocupada o donde el espacio disponible no permite instalar un sistema con tanque completo.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Ya tienes calentador de paso</h3>
-            <p class="card__desc">Si tu casa ya cuenta con calentador de paso, solo necesitas agregar el colector solar para empezar a ahorrar sin cambiar tu equipo actual.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Quieres agua caliente ilimitada</h3>
-            <p class="card__desc">A diferencia del sistema con tanque que se puede agotar, el de paso solar ofrece flujo continuo sin limite de litros disponibles.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- Comparativa -->
-  <section class="section" aria-labelledby="compare-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="compare-title">Comparativa: De Paso Solar vs. otros tipos</h2>
-        <p>Elige la tecnologia que mejor se adapte a tu espacio y necesidades.</p>
-      </div>
-      <div class="table-wrap">
-        <table class="compare-table">
+  <!-- Tabla comparativa -->
+  <section class="section section--alt" aria-labelledby="comp-title">
+    <div class="container" style="max-width: 900px;">
+      <SectionHeader
+        titulo="Comparativa de modelos"
+        subtitulo="Elige el tamaño correcto para tu consumo"
+        idTitulo="comp-title"
+      />
+      <div class="comp-table-wrap">
+        <table class="comp-table" aria-label="Comparativa de modelos">
           <thead>
             <tr>
-              <th>Caracteristica</th>
-              <th>De Paso Solar</th>
-              <th>Residencial (tanque)</th>
-              <th>Presurizado</th>
+              <th>Sistema</th><th>Configuración</th><th>Clima</th><th>Ventaja</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Tanque</td><td><strong>Sin tanque</strong></td><td>Con tanque</td><td>Con tanque</td></tr>
-            <tr><td>Ahorro gas</td><td>50-70%</td><td><strong>60-80%</strong></td><td><strong>60-80%</strong></td></tr>
-            <tr><td>Espacio azotea</td><td><strong>Minimo</strong></td><td>Moderado</td><td>Moderado</td></tr>
-            <tr><td>Agua caliente</td><td><strong>Ilimitada</strong></td><td>Segun tanque</td><td>Segun tanque</td></tr>
-            <tr><td>Inversion</td><td><strong>$15,000-$35,000</strong></td><td>$10,900-$45,000</td><td>$18,000-$55,000</td></tr>
-            <tr><td>Respaldo gas</td><td><strong>Integrado</strong></td><td>Opcional</td><td>Opcional</td></tr>
+            <tr><td>Paso solar</td><td>Sin tanque</td><td>Climas cálidos</td><td>Más económico</td></tr>
+            <tr><td>Tubos evacuados + tanque</td><td>Con tanque 100-300L</td><td>Todo México</td><td>Más versátil</td></tr>
+            <tr><td>Presurizado</td><td>Con tanque + bomba</td><td>Todo México</td><td>Máximo rendimiento</td></tr>
+            
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- Productos relacionados -->
-  <section class="section section--alt" aria-labelledby="products-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="products-title">Sistemas de paso solar disponibles</h2>
-        <p>Colectores solares y kits hibridos para tu calentador de paso.</p>
-      </div>
-      {products.length > 0 ? (
-        <div class="grid-3">
-          {products.map((prod: CollectionEntry<'productos'>) => (
-            <a href={`/productos/${prod.slug}`} class="card card--link">
-              <div class="card__body">
-                <h3 class="card__title">{prod.data.title}</h3>
-                <p class="card__desc">{prod.data.description}</p>
-                {prod.data.price && <span class="price-tag">${prod.data.price.toLocaleString('es-MX')} MXN</span>}
-              </div>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <p>Estamos ampliando nuestro catalogo de sistemas de paso solar. <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, me interesa un calentador de paso solar hibrido')}`}>Contactanos por WhatsApp</a> para recibir una cotizacion personalizada con las mejores opciones disponibles.</p>
-      )}
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section class="section section--dark" aria-labelledby="faq-title">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="faq-title">Preguntas frecuentes sobre calentadores de paso solar</h2>
-      </div>
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber sobre calentadores solares de paso: flujo continuo sin tanque"
+        idTitulo="faq-title"
+      />
       <div class="faq">
-        {faqItems.map(item => (
+        {faqItems.map((item, i) => (
           <div class="faq__item">
-            <button class="faq__question">
-              <span>{item.pregunta}</span>
-              <span class="faq__icon">+</span>
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq__answer">
-              <p>{item.respuesta}</p>
-            </div>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
+  <LeadCapture />
+
 </BaseLayout>
 
 <style>
-  .feature-icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--color-white, #fff);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-  .compare-table th,
-  .compare-table td {
-    padding: 0.875rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--color-gray-200, #e5e7eb);
-  }
-  .compare-table thead th {
-    background: var(--color-gray-50, #f9fafb);
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-  }
-  .compare-table tbody td:first-child {
-    font-weight: 500;
-  }
-  .price-tag {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    background: var(--color-primary-50, #fff7ed);
-    color: var(--color-primary-700, #c2410c);
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-  .card--link {
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .card--link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  }
+.products-grid { margin-top: var(--space-4); }
+.no-products {
+  text-align: center; padding: var(--space-12);
+  background: var(--color-bg-alt); border-radius: var(--radius-xl);
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-4);
+}
+.comp-table-wrap { overflow-x: auto; border-radius: var(--radius-xl); border: 1px solid var(--color-border); }
+.comp-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.comp-table th {
+  background: var(--color-dark); color: #fff;
+  padding: var(--space-4) var(--space-5); text-align: left;
+  font-weight: var(--weight-semibold); white-space: nowrap;
+}
+.comp-table td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:nth-child(even) td { background: var(--color-bg-alt); }
 </style>
