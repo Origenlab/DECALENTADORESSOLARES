@@ -1,183 +1,114 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import { buildLocalBusinessSchema, buildBreadcrumbSchema } from '../lib/seo';
-import {
-  PHONE_PRIMARY, PHONE_DISPLAY, WHATSAPP_NUMBER, WHATSAPP_URL,
-  EMAIL_PRIMARY, BUSINESS_HOURS, SITE_NAME
-} from '../lib/config';
+import { PHONE_DISPLAY, WHATSAPP_NUMBER, EMAIL_PRIMARY, BUSINESS_HOURS } from '../lib/config';
 
-const breadcrumbs = [
-  { name: 'Inicio', url: '/' },
-  { name: 'Contacto', url: '/contacto' },
+const structuredData = [
+  buildLocalBusinessSchema(),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Contacto', url: '/contacto' },
+  ]),
 ];
-
-const localBusinessSchema = buildLocalBusinessSchema();
-const contactSchema = {
-  ...localBusinessSchema,
-  contactPoint: [
-    {
-      '@type': 'ContactPoint',
-      telephone: PHONE_PRIMARY,
-      contactType: 'sales',
-      availableLanguage: 'Spanish',
-      areaServed: 'MX',
-    },
-    {
-      '@type': 'ContactPoint',
-      telephone: PHONE_PRIMARY,
-      contactType: 'customer service',
-      availableLanguage: 'Spanish',
-      areaServed: 'MX',
-    },
-  ],
-};
-const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 ---
 
 <BaseLayout
-  title="Contacto | De Calentadores Solares"
-  description="Contacta a De Calentadores Solares. Llámanos, escríbenos por WhatsApp o envía un formulario. Respuesta en menos de 24 horas. CDMX y área metropolitana."
+  title="Contacto | De Calentadores Solares — CDMX y México"
+  description="Contáctanos para cotizar tu calentador solar. Teléfono, WhatsApp, email y formulario. Respondemos en menos de 24 horas. Instalación en CDMX, Edomex y más."
   activePage="contacto"
-  heroTitle="Contacto | De Calentadores Solares"
-  heroIntro="Estamos listos para ayudarte. Escríbenos por WhatsApp, llámanos o completa el formulario y recibe atención personalizada en menos de 24 horas."
-  heroBadge="Atención directa"
-  heroPrimaryText="Cotizar por WhatsApp"
-  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero información sobre calentadores solares.')}`}
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/productos"
+  structuredData={structuredData}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Contacto', url: '/contacto' }]}
+  showHero={true}
+  heroTitle="Contacto — Estamos para Ayudarte"
+  heroIntro="Cotiza tu calentador solar, agenda una visita técnica o resuelve cualquier duda. Respondemos en menos de 24 horas por el canal que prefieras."
+  heroBadge="Atención personalizada"
   heroMetrics={[
     { valor: '<24h', texto: 'Tiempo de respuesta' },
-    { valor: 'Lun-Sáb', texto: 'Disponibilidad' },
-    { valor: '+500', texto: 'Clientes atendidos' },
+    { valor: '7', texto: 'Estados con servicio' },
+    { valor: 'Gratis', texto: 'Asesoría técnica' },
   ]}
-  breadcrumbs={breadcrumbs}
-  structuredData={[contactSchema, breadcrumbSchema]}
-  showLeadCapture={false}
+  heroPrimaryText="WhatsApp directo"
+  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}`}
+  heroSecondaryText="Llamar ahora"
+  heroSecondaryLink={`tel:+52${PHONE_DISPLAY.replace(/\s/g, '')}`}
 >
 
-  <!-- Contenido principal: formulario + info -->
-  <section class="section" aria-labelledby="contacto-form-title">
+  <section class="section">
     <div class="container">
       <div class="contacto-grid">
-
-        <!-- Columna izquierda: formulario -->
-        <div class="contacto-form-col">
-          <h2 id="contacto-form-title">Envíanos un mensaje</h2>
-          <p class="contacto-form-desc">Completa el formulario y te contactamos por WhatsApp con una propuesta personalizada.</p>
-
-          <form class="contacto-form" id="contacto-form" novalidate>
-            <div class="form-group">
-              <label class="form-label" for="contacto-nombre">Nombre completo *</label>
-              <input class="form-input" type="text" id="contacto-nombre" name="nombre" autocomplete="name" required placeholder="Tu nombre" />
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="contacto-empresa">Empresa <span class="form-optional">(opcional)</span></label>
-              <input class="form-input" type="text" id="contacto-empresa" name="empresa" autocomplete="organization" placeholder="Nombre de tu empresa" />
-            </div>
-
+        <!-- Formulario -->
+        <div class="contacto-form-wrap">
+          <h2 class="contacto-form-title">Envíanos un mensaje</h2>
+          <p class="contacto-form-sub">Completa el formulario y te respondemos por WhatsApp o email — lo que prefieras.</p>
+          <form class="contacto-form" id="contacto-form" aria-label="Formulario de contacto">
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label" for="contacto-telefono">Teléfono *</label>
-                <input class="form-input" type="tel" id="contacto-telefono" name="telefono" autocomplete="tel" required placeholder="55 1234 5678" />
+                <label for="c-nombre" class="form-label">Nombre completo *</label>
+                <input type="text" id="c-nombre" name="nombre" class="form-input" required autocomplete="name" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="contacto-email">Correo electrónico *</label>
-                <input class="form-input" type="email" id="contacto-email" name="email" autocomplete="email" required placeholder="tu@correo.com" />
+                <label for="c-empresa" class="form-label">Empresa (opcional)</label>
+                <input type="text" id="c-empresa" name="empresa" class="form-input" autocomplete="organization" />
               </div>
             </div>
-
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-tel" class="form-label">Teléfono *</label>
+                <input type="tel" id="c-tel" name="telefono" class="form-input" required autocomplete="tel" />
+              </div>
+              <div class="form-group">
+                <label for="c-email" class="form-label">Email *</label>
+                <input type="email" id="c-email" name="email" class="form-input" required autocomplete="email" />
+              </div>
+            </div>
             <div class="form-group">
-              <label class="form-label" for="contacto-proyecto">Tipo de proyecto *</label>
-              <select class="form-input" id="contacto-proyecto" name="proyecto" required>
-                <option value="" selected disabled>Selecciona una opción</option>
+              <label for="c-tipo" class="form-label">Tipo de proyecto</label>
+              <select id="c-tipo" name="tipo" class="form-input">
+                <option value="" disabled selected>Selecciona una opción</option>
                 <option value="Residencial">Residencial (casa o departamento)</option>
                 <option value="Comercial">Comercial (hotel, gimnasio, restaurante)</option>
-                <option value="Industrial">Industrial (fábrica, proceso)</option>
-                <option value="Condominio">Condominio o conjunto habitacional</option>
-                <option value="Mantenimiento">Mantenimiento de sistema existente</option>
+                <option value="Industrial">Industrial</option>
+                <option value="Mantenimiento">Mantenimiento o reparación</option>
                 <option value="Otro">Otro</option>
               </select>
             </div>
-
             <div class="form-group">
-              <label class="form-label" for="contacto-mensaje">Mensaje</label>
-              <textarea class="form-input" id="contacto-mensaje" name="mensaje" rows="4" placeholder="Cuéntanos sobre tu proyecto: número de personas, tipo de uso, ubicación, etc."></textarea>
+              <label for="c-msg" class="form-label">Mensaje *</label>
+              <textarea id="c-msg" name="mensaje" class="form-input" rows="4" required placeholder="Cuéntanos qué necesitas..."></textarea>
             </div>
-
-            <button type="submit" class="btn btn--primary btn--lg contacto-submit">
-              Enviar por WhatsApp
-            </button>
-            <p class="contacto-form-note">Al enviar serás redirigido a WhatsApp con tu mensaje prellenado.</p>
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center;">☀️ Enviar por WhatsApp</button>
           </form>
         </div>
 
-        <!-- Columna derecha: info de contacto -->
-        <div class="contacto-info-col">
-
-          <!-- Tarjetas de contacto -->
-          <div class="contacto-cards">
-            <div class="card contacto-card">
-              <div class="contacto-card__icon" aria-hidden="true">📞</div>
-              <div>
-                <h3 class="contacto-card__title">Teléfono</h3>
-                <a href={`tel:${PHONE_PRIMARY}`} class="contacto-card__link">{PHONE_DISPLAY}</a>
-                <p class="contacto-card__desc">Llamadas directas en horario de oficina</p>
-              </div>
-            </div>
-
-            <div class="card contacto-card">
-              <div class="contacto-card__icon" aria-hidden="true">💬</div>
-              <div>
-                <h3 class="contacto-card__title">WhatsApp</h3>
-                <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" class="contacto-card__link">{PHONE_DISPLAY}</a>
-                <p class="contacto-card__desc">Respuesta en menos de 24 horas</p>
-              </div>
-            </div>
-
-            <div class="card contacto-card">
-              <div class="contacto-card__icon" aria-hidden="true">📧</div>
-              <div>
-                <h3 class="contacto-card__title">Correo electrónico</h3>
-                <a href={`mailto:${EMAIL_PRIMARY}`} class="contacto-card__link">{EMAIL_PRIMARY}</a>
-                <p class="contacto-card__desc">Para cotizaciones formales y documentación</p>
-              </div>
-            </div>
-
-            <div class="card contacto-card">
-              <div class="contacto-card__icon" aria-hidden="true">🕐</div>
-              <div>
-                <h3 class="contacto-card__title">Horario de atención</h3>
-                <p class="contacto-card__link">{BUSINESS_HOURS.fullDisplay}</p>
-                <p class="contacto-card__desc">Zona horaria: Ciudad de México</p>
-              </div>
-            </div>
+        <!-- Info de contacto -->
+        <div class="contacto-info">
+          <div class="contacto-info__card">
+            <h3>📞 Llámanos</h3>
+            <a href="tel:+525547868402" class="contacto-info__value">{PHONE_DISPLAY}</a>
+            <p>{BUSINESS_HOURS.fullDisplay}</p>
           </div>
-
-          <!-- Mapa placeholder -->
-          <div class="contacto-map" aria-label="Ubicación de De Calentadores Solares">
-            <div class="contacto-map__placeholder">
-              <span class="contacto-map__icon" aria-hidden="true">📍</span>
-              <p class="contacto-map__text">Ciudad de México y área metropolitana</p>
-              <p class="contacto-map__subtext">Cobertura en CDMX, Estado de México, Puebla, Hidalgo, Morelos, Querétaro y Tlaxcala</p>
-              <a href="https://maps.google.com/?q=19.4326,-99.1332" target="_blank" rel="noopener noreferrer" class="btn btn--secondary">
-                Ver en Google Maps
-              </a>
-            </div>
+          <div class="contacto-info__card">
+            <h3>💬 WhatsApp</h3>
+            <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener" class="contacto-info__value">{PHONE_DISPLAY}</a>
+            <p>Respuesta en menos de 24 horas</p>
           </div>
-
-          <!-- Horario detallado -->
-          <div class="card contacto-horario">
-            <h3 class="contacto-horario__title">Horario de servicio</h3>
-            <ul class="contacto-horario__list">
-              <li><span>Lunes a Viernes</span><strong>8:00 — 18:00</strong></li>
-              <li><span>Sábado</span><strong>8:00 — 14:00</strong></li>
-              <li><span>Domingo</span><strong>Cerrado</strong></li>
-            </ul>
-            <p class="contacto-horario__note">Mensajes de WhatsApp recibidos fuera de horario se responden al siguiente día hábil.</p>
+          <div class="contacto-info__card">
+            <h3>📧 Email</h3>
+            <a href={`mailto:${EMAIL_PRIMARY}`} class="contacto-info__value">{EMAIL_PRIMARY}</a>
+            <p>Para cotizaciones formales y documentación</p>
+          </div>
+          <div class="contacto-info__card">
+            <h3>📍 Cobertura</h3>
+            <p class="contacto-info__value">CDMX, Edomex, Morelos, Puebla, Hidalgo, Querétaro y Tlaxcala</p>
+            <p>Proyectos especiales en toda la República</p>
+          </div>
+          <div class="contacto-info__card contacto-info__card--cta">
+            <h3>¿Necesitas una cotización rápida?</h3>
+            <p>Nuestro formulario de cotización te da respuesta el mismo día.</p>
+            <a href="/cotizar" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:var(--space-3);">Ir a Cotizar →</a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -185,200 +116,74 @@ const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 </BaseLayout>
 
 <script is:inline>
-  (function() {
-    var form = document.getElementById('contacto-form');
-    if (!form) return;
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var data = new FormData(form);
-
-      var nombre = (data.get('nombre') || '').toString().trim();
-      var empresa = (data.get('empresa') || '').toString().trim();
-      var telefono = (data.get('telefono') || '').toString().trim();
-      var email = (data.get('email') || '').toString().trim();
-      var proyecto = (data.get('proyecto') || '').toString().trim();
-      var mensaje = (data.get('mensaje') || '').toString().trim();
-
-      var lines = [
-        'Hola, los contacto desde la página web.',
-        '',
-        'Nombre: ' + nombre,
-        empresa ? 'Empresa: ' + empresa : '',
-        'Teléfono: ' + telefono,
-        'Email: ' + email,
-        'Tipo de proyecto: ' + proyecto,
-        mensaje ? 'Mensaje: ' + mensaje : '',
-        '',
-        'Fuente: formulario de contacto'
-      ].filter(function(l) { return l !== ''; });
-
-      var text = lines.join('\n');
-      var url = 'https://wa.me/5215547868402?text=' + encodeURIComponent(text);
-      window.open(url, '_blank', 'noopener,noreferrer');
-    });
-  })();
+(function() {
+  var form = document.getElementById('contacto-form');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var n = document.getElementById('c-nombre').value.trim();
+    var emp = document.getElementById('c-empresa').value.trim();
+    var tel = document.getElementById('c-tel').value.trim();
+    var email = document.getElementById('c-email').value.trim();
+    var tipo = document.getElementById('c-tipo').value;
+    var msg = document.getElementById('c-msg').value.trim();
+    var txt = 'Hola, me comunico desde el sitio web.'
+      + '\n*Nombre:* ' + n
+      + (emp ? '\n*Empresa:* ' + emp : '')
+      + '\n*Teléfono:* ' + tel
+      + '\n*Email:* ' + email
+      + (tipo ? '\n*Tipo de proyecto:* ' + tipo : '')
+      + '\n*Mensaje:* ' + msg;
+    window.open('https://wa.me/5215547868402?text=' + encodeURIComponent(txt), '_blank');
+  });
+})();
 </script>
 
 <style>
-  /* ---- Layout de contacto ---- */
-  .contacto-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  @media (min-width: 768px) {
-    .contacto-grid {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 4rem;
-    }
-  }
-
-  /* ---- Formulario ---- */
-  .contacto-form-col h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-  .contacto-form-desc {
-    color: var(--text-muted, #6b7280);
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
-  .contacto-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  .form-optional {
-    font-weight: 400;
-    color: var(--text-muted, #6b7280);
-    font-size: 0.875rem;
-  }
-  .contacto-submit {
-    width: 100%;
-    justify-content: center;
-    margin-top: 0.5rem;
-  }
-  .contacto-form-note {
-    font-size: 0.8125rem;
-    color: var(--text-muted, #6b7280);
-    text-align: center;
-    margin-top: -0.5rem;
-  }
-
-  /* ---- Tarjetas de contacto ---- */
-  .contacto-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .contacto-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.25rem;
-  }
-  .contacto-card__icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-warm, #fff7ed);
-    border-radius: 0.5rem;
-  }
-  .contacto-card__title {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    margin: 0 0 0.25rem;
-  }
-  .contacto-card__link {
-    color: var(--color-primary, #f97316);
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 1rem;
-  }
-  .contacto-card__link:hover {
-    text-decoration: underline;
-  }
-  .contacto-card__desc {
-    font-size: 0.8125rem;
-    color: var(--text-muted, #6b7280);
-    margin: 0.25rem 0 0;
-  }
-
-  /* ---- Mapa placeholder ---- */
-  .contacto-map {
-    margin-top: 1.5rem;
-  }
-  .contacto-map__placeholder {
-    background: var(--bg-alt, #f9fafb);
-    border: 2px dashed var(--border-color, #e5e7eb);
-    border-radius: 1rem;
-    padding: 2rem;
-    text-align: center;
-  }
-  .contacto-map__icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-  .contacto-map__text {
-    font-weight: 600;
-    font-size: 1.0625rem;
-    margin-bottom: 0.25rem;
-  }
-  .contacto-map__subtext {
-    font-size: 0.875rem;
-    color: var(--text-muted, #6b7280);
-    margin-bottom: 1rem;
-    line-height: 1.5;
-  }
-
-  /* ---- Horario ---- */
-  .contacto-horario {
-    margin-top: 1.5rem;
-    padding: 1.5rem;
-  }
-  .contacto-horario__title {
-    font-size: 1.0625rem;
-    font-weight: 600;
-    margin: 0 0 1rem;
-  }
-  .contacto-horario__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .contacto-horario__list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--border-color, #e5e7eb);
-    font-size: 0.9375rem;
-  }
-  .contacto-horario__list li:last-child {
-    border-bottom: none;
-  }
-  .contacto-horario__note {
-    font-size: 0.8125rem;
-    color: var(--text-muted, #6b7280);
-    margin-top: 1rem;
-    line-height: 1.5;
-  }
-
-  /* ---- Info column sticky en desktop ---- */
-  @media (min-width: 768px) {
-    .contacto-info-col {
-      position: sticky;
-      top: 6rem;
-      align-self: start;
-    }
-  }
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+.contacto-form-wrap {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+}
+.contacto-form-title {
+  font-size: var(--text-2xl); font-weight: var(--weight-bold);
+  color: var(--color-dark); margin: 0 0 var(--space-2);
+}
+.contacto-form-sub {
+  color: var(--color-text-secondary); margin: 0 0 var(--space-6);
+}
+.contacto-info {
+  display: flex; flex-direction: column; gap: var(--space-4);
+}
+.contacto-info__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+}
+.contacto-info__card h3 {
+  font-size: var(--text-base); font-weight: var(--weight-semibold);
+  color: var(--color-dark); margin: 0 0 var(--space-2);
+}
+.contacto-info__card p {
+  font-size: var(--text-sm); color: var(--color-text-muted); margin: 0;
+}
+.contacto-info__value {
+  display: block; font-size: var(--text-lg); font-weight: var(--weight-bold);
+  color: var(--color-brand); margin-bottom: var(--space-1);
+}
+.contacto-info__card--cta {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+}
+@media (max-width: 900px) {
+  .contacto-grid { grid-template-columns: 1fr; }
+}
 </style>

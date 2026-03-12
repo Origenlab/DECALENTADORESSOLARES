@@ -1,125 +1,79 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { buildOrganizationSchema } from "../lib/seo";
-import { WHATSAPP_URL } from "../lib/config";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import LeadCapture from '../components/LeadCapture.astro';
+import { buildOrganizationSchema, buildBreadcrumbSchema } from '../lib/seo';
 
-const schema = buildOrganizationSchema();
-
-const valores = [
-  {
-    icon: "🏅",
-    titulo: "Calidad",
-    desc: "Utilizamos equipos certificados y técnicas de instalación que cumplen las normas más exigentes del sector solar térmico en México.",
-  },
-  {
-    icon: "🤝",
-    titulo: "Honestidad",
-    desc: "Presupuestos transparentes sin letras chicas. Te decimos exactamente qué incluye tu proyecto, cuánto cuesta y en cuánto tiempo.",
-  },
-  {
-    icon: "💡",
-    titulo: "Innovación",
-    desc: "Adoptamos las tecnologías más recientes — sistemas presurizados, híbridos y monitoreo remoto — para maximizar tu ahorro.",
-  },
-];
-
-const equipo = [
-  {
-    iniciales: "RM",
-    nombre: "Ing. Roberto Méndez",
-    puesto: "Director General",
-    bio: "Ingeniero mecánico con más de 18 años de experiencia en energía solar térmica. Fundó De Calentadores Solares en 2009 con la visión de profesionalizar el sector.",
-    color: "#F97316",
-  },
-  {
-    iniciales: "ML",
-    nombre: "Lic. María Fernanda López",
-    puesto: "Directora Comercial",
-    bio: "Especialista en ventas consultivas y desarrollo de mercado. Ha liderado la expansión comercial a 7 estados y el crecimiento de la cartera de clientes corporativos.",
-    color: "#0EA5E9",
-  },
-  {
-    iniciales: "CR",
-    nombre: "Ing. Carlos Ramírez",
-    puesto: "Jefe de Proyectos",
-    bio: "Ingeniero en energías renovables responsable del dimensionamiento, supervisión de instalaciones y control de calidad en cada proyecto residencial y comercial.",
-    color: "#10B981",
-  },
+const structuredData = [
+  buildOrganizationSchema(),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Nosotros', url: '/nosotros' },
+  ]),
 ];
 
 const hitos = [
-  { anio: "2009", titulo: "Fundación", desc: "Nace De Calentadores Solares en la Ciudad de México con la misión de ofrecer soluciones solares térmicas profesionales." },
-  { anio: "2012", titulo: "100 Instalaciones", desc: "Alcanzamos nuestras primeras 100 instalaciones residenciales exitosas en CDMX y zona metropolitana." },
-  { anio: "2015", titulo: "Expansión Edomex", desc: "Ampliamos cobertura al Estado de México y abrimos líneas de servicio para proyectos comerciales." },
-  { anio: "2019", titulo: "300 Proyectos Comerciales", desc: "Consolidamos nuestra presencia en hoteles, gimnasios, restaurantes e industria con más de 300 proyectos ejecutados." },
-  { anio: "2024", titulo: "500+ Instalaciones", desc: "Superamos las 500 instalaciones en 7 estados, posicionándonos como referente del sector solar térmico en México." },
+  { año: '2008', evento: 'Fundación', desc: 'Comenzamos en CDMX con 3 técnicos y enfoque exclusivo en calentadores solares residenciales.' },
+  { año: '2012', evento: 'Expansión comercial', desc: 'Primer proyecto hotelero en Valle de Bravo. Inicio de cartera comercial e industrial.' },
+  { año: '2016', evento: '200 instalaciones', desc: 'Alcanzamos 200 sistemas instalados y expandimos cobertura a Estado de México y Morelos.' },
+  { año: '2020', evento: 'Tecnología de punta', desc: 'Adoptamos exclusivamente sistemas de tubos evacuados al vacío de alta eficiencia.' },
+  { año: '2025', evento: '+500 instalaciones', desc: 'Más de 500 proyectos completados en 7 estados. Equipo de 18 técnicos certificados.' },
 ];
 
-const certificaciones = [
-  { icon: "📋", nombre: "NOM-021-ENER", desc: "Cumplimiento con la Norma Oficial Mexicana de eficiencia energética para calentadores solares de agua." },
-  { icon: "🔬", nombre: "Conciencia ISO", desc: "Procesos internos alineados a estándares de gestión de calidad ISO 9001 para mejora continua." },
-  { icon: "🛡️", nombre: "Garantía Total", desc: "Todos nuestros proyectos incluyen garantía en mano de obra y respaldo del fabricante en equipos." },
-  { icon: "🌱", nombre: "Compromiso Ambiental", desc: "Cada instalación evita la emisión de aproximadamente 1.5 toneladas de CO₂ al año." },
+const valores = [
+  { icono: '🎯', titulo: 'Honestidad técnica', desc: 'Nunca vendemos más capacidad de la que necesitas. El dimensionamiento correcto es nuestra primera responsabilidad.' },
+  { icono: '🔧', titulo: 'Calidad de instalación', desc: 'El equipo más costoso falla si la instalación es mala. Nuestros técnicos tienen protocolo estricto de instalación y prueba.' },
+  { icono: '🤝', titulo: 'Compromiso postventa', desc: 'El trato no termina con la instalación. Atendemos garantías, preguntas y mantenimientos con la misma calidad.' },
+  { icono: '🌿', titulo: 'Impacto ambiental', desc: 'Cada instalación es una acción concreta contra el cambio climático. Nos motiva el impacto real, no solo el negocio.' },
+];
+
+const equipo = [
+  { iniciales: 'RH', nombre: 'Ricardo Herrera', cargo: 'Director General', desc: '20 años en ingeniería térmica solar. Especializó en energía renovable en la UNAM.' },
+  { iniciales: 'LP', nombre: 'Laura Peralta', cargo: 'Directora Técnica', desc: 'Ingeniera mecánica. Diseña los protocolos de instalación y calidad del equipo técnico.' },
+  { iniciales: 'MV', nombre: 'Miguel Vázquez', cargo: 'Jefe de Proyectos Comerciales', desc: '12 años instalando sistemas industriales y hoteleros en México y Centroamérica.' },
 ];
 ---
 
 <BaseLayout
-  title="Sobre Nosotros | De Calentadores Solares"
-  description="Más de 15 años instalando calentadores solares en México. Conoce nuestra historia, equipo y compromiso con la energía solar."
+  title="Nosotros | De Calentadores Solares — 15 años instalando en México"
+  description="Conoce la historia, equipo y valores de De Calentadores Solares. Más de 500 instalaciones en 7 estados, 15 años de experiencia y garantía real en cada proyecto."
   activePage="nosotros"
-  heroTitle="Sobre Nosotros | De Calentadores Solares"
-  heroIntro="Más de 15 años instalando calentadores solares en México. Conoce nuestra historia, equipo y compromiso."
-  heroBadge="Desde 2009"
+  structuredData={structuredData}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Nosotros', url: '/nosotros' }]}
+  showHero={true}
+  heroTitle="15 Años Instalando Calentadores Solares en México"
+  heroIntro="Somos un equipo especializado en energía solar térmica. No vendemos de todo —solo calentadores solares, y los instalamos bien."
+  heroBadge="Empresa mexicana"
   heroMetrics={[
-    { valor: "+500", texto: "instalaciones" },
-    { valor: "15+", texto: "años experiencia" },
-    { valor: "7", texto: "estados" },
-    { valor: "100%", texto: "garantía" },
+    { valor: '+500', texto: 'Instalaciones' },
+    { valor: '15+', texto: 'Años de experiencia' },
+    { valor: '7', texto: 'Estados con cobertura' },
+    { valor: '18', texto: 'Técnicos certificados' },
   ]}
-  heroPrimaryText="Solicitar Cotización"
-  heroPrimaryLink={WHATSAPP_URL}
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/calentadores"
-  breadcrumbs={[
-    { name: "Inicio", url: "/" },
-    { name: "Nosotros", url: "/nosotros" },
-  ]}
-  showLeadCapture={true}
-  structuredData={schema}
+  heroPrimaryText="Contactar equipo"
+  heroPrimaryLink="/contacto"
+  heroSecondaryText="Ver servicios"
+  heroSecondaryLink="/servicios"
 >
 
-  <!-- ========== NUESTRA HISTORIA ========== -->
-  <section class="section" aria-labelledby="historia-title">
+  <!-- HISTORIA -->
+  <section class="section section--alt" aria-labelledby="historia-title">
     <div class="container">
-      <header class="section-header">
-        <h2 id="historia-title">Nuestra Historia</h2>
-        <p>Desde 2009 transformando hogares y negocios con energía solar térmica en México.</p>
-      </header>
-
-      <div class="story-block">
-        <div class="story-text">
-          <h3>¿Cómo empezamos?</h3>
-          <p>
-            De Calentadores Solares nació en 2009 en la Ciudad de México, fundada por el Ing. Roberto Méndez
-            con una visión clara: profesionalizar el mercado de calentadores solares y ofrecer a familias y
-            empresas una alternativa real para reducir su dependencia del gas.
-          </p>
-          <p>
-            Lo que comenzó como un pequeño taller de instalación se ha convertido en una empresa con presencia
-            en 7 estados y más de 500 proyectos ejecutados. Nuestra misión sigue siendo la misma:
-            <strong>entregar soluciones solares térmicas con rigor técnico, honestidad comercial y servicio postventa real.</strong>
-          </p>
-        </div>
-      </div>
-
-      <h3 class="valores-titulo">Nuestros Valores</h3>
-      <div class="grid-3">
-        {valores.map((v) => (
-          <div class="card">
-            <div class="card__body">
-              <span class="valor-icon">{v.icon}</span>
-              <h4 class="card__title">{v.titulo}</h4>
-              <p class="card__desc">{v.desc}</p>
+      <SectionHeader
+        titulo="Nuestra Historia"
+        subtitulo="De un pequeño taller en CDMX a cubrir 7 estados con más de 500 instalaciones"
+        idTitulo="historia-title"
+        parrafo1="Empezamos en 2008 convencidos de que el calentador solar era la tecnología correcta para México: mucho sol, alto consumo de gas y un país que necesitaba alternativas energéticas accesibles. Lo que no sabíamos era que la mayor parte de nuestro trabajo sería convencer a las personas de que la tecnología funcionaba de verdad."
+        parrafo2="15 años después, los resultados hablan solos: más de 500 familias y negocios con agua caliente solar, facturas de gas reducidas en 70-80% y cero instalaciones con falla estructural en nuestra historia. Eso es porque nunca cortamos caminos en la instalación."
+      />
+      <div class="hitos">
+        {hitos.map(h => (
+          <div class="hito">
+            <div class="hito__año">{h.año}</div>
+            <div class="hito__line"><div class="hito__dot"></div></div>
+            <div class="hito__body">
+              <strong class="hito__evento">{h.evento}</strong>
+              <p class="hito__desc">{h.desc}</p>
             </div>
           </div>
         ))}
@@ -127,287 +81,107 @@ const certificaciones = [
     </div>
   </section>
 
-  <!-- ========== EQUIPO ========== -->
+  <!-- VALORES -->
+  <section class="section" aria-labelledby="valores-title">
+    <div class="container">
+      <SectionHeader
+        titulo="Lo que nos define"
+        subtitulo="No solo instalamos calentadores — instalamos confianza"
+        idTitulo="valores-title"
+      />
+      <div class="grid-4">
+        {valores.map(v => (
+          <div class="valor-card">
+            <span class="valor-card__icon" aria-hidden="true">{v.icono}</span>
+            <h3 class="valor-card__title">{v.titulo}</h3>
+            <p class="valor-card__desc">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTADÍSTICAS -->
+  <section class="stats-bar" aria-label="Estadísticas de la empresa">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item"><strong class="stat-val">+500</strong><span class="stat-label">Instalaciones realizadas</span></div>
+        <div class="stat-item"><strong class="stat-val">80%</strong><span class="stat-label">Ahorro promedio en gas</span></div>
+        <div class="stat-item"><strong class="stat-val">15+</strong><span class="stat-label">Años de experiencia</span></div>
+        <div class="stat-item"><strong class="stat-val">7</strong><span class="stat-label">Estados con servicio</span></div>
+        <div class="stat-item"><strong class="stat-val">18</strong><span class="stat-label">Técnicos certificados</span></div>
+        <div class="stat-item"><strong class="stat-val">0</strong><span class="stat-label">Fallas estructurales históricas</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
   <section class="section section--alt" aria-labelledby="equipo-title">
     <div class="container">
-      <header class="section-header">
-        <h2 id="equipo-title">Nuestro Equipo</h2>
-        <p>Profesionales comprometidos con cada proyecto solar.</p>
-      </header>
-
-      <div class="grid-3">
-        {equipo.map((m) => (
-          <div class="card equipo-card">
-            <div class="card__body">
-              <div class="avatar" style={`background-color: ${m.color}`}>
-                <span class="avatar__iniciales">{m.iniciales}</span>
-              </div>
-              <h3 class="card__title">{m.nombre}</h3>
-              <p class="equipo-puesto">{m.puesto}</p>
-              <p class="card__desc">{m.bio}</p>
-            </div>
+      <SectionHeader
+        titulo="El equipo detrás del proyecto"
+        subtitulo="Ingenieros y técnicos especializados en energía solar térmica"
+        idTitulo="equipo-title"
+      />
+      <div class="grid-3 equipo-grid">
+        {equipo.map(m => (
+          <div class="miembro-card">
+            <div class="miembro-card__avatar" aria-hidden="true">{m.iniciales}</div>
+            <h3 class="miembro-card__name">{m.nombre}</h3>
+            <span class="miembro-card__cargo">{m.cargo}</span>
+            <p class="miembro-card__desc">{m.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ========== LÍNEA DE TIEMPO ========== -->
-  <section class="section" aria-labelledby="timeline-title">
-    <div class="container">
-      <header class="section-header">
-        <h2 id="timeline-title">Nuestra Trayectoria</h2>
-        <p>Hitos clave en más de 15 años de trabajo.</p>
-      </header>
-
-      <div class="timeline">
-        {hitos.map((h, i) => (
-          <div class={`timeline__item ${i % 2 === 0 ? 'timeline__item--left' : 'timeline__item--right'}`}>
-            <div class="timeline__marker">
-              <span class="timeline__year">{h.anio}</span>
-            </div>
-            <div class="timeline__content">
-              <h3>{h.titulo}</h3>
-              <p>{h.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CERTIFICACIONES ========== -->
-  <section class="section section--alt" aria-labelledby="cert-title">
-    <div class="container">
-      <header class="section-header">
-        <h2 id="cert-title">Certificaciones y Respaldos</h2>
-        <p>Trabajamos bajo estándares que garantizan calidad y confianza en cada instalación.</p>
-      </header>
-
-      <div class="grid-4">
-        {certificaciones.map((c) => (
-          <div class="card cert-card">
-            <div class="card__body">
-              <span class="cert-icon">{c.icon}</span>
-              <h4 class="card__title">{c.nombre}</h4>
-              <p class="card__desc">{c.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== STATS BAR ========== -->
-  <section class="section section--dark" aria-labelledby="stats-title">
-    <div class="container">
-      <h2 id="stats-title" class="sr-only">Nuestras Cifras</h2>
-      <div class="stats-bar">
-        <div class="stats-bar__item">
-          <span class="stats-bar__valor">500+</span>
-          <span class="stats-bar__texto">Instalaciones</span>
-        </div>
-        <div class="stats-bar__item">
-          <span class="stats-bar__valor">15</span>
-          <span class="stats-bar__texto">Años de Experiencia</span>
-        </div>
-        <div class="stats-bar__item">
-          <span class="stats-bar__valor">7</span>
-          <span class="stats-bar__texto">Estados</span>
-        </div>
-        <div class="stats-bar__item">
-          <span class="stats-bar__valor">100%</span>
-          <span class="stats-bar__texto">Garantía</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CTA FINAL ========== -->
-  <section class="section" aria-labelledby="cta-title">
-    <div class="container" style="text-align:center;">
-      <h2 id="cta-title">¿Listo para ahorrar en gas?</h2>
-      <p style="max-width:600px;margin:0 auto 2rem;">
-        Solicita tu cotización sin compromiso. Nuestro equipo te contacta en menos de 24 horas con una propuesta personalizada.
-      </p>
-      <a class="btn btn--primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-        Cotizar por WhatsApp
-      </a>
-    </div>
-  </section>
+  <LeadCapture />
 
 </BaseLayout>
 
 <style>
-  /* Historia */
-  .story-block {
-    max-width: 800px;
-    margin: 0 auto 2.5rem;
-  }
-  .story-text p {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: var(--text-secondary, #555);
-    margin-bottom: 1rem;
-  }
-  .valores-titulo {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.3rem;
-  }
-  .valor-icon {
-    display: block;
-    font-size: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
+/* Hitos */
+.hitos { display: flex; flex-direction: column; gap: 0; max-width: 760px; margin: 0 auto; }
+.hito { display: grid; grid-template-columns: 70px 30px 1fr; gap: var(--space-4); align-items: flex-start; padding-bottom: var(--space-6); }
+.hito__año { font-size: var(--text-xl); font-weight: var(--weight-extrabold); color: var(--color-brand); text-align: right; padding-top: 2px; }
+.hito__line { display: flex; flex-direction: column; align-items: center; }
+.hito__dot { width: 14px; height: 14px; border-radius: 50%; background: var(--color-brand); border: 3px solid var(--color-primary-200); flex-shrink: 0; }
+.hito__line::after { content: ''; flex: 1; width: 2px; background: var(--color-border); margin-top: 4px; min-height: 40px; }
+.hito:last-child .hito__line::after { display: none; }
+.hito__evento { font-weight: var(--weight-bold); color: var(--color-dark); font-size: var(--text-base); }
+.hito__desc { font-size: var(--text-sm); color: var(--color-text-secondary); margin: var(--space-1) 0 0; }
 
-  /* Equipo */
-  .equipo-card {
-    text-align: center;
-  }
-  .avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-  }
-  .avatar__iniciales {
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-  }
-  .equipo-puesto {
-    font-size: 0.9rem;
-    color: var(--color-primary, #F97316);
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-  }
+/* Valores */
+.valor-card {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl); padding: var(--space-6); text-align: center;
+}
+.valor-card__icon { font-size: 2.5rem; display: block; margin-bottom: var(--space-3); }
+.valor-card__title { font-size: var(--text-lg); font-weight: var(--weight-bold); color: var(--color-dark); margin: 0 0 var(--space-3); }
+.valor-card__desc { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--line-relaxed); margin: 0; }
 
-  /* Timeline */
-  .timeline {
-    position: relative;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 1rem 0;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--color-primary, #F97316);
-    transform: translateX(-50%);
-  }
-  .timeline__item {
-    position: relative;
-    margin-bottom: 2.5rem;
-    display: flex;
-    align-items: flex-start;
-  }
-  .timeline__item--left {
-    flex-direction: row-reverse;
-    text-align: right;
-  }
-  .timeline__item--right {
-    text-align: left;
-  }
-  .timeline__marker {
-    position: relative;
-    z-index: 2;
-    flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--color-primary, #F97316);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.85rem;
-    margin: 0 1rem;
-  }
-  .timeline__year {
-    line-height: 1;
-  }
-  .timeline__content {
-    flex: 1;
-    max-width: 280px;
-  }
-  .timeline__content h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.35rem;
-  }
-  .timeline__content p {
-    font-size: 0.92rem;
-    color: var(--text-secondary, #555);
-    line-height: 1.55;
-  }
+/* Stats bar */
+.stats-bar { background: var(--color-dark); padding: var(--space-12) 0; }
+.stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-6); text-align: center; }
+.stat-item { display: flex; flex-direction: column; gap: var(--space-2); }
+.stat-val { font-size: var(--text-4xl); font-weight: var(--weight-extrabold); color: var(--color-brand); line-height: 1; }
+.stat-label { font-size: var(--text-xs); color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 0.04em; }
+@media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
 
-  /* Certificaciones */
-  .cert-card {
-    text-align: center;
-  }
-  .cert-icon {
-    display: block;
-    font-size: 2.2rem;
-    margin-bottom: 0.75rem;
-  }
-
-  /* Stats Bar */
-  .stats-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 3rem;
-    padding: 1rem 0;
-  }
-  .stats-bar__item {
-    text-align: center;
-  }
-  .stats-bar__valor {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--color-primary, #F97316);
-  }
-  .stats-bar__texto {
-    display: block;
-    font-size: 0.95rem;
-    color: #ccc;
-    margin-top: 0.25rem;
-  }
-
-  /* Responsivo */
-  @media (max-width: 640px) {
-    .timeline::before {
-      left: 20px;
-    }
-    .timeline__item,
-    .timeline__item--left {
-      flex-direction: row;
-      text-align: left;
-    }
-    .timeline__marker {
-      width: 44px;
-      height: 44px;
-      font-size: 0.75rem;
-      margin: 0 0.75rem 0 0;
-    }
-    .timeline__content {
-      max-width: 100%;
-    }
-    .stats-bar {
-      gap: 1.5rem;
-    }
-    .stats-bar__valor {
-      font-size: 1.8rem;
-    }
-  }
+/* Equipo */
+.miembro-card {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl); padding: var(--space-8); text-align: center;
+}
+.miembro-card__avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-brand), var(--color-sun-400));
+  display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-4);
+  font-size: var(--text-2xl); font-weight: var(--weight-extrabold); color: #fff;
+}
+.miembro-card__name { font-size: var(--text-xl); font-weight: var(--weight-bold); color: var(--color-dark); margin: 0 0 var(--space-2); }
+.miembro-card__cargo { display: block; font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-brand); margin-bottom: var(--space-4); }
+.miembro-card__desc { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--line-relaxed); margin: 0; }
 </style>

@@ -1,250 +1,113 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { buildServiceSchema, buildFAQSchema } from "../../lib/seo";
-import { SITE_URL, SITE_NAME } from "../../lib/config";
-
-const services = [
-  {
-    emoji: "🔧",
-    title: "Instalación profesional",
-    description: "Montaje integral de calentadores solares con criterios de seguridad, pruebas hidráulicas y entrega técnica documentada.",
-    benefits: [
-      "Instalación en 1 jornada para proyectos residenciales",
-      "Pruebas de rendimiento y sellado antes de entrega",
-      "Garantía total en mano de obra e instalación",
-    ],
-    href: "/servicios/instalacion-profesional",
-  },
-  {
-    emoji: "🛡️",
-    title: "Mantenimiento preventivo",
-    description: "Programa técnico periódico para sostener la eficiencia del sistema, evitar fallas y proteger tu inversión a largo plazo.",
-    benefits: [
-      "Limpieza de tubos, tanque y conexiones",
-      "Revisión de válvulas, empaques y ánodo",
-      "Reporte técnico con recomendaciones",
-    ],
-    href: "/servicios/mantenimiento-preventivo",
-  },
-  {
-    emoji: "📊",
-    title: "Asesoría técnica",
-    description: "Evaluación de consumo, capacidad óptima y retorno de inversión antes de comprar. Decisiones con datos, no con impulso.",
-    benefits: [
-      "Dimensionamiento por perfil de consumo real",
-      "Comparativa de tecnologías y marcas",
-      "Estimación de ahorro anual en gas",
-    ],
-    href: "/servicios/asesoria-tecnica",
-  },
-  {
-    emoji: "🏢",
-    title: "Proyectos comerciales",
-    description: "Ingeniería y ejecución para hoteles, gimnasios, restaurantes y negocios con alta demanda de agua caliente.",
-    benefits: [
-      "Diseño para demanda simultánea y horarios pico",
-      "Ejecución por fases sin interrumpir operación",
-      "Plan de continuidad y respaldo térmico",
-    ],
-    href: "/servicios/proyectos-comerciales",
-  },
-  {
-    emoji: "🔄",
-    title: "Conversión de sistema",
-    description: "Migración de calentador de gas o eléctrico a solar. Aprovecha tu infraestructura existente y reduce costos desde el primer mes.",
-    benefits: [
-      "Evaluación de compatibilidad hidráulica",
-      "Adaptación de tuberías y conexiones",
-      "Retiro seguro del equipo anterior",
-    ],
-    href: "/servicios/conversion",
-  },
-  {
-    emoji: "🔍",
-    title: "Diagnóstico de fallas",
-    description: "Detección y resolución de problemas en sistemas solares existentes: fugas, baja temperatura, presión irregular y más.",
-    benefits: [
-      "Inspección visual y técnica completa",
-      "Identificación de causa raíz del problema",
-      "Presupuesto de reparación sin compromiso",
-    ],
-    href: "https://wa.me/5215547868402?text=Hola%2C%20necesito%20un%20diagnóstico%20de%20fallas%20en%20mi%20calentador%20solar",
-    isExternal: true,
-  },
-];
-
-const processSteps = [
-  { num: "1", title: "Contacto inicial", desc: "Nos escribes por WhatsApp o formulario con los datos básicos de tu proyecto." },
-  { num: "2", title: "Evaluación técnica", desc: "Analizamos consumo, tipo de inmueble y condiciones del sitio para dimensionar correctamente." },
-  { num: "3", title: "Propuesta clara", desc: "Recibes cotización con alcance, tiempos, garantías y costo total sin sorpresas." },
-  { num: "4", title: "Ejecución profesional", desc: "Instalamos con estándares de seguridad, pruebas de rendimiento y entrega documentada." },
-  { num: "5", title: "Seguimiento postventa", desc: "Verificamos funcionamiento, programamos mantenimiento y quedamos disponibles para soporte." },
-];
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
 
 const faqItems = [
-  {
-    question: "¿La asesoría tiene costo?",
-    answer: "La asesoría comercial inicial es gratuita. Para proyectos complejos podemos proponer una visita técnica especializada con alcance definido.",
-  },
-  {
-    question: "¿En qué zonas brindan servicio?",
-    answer: "Atendemos CDMX, Estado de México, Puebla, Morelos, Hidalgo y zonas cercanas. También coordinamos proyectos en otras ciudades según volumen y agenda técnica.",
-  },
-  {
-    question: "¿Cuánto tarda un servicio de instalación?",
-    answer: "Un proyecto residencial estándar se completa en 1 jornada laboral. Proyectos comerciales o de mayor escala pueden requerir fases adicionales según el alcance.",
-  },
-  {
-    question: "¿Qué incluye el mantenimiento preventivo?",
-    answer: "Limpieza de tubos y tanque, revisión de conexiones, válvulas y empaques, validación de rendimiento térmico y recomendaciones técnicas para prolongar la vida útil.",
-  },
-  {
-    question: "¿Pueden revisar una cotización de otro proveedor?",
-    answer: "Sí. Realizamos comparativa técnica para detectar diferencias de capacidad, calidad de materiales, alcance real de instalación y posibles costos ocultos.",
-  },
+  { pregunta: '¿Cuánto tarda la instalación de un calentador solar?', respuesta: 'La instalación residencial estándar dura entre 3 y 5 horas el mismo día. Instalaciones comerciales de mayor escala pueden requerir 1-2 días.' },
+  { pregunta: '¿Ofrecen garantía en la instalación?', respuesta: 'Sí. Garantizamos la mano de obra por 1 año y los equipos conforme a la garantía del fabricante (2-5 años según modelo). Si algo falla por instalación, vamos sin costo.' },
+  { pregunta: '¿Realizan visita técnica previa?', respuesta: 'Para proyectos comerciales siempre realizamos visita previa gratuita. Para proyectos residenciales hacemos el diagnóstico con fotos que nos envías por WhatsApp.' },
+  { pregunta: '¿En qué zonas tienen servicio de mantenimiento?', respuesta: 'Damos mantenimiento en CDMX, Estado de México, Morelos, Hidalgo, Puebla, Querétaro y Tlaxcala. Para otras zonas coordinamos según volumen.' },
 ];
 
-const serviceSchemas = services.map((s) =>
-  buildServiceSchema({
-    name: s.title,
-    description: s.description,
-    url: s.isExternal ? "/servicios" : s.href,
-  })
-);
-
-const faqSchema = buildFAQSchema(
-  faqItems.map((f) => ({ pregunta: f.question, respuesta: f.answer }))
-);
-
-const allSchemas = [...serviceSchemas, faqSchema];
+const structuredData = [
+  buildServiceSchema({ name: 'Instalación de calentadores solares', description: 'Instalación profesional de sistemas solares térmicos residenciales y comerciales en México.', url: '/servicios/instalacion-profesional' }),
+  buildFAQSchema(faqItems),
+  buildBreadcrumbSchema([{ name: 'Inicio', url: '/' }, { name: 'Servicios', url: '/servicios' }]),
+];
 ---
 
 <BaseLayout
-  title="Servicios Profesionales de Calentadores Solares | Instalación, Mantenimiento y Asesoría"
-  description="Servicios profesionales de calentadores solares en México: instalación, mantenimiento preventivo, asesoría técnica, proyectos comerciales y diagnóstico de fallas."
+  title="Servicios de Calentadores Solares | Instalación y Mantenimiento"
+  description="Instalación, mantenimiento y asesoría técnica de calentadores solares en CDMX y México. Servicio llave en mano con garantía. Proyectos residenciales y comerciales."
   activePage="servicios"
-  heroTitle="Servicios Profesionales de Calentadores Solares"
-  heroIntro="Instalación, mantenimiento, asesoría técnica y proyectos comerciales con garantía."
-  heroBadge="Servicio integral"
+  structuredData={structuredData}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Servicios', url: '/servicios' }]}
+  showHero={true}
+  heroTitle="Servicios de Instalación y Mantenimiento Solar"
+  heroIntro="Instalamos, mantenemos y asesoramos proyectos solares en CDMX y toda la República. Cada servicio con garantía real y técnicos certificados."
+  heroBadge="Técnicos certificados"
   heroMetrics={[
-    { valor: "+500", texto: "instalaciones" },
-    { valor: "24h", texto: "respuesta" },
-    { valor: "100%", texto: "garantía" },
-    { valor: "15+", texto: "años" },
+    { valor: '+500', texto: 'Instalaciones' },
+    { valor: '1 día', texto: 'Instalación residencial' },
+    { valor: '100%', texto: 'Garantía' },
   ]}
-  heroPrimaryText="Solicitar Cotización"
-  heroPrimaryLink="https://wa.me/5215547868402?text=Hola%2C%20quiero%20cotizar%20servicios%20de%20calentador%20solar"
-  heroSecondaryText="Ver Productos"
+  heroPrimaryText="Solicitar Servicio"
+  heroPrimaryLink="#cotizar"
+  heroSecondaryText="Ver Calentadores"
   heroSecondaryLink="/productos"
-  breadcrumbs={[
-    { name: "Inicio", url: "/" },
-    { name: "Servicios", url: "/servicios" },
-  ]}
-  showLeadCapture={true}
-  structuredData={allSchemas}
 >
 
-  <!-- Servicios principales -->
-  <section class="section" aria-labelledby="servicios-title">
+  <section class="section" aria-labelledby="services-title">
     <div class="container">
-      <header class="section-header">
-        <span class="badge badge--primary">Portafolio</span>
-        <h2 id="servicios-title">Nuestros servicios</h2>
-        <p>Cada servicio resuelve una etapa distinta del ciclo de compra, instalación y operación de tu calentador solar.</p>
-      </header>
-
-      <div class="grid-3">
-        {services.map((service) => (
-          <article class="card">
-            <div class="card__body">
-              <span class="card__icon">{service.emoji}</span>
-              <h3 class="card__title">{service.title}</h3>
-              <p class="card__desc">{service.description}</p>
-              <ul class="card__benefits">
-                {service.benefits.map((b) => (
-                  <li>{b}</li>
-                ))}
-              </ul>
-            </div>
-            <div class="card__footer">
-              {service.isExternal ? (
-                <a
-                  class="btn btn--primary"
-                  href={service.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Contactar por WhatsApp
-                </a>
-              ) : (
-                <a class="btn btn--secondary" href={service.href}>
-                  Ver detalle del servicio
-                </a>
-              )}
-            </div>
-          </article>
-        ))}
+      <SectionHeader
+        titulo="Nuestros Servicios"
+        subtitulo="Soluciones completas para que tengas agua caliente solar sin preocupaciones"
+        idTitulo="services-title"
+        parrafo1="Desde la asesoría técnica inicial hasta el mantenimiento preventivo años después, acompañamos cada proyecto de principio a fin. No solo vendemos el equipo: garantizamos que funcione."
+        parrafo2="Trabajamos con instaladores certificados, materiales de primera calidad y un protocolo de instalación que incluye prueba de presión y puesta en marcha antes de salir."
+      />
+      <div class="grid-3" style="gap: var(--space-8);">
+        <ServiceCard
+          titulo="Instalación profesional"
+          descripcion="Proyecto llave en mano: diagnóstico, montaje de soporte, instalación de equipo, conexión hidráulica, prueba de presión y puesta en marcha el mismo día."
+          enlace="/servicios/instalacion-profesional"
+          icono="🔧"
+          beneficios={['Instalación en 1 día', 'Prueba de presión incluida', 'Garantía de mano de obra 1 año', 'Asesoría de uso y mantenimiento']}
+        />
+        <ServiceCard
+          titulo="Mantenimiento preventivo"
+          descripcion="Plan periódico de revisión para sostener la eficiencia térmica y garantizar los 15-20 años de vida útil del sistema solar."
+          enlace="/servicios/mantenimiento-preventivo"
+          icono="🛡️"
+          beneficios={['Revisión de tubos evacuados', 'Cambio de ánodo de magnesio', 'Limpieza interna del tanque', 'Informe técnico escrito']}
+        />
+        <ServiceCard
+          titulo="Asesoría técnica"
+          descripcion="Dimensionamiento correcto según tu consumo real, tipo de inmueble y red hidráulica. Sin costo y sin compromiso de compra."
+          enlace="/servicios/asesoria-tecnica"
+          icono="📋"
+          beneficios={['Cálculo de capacidad exacta', 'Comparativa de modelos', 'Análisis de ROI personalizado', 'Visita técnica gratuita']}
+        />
+        <ServiceCard
+          titulo="Proyectos comerciales"
+          descripcion="Diseño e instalación de sistemas solares de alta capacidad para hoteles, gimnasios, restaurantes, plantas industriales y edificios."
+          enlace="/servicios/proyectos-comerciales"
+          icono="🏗️"
+          beneficios={['Estudio de factibilidad', 'Diseño a medida', 'Coordinación con obra civil', 'Soporte post-instalación']}
+        />
+        <ServiceCard
+          titulo="Mantenimiento correctivo"
+          descripcion="Diagnóstico y reparación de sistemas solares con bajo rendimiento, fugas, tubos rotos o componentes fallados."
+          enlace="/servicios/mantenimiento-preventivo"
+          icono="🔍"
+          beneficios={['Diagnóstico el mismo día', 'Reposición de tubos en sitio', 'Sellado de fugas y conexiones', 'Garantía de reparación']}
+        />
+        <ServiceCard
+          titulo="Conversión de sistema"
+          descripcion="Migración de calentador de gas a solar, o actualización de sistema solar obsoleto a tecnología de tubos evacuados de alta eficiencia."
+          enlace="/servicios/conversion"
+          icono="♻️"
+          beneficios={['Aprovecha instalación existente', 'Mínima modificación hidráulica', 'Retiro del equipo anterior', 'Asesoría de financiamiento']}
+        />
       </div>
     </div>
   </section>
 
-  <!-- Proceso -->
-  <section class="section section--alt" aria-labelledby="proceso-title">
-    <div class="container">
-      <header class="section-header">
-        <span class="badge badge--eco">Metodología</span>
-        <h2 id="proceso-title">Nuestro proceso en 5 pasos</h2>
-        <p>Un flujo claro desde el primer contacto hasta el seguimiento postventa.</p>
-      </header>
+  <LeadCapture />
 
-      <div class="process-timeline">
-        {processSteps.map((step) => (
-          <div class="process-step">
-            <span class="process-step__number">{step.num}</span>
-            <div class="process-step__content">
-              <h3>{step.title}</h3>
-              <p>{step.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA intermedio -->
-  <section class="section section--dark">
-    <div class="container" style="text-align:center;">
-      <h2>¿Listo para mejorar tu sistema de agua caliente?</h2>
-      <p>Escríbenos por WhatsApp y recibe una propuesta en menos de 24 horas.</p>
-      <a
-        class="btn btn--primary"
-        href="https://wa.me/5215547868402?text=Hola%2C%20quiero%20cotizar%20servicios%20de%20calentador%20solar"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Solicitar cotización por WhatsApp
-      </a>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="section" aria-labelledby="faq-servicios-title">
-    <div class="container">
-      <header class="section-header">
-        <h2 id="faq-servicios-title">Preguntas frecuentes sobre nuestros servicios</h2>
-        <p>Respuestas claras para ayudarte a decidir antes de contratar.</p>
-      </header>
-
+  <section class="section section--alt" aria-labelledby="faq-servicios">
+    <div class="container" style="max-width: 760px;">
+      <SectionHeader titulo="Preguntas sobre nuestros servicios" subtitulo="Resolvemos las dudas más comunes" idTitulo="faq-servicios" />
       <div class="faq">
-        {faqItems.map((item) => (
+        {faqItems.map((item, i) => (
           <div class="faq__item">
             <button class="faq__question" aria-expanded="false">
-              {item.question}
-              <span class="faq__icon">+</span>
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq__answer">
-              <p>{item.answer}</p>
-            </div>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
           </div>
         ))}
       </div>
@@ -252,72 +115,3 @@ const allSchemas = [...serviceSchemas, faqSchema];
   </section>
 
 </BaseLayout>
-
-<style>
-  .card__icon {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-
-  .card__benefits {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0 0;
-  }
-
-  .card__benefits li {
-    position: relative;
-    padding-left: 1.25rem;
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary, #555);
-  }
-
-  .card__benefits li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--color-primary, #F97316);
-    font-weight: 700;
-  }
-
-  .process-timeline {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .process-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1.5rem 1rem;
-  }
-
-  .process-step__number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background: var(--color-primary, #F97316);
-    color: #fff;
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  .process-step__content h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .process-step__content p {
-    font-size: 0.9rem;
-    color: var(--text-secondary, #555);
-  }
-</style>

@@ -1,591 +1,335 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildLocalBusinessSchema, buildBreadcrumbSchema } from '../lib/seo';
-import {
-  PHONE_PRIMARY, PHONE_DISPLAY, WHATSAPP_NUMBER,
-  EMAIL_PRIMARY, BUSINESS_HOURS
-} from '../lib/config';
+import { PHONE_DISPLAY, WHATSAPP_NUMBER } from '../lib/config';
 
-const breadcrumbs = [
-  { name: 'Inicio', url: '/' },
-  { name: 'Cotizar', url: '/cotizar' },
+const structuredData = [
+  buildLocalBusinessSchema(),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Cotizar', url: '/cotizar' },
+  ]),
 ];
-
-const localBusinessSchema = buildLocalBusinessSchema();
-const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 ---
 
 <BaseLayout
-  title="Cotiza tu Calentador Solar | Respuesta en 24 Horas"
-  description="Solicita una cotización personalizada de calentadores solares. Completa el formulario y recibe una propuesta con precio, capacidad y tiempos de instalación en menos de 24 horas."
+  title="Cotizar Calentador Solar | Respuesta en 24h — De Calentadores Solares"
+  description="Solicita cotización de calentador solar en CDMX y México. Residencial, comercial e industrial. Respondemos en menos de 24 horas con precio y propuesta técnica."
   activePage="cotizar"
-  heroTitle="Cotiza tu Calentador Solar | Respuesta en 24 Horas"
-  heroIntro="Completa el formulario y recibe una cotización personalizada con precio, capacidad recomendada y tiempos de instalación. Sin compromiso."
-  heroBadge="Cotización express"
-  heroPrimaryText="Ir al formulario"
-  heroPrimaryLink="#cotizar-form"
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/productos"
-  heroMetrics={[
-    { valor: '<24h', texto: 'Respuesta garantizada' },
-    { valor: '80%', texto: 'Ahorro en gas' },
-    { valor: '+500', texto: 'Instalaciones' },
-  ]}
-  breadcrumbs={breadcrumbs}
-  structuredData={[localBusinessSchema, breadcrumbSchema]}
-  showLeadCapture={false}
+  structuredData={structuredData}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Cotizar', url: '/cotizar' }]}
+  showHero={false}
 >
 
-  <section class="section" id="cotizar-form" aria-labelledby="cotizar-title">
+  <div class="cotizar-page">
     <div class="container">
       <div class="cotizar-grid">
 
-        <!-- Columna izquierda: formulario multi-step -->
-        <div class="cotizar-form-col">
-          <h2 id="cotizar-title">Solicita tu cotización</h2>
-          <p class="cotizar-form-desc">Responde 3 sencillos pasos y recibe tu propuesta por WhatsApp.</p>
+        <!-- Formulario principal -->
+        <div class="cotizar-main">
+          <div class="cotizar-header">
+            <span class="badge badge--primary">☀️ Cotización gratuita</span>
+            <h1 class="cotizar-title">Cotiza tu Calentador Solar</h1>
+            <p class="cotizar-intro">Completa los datos y te enviamos una propuesta personalizada en menos de 24 horas. Sin costo, sin compromiso.</p>
+          </div>
 
-          <form class="cotizar-form" id="cotizar-form-el" novalidate>
+          <form class="cotizar-form" id="cotizar-form" novalidate>
 
             <!-- Paso 1: Tipo de uso -->
             <fieldset class="cotizar-step">
-              <div class="cotizar-step__header">
-                <span class="cotizar-step__number">1</span>
-                <legend class="cotizar-step__title">Tipo de uso</legend>
-              </div>
-              <p class="cotizar-step__desc">Selecciona el tipo de proyecto para dimensionar correctamente tu sistema.</p>
-              <div class="cotizar-cards-grid">
-                <label class="cotizar-radio-card">
-                  <input type="radio" name="tipo_uso" value="Residencial" required />
-                  <div class="cotizar-radio-card__inner">
-                    <span class="cotizar-radio-card__icon" aria-hidden="true">🏠</span>
-                    <span class="cotizar-radio-card__label">Residencial</span>
-                    <span class="cotizar-radio-card__desc">Casa, departamento o vivienda</span>
-                  </div>
+              <legend class="cotizar-step__title">
+                <span class="cotizar-step__num">1</span>
+                ¿Para qué necesitas el calentador solar?
+              </legend>
+              <div class="cotizar-options">
+                <label class="cotizar-option">
+                  <input type="radio" name="tipo_uso" value="Residencial (casa)" required />
+                  <span class="cotizar-option__box">
+                    <span class="cotizar-option__icon">🏠</span>
+                    <strong>Casa habitación</strong>
+                    <small>2 a 8 personas</small>
+                  </span>
                 </label>
-                <label class="cotizar-radio-card">
-                  <input type="radio" name="tipo_uso" value="Comercial" />
-                  <div class="cotizar-radio-card__inner">
-                    <span class="cotizar-radio-card__icon" aria-hidden="true">🏢</span>
-                    <span class="cotizar-radio-card__label">Comercial</span>
-                    <span class="cotizar-radio-card__desc">Hotel, gimnasio, restaurante</span>
-                  </div>
+                <label class="cotizar-option">
+                  <input type="radio" name="tipo_uso" value="Departamento" />
+                  <span class="cotizar-option__box">
+                    <span class="cotizar-option__icon">🏢</span>
+                    <strong>Departamento</strong>
+                    <small>1 a 4 personas</small>
+                  </span>
                 </label>
-                <label class="cotizar-radio-card">
+                <label class="cotizar-option">
+                  <input type="radio" name="tipo_uso" value="Hotel o posada" />
+                  <span class="cotizar-option__box">
+                    <span class="cotizar-option__icon">🏨</span>
+                    <strong>Hotel / Posada</strong>
+                    <small>Proyecto comercial</small>
+                  </span>
+                </label>
+                <label class="cotizar-option">
+                  <input type="radio" name="tipo_uso" value="Gimnasio o spa" />
+                  <span class="cotizar-option__box">
+                    <span class="cotizar-option__icon">💪</span>
+                    <strong>Gimnasio / Spa</strong>
+                    <small>Alto consumo</small>
+                  </span>
+                </label>
+                <label class="cotizar-option">
+                  <input type="radio" name="tipo_uso" value="Restaurante" />
+                  <span class="cotizar-option__box">
+                    <span class="cotizar-option__icon">🍽️</span>
+                    <strong>Restaurante</strong>
+                    <small>Uso intensivo</small>
+                  </span>
+                </label>
+                <label class="cotizar-option">
                   <input type="radio" name="tipo_uso" value="Industrial" />
-                  <div class="cotizar-radio-card__inner">
-                    <span class="cotizar-radio-card__icon" aria-hidden="true">🏭</span>
-                    <span class="cotizar-radio-card__label">Industrial</span>
-                    <span class="cotizar-radio-card__desc">Fábrica, proceso productivo</span>
-                  </div>
+                  <span class="cotizar-option__box">
+                    <span class="cotizar-option__icon">🏭</span>
+                    <strong>Industrial</strong>
+                    <small>Gran capacidad</small>
+                  </span>
                 </label>
               </div>
             </fieldset>
 
             <!-- Paso 2: Capacidad -->
             <fieldset class="cotizar-step">
-              <div class="cotizar-step__header">
-                <span class="cotizar-step__number">2</span>
-                <legend class="cotizar-step__title">Capacidad requerida</legend>
+              <legend class="cotizar-step__title">
+                <span class="cotizar-step__num">2</span>
+                ¿Cuántas personas usarán el calentador?
+              </legend>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="personas" class="form-label">Número de personas</label>
+                  <select id="personas" name="personas" class="form-input" required>
+                    <option value="" disabled selected>Selecciona</option>
+                    <option value="1-2 personas">1 a 2 personas</option>
+                    <option value="3-4 personas">3 a 4 personas</option>
+                    <option value="5-6 personas">5 a 6 personas</option>
+                    <option value="7-10 personas">7 a 10 personas</option>
+                    <option value="Más de 10 personas">Más de 10 personas</option>
+                    <option value="No aplica (comercial/industrial)">No aplica (comercial/industrial)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="zona" class="form-label">Estado / Ciudad</label>
+                  <select id="zona" name="zona" class="form-input">
+                    <option value="" disabled selected>Selecciona</option>
+                    <option>Ciudad de México</option>
+                    <option>Estado de México</option>
+                    <option>Morelos</option>
+                    <option>Puebla</option>
+                    <option>Hidalgo</option>
+                    <option>Querétaro</option>
+                    <option>Tlaxcala</option>
+                    <option>Otro estado</option>
+                  </select>
+                </div>
               </div>
-              <p class="cotizar-step__desc">Indica cuántas personas o el volumen de agua caliente que necesitas.</p>
-
-              <div class="cotizar-capacidad-grid">
-                <label class="cotizar-radio-card cotizar-radio-card--sm">
-                  <input type="radio" name="capacidad" value="1-2 personas" required />
-                  <div class="cotizar-radio-card__inner">
-                    <span class="cotizar-radio-card__label">1–2 personas</span>
-                    <span class="cotizar-radio-card__desc">Dpto. individual o pareja</span>
-                  </div>
-                </label>
-                <label class="cotizar-radio-card cotizar-radio-card--sm">
-                  <input type="radio" name="capacidad" value="3-4 personas" />
-                  <div class="cotizar-radio-card__inner">
-                    <span class="cotizar-radio-card__label">3–4 personas</span>
-                    <span class="cotizar-radio-card__desc">Familia promedio</span>
-                  </div>
-                </label>
-                <label class="cotizar-radio-card cotizar-radio-card--sm">
-                  <input type="radio" name="capacidad" value="5-6 personas" />
-                  <div class="cotizar-radio-card__inner">
-                    <span class="cotizar-radio-card__label">5–6 personas</span>
-                    <span class="cotizar-radio-card__desc">Familia grande</span>
-                  </div>
-                </label>
-                <label class="cotizar-radio-card cotizar-radio-card--sm">
-                  <input type="radio" name="capacidad" value="7+ personas" />
-                  <div class="cotizar-radio-card__inner">
-                    <span class="cotizar-radio-card__label">7+ personas</span>
-                    <span class="cotizar-radio-card__desc">Múltiples baños o alta demanda</span>
-                  </div>
-                </label>
-                <label class="cotizar-radio-card cotizar-radio-card--sm">
-                  <input type="radio" name="capacidad" value="Uso comercial/industrial" />
-                  <div class="cotizar-radio-card__inner">
-                    <span class="cotizar-radio-card__label">Comercial / Industrial</span>
-                    <span class="cotizar-radio-card__desc">Requiere dimensionamiento técnico</span>
-                  </div>
-                </label>
+              <div class="form-group">
+                <label for="notas" class="form-label">Información adicional (opcional)</label>
+                <textarea id="notas" name="notas" class="form-input" rows="3"
+                  placeholder="Ej: Tenemos tinaco, casa de 2 pisos, bañera en baño principal, necesito presupuesto urgente..."></textarea>
               </div>
             </fieldset>
 
-            <!-- Paso 3: Datos de contacto -->
+            <!-- Paso 3: Contacto -->
             <fieldset class="cotizar-step">
-              <div class="cotizar-step__header">
-                <span class="cotizar-step__number">3</span>
-                <legend class="cotizar-step__title">Tus datos de contacto</legend>
+              <legend class="cotizar-step__title">
+                <span class="cotizar-step__num">3</span>
+                Tus datos de contacto
+              </legend>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="q-nombre" class="form-label">Nombre completo *</label>
+                  <input type="text" id="q-nombre" name="nombre" class="form-input" required autocomplete="name" />
+                </div>
+                <div class="form-group">
+                  <label for="q-tel" class="form-label">Teléfono / WhatsApp *</label>
+                  <input type="tel" id="q-tel" name="telefono" class="form-input" required autocomplete="tel" />
+                </div>
               </div>
-              <p class="cotizar-step__desc">Con estos datos te enviamos la cotización personalizada.</p>
-
-              <div class="cotizar-fields">
-                <div class="form-group">
-                  <label class="form-label" for="cotizar-nombre">Nombre completo *</label>
-                  <input class="form-input" type="text" id="cotizar-nombre" name="nombre" autocomplete="name" required placeholder="Tu nombre" />
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group">
-                    <label class="form-label" for="cotizar-telefono">Teléfono / WhatsApp *</label>
-                    <input class="form-input" type="tel" id="cotizar-telefono" name="telefono" autocomplete="tel" required placeholder="55 1234 5678" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="cotizar-email">Correo electrónico *</label>
-                    <input class="form-input" type="email" id="cotizar-email" name="email" autocomplete="email" required placeholder="tu@correo.com" />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="cotizar-ciudad">Ciudad o zona *</label>
-                  <input class="form-input" type="text" id="cotizar-ciudad" name="ciudad" autocomplete="address-level2" required placeholder="Ej: CDMX, Toluca, Puebla..." />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="cotizar-mensaje">Mensaje adicional <span class="form-optional">(opcional)</span></label>
-                  <textarea class="form-input" id="cotizar-mensaje" name="mensaje" rows="3" placeholder="Detalles adicionales: número de baños, tipo de techo, presupuesto aproximado..."></textarea>
-                </div>
+              <div class="form-group">
+                <label for="q-email" class="form-label">Email (opcional)</label>
+                <input type="email" id="q-email" name="email" class="form-input" autocomplete="email"
+                  placeholder="Para enviarte la propuesta por correo también" />
               </div>
             </fieldset>
 
             <button type="submit" class="btn btn--primary btn--lg cotizar-submit">
-              Enviar Cotización por WhatsApp
+              ☀️ Enviar cotización por WhatsApp
             </button>
-            <p class="cotizar-form-note">Al enviar serás redirigido a WhatsApp con todos los datos de tu solicitud.</p>
+            <p class="cotizar-trust">🔒 Tus datos son confidenciales · Sin compromiso de compra · Respuesta en &lt;24h</p>
           </form>
         </div>
 
-        <!-- Columna derecha: sidebar -->
+        <!-- Sidebar de confianza -->
         <aside class="cotizar-sidebar">
-
-          <!-- Trust badges -->
-          <div class="card cotizar-trust">
-            <h3 class="cotizar-trust__title">¿Por qué cotizar con nosotros?</h3>
-            <ul class="cotizar-trust__list">
-              <li class="cotizar-trust__item">
-                <span class="cotizar-trust__badge">+500</span>
-                <span>Instalaciones realizadas en CDMX y zona centro</span>
-              </li>
-              <li class="cotizar-trust__item">
-                <span class="cotizar-trust__badge">80%</span>
-                <span>Ahorro promedio en consumo de gas</span>
-              </li>
-              <li class="cotizar-trust__item">
-                <span class="cotizar-trust__badge">15+</span>
-                <span>Años de experiencia en energía solar</span>
-              </li>
-              <li class="cotizar-trust__item">
-                <span class="cotizar-trust__badge">100%</span>
-                <span>Garantía en instalación y equipo</span>
-              </li>
+          <div class="trust-card">
+            <h3 class="trust-card__title">¿Por qué cotizar con nosotros?</h3>
+            <ul class="trust-list">
+              <li><span class="trust-list__icon">⚡</span><div><strong>Respuesta en menos de 24h</strong><p>Te contactamos con propuesta técnica y precio el mismo día o al siguiente.</p></div></li>
+              <li><span class="trust-list__icon">🔧</span><div><strong>Instalación ese mismo día</strong><p>Confirmada la cotización, instalamos en 3-5 horas en proyectos residenciales.</p></div></li>
+              <li><span class="trust-list__icon">🛡️</span><div><strong>Garantía total</strong><p>Equipo e instalación garantizados. Si algo falla, regresamos sin costo.</p></div></li>
+              <li><span class="trust-list__icon">💳</span><div><strong>Financiamiento disponible</strong><p>Hasta 12 meses sin intereses con tarjeta de crédito o esquemas propios.</p></div></li>
+              <li><span class="trust-list__icon">📋</span><div><strong>Asesoría gratuita</strong><p>Te calculamos la capacidad exacta para que no compres de más ni de menos.</p></div></li>
             </ul>
           </div>
 
-          <!-- Testimonial -->
-          <div class="testimonial-card cotizar-testimonial">
-            <div class="testimonial-card__stars" aria-label="5 estrellas">★★★★★</div>
-            <p class="testimonial-card__text">"Pedí la cotización por WhatsApp y en menos de 2 horas ya tenía la propuesta completa. La instalación fue rápida y profesional. Llevamos 6 meses sin usar el boiler de gas."</p>
-            <div class="testimonial-card__author">
-              <div class="testimonial-card__avatar" aria-hidden="true">MR</div>
-              <div>
-                <div class="testimonial-card__name">María Rodríguez</div>
-                <div class="testimonial-card__role">Coyoacán, CDMX</div>
-              </div>
-            </div>
+          <div class="direct-contact">
+            <p class="direct-contact__label">¿Prefieres contacto directo?</p>
+            <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hola%2C%20quiero%20cotizar%20un%20calentador%20solar`}
+               class="btn btn--primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              💬 WhatsApp: {PHONE_DISPLAY}
+            </a>
+            <a href={`tel:+52${PHONE_DISPLAY.replace(/\s/g,'')}`}
+               class="btn btn--dark" style="width:100%;justify-content:center;margin-top:var(--space-3);">
+              📞 Llamar: {PHONE_DISPLAY}
+            </a>
           </div>
 
-          <!-- Promesa de respuesta -->
-          <div class="card cotizar-promesa">
-            <div class="cotizar-promesa__icon" aria-hidden="true">⚡</div>
-            <h3 class="cotizar-promesa__title">Respuesta garantizada en menos de 24 horas</h3>
-            <p class="cotizar-promesa__text">Tu cotización incluirá:</p>
-            <ul class="cotizar-promesa__list">
-              <li>Capacidad recomendada para tu caso</li>
-              <li>Rango de inversión con opciones</li>
-              <li>Tiempos estimados de instalación</li>
-              <li>Garantía y plan de mantenimiento</li>
-            </ul>
-            <div class="cotizar-promesa__cta">
-              <a href={`tel:${PHONE_PRIMARY}`} class="btn btn--secondary">
-                O llámanos: {PHONE_DISPLAY}
-              </a>
-            </div>
+          <div class="testimonial-mini">
+            <div class="testimonial-card__stars">★★★★★</div>
+            <blockquote class="testimonial-mini__text">"Me cotizaron en 2 horas y al día siguiente ya estaba instalado. Ahorro $900 al mes en gas."</blockquote>
+            <div class="testimonial-mini__author">— Patricia M., Tlalpan, CDMX</div>
           </div>
-
-          <!-- Horario -->
-          <div class="card cotizar-horario">
-            <p class="cotizar-horario__text">
-              <strong>Horario de atención:</strong> {BUSINESS_HOURS.fullDisplay}
-            </p>
-            <p class="cotizar-horario__sub">Solicitudes fuera de horario se atienden al siguiente día hábil.</p>
-          </div>
-
         </aside>
+
       </div>
     </div>
-  </section>
+  </div>
 
 </BaseLayout>
 
 <script is:inline>
-  (function() {
-    var form = document.getElementById('cotizar-form-el');
-    if (!form) return;
+(function() {
+  var form = document.getElementById('cotizar-form');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var tipo = (form.querySelector('input[name="tipo_uso"]:checked') || {}).value || 'No especificado';
+    var personas = document.getElementById('personas').value || '';
+    var zona = document.getElementById('zona').value || '';
+    var notas = document.getElementById('notas').value.trim();
+    var nombre = document.getElementById('q-nombre').value.trim();
+    var tel = document.getElementById('q-tel').value.trim();
+    var email = document.getElementById('q-email').value.trim();
+    if (!nombre || !tel) { alert('Por favor completa nombre y teléfono.'); return; }
+    var msg = '☀️ *Solicitud de cotización — De Calentadores Solares*'
+      + '\n\n*Tipo de uso:* ' + tipo
+      + (personas ? '\n*Personas:* ' + personas : '')
+      + (zona ? '\n*Zona:* ' + zona : '')
+      + (notas ? '\n*Notas:* ' + notas : '')
+      + '\n\n*Nombre:* ' + nombre
+      + '\n*Teléfono:* ' + tel
+      + (email ? '\n*Email:* ' + email : '');
+    window.open('https://wa.me/5215547868402?text=' + encodeURIComponent(msg), '_blank');
+  });
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var data = new FormData(form);
-
-      var tipoUso = (data.get('tipo_uso') || '').toString().trim();
-      var capacidad = (data.get('capacidad') || '').toString().trim();
-      var nombre = (data.get('nombre') || '').toString().trim();
-      var telefono = (data.get('telefono') || '').toString().trim();
-      var email = (data.get('email') || '').toString().trim();
-      var ciudad = (data.get('ciudad') || '').toString().trim();
-      var mensaje = (data.get('mensaje') || '').toString().trim();
-
-      if (!tipoUso) {
-        alert('Por favor selecciona el tipo de uso (Paso 1).');
-        return;
-      }
-      if (!capacidad) {
-        alert('Por favor selecciona la capacidad requerida (Paso 2).');
-        return;
-      }
-
-      var lines = [
-        'Hola, quiero cotizar un calentador solar.',
-        '',
-        '--- DATOS DEL PROYECTO ---',
-        'Tipo de uso: ' + tipoUso,
-        'Capacidad: ' + capacidad,
-        '',
-        '--- DATOS DE CONTACTO ---',
-        'Nombre: ' + nombre,
-        'Teléfono: ' + telefono,
-        'Email: ' + email,
-        'Ciudad/Zona: ' + ciudad,
-      ];
-
-      if (mensaje) {
-        lines.push('');
-        lines.push('Mensaje: ' + mensaje);
-      }
-
-      lines.push('');
-      lines.push('Fuente: formulario de cotización');
-
-      var text = lines.join('\n');
-      var url = 'https://wa.me/5215547868402?text=' + encodeURIComponent(text);
-      window.open(url, '_blank', 'noopener,noreferrer');
+  // Visual feedback en opciones de radio
+  document.querySelectorAll('.cotizar-option input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      document.querySelectorAll('.cotizar-option__box').forEach(function(b) { b.classList.remove('selected'); });
+      if (radio.checked) radio.closest('.cotizar-option').querySelector('.cotizar-option__box').classList.add('selected');
     });
-  })();
+  });
+})();
 </script>
 
 <style>
-  /* ---- Layout principal ---- */
-  .cotizar-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  @media (min-width: 768px) {
-    .cotizar-grid {
-      grid-template-columns: 1.3fr 1fr;
-      gap: 4rem;
-    }
-  }
+.cotizar-page { padding: var(--space-16) 0 var(--space-2xl); }
+.cotizar-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--space-12);
+  align-items: start;
+}
 
-  /* ---- Encabezado del formulario ---- */
-  .cotizar-form-col h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-  .cotizar-form-desc {
-    color: var(--text-muted, #6b7280);
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
+.cotizar-header { margin-bottom: var(--space-8); }
+.cotizar-title {
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+  font-weight: var(--weight-extrabold);
+  color: var(--color-dark); margin: var(--space-3) 0 var(--space-3);
+}
+.cotizar-intro { color: var(--color-text-secondary); font-size: var(--text-lg); }
 
-  /* ---- Formulario ---- */
-  .cotizar-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  .cotizar-form fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
+.cotizar-form { display: flex; flex-direction: column; gap: var(--space-8); }
+.cotizar-step {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  margin: 0;
+}
+.cotizar-step__title {
+  display: flex; align-items: center; gap: var(--space-3);
+  font-size: var(--text-lg); font-weight: var(--weight-bold);
+  color: var(--color-dark); margin-bottom: var(--space-5);
+}
+.cotizar-step__num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--color-brand); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--text-sm); font-weight: var(--weight-bold); flex-shrink: 0;
+}
 
-  /* ---- Steps ---- */
-  .cotizar-step {
-    background: var(--bg-card, #ffffff);
-    border: 1px solid var(--border-color, #e5e7eb);
-    border-radius: 1rem;
-    padding: 1.5rem;
-  }
-  .cotizar-step__header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-  .cotizar-step__number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    background: var(--color-primary, #f97316);
-    color: #fff;
-    font-weight: 700;
-    font-size: 0.875rem;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .cotizar-step__title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    padding: 0;
-    margin: 0;
-  }
-  .cotizar-step__desc {
-    font-size: 0.875rem;
-    color: var(--text-muted, #6b7280);
-    margin-bottom: 1.25rem;
-    line-height: 1.5;
-  }
+.cotizar-options {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3);
+}
+.cotizar-option { cursor: pointer; }
+.cotizar-option input { position: absolute; opacity: 0; width: 0; height: 0; }
+.cotizar-option__box {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+  padding: var(--space-4) var(--space-3); text-align: center;
+  border: 2px solid var(--color-border); border-radius: var(--radius-lg);
+  cursor: pointer; transition: all var(--transition-base);
+}
+.cotizar-option__box:hover { border-color: var(--color-brand); background: var(--color-primary-50); }
+.cotizar-option__box.selected { border-color: var(--color-brand); background: var(--color-primary-50); }
+.cotizar-option input:checked + .cotizar-option__box { border-color: var(--color-brand); background: var(--color-primary-50); }
+.cotizar-option__icon { font-size: 2rem; }
+.cotizar-option__box strong { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-dark); }
+.cotizar-option__box small { font-size: var(--text-xs); color: var(--color-text-muted); }
 
-  /* ---- Radio cards (tipo de uso) ---- */
-  .cotizar-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-  }
-  @media (max-width: 640px) {
-    .cotizar-cards-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+.cotizar-submit { width: 100%; justify-content: center; font-size: var(--text-lg); padding: 1rem 2rem; }
+.cotizar-trust { text-align: center; font-size: var(--text-xs); color: var(--color-text-muted); margin: 0; }
 
-  .cotizar-radio-card {
-    cursor: pointer;
-  }
-  .cotizar-radio-card input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  .cotizar-radio-card__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1.25rem 0.75rem;
-    border: 2px solid var(--border-color, #e5e7eb);
-    border-radius: 0.75rem;
-    transition: all 0.2s ease;
-    background: var(--bg-card, #ffffff);
-  }
-  .cotizar-radio-card input:checked + .cotizar-radio-card__inner {
-    border-color: var(--color-primary, #f97316);
-    background: var(--bg-warm, #fff7ed);
-    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
-  }
-  .cotizar-radio-card:hover .cotizar-radio-card__inner {
-    border-color: var(--color-primary, #f97316);
-  }
-  .cotizar-radio-card__icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
-  }
-  .cotizar-radio-card__label {
-    font-weight: 600;
-    font-size: 0.9375rem;
-    margin-bottom: 0.25rem;
-  }
-  .cotizar-radio-card__desc {
-    font-size: 0.75rem;
-    color: var(--text-muted, #6b7280);
-  }
+/* Sidebar */
+.trust-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+}
+.trust-card__title { font-size: var(--text-lg); font-weight: var(--weight-bold); color: var(--color-dark); margin: 0 0 var(--space-5); }
+.trust-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.trust-list li { display: flex; gap: var(--space-3); align-items: flex-start; }
+.trust-list__icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+.trust-list li strong { display: block; font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-dark); }
+.trust-list li p { font-size: var(--text-xs); color: var(--color-text-muted); margin: var(--space-1) 0 0; }
 
-  /* ---- Capacidad grid ---- */
-  .cotizar-capacidad-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-  @media (max-width: 640px) {
-    .cotizar-capacidad-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  .cotizar-radio-card--sm .cotizar-radio-card__inner {
-    padding: 1rem 0.75rem;
-  }
-  .cotizar-radio-card--sm .cotizar-radio-card__label {
-    font-size: 0.875rem;
-  }
+.direct-contact { margin-bottom: var(--space-5); }
+.direct-contact__label { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-dark); margin-bottom: var(--space-3); }
 
-  /* ---- Campos de contacto ---- */
-  .cotizar-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .form-optional {
-    font-weight: 400;
-    color: var(--text-muted, #6b7280);
-    font-size: 0.875rem;
-  }
+.testimonial-mini {
+  background: var(--color-primary-50);
+  border: 1px solid var(--color-primary-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+}
+.testimonial-mini__text {
+  font-size: var(--text-sm); font-style: italic;
+  color: var(--color-text-secondary); margin: var(--space-3) 0;
+}
+.testimonial-mini__author { font-size: var(--text-xs); font-weight: var(--weight-semibold); color: var(--color-brand); }
 
-  /* ---- Submit ---- */
-  .cotizar-submit {
-    width: 100%;
-    justify-content: center;
-    font-size: 1.0625rem;
-  }
-  .cotizar-form-note {
-    font-size: 0.8125rem;
-    color: var(--text-muted, #6b7280);
-    text-align: center;
-    margin-top: -1rem;
-  }
-
-  /* ---- Sidebar ---- */
-  .cotizar-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  @media (min-width: 768px) {
-    .cotizar-sidebar {
-      position: sticky;
-      top: 6rem;
-      align-self: start;
-    }
-  }
-
-  /* ---- Trust badges ---- */
-  .cotizar-trust {
-    padding: 1.5rem;
-  }
-  .cotizar-trust__title {
-    font-size: 1.0625rem;
-    font-weight: 700;
-    margin: 0 0 1.25rem;
-  }
-  .cotizar-trust__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .cotizar-trust__item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.9375rem;
-    line-height: 1.4;
-  }
-  .cotizar-trust__badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 3rem;
-    height: 2rem;
-    padding: 0 0.5rem;
-    background: var(--color-primary, #f97316);
-    color: #fff;
-    font-weight: 700;
-    font-size: 0.875rem;
-    border-radius: 0.375rem;
-    flex-shrink: 0;
-  }
-
-  /* ---- Testimonial ---- */
-  .cotizar-testimonial {
-    padding: 1.5rem;
-  }
-
-  /* ---- Promesa de respuesta ---- */
-  .cotizar-promesa {
-    padding: 1.5rem;
-    text-align: center;
-  }
-  .cotizar-promesa__icon {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-  }
-  .cotizar-promesa__title {
-    font-size: 1.0625rem;
-    font-weight: 700;
-    margin: 0 0 0.75rem;
-  }
-  .cotizar-promesa__text {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  .cotizar-promesa__list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    text-align: left;
-    font-size: 0.875rem;
-    color: var(--text-muted, #6b7280);
-  }
-  .cotizar-promesa__list li::before {
-    content: '✓ ';
-    color: var(--color-primary, #f97316);
-    font-weight: 700;
-  }
-  .cotizar-promesa__cta {
-    margin-top: 0.5rem;
-  }
-  .cotizar-promesa__cta .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* ---- Horario sidebar ---- */
-  .cotizar-horario {
-    padding: 1.25rem;
-    text-align: center;
-  }
-  .cotizar-horario__text {
-    font-size: 0.9375rem;
-    margin-bottom: 0.25rem;
-  }
-  .cotizar-horario__sub {
-    font-size: 0.8125rem;
-    color: var(--text-muted, #6b7280);
-  }
+@media (max-width: 1024px) {
+  .cotizar-grid { grid-template-columns: 1fr; }
+  .cotizar-sidebar { order: -1; }
+  .trust-card { display: none; }
+}
+@media (max-width: 640px) {
+  .cotizar-options { grid-template-columns: repeat(2, 1fr); }
+}
 </style>

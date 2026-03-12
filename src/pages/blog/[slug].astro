@@ -1,29 +1,312 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
-import BlogLayout from '../../layouts/BlogLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { buildArticleSchema, buildBreadcrumbSchema } from '../../lib/seo';
+import { SITE_URL } from '../../lib/config';
 
 export async function getStaticPaths() {
-  const posts: CollectionEntry<'blog'>[] = await getCollection('blog');
-  return posts.filter((p: CollectionEntry<'blog'>) => !p.data.draft).map((post: CollectionEntry<'blog'>) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
 }
 
+interface Props { post: CollectionEntry<'blog'>; }
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+
+const related = allPosts
+  .filter(p => p.slug !== post.slug && p.data.category === post.data.category)
+  .slice(0, 3);
+
+const structuredData = [
+  buildArticleSchema({
+    title: post.data.title,
+    description: post.data.description,
+    url: `/blog/${post.slug}`,
+    image: post.data.image,
+    authorName: post.data.author,
+    datePublished: post.data.pubDate.toISOString().split('T')[0],
+    categoria: post.data.category,
+  }),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: post.data.title, url: `/blog/${post.slug}` },
+  ]),
+];
+
+const shareUrl = encodeURIComponent(`${SITE_URL}/blog/${post.slug}`);
+const shareText = encodeURIComponent(post.data.title);
 ---
 
-<BlogLayout
-  title={post.data.title}
+<BaseLayout
+  title={`${post.data.title} | De Calentadores Solares`}
   description={post.data.description}
-  image={post.data.image}
-  imageAlt={post.data.imageAlt}
-  author={post.data.author}
-  pubDate={post.data.pubDate}
-  tags={post.data.tags}
-  category={post.data.category}
-  slug={post.slug}
+  ogType="article"
+  ogImage={post.data.image}
+  activePage="blog"
+  structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: post.data.category, url: '/blog' },
+  ]}
+  showHero={false}
 >
-  <Content />
-</BlogLayout>
+
+  <div class="article-page">
+    <div class="container">
+      <div class="article-grid">
+
+        <!-- Artículo -->
+        <article class="article-main" aria-label={post.data.title}>
+          <!-- Hero imagen -->
+          <div class="article-hero">
+            <img
+              src={post.data.image}
+              alt={post.data.imageAlt}
+              class="article-hero__img"
+              loading="eager"
+              decoding="async"
+              width="880"
+              height="495"
+            />
+            <div class="article-hero__meta">
+              <span class="blog-card__cat">{post.data.category}</span>
+              {post.data.tags.map(tag => (
+                <span class="article-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Contenido -->
+          <div class="article-content">
+            <h1 class="article-title">{post.data.title}</h1>
+            <p class="article-desc">{post.data.description}</p>
+            <div class="article-by">
+              <span class="article-author">Por {post.data.author}</span>
+            </div>
+            <div class="article-body">
+              <Content />
+            </div>
+          </div>
+
+          <!-- Compartir -->
+          <div class="article-share">
+            <span class="article-share__label">Compartir:</span>
+            <a href={`https://wa.me/?text=${shareText}%20${shareUrl}`}
+               target="_blank" rel="noopener" class="share-btn share-btn--wa">WhatsApp</a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+               target="_blank" rel="noopener" class="share-btn share-btn--fb">Facebook</a>
+            <a href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
+               target="_blank" rel="noopener" class="share-btn share-btn--tw">Twitter</a>
+          </div>
+
+          <!-- Artículos relacionados -->
+          {related.length > 0 && (
+            <div class="article-related">
+              <h2 class="article-related__title">Artículos relacionados</h2>
+              <div class="grid-3">
+                {related.map(p => (
+                  <BlogCard
+                    titulo={p.data.title}
+                    descripcion={p.data.description}
+                    enlace={`/blog/${p.slug}`}
+                    imagen={p.data.image}
+                    imageAlt={p.data.imageAlt}
+                    categoria={p.data.category}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar" aria-label="Sidebar del artículo">
+          <div class="sidebar-cta">
+            <h3 class="sidebar-cta__title">☀️ ¿Te interesa un calentador solar?</h3>
+            <p>Cotiza gratis hoy y ahorra hasta 80% en gas desde el primer mes.</p>
+            <a href="/cotizar" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:var(--space-4);">Solicitar cotización →</a>
+            <a href="https://wa.me/5215547868402" target="_blank" rel="noopener"
+               class="btn btn--dark" style="width:100%;justify-content:center;margin-top:var(--space-3);">💬 WhatsApp directo</a>
+          </div>
+
+          {allPosts.length > 1 && (
+            <div class="sidebar-recent">
+              <h4 class="sidebar-recent__title">Artículos recientes</h4>
+              <ul class="sidebar-list">
+                {allPosts.filter(p => p.slug !== post.slug).slice(0, 6).map(p => (
+                  <li class="sidebar-list__item">
+                    <a href={`/blog/${p.slug}`} class="sidebar-list__link">{p.data.title}</a>
+                    <span class="sidebar-list__cat">{p.data.category}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href="/blog" class="sidebar-all-link">Ver todos los artículos →</a>
+            </div>
+          )}
+        </aside>
+
+      </div>
+    </div>
+  </div>
+
+  <LeadCapture />
+
+</BaseLayout>
+
+<style>
+.article-page { padding: var(--space-10) 0 var(--space-2xl); }
+.article-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+/* Hero imagen */
+.article-hero { margin-bottom: var(--space-8); }
+.article-hero__img {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover;
+  border-radius: var(--radius-xl);
+}
+.article-hero__meta {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  margin-top: var(--space-4); align-items: center;
+}
+.article-tag {
+  background: var(--color-bg-alt); color: var(--color-text-muted);
+  font-size: var(--text-xs); padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full); border: 1px solid var(--color-border);
+}
+
+/* Contenido */
+.article-content { margin-bottom: var(--space-8); }
+.article-title {
+  font-size: clamp(var(--text-2xl), 3.5vw, var(--text-5xl));
+  font-weight: var(--weight-extrabold); color: var(--color-dark);
+  line-height: var(--line-tight); margin: 0 0 var(--space-4);
+}
+.article-desc {
+  font-size: var(--text-lg); color: var(--color-text-secondary);
+  line-height: var(--line-relaxed); margin: 0 0 var(--space-4);
+  border-left: 3px solid var(--color-brand); padding-left: var(--space-4);
+}
+.article-by { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-8); }
+.article-author { font-weight: var(--weight-semibold); }
+
+.article-body {
+  font-size: var(--text-base);
+  line-height: var(--line-relaxed);
+  color: var(--color-text-primary);
+}
+.article-body h2 {
+  font-size: clamp(var(--text-xl), 2vw, var(--text-3xl));
+  font-weight: var(--weight-bold); color: var(--color-dark);
+  margin: var(--space-10) 0 var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+.article-body h3 {
+  font-size: var(--text-xl); font-weight: var(--weight-semibold);
+  color: var(--color-dark); margin: var(--space-8) 0 var(--space-3);
+}
+.article-body p { margin: 0 0 var(--space-4); color: var(--color-text-secondary); }
+.article-body strong { color: var(--color-dark); font-weight: var(--weight-semibold); }
+.article-body ul, .article-body ol {
+  margin: 0 0 var(--space-4); padding-left: var(--space-6);
+}
+.article-body li { color: var(--color-text-secondary); margin-bottom: var(--space-2); }
+.article-body table {
+  width: 100%; border-collapse: collapse;
+  margin: var(--space-6) 0; font-size: var(--text-sm);
+}
+.article-body th {
+  background: var(--color-dark); color: #fff;
+  padding: var(--space-3) var(--space-4); text-align: left;
+  font-weight: var(--weight-semibold);
+}
+.article-body td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.article-body tr:nth-child(even) td { background: var(--color-bg-alt); }
+.article-body a { color: var(--color-brand); font-weight: var(--weight-medium); }
+.article-body a:hover { color: var(--color-brand-dark); }
+.article-body blockquote {
+  background: var(--color-primary-50);
+  border-left: 4px solid var(--color-brand);
+  padding: var(--space-4) var(--space-6);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: var(--space-6) 0;
+  font-style: italic;
+}
+
+/* Share */
+.article-share {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-10);
+  flex-wrap: wrap;
+}
+.article-share__label { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-dark); }
+.share-btn {
+  padding: 0.4rem 1rem; border-radius: var(--radius-full);
+  font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  transition: all var(--transition-fast);
+}
+.share-btn--wa { background: #25d366; color: #fff; }
+.share-btn--wa:hover { background: #1fba59; }
+.share-btn--fb { background: #1877f2; color: #fff; }
+.share-btn--fb:hover { background: #0d6de3; }
+.share-btn--tw { background: #000; color: #fff; }
+.share-btn--tw:hover { background: #333; }
+
+/* Related */
+.article-related { margin-top: var(--space-12); }
+.article-related__title {
+  font-size: var(--text-2xl); font-weight: var(--weight-bold);
+  color: var(--color-dark); margin: 0 0 var(--space-8);
+}
+
+/* Sidebar */
+.article-sidebar { position: sticky; top: calc(var(--topbar-height) + var(--header-height) + 1rem); }
+.sidebar-cta {
+  background: var(--color-dark);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  color: rgba(255,255,255,0.85);
+  margin-bottom: var(--space-6);
+}
+.sidebar-cta__title { color: #fff; font-size: var(--text-lg); font-weight: var(--weight-bold); margin: 0 0 var(--space-3); }
+.sidebar-cta p { font-size: var(--text-sm); margin: 0; }
+
+.sidebar-recent {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+}
+.sidebar-recent__title { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--color-dark); margin: 0 0 var(--space-4); }
+.sidebar-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0; }
+.sidebar-list__item { padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.sidebar-list__item:last-child { border-bottom: none; }
+.sidebar-list__link { display: block; font-size: var(--text-sm); color: var(--color-dark); font-weight: var(--weight-medium); line-height: var(--line-snug); margin-bottom: var(--space-1); }
+.sidebar-list__link:hover { color: var(--color-brand); }
+.sidebar-list__cat { font-size: var(--text-xs); color: var(--color-text-muted); }
+.sidebar-all-link { display: block; margin-top: var(--space-4); font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--color-brand); }
+
+@media (max-width: 1024px) {
+  .article-grid { grid-template-columns: 1fr; }
+  .article-sidebar { position: static; }
+  .sidebar-recent { display: none; }
+}
+</style>
