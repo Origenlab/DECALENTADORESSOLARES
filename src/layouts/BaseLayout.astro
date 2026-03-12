@@ -245,18 +245,8 @@ const schemas = structuredData
                 ? <slot name="hero-right" />
                 : (
                   <Fragment>
-                    <h2 class="hero__right-title">¿Por qué elegir energía solar?</h2>
-                    <p>Los calentadores solares aprovechan la energía del sol para calentar agua, reduciendo el consumo de gas hasta un 80% y con una vida útil de 15 a 20 años.</p>
-                    {heroFeatures.length > 0 && (
-                      <div class="hero__features">
-                        {heroFeatures.map(f => (
-                          <div class="hero__feature">
-                            <span class="hero__feature-icon" aria-hidden="true">{f.icon}</span>
-                            <span>{f.text}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                    <p class="hero__body-text">Los calentadores solares de tubos evacuados al vacío son la inversión más inteligente para cualquier hogar o negocio en México. Con más de 2,600 horas de sol anuales en el altiplano central, un sistema correctamente instalado cubre entre el 75% y el 85% del consumo anual de agua caliente utilizando exclusivamente energía solar, sin combustible, sin emisiones y sin costos variables.</p>
+                    <p class="hero__body-text">Nuestros técnicos certificados instalan en un solo día hábil, con garantía de 2 años en mano de obra y equipos de las principales marcas del mercado mexicano. Desde sistemas residenciales de 115 litros para departamentos hasta instalaciones industriales de más de 5,000 litros diarios para hoteles, hospitales y plantas de manufactura. Asesoría técnica gratuita, cotización en 24 horas, sin compromiso.</p>
                   </Fragment>
                 )
               }
