@@ -1,0 +1,112 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+
+const municipios = [
+  "Naucalpan de Juárez", "Tlalnepantla de Baz", "Ecatepec de Morelos",
+  "Nezahualcóyotl", "Chimalhuacán", "Atizapán de Zaragoza",
+  "Cuautitlán Izcalli", "Huixquilucan", "Toluca", "Metepec",
+  "Tultitlán", "Coacalco de Berriozábal"
+];
+---
+
+<LandingLayout
+  title="Calentadores Solares en Estado de México | Naucalpan, Tlalnepantla, Ecatepec"
+  description="Instalación de calentadores solares en Estado de México: Naucalpan, Tlalnepantla, Ecatepec, Cuautitlán y más municipios. Servicio profesional con técnicos certificados."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Zonas", href: "/zonas" },
+      { label: "Estado de México" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Estado de México</span>
+        <h1 class="hero-title">Calentadores solares en Estado de México: Naucalpan, Tlalnepantla y Ecatepec</h1>
+        <p class="hero-lead">
+          Instalamos calentadores solares en los principales municipios del Estado de México y zona
+          metropolitana. Naucalpan, Tlalnepantla, Ecatepec, Cuautitlán Izcalli, Atizapán,
+          Huixquilucan y más. Técnicos asignados en cada zona para respuesta rápida.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20calentador%20solar%20en%20Estado%20de%20Mexico"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Cotizar en Edomex
+          </Button>
+          <Button href="/servicios/instalacion-profesional" variant="outline">Ver instalación profesional</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Municipios principales</h2>
+        <ul class="trust-list">
+          <li>Naucalpan de Juárez.</li>
+          <li>Tlalnepantla de Baz.</li>
+          <li>Ecatepec de Morelos.</li>
+          <li>Cuautitlán Izcalli.</li>
+          <li>Atizapán de Zaragoza.</li>
+          <li>Toluca y Metepec.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="municipios-title">
+    <header class="section-header">
+      <h2 id="municipios-title">Municipios con cobertura de servicio</h2>
+    </header>
+
+    <div class="coverage-grid">
+      <article class="coverage-card">
+        <h3>Zona norte y poniente</h3>
+        <ul class="coverage-list">
+          {municipios.slice(0, 6).map((m) => <li>{m}</li>)}
+        </ul>
+      </article>
+      <article class="coverage-card">
+        <h3>Zona oriente y sur</h3>
+        <ul class="coverage-list">
+          {municipios.slice(6).map((m) => <li>{m}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="edomex-info-title">
+    <header class="section-header">
+      <h2 id="edomex-info-title">Calentadores solares adaptados al Estado de México</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--good">
+        <h3>Zonas altas (Toluca, Metepec)</h3>
+        <ul class="features-list">
+          <li>Mayor diferencia de temperatura día-noche.</li>
+          <li>Sistemas con mejor aislamiento térmico.</li>
+          <li>Recomendamos sistemas presurizados en zonas frías.</li>
+          <li>Respaldo de gas integrado como complemento.</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--good">
+        <h3>Zona metropolitana (Naucalpan, Tlalnepantla)</h3>
+        <ul class="features-list">
+          <li>Alta irradiación solar equivalente a CDMX.</li>
+          <li>Termosifón estándar con excelente rendimiento.</li>
+          <li>Agua relativamente dura: mantenimiento cada 12 meses.</li>
+          <li>Proyectos residenciales y condominios.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="zona-estado-de-mexico" />
+</LandingLayout>

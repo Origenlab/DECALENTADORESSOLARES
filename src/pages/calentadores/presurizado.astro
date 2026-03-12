@@ -1,0 +1,151 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Calentador Solar Presurizado | Sistema a Presión para CDMX y Edomex"
+  description="Calentadores solares presurizados en CDMX. Sistema cerrado con presión constante, ideal para casas con tinaco y proyectos donde el termosifón no aplica."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Calentadores", href: "/calentadores" },
+      { label: "Calentador solar presurizado" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Sistema de alta presión</span>
+        <h1 class="hero-title">Calentador solar presurizado para casas y condominios en CDMX</h1>
+        <p class="hero-lead">
+          El sistema presurizado usa un circuito cerrado de fluido caloportador. El agua potable
+          nunca circula por los tubos solares, lo que evita incrustaciones y permite mayor presión
+          en la red. Ideal para casas conectadas directo a la red municipal o con sistema
+          hidroneumático.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar%20presurizado"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Cotizar sistema presurizado
+          </Button>
+          <Button href="/calentadores/termosifon" variant="outline">Comparar con termosifón</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Ventajas del sistema presurizado</h2>
+        <ul class="trust-list">
+          <li>Presión constante en todos los puntos.</li>
+          <li>Fluido caloportador evita incrustaciones.</li>
+          <li>Compatible con redes de alta presión.</li>
+          <li>Mejor rendimiento en clima frío.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="presurizado-vs-title">
+    <header class="section-header">
+      <h2 id="presurizado-vs-title">Presurizado vs termosifón: ¿cuál te conviene?</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--good">
+        <h3>Sistema presurizado</h3>
+        <ul class="features-list">
+          <li>Circuito cerrado con fluido caloportador.</li>
+          <li>Agua potable no circula por colectores.</li>
+          <li>Alta presión de salida.</li>
+          <li>Mayor vida útil de colectores.</li>
+          <li>Ideal para red municipal directa.</li>
+          <li>Mayor inversión inicial.</li>
+        </ul>
+      </article>
+      <article class="comparison-card">
+        <h3>Sistema termosifón</h3>
+        <ul class="features-list">
+          <li>Circulación por convección natural.</li>
+          <li>Agua potable circula por tubos solares.</li>
+          <li>Requiere tinaco elevado como fuente.</li>
+          <li>Instalación más sencilla y económica.</li>
+          <li>Ideal para casas con tinaco.</li>
+          <li>Menor inversión inicial.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="cuando-presurizado-title">
+    <header class="section-header">
+      <h2 id="cuando-presurizado-title">¿Cuándo elegir el sistema presurizado?</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>Red municipal directa</h3>
+        <p>Si tu casa no tiene tinaco y se alimenta directamente de la red, el sistema presurizado es el indicado.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Sistema hidroneumático</h3>
+        <p>Condominios y casas con bombas de presión necesitan el circuito cerrado para mantener presión constante.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Agua dura o con minerales</h3>
+        <p>El fluido caloportador protege los colectores del sarro, extendiendo la vida útil del sistema.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Proyectos comerciales</h3>
+        <p>Hoteles y gimnasios con múltiples salidas simultáneas necesitan la presión y flujo constante del sistema presurizado.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="capacidades-presurizado-title">
+    <header class="section-header">
+      <h2 id="capacidades-presurizado-title">Modelos presurizados disponibles</h2>
+    </header>
+
+    <div class="capacity-table-wrap">
+      <table class="capacity-table">
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th>Capacidad</th>
+            <th>Tubos</th>
+            <th>Para quién</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Presurizado 15 tubos</td>
+            <td>157 litros</td>
+            <td>15 tubos al vacío</td>
+            <td>3 a 4 personas</td>
+          </tr>
+          <tr>
+            <td>Presurizado 20 tubos</td>
+            <td>202 litros</td>
+            <td>20 tubos al vacío</td>
+            <td>4 a 5 personas</td>
+          </tr>
+          <tr>
+            <td>Presurizado 300 L</td>
+            <td>300 litros</td>
+            <td>24 a 30 tubos</td>
+            <td>6 a 8 personas o uso comercial</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <LeadCapture source="calentador-presurizado" />
+</LandingLayout>

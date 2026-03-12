@@ -1,0 +1,107 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Calentador de Paso Solar | Sistema Instantáneo con Panel Solar CDMX"
+  description="Calentador de paso combinado con panel solar en CDMX. Sistema híbrido instantáneo que usa energía solar para precalentar agua y reducir el consumo de gas."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Calentadores", href: "/calentadores" },
+      { label: "Calentador de paso solar" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Sistema híbrido solar + instantáneo</span>
+        <h1 class="hero-title">Calentador de paso solar: lo mejor de dos tecnologías</h1>
+        <p class="hero-lead">
+          Combina un colector solar térmico con un calentador de paso instantáneo. El sol
+          precalienta el agua y el quemador de gas solo activa cuando es necesario. Ideal para
+          casas que ya tienen calentador de paso y quieren reducir su factura de gas.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20quiero%20informacion%20sobre%20calentador%20de%20paso%20solar"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Cotizar sistema híbrido
+          </Button>
+          <Button href="/productos" variant="outline">Ver productos</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>¿Cómo funciona?</h2>
+        <ul class="trust-list">
+          <li>Panel solar calienta el agua de suministro.</li>
+          <li>Agua precalentada entra al calentador de paso.</li>
+          <li>El quemador solo activa si el agua no alcanzó temperatura.</li>
+          <li>Ahorro de gas del 40% al 70% dependiendo del clima.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="comparativa-paso-title">
+    <header class="section-header">
+      <h2 id="comparativa-paso-title">Calentador de paso vs calentador de paso solar</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--bad">
+        <h3>Calentador de paso convencional</h3>
+        <ul class="features-list">
+          <li>Usa gas 100% del tiempo.</li>
+          <li>Consumo constante en días soleados y nublados.</li>
+          <li>Sin aprovechamiento de energía solar.</li>
+          <li>Factura de gas sin reducción.</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--good">
+        <h3>Calentador de paso + panel solar</h3>
+        <ul class="features-list">
+          <li>El sol precalienta el agua de entrada.</li>
+          <li>Gas solo actúa como respaldo.</li>
+          <li>Ahorro de 40% a 70% en gas.</li>
+          <li>Instalación en casas con calentador existente.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="cuando-paso-title">
+    <header class="section-header">
+      <h2 id="cuando-paso-title">¿Cuándo es ideal el sistema de paso solar?</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>Casas con calentador existente</h3>
+        <p>Si ya tienes calentador de paso y no quieres cambiarlo, añadir un colector solar es la opción más económica.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Espacio limitado en azotea</h3>
+        <p>Un solo colector solar puede ser suficiente para precalentar el agua y reducir el trabajo del quemador.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Presupuesto ajustado</h3>
+        <p>Menor inversión inicial que un sistema completo de termosifón. Buen punto de entrada a la energía solar.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Zonas con alta irradiación</h3>
+        <p>En CDMX y Estado de México el promedio de horas sol es ideal para que el colector trabaje eficientemente.</p>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="calentador-paso-solar" />
+</LandingLayout>

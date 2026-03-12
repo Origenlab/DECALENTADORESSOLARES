@@ -1,0 +1,109 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Mantenimiento Preventivo Calentador Solar CDMX | Servicio Anual"
+  description="Mantenimiento preventivo anual de calentadores solares en CDMX y Estado de México. Limpieza de tubos, revisión de válvulas y garantía de rendimiento óptimo."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Servicios", href: "/servicios" },
+      { label: "Mantenimiento preventivo" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Servicio preventivo anual</span>
+        <h1 class="hero-title">Mantenimiento preventivo de calentador solar en CDMX</h1>
+        <p class="hero-lead">
+          El mantenimiento anual preventivo es la diferencia entre un sistema que dura 15 años y
+          uno que falla a los 5. Limpieza de tubos, revisión de válvulas, conexiones y tanque para
+          mantener el rendimiento al máximo durante todo el año.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20quiero%20agendar%20mantenimiento%20preventivo%20de%20calentador%20solar"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Agendar mantenimiento
+          </Button>
+          <Button href="/servicios/mantenimiento-preventivo" variant="outline">Ver detalles del servicio</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>El mantenimiento incluye</h2>
+        <ul class="trust-list">
+          <li>Limpieza externa de tubos al vacío.</li>
+          <li>Revisión de válvulas y conexiones.</li>
+          <li>Inspección del tanque y aislamiento.</li>
+          <li>Prueba de temperatura de salida.</li>
+          <li>Reporte técnico escrito.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="frecuencia-title">
+    <header class="section-header">
+      <h2 id="frecuencia-title">¿Cada cuánto necesita mantenimiento un calentador solar?</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--bad">
+        <h3>Sin mantenimiento</h3>
+        <ul class="features-list">
+          <li>Pérdida de eficiencia de 20% a 40% en 3 años.</li>
+          <li>Tubos con sarro y depósitos minerales.</li>
+          <li>Válvulas de seguridad obstruidas.</li>
+          <li>Mayor riesgo de falla del tanque.</li>
+          <li>Vida útil reducida a 5 a 8 años.</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--good">
+        <h3>Con mantenimiento anual</h3>
+        <ul class="features-list">
+          <li>Rendimiento óptimo durante toda la vida útil.</li>
+          <li>Tubos limpios con máxima captación solar.</li>
+          <li>Válvulas y conexiones en perfecto estado.</li>
+          <li>Detección temprana de posibles fallas.</li>
+          <li>Vida útil de 15 a 20 años garantizada.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="plan-mantenimiento-title">
+    <header class="section-header">
+      <h2 id="plan-mantenimiento-title">Planes de mantenimiento disponibles</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>Mantenimiento básico anual</h3>
+        <p>Limpieza de tubos, inspección visual y prueba de temperatura. Ideal para sistemas residenciales en buen estado.</p>
+        <a class="btn btn-outline" href="https://wa.me/525500000000?text=Hola,%20quiero%20el%20plan%20de%20mantenimiento%20basico" target="_blank" rel="noopener noreferrer">Cotizar</a>
+      </article>
+      <article class="offer-card">
+        <h3>Mantenimiento completo</h3>
+        <p>Limpieza profunda, revisión de todas las válvulas, reposición de elementos menores y reporte técnico detallado.</p>
+        <a class="btn btn-outline" href="https://wa.me/525500000000?text=Hola,%20quiero%20el%20plan%20de%20mantenimiento%20completo" target="_blank" rel="noopener noreferrer">Cotizar</a>
+      </article>
+      <article class="offer-card">
+        <h3>Contrato anual comercial</h3>
+        <p>Para hoteles, gimnasios y negocios. Dos visitas al año, prioridad en atención y reporte de eficiencia semestral.</p>
+        <a class="btn btn-outline" href="https://wa.me/525500000000?text=Hola,%20necesito%20contrato%20de%20mantenimiento%20comercial" target="_blank" rel="noopener noreferrer">Cotizar</a>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="mantenimiento-calentador-solar" />
+</LandingLayout>

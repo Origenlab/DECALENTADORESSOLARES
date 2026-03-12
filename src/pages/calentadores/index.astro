@@ -1,0 +1,103 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+
+const tipos = [
+  {
+    title: "Calentador solar residencial",
+    description: "Para casas y familias de 3 a 6 personas. Sistemas de 150 a 300 litros con instalación profesional en CDMX.",
+    href: "/calentadores/residencial",
+    eyebrow: "Uso doméstico"
+  },
+  {
+    title: "Calentador solar comercial",
+    description: "Para hoteles, hospitales, gimnasios y restaurantes con alta demanda de agua caliente.",
+    href: "/calentadores/comercial",
+    eyebrow: "Uso comercial"
+  },
+  {
+    title: "Calentador solar industrial",
+    description: "Soluciones de ingeniería para lavanderías industriales, agroindustria y procesos de manufactura.",
+    href: "/calentadores/industrial",
+    eyebrow: "Uso industrial"
+  },
+  {
+    title: "Calentador de paso solar",
+    description: "Sistema híbrido que combina calentador instantáneo con panel solar para reducir consumo de gas.",
+    href: "/calentadores/de-paso-solar",
+    eyebrow: "Sistema híbrido"
+  },
+  {
+    title: "Calentador solar presurizado",
+    description: "Sistema de circuito cerrado con presión constante. Ideal para casas sin tinaco y proyectos comerciales.",
+    href: "/calentadores/presurizado",
+    eyebrow: "Alta presión"
+  },
+  {
+    title: "Calentador solar termosifón",
+    description: "El más popular en México. Sin bomba eléctrica, funciona por convección natural. Excelente costo-beneficio.",
+    href: "/calentadores/termosifon",
+    eyebrow: "Sin bomba"
+  }
+];
+---
+
+<LandingLayout
+  title="Tipos de Calentadores Solares | Residencial, Comercial e Industrial CDMX"
+  description="Conoce todos los tipos de calentadores solares disponibles en CDMX: residencial, comercial, industrial, de paso, presurizado y termosifón. Instalación profesional."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Calentadores" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-panel">
+      <span class="section-eyebrow">Catálogo por tipo</span>
+      <h1 class="hero-title">Tipos de calentadores solares disponibles</h1>
+      <p class="hero-lead">
+        Cada proyecto tiene requerimientos distintos. Elige el tipo de calentador solar que mejor
+        se adapta a tu hogar, negocio o proceso industrial en CDMX y Estado de México.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tipos-title">
+    <header class="section-header">
+      <h2 id="tipos-title">Selecciona el tipo de calentador solar</h2>
+    </header>
+
+    <div class="offer-grid">
+      {tipos.map((tipo) => (
+        <article class="offer-card">
+          <p class="mini-title">{tipo.eyebrow}</p>
+          <h3>{tipo.title}</h3>
+          <p>{tipo.description}</p>
+          <a class="btn btn-outline" href={tipo.href}>Ver más</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="asesor-title">
+    <header class="section-header">
+      <h2 id="asesor-title">¿No sabes cuál elegir?</h2>
+      <p class="section-description">
+        Un técnico especialista evalúa tu caso sin costo y te recomienda la mejor opción según tu
+        presupuesto, número de usuarios y tipo de inmueble.
+      </p>
+    </header>
+    <div style="text-align: center; margin-top: 2rem;">
+      <Button
+        href="https://wa.me/525500000000?text=Hola,%20necesito%20ayuda%20para%20elegir%20el%20tipo%20de%20calentador%20solar"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Hablar con un especialista
+      </Button>
+    </div>
+  </section>
+</LandingLayout>

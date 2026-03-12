@@ -1,0 +1,166 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Calentador Solar Comercial | Hoteles, Hospitales y Restaurantes en CDMX"
+  description="Calentadores solares comerciales para hoteles, hospitales, gimnasios y restaurantes en CDMX y Estado de México. Alta capacidad, continuidad operativa y mantenimiento programado."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Calentadores", href: "/calentadores" },
+      { label: "Calentador solar comercial" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Uso comercial e institucional</span>
+        <h1 class="hero-title">Calentador solar comercial para hoteles, hospitales y restaurantes</h1>
+        <p class="hero-lead">
+          Sistemas de alta capacidad para negocios con alta demanda de agua caliente en CDMX.
+          Hoteles, hospitales, gimnasios, restaurantes y desarrollos multifamiliares. Reducción real
+          de costos operativos desde el primer mes.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar%20comercial%20para%20mi%20negocio"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Solicitar cotización comercial
+          </Button>
+          <Button href="/servicios/proyectos-comerciales" variant="outline">Ver servicio comercial</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Para tu negocio</h2>
+        <ul class="trust-list">
+          <li>Hoteles y posadas.</li>
+          <li>Hospitales y clínicas.</li>
+          <li>Gimnasios y spas.</li>
+          <li>Restaurantes y cocinas industriales.</li>
+          <li>Lavanderías y tintorerías.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sectores-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Sectores atendidos</span>
+      <h2 id="sectores-title">Soluciones por tipo de negocio</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>Hoteles y posadas</h3>
+        <p>
+          Sistemas desde 500 hasta 5,000 litros diarios. Diseño para demanda nocturna y matutina
+          simultánea con respaldo de gas como apoyo.
+        </p>
+      </article>
+      <article class="offer-card">
+        <h3>Hospitales y clínicas</h3>
+        <p>
+          Agua caliente continua para esterilización, lavandería y uso general. Cumplimiento de
+          normativas sanitarias y eficiencia energética.
+        </p>
+      </article>
+      <article class="offer-card">
+        <h3>Restaurantes y cocinas</h3>
+        <p>
+          Precalentamiento de agua para cocción y limpieza. Ahorro en gas LP o natural en cocinas
+          de alta producción.
+        </p>
+      </article>
+      <article class="offer-card">
+        <h3>Gimnasios y spas</h3>
+        <p>
+          Alta demanda de agua caliente en horarios pico. Sistemas presurizados para múltiples
+          regaderas simultáneas con presión constante.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ventajas-title">
+    <header class="section-header">
+      <h2 id="ventajas-title">Ventajas del sistema solar comercial</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--good">
+        <h3>Ahorro operativo</h3>
+        <ul class="features-list">
+          <li>Reducción de 50% a 75% en gasto de gas.</li>
+          <li>Retorno de inversión en 18 a 36 meses.</li>
+          <li>Impacto directo en utilidad operativa mensual.</li>
+          <li>Cumple requisitos FIDE y SENER para apoyos.</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--good">
+        <h3>Continuidad operativa</h3>
+        <ul class="features-list">
+          <li>Sistema híbrido solar + gas como respaldo.</li>
+          <li>Mantenimiento programado sin paro de operaciones.</li>
+          <li>Monitoreo de eficiencia con reporte periódico.</li>
+          <li>Garantía sobre equipo e instalación.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="capacidad-comercial-title">
+    <header class="section-header">
+      <h2 id="capacidad-comercial-title">Capacidades para proyectos comerciales</h2>
+    </header>
+
+    <div class="capacity-table-wrap">
+      <table class="capacity-table">
+        <thead>
+          <tr>
+            <th>Tipo de negocio</th>
+            <th>Capacidad estimada</th>
+            <th>Configuración</th>
+            <th>Inversión referencial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Restaurante pequeño</td>
+            <td>300 a 500 L/día</td>
+            <td>2 a 3 colectores</td>
+            <td>$45,000 a $80,000 MXN</td>
+          </tr>
+          <tr>
+            <td>Hotel boutique (20 hab.)</td>
+            <td>1,000 a 2,000 L/día</td>
+            <td>6 a 12 colectores</td>
+            <td>$120,000 a $250,000 MXN</td>
+          </tr>
+          <tr>
+            <td>Gimnasio o spa</td>
+            <td>800 a 1,500 L/día</td>
+            <td>4 a 8 colectores</td>
+            <td>$90,000 a $180,000 MXN</td>
+          </tr>
+          <tr>
+            <td>Hospital o clínica</td>
+            <td>Proyecto especial</td>
+            <td>Ingeniería a medida</td>
+            <td>Cotización por ingeniería</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <LeadCapture source="calentador-comercial" />
+</LandingLayout>

@@ -1,0 +1,108 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Calentador Solar Industrial | Procesos Industriales y Grandes Volúmenes CDMX"
+  description="Sistemas solares industriales para procesos que requieren agua caliente en grandes volúmenes. Lavandería industrial, agroindustria, manufactura y más en México."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Calentadores", href: "/calentadores" },
+      { label: "Calentador solar industrial" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Uso industrial</span>
+        <h1 class="hero-title">Sistemas solares industriales para grandes volúmenes de agua caliente</h1>
+        <p class="hero-lead">
+          Soluciones de ingeniería para procesos industriales con alta demanda de agua caliente o
+          precalentamiento. Lavanderías industriales, agroindustria, manufactura y plantas de
+          producción en México.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20necesito%20cotizar%20un%20sistema%20solar%20industrial"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Solicitar ingeniería
+          </Button>
+          <Button href="/servicios/proyectos-comerciales" variant="outline">Proyectos comerciales</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Aplicaciones</h2>
+        <ul class="trust-list">
+          <li>Lavanderías industriales.</li>
+          <li>Plantas agroindustriales.</li>
+          <li>Manufactura y procesos continuos.</li>
+          <li>Granjas y establos.</li>
+          <li>Instalaciones deportivas grandes.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="industrial-info-title">
+    <header class="section-header">
+      <h2 id="industrial-info-title">Características del sistema solar industrial</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--good">
+        <h3>Ingeniería a medida</h3>
+        <ul class="features-list">
+          <li>Análisis de demanda real del proceso.</li>
+          <li>Diseño de campo solar y almacenamiento.</li>
+          <li>Integración con sistemas existentes de calor.</li>
+          <li>Automatización y monitoreo remoto.</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--good">
+        <h3>Retorno y normativas</h3>
+        <ul class="features-list">
+          <li>Ahorro energético del 40% al 70%.</li>
+          <li>Retorno de inversión de 24 a 48 meses.</li>
+          <li>Cumple norma NOM-021-ENER-2017.</li>
+          <li>Acceso a apoyos FIDE y SENER.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="proceso-industrial-title">
+    <header class="section-header">
+      <h2 id="proceso-industrial-title">Proceso para proyectos industriales</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>1. Auditoría energética</h3>
+        <p>Medición de consumo actual de energía calorífica y análisis de perfiles de demanda del proceso.</p>
+      </article>
+      <article class="offer-card">
+        <h3>2. Ingeniería de detalle</h3>
+        <p>Diseño de campo solar, dimensionamiento de almacenamiento y planos de integración al proceso.</p>
+      </article>
+      <article class="offer-card">
+        <h3>3. Instalación por etapas</h3>
+        <p>Ejecución por fases para minimizar impacto en la operación. Pruebas en cada etapa.</p>
+      </article>
+      <article class="offer-card">
+        <h3>4. Operación y mantenimiento</h3>
+        <p>Contrato de mantenimiento preventivo y correctivo con tiempos de respuesta garantizados.</p>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="calentador-industrial" />
+</LandingLayout>

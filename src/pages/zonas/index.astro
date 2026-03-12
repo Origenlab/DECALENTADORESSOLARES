@@ -1,0 +1,87 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+
+const zonas = [
+  {
+    title: "Ciudad de México",
+    description: "Instalación en todas las 16 alcaldías de CDMX. Técnicos asignados por zona para respuesta rápida.",
+    href: "/zonas/cdmx",
+    highlights: ["16 alcaldías", "Servicio mismo día", "Cobertura total"]
+  },
+  {
+    title: "Estado de México",
+    description: "Servicio en Naucalpan, Tlalnepantla, Ecatepec, Cuautitlán Izcalli, Toluca y más municipios.",
+    href: "/zonas/estado-de-mexico",
+    highlights: ["Naucalpan", "Tlalnepantla", "Ecatepec", "Toluca"]
+  },
+  {
+    title: "Puebla",
+    description: "Instalación en Puebla capital, Cholula, Atlixco y zona metropolitana de Puebla.",
+    href: "/zonas/puebla",
+    highlights: ["Puebla capital", "Cholula", "Atlixco", "Tehuacán"]
+  }
+];
+---
+
+<LandingLayout
+  title="Zonas de Cobertura | Calentadores Solares CDMX, Edomex y Puebla"
+  description="Instalamos calentadores solares en CDMX, Estado de México (Naucalpan, Tlalnepantla, Ecatepec) y Puebla. Revisa cobertura en tu municipio."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Zonas de cobertura" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-panel">
+      <span class="section-eyebrow">Cobertura nacional</span>
+      <h1 class="hero-title">Zonas de instalación de calentadores solares</h1>
+      <p class="hero-lead">
+        Atendemos proyectos en Ciudad de México, Estado de México y Puebla. Técnicos locales
+        certificados en cada región para respuesta rápida y seguimiento continuo.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="zonas-title">
+    <header class="section-header">
+      <h2 id="zonas-title">Selecciona tu zona</h2>
+    </header>
+
+    <div class="offer-grid">
+      {zonas.map((zona) => (
+        <article class="offer-card">
+          <h3>{zona.title}</h3>
+          <p>{zona.description}</p>
+          <ul class="coverage-list">
+            {zona.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+          <a class="btn btn-outline" href={zona.href}>Ver cobertura</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="zona-no-listada-title">
+    <header class="section-header">
+      <h2 id="zona-no-listada-title">¿Tu zona no aparece aquí?</h2>
+      <p class="section-description">
+        También atendemos Querétaro, Hidalgo, Morelos y otras zonas mediante agenda comercial.
+        Escríbenos con tu ubicación y evaluamos viabilidad sin costo.
+      </p>
+    </header>
+    <div style="text-align: center; margin-top: 2rem;">
+      <Button
+        href="https://wa.me/525500000000?text=Hola,%20quiero%20saber%20si%20tienen%20cobertura%20en%20mi%20zona"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Consultar mi zona
+      </Button>
+    </div>
+  </section>
+</LandingLayout>

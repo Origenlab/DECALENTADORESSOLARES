@@ -1,0 +1,157 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Calentador Solar Residencial CDMX | Para Casas y Familias de 3 a 6 Personas"
+  description="Calentadores solares residenciales en CDMX y Estado de México. Sistemas de 150 a 300 litros para familias de 3 a 6 personas. Instalación profesional y ahorro real en gas."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Calentadores", href: "/calentadores" },
+      { label: "Calentador solar residencial" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Uso doméstico</span>
+        <h1 class="hero-title">Calentador solar residencial para casas en CDMX</h1>
+        <p class="hero-lead">
+          Sistemas de 150 a 300 litros diseñados para familias de 3 a 6 personas en Ciudad de
+          México y Estado de México. Ahorra entre 60% y 80% de tu consumo de gas destinado a agua
+          caliente.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar%20residencial"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Cotizar por WhatsApp
+          </Button>
+          <Button href="/productos" variant="outline">Ver catálogo</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Incluye</h2>
+        <ul class="trust-list">
+          <li>Diagnóstico de consumo sin costo.</li>
+          <li>Selección correcta de capacidad.</li>
+          <li>Instalación certificada NOM-021-ENER-2017.</li>
+          <li>Garantía de mano de obra.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="capacidad-title">
+    <header class="section-header">
+      <span class="section-eyebrow">Guía de capacidad</span>
+      <h2 id="capacidad-title">¿Cuántos litros necesita tu familia?</h2>
+      <p class="section-description">
+        La capacidad correcta depende del número de personas, hábitos de uso y número de baños
+        activos simultáneamente.
+      </p>
+    </header>
+
+    <div class="capacity-table-wrap">
+      <table class="capacity-table">
+        <thead>
+          <tr>
+            <th>Personas</th>
+            <th>Capacidad recomendada</th>
+            <th>Tubos solares</th>
+            <th>Inversión estimada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2 a 3 personas</td>
+            <td>120 a 150 litros</td>
+            <td>10 a 12 tubos</td>
+            <td>$14,000 a $20,000 MXN</td>
+          </tr>
+          <tr>
+            <td>3 a 4 personas</td>
+            <td>150 a 180 litros</td>
+            <td>12 a 15 tubos</td>
+            <td>$17,000 a $24,000 MXN</td>
+          </tr>
+          <tr>
+            <td>4 a 6 personas</td>
+            <td>200 a 260 litros</td>
+            <td>18 a 20 tubos</td>
+            <td>$22,000 a $32,000 MXN</td>
+          </tr>
+          <tr>
+            <td>6 a 8 personas</td>
+            <td>280 a 320 litros</td>
+            <td>24 a 30 tubos</td>
+            <td>$30,000 a $45,000 MXN</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="beneficios-title">
+    <header class="section-header">
+      <h2 id="beneficios-title">Beneficios del calentador solar residencial</h2>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--good">
+        <h3>Ahorro y retorno</h3>
+        <ul class="features-list">
+          <li>Ahorro de 60% a 80% en gas para agua caliente.</li>
+          <li>Retorno de inversión en 2 a 4 años.</li>
+          <li>Funciona incluso en días nublados.</li>
+          <li>Vida útil de 15 a 20 años con mantenimiento.</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--good">
+        <h3>Normas y calidad</h3>
+        <ul class="features-list">
+          <li>Cumple NOM-021-ENER-2017.</li>
+          <li>Marcas: Solaris, Rotoplás Solar, Solarmat, Tecnosol.</li>
+          <li>Instalación con técnicos certificados.</li>
+          <li>Servicio postventa y mantenimiento programado.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="proceso-title">
+    <header class="section-header">
+      <h2 id="proceso-title">Proceso de compra e instalación</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>1. Diagnóstico</h3>
+        <p>Evaluamos tu consumo, número de usuarios y espacio disponible en azotea sin costo.</p>
+      </article>
+      <article class="offer-card">
+        <h3>2. Propuesta</h3>
+        <p>Recibes cotización con modelo, capacidad, inversión y tiempo estimado de instalación.</p>
+      </article>
+      <article class="offer-card">
+        <h3>3. Instalación</h3>
+        <p>Técnicos certificados instalan el sistema en 1 día hábil con pruebas completas.</p>
+      </article>
+      <article class="offer-card">
+        <h3>4. Seguimiento</h3>
+        <p>Mantenimiento preventivo anual para mantener la eficiencia y prolongar la vida útil.</p>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="calentador-residencial" />
+</LandingLayout>

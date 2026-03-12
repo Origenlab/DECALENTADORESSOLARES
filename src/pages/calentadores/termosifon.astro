@@ -1,0 +1,138 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Calentador Solar Termosifón | Sistema sin Bomba para Casas en CDMX"
+  description="Calentador solar de termosifón en CDMX. Sistema sin bomba que funciona por convección natural. La opción más sencilla y económica para casas con tinaco."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Calentadores", href: "/calentadores" },
+      { label: "Calentador solar termosifón" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Sistema sin bomba eléctrica</span>
+        <h1 class="hero-title">Calentador solar termosifón: eficiente, sencillo y sin partes eléctricas</h1>
+        <p class="hero-lead">
+          El sistema termosifón aprovecha la convección natural: el agua caliente sube y el agua
+          fría baja, sin necesidad de bomba eléctrica. Es el sistema más común en México para
+          casas con tinaco elevado. Bajo mantenimiento, larga vida útil y excelente relación
+          costo-beneficio.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20un%20calentador%20solar%20de%20termosifon"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Cotizar termosifón
+          </Button>
+          <Button href="/calentadores/presurizado" variant="outline">Ver sistema presurizado</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>¿Por qué termosifón?</h2>
+        <ul class="trust-list">
+          <li>Sin bomba eléctrica = sin consumo eléctrico adicional.</li>
+          <li>Instalación más económica que sistemas presurizados.</li>
+          <li>Menos partes móviles = menos fallas.</li>
+          <li>Ideal para casas con tinaco en azotea.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="como-funciona-termosifon-title">
+    <header class="section-header">
+      <h2 id="como-funciona-termosifon-title">¿Cómo funciona el sistema termosifón?</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>1. Captación solar</h3>
+        <p>Los tubos al vacío absorben la radiación solar y calientan el agua o fluido en su interior.</p>
+      </article>
+      <article class="offer-card">
+        <h3>2. Convección natural</h3>
+        <p>El agua caliente sube al tanque superior por ser menos densa. El agua fría del tanque desciende a los tubos.</p>
+      </article>
+      <article class="offer-card">
+        <h3>3. Almacenamiento</h3>
+        <p>El tanque aislado térmicamente mantiene el agua caliente hasta 48 horas sin pérdida significativa.</p>
+      </article>
+      <article class="offer-card">
+        <h3>4. Distribución</h3>
+        <p>El agua caliente fluye por gravedad desde el tanque elevado hacia los puntos de uso de la casa.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="modelos-termosifon-title">
+    <header class="section-header">
+      <h2 id="modelos-termosifon-title">Modelos de termosifón más vendidos</h2>
+    </header>
+
+    <div class="capacity-table-wrap">
+      <table class="capacity-table">
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th>Capacidad</th>
+            <th>Personas</th>
+            <th>Inversión estimada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10 tubos — 115 L</td>
+            <td>115 litros</td>
+            <td>2 a 3 personas</td>
+            <td>$14,000 a $18,000 MXN</td>
+          </tr>
+          <tr>
+            <td>12 tubos — 150 L</td>
+            <td>150 litros</td>
+            <td>3 a 4 personas</td>
+            <td>$17,000 a $22,000 MXN</td>
+          </tr>
+          <tr>
+            <td>15 tubos</td>
+            <td>180 litros</td>
+            <td>4 a 5 personas</td>
+            <td>$20,000 a $26,000 MXN</td>
+          </tr>
+          <tr>
+            <td>18 tubos — 206 L</td>
+            <td>206 litros</td>
+            <td>5 a 6 personas</td>
+            <td>$23,000 a $30,000 MXN</td>
+          </tr>
+          <tr>
+            <td>20 tubos</td>
+            <td>240 litros</td>
+            <td>6 a 7 personas</td>
+            <td>$26,000 a $34,000 MXN</td>
+          </tr>
+          <tr>
+            <td>30 tubos</td>
+            <td>300+ litros</td>
+            <td>8+ personas</td>
+            <td>$35,000 a $50,000 MXN</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <LeadCapture source="calentador-termosifon" />
+</LandingLayout>

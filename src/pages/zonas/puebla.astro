@@ -1,0 +1,114 @@
+---
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import LeadCapture from "../../components/sections/LeadCapture.astro";
+---
+
+<LandingLayout
+  title="Calentadores Solares en Puebla | Instalación Profesional en Puebla Capital y Zona Metropolitana"
+  description="Instalación de calentadores solares en Puebla capital, San Andrés Cholula, Atlixco y zona metropolitana. Sistema solar térmico con técnicos certificados y NOM-021-ENER-2017."
+>
+  <Breadcrumb
+    items={[
+      { label: "Inicio", href: "/" },
+      { label: "Zonas", href: "/zonas" },
+      { label: "Puebla" }
+    ]}
+  />
+
+  <section class="hero-section">
+    <div class="hero-layout">
+      <div class="hero-panel">
+        <span class="section-eyebrow">Cobertura en Puebla</span>
+        <h1 class="hero-title">Calentadores solares en Puebla: instalación profesional en capital y zona metropolitana</h1>
+        <p class="hero-lead">
+          Instalamos calentadores solares en Puebla capital, San Andrés Cholula, San Pedro Cholula,
+          Atlixco, Tehuacán y municipios de la zona metropolitana. Puebla tiene más de 6 horas sol
+          pico diarias, haciendo de la energía solar la opción más rentable para agua caliente.
+        </p>
+        <div class="hero-cta-row">
+          <Button
+            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20calentador%20solar%20en%20Puebla"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Cotizar en Puebla
+          </Button>
+          <Button href="/calentadores/residencial" variant="outline">Calentadores residenciales</Button>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Municipios atendidos</h2>
+        <ul class="trust-list">
+          <li>Puebla capital.</li>
+          <li>San Andrés y San Pedro Cholula.</li>
+          <li>Atlixco.</li>
+          <li>Amozoc.</li>
+          <li>Tehuacán.</li>
+          <li>Cuautlancingo.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="puebla-solar-title">
+    <header class="section-header">
+      <h2 id="puebla-solar-title">¿Por qué Puebla tiene alto potencial solar?</h2>
+    </header>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <h3>Alta irradiación solar</h3>
+        <p>Puebla registra entre 5.8 y 6.5 horas sol pico diarias en promedio anual, de las más altas del país. El retorno de inversión es más rápido que en zonas con menor irradiación.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Clima seco y soleado</h3>
+        <p>La mayor parte del año el clima de Puebla es seco y soleado, lo que maximiza la captación solar y reduce la necesidad del respaldo de gas a los meses más nublados.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Crecimiento habitacional</h3>
+        <p>El boom de desarrollos residenciales en Cholula y Cuautlancingo hace de Puebla una zona de alta demanda de instalaciones solares tanto en casas nuevas como en existentes.</p>
+      </article>
+      <article class="offer-card">
+        <h3>Apoyos FIDE disponibles</h3>
+        <p>Los municipios de Puebla califican para los programas de apoyo FIDE y SENER para instalación de calentadores solares que cumplen NOM-021-ENER-2017.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="proceso-puebla-title">
+    <header class="section-header">
+      <h2 id="proceso-puebla-title">Cómo cotizar en Puebla</h2>
+      <p class="section-description">
+        El proceso es el mismo que en CDMX: diagnóstico técnico, propuesta con capacidad y precio,
+        instalación en 1 día hábil y seguimiento postventa. Para Puebla coordinamos agenda con
+        técnico local asignado.
+      </p>
+    </header>
+
+    <div class="comparison-grid">
+      <article class="comparison-card comparison-card--good">
+        <h3>Proceso de contratación</h3>
+        <ul class="features-list">
+          <li>Envía mensaje vía WhatsApp con tu municipio y número de personas.</li>
+          <li>Recibes propuesta base en menos de 24 horas.</li>
+          <li>Se agenda visita técnica para confirmar capacidad y condiciones.</li>
+          <li>Instalación programada en fecha convenida.</li>
+        </ul>
+      </article>
+      <article class="comparison-card comparison-card--good">
+        <h3>Tiempo de respuesta</h3>
+        <ul class="features-list">
+          <li>Cotización inicial: menos de 24 horas.</li>
+          <li>Visita técnica: 2 a 5 días hábiles.</li>
+          <li>Instalación residencial: 1 día hábil.</li>
+          <li>Instalación comercial: 2 a 5 días según proyecto.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <LeadCapture source="zona-puebla" />
+</LandingLayout>
