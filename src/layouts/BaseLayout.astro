@@ -6,6 +6,7 @@
 import {
   SITE_NAME, SITE_URL, OG_IMAGE_DEFAULT, GEO, BRAND_COLOR
 } from '../lib/config';
+import '../styles/global.css';
 
 interface Props {
   // SEO esencial
@@ -130,7 +131,7 @@ const schemas = structuredData
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" />
 
   <!-- Estilos globales -->
-  <link rel="stylesheet" href="/src/styles/global.css" />
+
 
   <!-- Schema.org JSON-LD -->
   {schemas.map(s => (
