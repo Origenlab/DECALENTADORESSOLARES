@@ -1,222 +1,146 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildLocalBusinessSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
-import { WHATSAPP_NUMBER, SITE_URL, SITE_NAME, GEO } from '../../lib/config';
+import SectionHeader from '../../components/SectionHeader.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
 
-const title = 'Calentadores Solares en Puebla | Instalación Profesional';
-const description = 'Instalación profesional de calentadores solares en Puebla capital, Cholula, Atlixco, Tehuacán, San Martín Texmelucan y zona metropolitana. Cotiza ahora.';
+const municipios = ["Ciudad de Puebla", "Tehuacán", "San Martín Texmelucan", "Atlixco", "Cholula", "Amozoc", "Cuautlancingo", "Huejotzingo", "San Pedro Cholula", "Izúcar de Matamoros", "Acatzingo", "Tecamachalco"];
 
-const breadcrumbs = [
-  { name: 'Inicio', url: '/' },
-  { name: 'Zonas', url: '/zonas' },
-  { name: 'Puebla', url: '/zonas/puebla' },
+const faqItems = [
+  { pregunta: '¿Instalan en el centro histórico de Puebla?', respuesta: 'Sí, incluyendo casas históricas con techo de teja. Hacemos la instalación con estructuras adaptadas al tipo de techo y respetando la estética del inmueble.' },
+  { pregunta: '¿Qué tal funciona en invierno en Puebla?', respuesta: 'Puebla tiene inviernos fríos pero con buen sol. Los tubos evacuados funcionan bien incluso con temperaturas bajas. Se recomienda boiler de gas como respaldo para enero-febrero.' },
+  { pregunta: '¿Cubren Tehuacán?', respuesta: 'Sí. Tehuacán y la zona de la Mixteca poblana tienen excelente sol. Consultamos disponibilidad de agenda para la zona.' },
+  { pregunta: '¿El precio es el mismo que en CDMX?', respuesta: 'El equipo tiene el mismo precio. Puede haber un costo de traslado para municipios alejados de la capital poblana.' },
 ];
 
-const areas = [
-  'Puebla Capital', 'San Andrés Cholula', 'San Pedro Cholula',
-  'Atlixco', 'Tehuacán', 'San Martín Texmelucan',
-  'Huejotzingo', 'Amozoc', 'Cuautlancingo',
+const structuredData = [
+  buildServiceSchema({ name: 'Calentadores Solares Puebla', description: 'Calentadores solares en Puebla: Ciudad de Puebla, Tehuacán, San Martín Texmelucan, Atlixco y todo el estado. Instalación profesional, garantía incluida.', url: '/zonas/puebla' }),
+  buildFAQSchema(faqItems),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Zonas', url: '/zonas' },
+    { name: 'Puebla', url: '/zonas/puebla' },
+  ]),
 ];
-
-const faqs = [
-  {
-    pregunta: '¿Qué áreas de Puebla cubren para instalación de calentadores solares?',
-    respuesta: 'Cubrimos Puebla capital, San Andrés Cholula, San Pedro Cholula, Atlixco, Tehuacán, San Martín Texmelucan, Huejotzingo, Amozoc y Cuautlancingo. Contáctanos para confirmar cobertura en tu ubicación.',
-  },
-  {
-    pregunta: '¿Hay costos de traslado adicionales para Puebla?',
-    respuesta: 'En la zona metropolitana de Puebla y municipios cercanos, el traslado está incluido en la cotización. Para municipios más alejados como Tehuacán puede aplicar un costo de traslado mínimo que se indica en la cotización.',
-  },
-  {
-    pregunta: '¿Tienen soporte local en Puebla?',
-    respuesta: 'Sí, contamos con técnicos asignados en la zona de Puebla para instalación, mantenimiento y servicio postventa. No dependemos de traslados desde CDMX para atender la región.',
-  },
-  {
-    pregunta: '¿Qué ventajas tiene el clima de Puebla para calentadores solares?',
-    respuesta: 'Puebla registra entre 5.8 y 6.5 horas sol pico diarias en promedio anual, de las más altas del país. Su clima seco y soleado la mayor parte del año maximiza la captación solar y el ahorro en gas.',
-  },
-  {
-    pregunta: '¿Cuál es el proceso para cotizar en Puebla?',
-    respuesta: 'Envía un mensaje por WhatsApp con tu municipio y número de personas en tu hogar. Recibes cotización en menos de 24-48 horas. Se agenda visita técnica para confirmar condiciones e instalación en fecha convenida.',
-  },
-];
-
-const localBusiness = {
-  ...buildLocalBusinessSchema(),
-  areaServed: [
-    { '@type': 'State', name: 'Puebla' },
-    ...areas.map(a => ({ '@type': 'City', name: a })),
-  ],
-};
-const faqSchema = buildFAQSchema(faqs);
-const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbs);
 ---
 
 <BaseLayout
-  title={title}
-  description={description}
+  title="Calentadores Solares Puebla | Ciudad de Puebla y Todo el Estado"
+  description="Calentadores solares en Puebla: Ciudad de Puebla, Tehuacán, San Martín Texmelucan, Atlixco y todo el estado. Instalación profesional, garantía incluida."
   activePage="zonas"
-  heroTitle="Calentadores Solares en Puebla | Instalación Profesional"
-  heroIntro="Instalación, mantenimiento y asesoría en calentadores solares para Puebla capital y zona metropolitana. Más de 6 horas sol pico diarias hacen de Puebla una zona ideal para energía solar."
-  heroBadge="Puebla y zona metropolitana"
+  structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Zonas de servicio', url: '/zonas' },
+    { name: 'Puebla', url: '/zonas/puebla' },
+  ]}
+  showHero={true}
+  heroTitle="Calentadores Solares en Puebla"
+  heroIntro="Instalación de calentadores solares en Ciudad de Puebla y principales municipios del estado. Excelente recurso solar en el altiplano poblano."
+  heroBadge="Puebla — Servicio disponible"
   heroMetrics={[
-    { valor: '10+', texto: 'municipios' },
-    { valor: '24-48h', texto: 'respuesta' },
-    { valor: '+80', texto: 'proyectos' },
-    { valor: '80%', texto: 'ahorro' },
+    { valor: '1 día', texto: 'Tiempo instalación' },
+    { valor: '80%', texto: 'Ahorro en gas' },
+    { valor: '2 años', texto: 'Garantía' },
+    { valor: 'Gratis', texto: 'Cotización' },
   ]}
-  heroPrimaryText="Cotizar en Puebla"
-  heroPrimaryLink={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Puebla.')}`}
-  heroSecondaryText="Ver Productos"
-  heroSecondaryLink="/productos"
-  heroFeatures={[
-    { icon: '☀️', text: '6+ horas sol pico diarias' },
-    { icon: '🏠', text: 'Residencial y comercial' },
-    { icon: '🔧', text: 'Técnicos locales en Puebla' },
-  ]}
-  showLeadCapture={true}
-  breadcrumbs={breadcrumbs}
-  structuredData={[localBusiness, faqSchema, breadcrumbSchema]}
+  heroPrimaryText="Cotización gratuita"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver tipos de calentadores"
+  heroSecondaryLink="/calentadores"
 >
 
-  <!-- Áreas de cobertura -->
-  <section class="section" aria-labelledby="areas-puebla-title">
+  <!-- Cobertura -->
+  <section class="section section--alt" aria-labelledby="cobertura-title">
     <div class="container">
-      <header class="section-header">
-        <h2 id="areas-puebla-title">Áreas de Cobertura en Puebla</h2>
-        <p>Instalamos calentadores solares en Puebla capital, zona metropolitana y municipios clave del estado.</p>
-      </header>
-
-      <div class="grid-3">
-        {areas.map((area) => (
-          <div class="card">
-            <div class="card__body">
-              <h3 class="card__title">{area}</h3>
-              <p class="card__desc">Instalación y mantenimiento de calentadores solares en {area}, Puebla.</p>
-            </div>
-          </div>
+      <SectionHeader
+        titulo="Municipios con servicio en Puebla"
+        subtitulo="Instalación en 24-72 horas hábiles en estas zonas"
+        idTitulo="cobertura-title"
+        parrafo1="Puebla tiene más de 2,600 horas de sol anuales. La ciudad capital y el altiplano tienen radiación solar muy similar a CDMX, con rendimientos excelentes en calentadores de tubos evacuados. Tehuacán, en zona más cálida, tiene aún más radiación."
+      />
+      <div class="municipios-grid">
+        {municipios.map((m: string) => (
+          <div class="municipio-tag">{m}</div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Viabilidad solar -->
-  <section class="section section--alt" aria-labelledby="solar-puebla-title">
-    <div class="container">
-      <header class="section-header">
-        <h2 id="solar-puebla-title">¿Por qué Puebla tiene alto potencial solar?</h2>
-        <p>El estado de Puebla cuenta con condiciones climáticas excepcionales para el aprovechamiento de energía solar térmica.</p>
-      </header>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Alta irradiación solar</h3>
-            <p class="card__desc">Puebla registra entre 5.8 y 6.5 horas sol pico diarias en promedio anual, de las más altas del país. El retorno de inversión es más rápido que en zonas con menor irradiación.</p>
-          </div>
+  <!-- Por qué solar en Puebla -->
+  <section class="section" aria-labelledby="why-zona-title">
+    <div class="container" style="max-width: 860px;">
+      <SectionHeader
+        titulo="¿Por qué instalar un calentador solar en Puebla?"
+        subtitulo="Recurso solar, clima y retorno de inversión en tu zona"
+        idTitulo="why-zona-title"
+      />
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-card__icon">☀️</div>
+          <h3>Excelente recurso solar</h3>
+          <p>Puebla tiene entre 2,400 y 3,000 horas de sol anuales, suficiente para cubrir el 75-85% del consumo anual de agua caliente con energía solar.</p>
         </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Clima seco y soleado</h3>
-            <p class="card__desc">La mayor parte del año el clima de Puebla es seco y soleado, lo que maximiza la captación solar y reduce la dependencia del respaldo de gas a los meses más nublados.</p>
-          </div>
+        <div class="benefit-card">
+          <div class="benefit-card__icon">💰</div>
+          <h3>Ahorro real desde el mes 1</h3>
+          <p>Familias de 4 personas en Puebla ahorran entre $700 y $1,200 pesos mensuales en gas. El sistema se paga solo en 2-3 años.</p>
         </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Crecimiento habitacional</h3>
-            <p class="card__desc">El boom de desarrollos residenciales en Cholula y Cuautlancingo genera alta demanda de instalaciones solares tanto en casas nuevas como en propiedades existentes.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__body">
-            <h3 class="card__title">Apoyos FIDE disponibles</h3>
-            <p class="card__desc">Los municipios de Puebla califican para los programas de apoyo FIDE y SENER para instalación de calentadores solares que cumplen la norma NOM-027-ENER/SCFI-2018.</p>
-          </div>
+        <div class="benefit-card">
+          <div class="benefit-card__icon">🔧</div>
+          <h3>Servicio técnico local</h3>
+          <p>Contamos con técnicos certificados en Puebla para instalación y mantenimiento. Tiempo de respuesta de 24-48 horas hábiles.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="section" aria-labelledby="faq-puebla-title">
-    <div class="container">
-      <header class="section-header">
-        <h2 id="faq-puebla-title">Preguntas Frecuentes — Calentadores Solares en Puebla</h2>
-      </header>
-
+  <section class="section section--alt" aria-labelledby="faq-zona-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes sobre Puebla"
+        subtitulo="Respuestas específicas para tu zona"
+        idTitulo="faq-zona-title"
+      />
       <div class="faq">
-        {faqs.map((faq) => (
+        {faqItems.map((item) => (
           <div class="faq__item">
-            <button class="faq__question">
-              <span>{faq.pregunta}</span>
-              <span class="faq__icon">+</span>
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq__answer">
-              <p>{faq.respuesta}</p>
-            </div>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section section--dark" aria-labelledby="cta-puebla-title">
-    <div class="container">
-      <header class="section-header">
-        <h2 id="cta-puebla-title">¿Listo para ahorrar en gas en Puebla?</h2>
-        <p>Aprovecha el sol de Puebla. Cotización gratuita y sin compromiso.</p>
-      </header>
-      <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero cotizar un calentador solar en Puebla.')}`} class="btn btn--primary" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
-        <a href="/productos" class="btn btn--secondary">Ver productos</a>
-      </div>
-    </div>
-  </section>
+  <LeadCapture />
 
 </BaseLayout>
 
 <style>
-  .grid-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
-  }
-  .grid-2 {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-  .card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,.08);
-    background: var(--color-surface, #fff);
-    transition: transform .2s, box-shadow .2s;
-  }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
-  .card__body { padding: 1.25rem; }
-  .card__title { font-size: 1rem; margin-bottom: .5rem; }
-  .card__desc { font-size: .9rem; color: var(--color-text-muted, #666); line-height: 1.5; }
-  .faq { max-width: 800px; margin: 0 auto; }
-  .faq__item { border-bottom: 1px solid var(--color-border, #e5e7eb); }
-  .faq__question {
-    width: 100%; display: flex; justify-content: space-between; align-items: center;
-    padding: 1.25rem 0; background: none; border: none; font-size: 1.05rem;
-    font-weight: 600; color: var(--color-heading, #1a1a1a); cursor: pointer; text-align: left; gap: 1rem;
-  }
-  .faq__icon { font-size: 1.5rem; font-weight: 300; color: var(--color-primary, #F97316); flex-shrink: 0; }
-  .faq__answer { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
-  .faq__answer p { padding: 0 0 1.25rem; color: var(--color-text-muted, #666); line-height: 1.6; }
-  .faq__item.active .faq__answer { max-height: 300px; }
-  .faq__item.active .faq__icon { transform: rotate(45deg); }
+.municipios-grid {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+.municipio-tag {
+  background: var(--color-primary-50); color: var(--color-brand-dark);
+  border: 1px solid var(--color-primary-100);
+  font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+}
+.benefits-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-6); margin-top: var(--space-8);
+}
+.benefit-card {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl); padding: var(--space-6);
+  text-align: center;
+}
+.benefit-card__icon { font-size: 2.5rem; margin-bottom: var(--space-4); }
+.benefit-card h3 { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--color-dark); margin-bottom: var(--space-3); }
+.benefit-card p { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--line-relaxed); margin: 0; }
 </style>
-
-<script>
-  document.querySelectorAll('.faq__question').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.parentElement;
-      item?.classList.toggle('active');
-    });
-  });
-</script>

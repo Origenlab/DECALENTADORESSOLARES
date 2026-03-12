@@ -1,79 +1,100 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import Button from "../../components/ui/Button.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+
+const pasos: [string, string][] = [["1. Visita técnica gratuita", "Evaluamos tu techo, red hidráulica y consumo. Te decimos exactamente qué sistema necesitas y el costo total sin sorpresas."], ["2. Propuesta y confirmación", "Recibes cotización detallada en 24h. Confirmamos fecha de instalación según tu disponibilidad."], ["3. Instalación el mismo día", "Nuestro equipo llega puntual con todos los materiales. Instalación, conexión hidráulica y prueba de presión en 3-5 horas."], ["4. Capacitación de uso", "Te explicamos cómo opera el sistema, qué esperar en días nublados y cuándo programar el primer mantenimiento."], ["5. Garantía y seguimiento", "Emitimos garantía escrita de 2 años en instalación. Seguimiento a los 30 días para confirmar correcto funcionamiento."]];
+
+const faqItems = [
+  { pregunta: '¿Cuánto tiempo tarda la instalación?', respuesta: 'La instalación residencial estándar toma entre 3 y 5 horas. Sistemas comerciales pueden requerir 1-2 días según la complejidad.' },
+  { pregunta: '¿Necesito preparar algo en casa antes de la instalación?', respuesta: 'Solo necesitas acceso al techo y al cuarto de llaves. Nosotros llevamos todos los materiales, herramientas y el equipo completo.' },
+  { pregunta: '¿Qué pasa si hay un problema después de la instalación?', respuesta: 'La garantía de 2 años cubre cualquier falla de instalación. Llámanos o envía WhatsApp y un técnico acude en menos de 48 horas hábiles.' },
+  { pregunta: '¿Instalan en todos los tipos de techo?', respuesta: 'Sí: losa plana, teja, lámina metálica, teja colonial. Evaluamos en la visita técnica y usamos la estructura de anclaje adecuada para cada caso.' },
+  { pregunta: '¿La instalación incluye los materiales?', respuesta: 'Sí. El precio incluye equipo, tuberías de cobre o CPVC, aislante, anclajes, válvulas y mano de obra completa. Sin costos ocultos.' },
+];
+
+const structuredData = [
+  buildServiceSchema({ name: 'Instalación Profesional de Calentadores Solares', description: 'Instalación de calentadores solares en 1 día. Técnicos certificados, garantía de instalación 2 años, prueba de presión incluida. CDMX, Estado de México y toda la República.', url: '/servicios/instalacion-profesional' }),
+  buildFAQSchema(faqItems),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Instalación Profesional de Calentadores Solares', url: '/servicios/instalacion-profesional' },
+  ]),
+];
 ---
 
-<LandingLayout
-  title="Instalacion Profesional de Calentadores Solares | De Calentadores Solares"
-  description="Servicio de instalacion profesional de calentadores solares con pruebas de seguridad, puesta en marcha y garantia de mano de obra."
+<BaseLayout
+  title="Instalación Profesional de Calentadores Solares | CDMX y México"
+  description="Instalación de calentadores solares en 1 día. Técnicos certificados, garantía de instalación 2 años, prueba de presión incluida. CDMX, Estado de México y toda la República."
+  activePage="servicios"
+  structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Instalación Profesional de Calentadores Solares', url: '/servicios/instalacion-profesional' },
+  ]}
+  showHero={true}
+  heroTitle="Instalación Profesional de Calentadores Solares"
+  heroIntro="Instalación completa en un solo día hábil. Técnicos certificados con más de 10 años de experiencia, materiales de primera calidad y garantía de 2 años en mano de obra."
+  heroBadge="Instalación en 1 día"
+  heroMetrics={[{ valor: '1 día', texto: 'Tiempo instalación' }, { valor: '2 años', texto: 'Garantía mano de obra' }, { valor: '+500', texto: 'Instalaciones' }, { valor: '100%', texto: 'Satisfacción' }]}
+  heroPrimaryText="Solicitar este servicio"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los servicios"
+  heroSecondaryLink="/servicios"
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Servicios", href: "/servicios" },
-      { label: "Instalacion profesional" }
-    ]}
-  />
 
-  <section class="hero-section">
-    <div class="hero-layout">
-      <div class="hero-panel">
-        <span class="section-eyebrow">Servicio especializado</span>
-        <h1 class="hero-title">Instalacion profesional de calentadores solares</h1>
-        <p class="hero-lead">
-          Ejecutamos proyectos residenciales y comerciales con metodologia tecnica para asegurar
-          rendimiento desde el primer dia.
-        </p>
-        <div class="hero-cta-row">
-          <Button
-            href="https://wa.me/5215512345678?text=Hola,%20quiero%20cotizar%20instalacion%20profesional%20de%20calentador%20solar"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Cotizar instalacion
-          </Button>
-          <Button href="/productos" variant="outline">Ver modelos</Button>
-        </div>
+  <section class="section section--alt" aria-labelledby="proceso-title">
+    <div class="container" style="max-width: 860px;">
+      <SectionHeader
+        titulo="¿Cómo funciona el proceso?"
+        subtitulo="Transparencia total desde el primer contacto"
+        idTitulo="proceso-title"
+      />
+      <div class="steps">
+        {pasos.map(([titulo, desc]) => (
+          <div class="step">
+            <div class="step__title">{titulo}</div>
+            <div class="step__desc">{desc}</div>
+          </div>
+        ))}
       </div>
-
-      <aside class="hero-aside">
-        <h2>Incluye</h2>
-        <ul class="trust-list">
-          <li>Levantamiento tecnico del sitio.</li>
-          <li>Montaje y conexiones seguras.</li>
-          <li>Puesta en marcha y validacion.</li>
-          <li>Recomendaciones de operacion.</li>
-        </ul>
-      </aside>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="alcance-title">
-    <header class="section-header">
-      <h2 id="alcance-title">Alcance tecnico del servicio</h2>
-    </header>
-
-    <div class="comparison-grid">
-      <article class="comparison-card">
-        <h3>Fase previa</h3>
-        <ul class="features-list">
-          <li>Evaluacion de consumo y demanda.</li>
-          <li>Revision de ubicacion e inclinacion.</li>
-          <li>Definicion de materiales y capacidad.</li>
-        </ul>
-      </article>
-      <article class="comparison-card">
-        <h3>Fase de ejecucion</h3>
-        <ul class="features-list">
-          <li>Montaje estructural y conexion.</li>
-          <li>Pruebas hidraulicas y termicas.</li>
-          <li>Entrega con checklist tecnico.</li>
-        </ul>
-      </article>
+  <section class="section" aria-labelledby="faq-serv-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber antes de contratar"
+        idTitulo="faq-serv-title"
+      />
+      <div class="faq">
+        {faqItems.map((item) => (
+          <div class="faq__item">
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <LeadCapture source="servicio-instalacion" />
-</LandingLayout>
+  <LeadCapture />
+
+</BaseLayout>
+
+<style>
+.steps { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-6); }
+.step {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-brand); border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+}
+.step__title { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--color-dark); margin-bottom: var(--space-2); }
+.step__desc { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--line-relaxed); }
+</style>

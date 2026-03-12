@@ -1,53 +1,100 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+
+const pasos: [string, string][] = [["1. Estudio de factibilidad gratuito", "Análisis del consumo real, área de techo disponible, red hidráulica, presupuesto y cálculo del ROI proyectado. Entregamos informe en 5 días hábiles."], ["2. Ingeniería de detalle", "Para proyectos medianos y grandes: planos de instalación, memoria de cálculo, especificaciones técnicas y lista de materiales completa."], ["3. Suministro de equipo certificado", "Equipos con certificaciones NMX, garantía de fabricante y trazabilidad de calidad. Stock disponible para proyectos de hasta 5,000 L."], ["4. Instalación por equipo especializado", "Equipo técnico certificado para instalaciones comerciales. Coordinación para minimizar impacto en operación del negocio."], ["5. Puesta en marcha y capacitación", "Pruebas de funcionamiento, ajuste de parámetros y capacitación al personal de mantenimiento del cliente."]];
+
+const faqItems = [
+  { pregunta: '¿Qué tipos de negocios atienden?', respuesta: 'Hoteles, posadas, moteles, gimnasios, spas, centros wellness, restaurantes, lavanderías, clínicas, hospitales, maquiladoras y cualquier empresa con alto consumo de agua caliente.' },
+  { pregunta: '¿Cuánto tarda el estudio de factibilidad?', respuesta: 'El informe completo con cálculo de ROI y propuesta técnica-económica se entrega en 5-10 días hábiles desde la visita técnica.' },
+  { pregunta: '¿Ofrecen financiamiento para proyectos comerciales?', respuesta: 'Para proyectos mayores a $80,000 MXN ofrecemos esquemas con 30% de enganche y saldo a 12-18 meses. También asesoramos sobre FIDE, FIRA y otros fondos de eficiencia energética.' },
+  { pregunta: '¿Qué garantías dan en proyectos comerciales?', respuesta: 'Garantía de equipo según fabricante, garantía de instalación 2 años, y planes de mantenimiento preventivo semestral con contrato.' },
+  { pregunta: '¿Pueden certificar el sistema para incentivos fiscales?', respuesta: 'Sí. Los sistemas de energía solar para calentamiento de agua califican para deducción inmediata del ISR conforme al artículo 34 LISR.' },
+];
+
+const structuredData = [
+  buildServiceSchema({ name: 'Proyectos de Calentamiento Solar Comercial e Industrial', description: 'Diseño, suministro e instalación de sistemas de calentamiento solar comercial en México. Hoteles, gimnasios, hospitales, restaurantes. ROI en 8-14 meses.', url: '/servicios/proyectos-comerciales' }),
+  buildFAQSchema(faqItems),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Proyectos de Calentamiento Solar Comercial e Industrial', url: '/servicios/proyectos-comerciales' },
+  ]),
+];
 ---
 
-<LandingLayout
-  title="Proyectos Comerciales de Calentamiento Solar | De Calentadores Solares"
-  description="Proyectos comerciales de calentadores solares para hoteles, gimnasios, restaurantes y operaciones de alta demanda de agua caliente."
+<BaseLayout
+  title="Proyectos Solares Comerciales e Industriales | Diseño a Medida"
+  description="Diseño, suministro e instalación de sistemas de calentamiento solar comercial en México. Hoteles, gimnasios, hospitales, restaurantes. ROI en 8-14 meses."
+  activePage="servicios"
+  structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Proyectos de Calentamiento Solar Comercial e Industrial', url: '/servicios/proyectos-comerciales' },
+  ]}
+  showHero={true}
+  heroTitle="Proyectos de Calentamiento Solar Comercial e Industrial"
+  heroIntro="Desde el estudio de factibilidad hasta la puesta en marcha. Diseño de ingeniería, suministro de equipo certificado, instalación y mantenimiento. ROI promedio 10-14 meses."
+  heroBadge="Proyectos a medida"
+  heroMetrics={[{ valor: '10-14 m', texto: 'ROI promedio' }, { valor: 'Ingeniería', texto: 'Diseño incluido' }, { valor: '+50', texto: 'Proyectos comerciales' }, { valor: 'Gratis', texto: 'Estudio factibilidad' }]}
+  heroPrimaryText="Solicitar este servicio"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los servicios"
+  heroSecondaryLink="/servicios"
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Servicios", href: "/servicios" },
-      { label: "Proyectos comerciales" }
-    ]}
-  />
 
-  <section class="page-intro">
-    <h1>Proyectos comerciales de calentamiento solar</h1>
-    <p>
-      Disenamos e implementamos soluciones para operaciones con demanda intensiva de agua caliente,
-      priorizando continuidad de servicio y reduccion de costo energetico.
-    </p>
-  </section>
-
-  <section class="section" aria-labelledby="segment-title">
-    <header class="section-header">
-      <h2 id="segment-title">Segmentos que atendemos</h2>
-    </header>
-
-    <div class="offer-grid">
-      <article class="offer-card">
-        <h3>Hoteles y hospedaje</h3>
-        <p>Demanda continua y estabilidad termica para operacion diaria.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Gimnasios y clubes</h3>
-        <p>Cobertura en horarios pico y soporte para alto flujo de usuarios.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Restaurantes</h3>
-        <p>Agua caliente para procesos de limpieza y operacion de cocina.</p>
-      </article>
-      <article class="offer-card">
-        <h3>Condominios y desarrollos</h3>
-        <p>Modelos centralizados o por unidad con gestion escalable.</p>
-      </article>
+  <section class="section section--alt" aria-labelledby="proceso-title">
+    <div class="container" style="max-width: 860px;">
+      <SectionHeader
+        titulo="¿Cómo funciona el proceso?"
+        subtitulo="Transparencia total desde el primer contacto"
+        idTitulo="proceso-title"
+      />
+      <div class="steps">
+        {pasos.map(([titulo, desc]) => (
+          <div class="step">
+            <div class="step__title">{titulo}</div>
+            <div class="step__desc">{desc}</div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <LeadCapture source="servicio-comercial" />
-</LandingLayout>
+  <section class="section" aria-labelledby="faq-serv-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber antes de contratar"
+        idTitulo="faq-serv-title"
+      />
+      <div class="faq">
+        {faqItems.map((item) => (
+          <div class="faq__item">
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <LeadCapture />
+
+</BaseLayout>
+
+<style>
+.steps { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-6); }
+.step {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-brand); border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+}
+.step__title { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--color-dark); margin-bottom: var(--space-2); }
+.step__desc { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--line-relaxed); }
+</style>

@@ -1,49 +1,100 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+
+const pasos: [string, string][] = [["1. Diagnóstico visual", "Revisión completa del estado de los tubos evacuados, tanque, conexiones, válvulas y aislamiento térmico."], ["2. Limpieza de tubos", "Limpieza exterior e interior de los tubos de vidrio para eliminar polvo, carbonatos y residuos que reducen la eficiencia."], ["3. Revisión del tanque", "Verificación del ánodo de magnesio, nivel de corrosión interior y estado del aislamiento de poliuretano."], ["4. Ajuste de conexiones", "Revisión y apriete de todas las conexiones hidráulicas. Verificación de válvulas de seguridad y purgado del sistema."], ["5. Informe técnico", "Entregamos informe escrito con el estado del sistema, las acciones realizadas y las recomendaciones para los próximos años."]];
+
+const faqItems = [
+  { pregunta: '¿Cada cuánto tiempo se hace el mantenimiento?', respuesta: 'Se recomienda mantenimiento preventivo anual. En zonas con agua muy calcárea puede requerirse cada 8-10 meses.' },
+  { pregunta: '¿Qué incluye el mantenimiento básico?', respuesta: 'Limpieza de tubos, revisión de tanque e inspección de válvulas y conexiones. El mantenimiento completo incluye además cambio de ánodo de magnesio si es necesario.' },
+  { pregunta: '¿Mi calentador no calienta bien, qué hago?', respuesta: 'Llámanos o envía WhatsApp. Las causas más comunes son tubos rotos, incrustación de cal o falla en válvulas, todas de fácil solución con el técnico adecuado.' },
+  { pregunta: '¿Tienen refacciones originales?', respuesta: 'Sí. Contamos con stock de tubos evacuados, ánodos, válvulas y sensores para las principales marcas del mercado mexicano.' },
+  { pregunta: '¿Cuánto cuesta el mantenimiento?', respuesta: 'El mantenimiento preventivo básico residencial tiene costo fijo desde $650 MXN. El mantenimiento completo con cambio de ánodo desde $950 MXN.' },
+];
+
+const structuredData = [
+  buildServiceSchema({ name: 'Mantenimiento Preventivo de Calentadores Solares', description: 'Mantenimiento preventivo y correctivo de calentadores solares en CDMX y México. Limpieza de tubos, revisión de tanque, aislamiento y garantía de servicio.', url: '/servicios/mantenimiento-preventivo' }),
+  buildFAQSchema(faqItems),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Mantenimiento Preventivo de Calentadores Solares', url: '/servicios/mantenimiento-preventivo' },
+  ]),
+];
 ---
 
-<LandingLayout
-  title="Mantenimiento Preventivo de Calentadores Solares | De Calentadores Solares"
-  description="Mantenimiento preventivo para calentadores solares con limpieza, revision tecnica y recomendaciones para mantener ahorro y rendimiento."
+<BaseLayout
+  title="Mantenimiento de Calentadores Solares | Servicio Técnico Certificado"
+  description="Mantenimiento preventivo y correctivo de calentadores solares en CDMX y México. Limpieza de tubos, revisión de tanque, aislamiento y garantía de servicio."
+  activePage="servicios"
+  structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Mantenimiento Preventivo de Calentadores Solares', url: '/servicios/mantenimiento-preventivo' },
+  ]}
+  showHero={true}
+  heroTitle="Mantenimiento Preventivo de Calentadores Solares"
+  heroIntro="Un mantenimiento anual prolonga la vida de tu calentador solar de 15 a 20+ años y mantiene su eficiencia al máximo. Técnicos certificados con refacciones originales."
+  heroBadge="Servicio técnico certificado"
+  heroMetrics={[{ valor: '1 vez/año', texto: 'Frecuencia recomendada' }, { valor: '+15 años', texto: 'Vida útil con mantenimiento' }, { valor: 'Refacciones', texto: 'Originales' }, { valor: '48h', texto: 'Tiempo de respuesta' }]}
+  heroPrimaryText="Solicitar este servicio"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los servicios"
+  heroSecondaryLink="/servicios"
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Servicios", href: "/servicios" },
-      { label: "Mantenimiento preventivo" }
-    ]}
-  />
 
-  <section class="page-intro">
-    <h1>Mantenimiento preventivo de calentadores solares</h1>
-    <p>
-      Mantener el sistema en buen estado evita caidas de eficiencia y extiende la vida util del
-      equipo. Este servicio es clave para preservar el ahorro en gas a largo plazo.
-    </p>
-  </section>
-
-  <section class="section" aria-labelledby="plan-title">
-    <header class="section-header">
-      <h2 id="plan-title">Que revisamos en cada visita</h2>
-    </header>
-
-    <div class="service-grid">
-      <article class="service-card">
-        <h3>Revision de componentes</h3>
-        <p>Inspeccion de conexiones, valvulas, sellos y estado general del sistema.</p>
-      </article>
-      <article class="service-card">
-        <h3>Limpieza tecnica</h3>
-        <p>Limpieza de partes criticas para conservar captacion y comportamiento termico.</p>
-      </article>
-      <article class="service-card">
-        <h3>Validacion de rendimiento</h3>
-        <p>Verificacion de temperatura, presion y estabilidad operativa.</p>
-      </article>
+  <section class="section section--alt" aria-labelledby="proceso-title">
+    <div class="container" style="max-width: 860px;">
+      <SectionHeader
+        titulo="¿Cómo funciona el proceso?"
+        subtitulo="Transparencia total desde el primer contacto"
+        idTitulo="proceso-title"
+      />
+      <div class="steps">
+        {pasos.map(([titulo, desc]) => (
+          <div class="step">
+            <div class="step__title">{titulo}</div>
+            <div class="step__desc">{desc}</div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <LeadCapture source="servicio-mantenimiento" />
-</LandingLayout>
+  <section class="section" aria-labelledby="faq-serv-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber antes de contratar"
+        idTitulo="faq-serv-title"
+      />
+      <div class="faq">
+        {faqItems.map((item) => (
+          <div class="faq__item">
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <LeadCapture />
+
+</BaseLayout>
+
+<style>
+.steps { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-6); }
+.step {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-brand); border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+}
+.step__title { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--color-dark); margin-bottom: var(--space-2); }
+.step__desc { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--line-relaxed); }
+</style>

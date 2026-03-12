@@ -1,49 +1,99 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+
+const pasos: [string, string][] = [["1. Cuéntanos tu caso", "Cuántas personas viven en casa, si tienes tinaco o hidro-neumático, cuánto pagas de gas al mes. Con esos datos hacemos el cálculo."], ["2. Calculamos la capacidad exacta", "Te decimos cuántos litros necesitas, qué tipo de sistema (termosifón, presurizado, paso solar) y cuántos tubos."], ["3. Propuesta con ROI real", "Precio total instalado, ahorro mensual estimado, tiempo de recuperación de inversión y opciones de financiamiento si aplica."], ["4. Visita técnica opcional", "Si quieres confirmar antes de decidir, agendamos visita técnica gratuita para ver tu instalación y resolver todas las dudas en persona."]];
+
+const faqItems = [
+  { pregunta: '¿La asesoría tiene algún costo oculto?', respuesta: 'No. La asesoría técnica es completamente gratuita y sin compromiso de compra. Puedes tomar la información y decidir libremente.' },
+  { pregunta: '¿Cómo solicito la asesoría?', respuesta: 'Por WhatsApp al 55 4786 8402, por el formulario de esta página, o agendando una llamada. Respondemos en menos de 24 horas hábiles.' },
+  { pregunta: '¿Me asesorarán aunque no compre?', respuesta: 'Sí. Un cliente informado que elige bien es un cliente satisfecho que recomienda. No hay presión.' },
+  { pregunta: '¿Pueden asesorarme si estoy fuera de CDMX?', respuesta: 'Sí. La asesoría técnica la ofrecemos para toda la República vía WhatsApp o videollamada. La instalación física depende de la zona.' },
+];
+
+const structuredData = [
+  buildServiceSchema({ name: 'Asesoría Técnica Gratuita', description: 'Asesoría técnica gratuita para elegir el calentador solar correcto. Te calculamos la capacidad, el modelo y el costo real sin compromiso. CDMX y toda la República.', url: '/servicios/asesoria-tecnica' }),
+  buildFAQSchema(faqItems),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Asesoría Técnica Gratuita', url: '/servicios/asesoria-tecnica' },
+  ]),
+];
 ---
 
-<LandingLayout
-  title="Asesoria Tecnica para Calentadores Solares | De Calentadores Solares"
-  description="Asesoria tecnica para elegir capacidad, tecnologia y alcance de instalacion de calentadores solares en proyectos residenciales y comerciales."
+<BaseLayout
+  title="Asesoría Técnica Gratuita en Calentadores Solares | CDMX y México"
+  description="Asesoría técnica gratuita para elegir el calentador solar correcto. Te calculamos la capacidad, el modelo y el costo real sin compromiso. CDMX y toda la República."
+  activePage="servicios"
+  structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Asesoría Técnica Gratuita', url: '/servicios/asesoria-tecnica' },
+  ]}
+  showHero={true}
+  heroTitle="Asesoría Técnica Gratuita"
+  heroIntro="No te vendemos el calentador más caro sino el que realmente necesitas. Asesoría sin costo, sin presión, con cálculo técnico de tu caso específico."
+  heroBadge="Sin costo, sin compromiso"
+  heroMetrics={[{ valor: 'Gratis', texto: 'Asesoría técnica' }, { valor: '24h', texto: 'Respuesta' }, { valor: 'Sin presión', texto: 'Sin compromiso' }, { valor: '+10 años', texto: 'Experiencia' }]}
+  heroPrimaryText="Solicitar este servicio"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los servicios"
+  heroSecondaryLink="/servicios"
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Servicios", href: "/servicios" },
-      { label: "Asesoria tecnica" }
-    ]}
-  />
 
-  <section class="page-intro">
-    <h1>Asesoria tecnica para elegir el sistema correcto</h1>
-    <p>
-      Este servicio evita errores de compra. Analizamos consumo real, tipo de inmueble y objetivos
-      de ahorro para recomendar una configuracion viable.
-    </p>
-  </section>
-
-  <section class="section" aria-labelledby="deliver-title">
-    <header class="section-header">
-      <h2 id="deliver-title">Entregables de asesoria</h2>
-    </header>
-
-    <div class="comparison-grid">
-      <article class="comparison-card">
-        <h3>Diagnostico de consumo</h3>
-        <p>Estimamos demanda de agua caliente por usuarios, horarios y puntos de uso.</p>
-      </article>
-      <article class="comparison-card">
-        <h3>Recomendacion tecnica</h3>
-        <p>Definimos capacidad y tecnologia con base en costo total y continuidad operativa.</p>
-      </article>
-      <article class="comparison-card">
-        <h3>Revision de cotizaciones</h3>
-        <p>Comparamos propuestas de terceros para validar alcance real y evitar sobrecostos.</p>
-      </article>
+  <section class="section section--alt" aria-labelledby="proceso-title">
+    <div class="container" style="max-width: 860px;">
+      <SectionHeader
+        titulo="¿Cómo funciona el proceso?"
+        subtitulo="Transparencia total desde el primer contacto"
+        idTitulo="proceso-title"
+      />
+      <div class="steps">
+        {pasos.map(([titulo, desc]) => (
+          <div class="step">
+            <div class="step__title">{titulo}</div>
+            <div class="step__desc">{desc}</div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <LeadCapture source="servicio-asesoria" />
-</LandingLayout>
+  <section class="section" aria-labelledby="faq-serv-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber antes de contratar"
+        idTitulo="faq-serv-title"
+      />
+      <div class="faq">
+        {faqItems.map((item) => (
+          <div class="faq__item">
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <LeadCapture />
+
+</BaseLayout>
+
+<style>
+.steps { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-6); }
+.step {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-brand); border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+}
+.step__title { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--color-dark); margin-bottom: var(--space-2); }
+.step__desc { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--line-relaxed); }
+</style>

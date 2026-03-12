@@ -1,155 +1,100 @@
 ---
-import LandingLayout from "../../layouts/LandingLayout.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
-import Button from "../../components/ui/Button.astro";
-import LeadCapture from "../../components/sections/LeadCapture.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
+import { buildServiceSchema, buildFAQSchema, buildBreadcrumbSchema } from '../../lib/seo';
+
+const pasos: [string, string][] = [["1. Evaluación del sistema actual", "Revisamos tu instalación de gas, el boiler existente y el espacio en techo para determinar la mejor configuración."], ["2. Diseño del sistema híbrido", "Diseñamos la integración solar más gas: el solar es la fuente principal y el boiler activa automáticamente solo cuando es necesario."], ["3. Instalación del colector solar", "Montamos el calentador solar en el techo y conectamos al sistema hidráulico existente. El boiler de gas queda como respaldo automático."], ["4. Configuración del respaldo", "Ajustamos la temperatura de activación del boiler de gas para que solo encienda cuando el solar no alcanza la temperatura deseada."], ["5. Prueba y entrega", "Verificamos el correcto funcionamiento de ambos sistemas, medimos temperaturas y entregamos manual de uso."]];
+
+const faqItems = [
+  { pregunta: '¿Mi boiler de gas queda inutilizable?', respuesta: 'No. Queda funcionando como respaldo automático. En días sin sol o en invierno intenso, el gas activa solo cuando el agua solar no alcanza la temperatura programada.' },
+  { pregunta: '¿Cuánto ahorro real espero?', respuesta: 'En CDMX el sistema solar cubre el 75-85% del año. Solo en los 2-3 meses más fríos el gas trabaja activamente. El ahorro anual promedio es del 70-75%.' },
+  { pregunta: '¿Se puede hacer en departamento?', respuesta: 'Si el departamento tiene acceso a azotea compartida o propia, sí es posible. Requiere permiso de la administración del edificio.' },
+  { pregunta: '¿Necesito cambiar las tuberías de mi casa?', respuesta: 'Generalmente no. El sistema solar se conecta a la red hidráulica existente. Solo se agregan las tuberías de la azotea al boiler.' },
+  { pregunta: '¿Qué pasa si se acaba el gas?', respuesta: 'El sistema solar sigue funcionando independientemente del gas. En días soleados tendrás agua caliente aunque no haya gas.' },
+];
+
+const structuredData = [
+  buildServiceSchema({ name: 'Conversión de Calentador de Gas a Sistema Solar', description: 'Convierte tu calentador de gas a un sistema solar en CDMX. Mantén tu boiler de gas como respaldo y ahorra hasta 80% en tu factura mensual. Instalación profesional.', url: '/servicios/conversion' }),
+  buildFAQSchema(faqItems),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Conversión de Calentador de Gas a Sistema Solar', url: '/servicios/conversion' },
+  ]),
+];
 ---
 
-<LandingLayout
-  title="Conversión de Gas a Solar | Cambio de Calentador de Gas a Solar en CDMX"
-  description="Servicio de conversión de calentador de gas a solar en CDMX y Estado de México. Retiro del equipo existente, instalación del sistema solar y puesta en marcha en 1 día."
+<BaseLayout
+  title="Conversión de Calentador de Gas a Solar | Ahorra 80% desde Hoy"
+  description="Convierte tu calentador de gas a un sistema solar en CDMX. Mantén tu boiler de gas como respaldo y ahorra hasta 80% en tu factura mensual. Instalación profesional."
+  activePage="servicios"
+  structuredData={structuredData}
+  breadcrumbs={[
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios' },
+    { name: 'Conversión de Calentador de Gas a Sistema Solar', url: '/servicios/conversion' },
+  ]}
+  showHero={true}
+  heroTitle="Conversión de Calentador de Gas a Sistema Solar"
+  heroIntro="Instalamos un calentador solar como sistema principal y tu boiler queda como respaldo para días muy nublados. Ahorra hasta 80% en gas sin sacrificar comodidad."
+  heroBadge="Conversión en 1 día"
+  heroMetrics={[{ valor: '80%', texto: 'Reducción en gas' }, { valor: '1 día', texto: 'Tiempo de conversión' }, { valor: '2-3 años', texto: 'ROI' }, { valor: 'Gas', texto: 'Queda como respaldo' }]}
+  heroPrimaryText="Solicitar este servicio"
+  heroPrimaryLink="/cotizar"
+  heroSecondaryText="Ver todos los servicios"
+  heroSecondaryLink="/servicios"
 >
-  <Breadcrumb
-    items={[
-      { label: "Inicio", href: "/" },
-      { label: "Servicios", href: "/servicios" },
-      { label: "Conversión de gas a solar" }
-    ]}
-  />
 
-  <section class="hero-section">
-    <div class="hero-layout">
-      <div class="hero-panel">
-        <span class="section-eyebrow">Cambio de tecnología</span>
-        <h1 class="hero-title">Conversión de calentador de gas a solar en CDMX</h1>
-        <p class="hero-lead">
-          Retiramos tu calentador de gas existente e instalamos un sistema solar completo en el
-          mismo día. Sin complicaciones, sin obras mayores. Solo ahorro real en tu factura de gas
-          desde el primer mes.
-        </p>
-        <div class="hero-cta-row">
-          <Button
-            href="https://wa.me/525500000000?text=Hola,%20quiero%20cotizar%20la%20conversion%20de%20mi%20calentador%20de%20gas%20a%20solar"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Cotizar conversión
-          </Button>
-          <Button href="/calentadores/residencial" variant="outline">Ver calentadores residenciales</Button>
-        </div>
+  <section class="section section--alt" aria-labelledby="proceso-title">
+    <div class="container" style="max-width: 860px;">
+      <SectionHeader
+        titulo="¿Cómo funciona el proceso?"
+        subtitulo="Transparencia total desde el primer contacto"
+        idTitulo="proceso-title"
+      />
+      <div class="steps">
+        {pasos.map(([titulo, desc]) => (
+          <div class="step">
+            <div class="step__title">{titulo}</div>
+            <div class="step__desc">{desc}</div>
+          </div>
+        ))}
       </div>
-
-      <aside class="hero-aside">
-        <h2>Proceso de conversión</h2>
-        <ul class="trust-list">
-          <li>Evaluación técnica del espacio disponible.</li>
-          <li>Retiro y disposición del equipo antiguo.</li>
-          <li>Instalación del sistema solar certificado.</li>
-          <li>Puesta en marcha y pruebas completas.</li>
-          <li>Todo en 1 día hábil.</li>
-        </ul>
-      </aside>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="por-que-cambiar-title">
-    <header class="section-header">
-      <h2 id="por-que-cambiar-title">¿Por qué cambiar de gas a solar ahora?</h2>
-    </header>
-
-    <div class="comparison-grid">
-      <article class="comparison-card comparison-card--bad">
-        <h3>Calentador de gas convencional</h3>
-        <ul class="features-list">
-          <li>Costo de gas en constante aumento.</li>
-          <li>Mantenimiento frecuente del quemador.</li>
-          <li>Vida útil de 8 a 12 años.</li>
-          <li>Sin aprovechamiento de energía solar gratuita.</li>
-          <li>Dependencia total del precio del gas.</li>
-        </ul>
-      </article>
-      <article class="comparison-card comparison-card--good">
-        <h3>Sistema solar después de conversión</h3>
-        <ul class="features-list">
-          <li>Ahorro de 60% a 80% en gas para agua caliente.</li>
-          <li>Mantenimiento preventivo anual sencillo.</li>
-          <li>Vida útil de 15 a 20 años.</li>
-          <li>Aprovecha energía solar disponible todo el año.</li>
-          <li>Independencia ante alzas del gas.</li>
-        </ul>
-      </article>
+  <section class="section" aria-labelledby="faq-serv-title">
+    <div class="container" style="max-width: 780px;">
+      <SectionHeader
+        titulo="Preguntas frecuentes"
+        subtitulo="Todo lo que necesitas saber antes de contratar"
+        idTitulo="faq-serv-title"
+      />
+      <div class="faq">
+        {faqItems.map((item) => (
+          <div class="faq__item">
+            <button class="faq__question" aria-expanded="false">
+              {item.pregunta}<span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer"><p>{item.respuesta}</p></div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="proceso-conversion-title">
-    <header class="section-header">
-      <h2 id="proceso-conversion-title">Cómo ejecutamos la conversión</h2>
-    </header>
+  <LeadCapture />
 
-    <div class="offer-grid">
-      <article class="offer-card">
-        <h3>1. Diagnóstico previo</h3>
-        <p>Revisamos el espacio disponible, orientación de la azotea, presión del agua y consumo diario para seleccionar el sistema correcto.</p>
-      </article>
-      <article class="offer-card">
-        <h3>2. Retiro del equipo antiguo</h3>
-        <p>Desconectamos y retiramos el calentador de gas con todos los protocolos de seguridad. Disponemos el equipo de forma responsable.</p>
-      </article>
-      <article class="offer-card">
-        <h3>3. Instalación solar</h3>
-        <p>Montamos el colector solar, el tanque aislado y realizamos todas las conexiones hidráulicas necesarias.</p>
-      </article>
-      <article class="offer-card">
-        <h3>4. Puesta en marcha</h3>
-        <p>Realizamos pruebas de presión, temperatura y hermeticidad. Entregamos el sistema funcionando con documentación técnica.</p>
-      </article>
-    </div>
-  </section>
+</BaseLayout>
 
-  <section class="section" aria-labelledby="retorno-conversion-title">
-    <header class="section-header">
-      <h2 id="retorno-conversion-title">Retorno de inversión estimado</h2>
-    </header>
-
-    <div class="capacity-table-wrap">
-      <table class="capacity-table">
-        <thead>
-          <tr>
-            <th>Gasto mensual en gas (agua caliente)</th>
-            <th>Ahorro mensual estimado</th>
-            <th>Inversión conversión</th>
-            <th>Retorno estimado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>$500 MXN/mes</td>
-            <td>$300 a $400 MXN/mes</td>
-            <td>$16,000 a $22,000 MXN</td>
-            <td>3.5 a 5 años</td>
-          </tr>
-          <tr>
-            <td>$800 MXN/mes</td>
-            <td>$480 a $640 MXN/mes</td>
-            <td>$18,000 a $26,000 MXN</td>
-            <td>2.5 a 4 años</td>
-          </tr>
-          <tr>
-            <td>$1,200 MXN/mes</td>
-            <td>$720 a $960 MXN/mes</td>
-            <td>$22,000 a $32,000 MXN</td>
-            <td>2 a 3.5 años</td>
-          </tr>
-          <tr>
-            <td>$2,000+ MXN/mes</td>
-            <td>$1,200 a $1,600 MXN/mes</td>
-            <td>Cotización por proyecto</td>
-            <td>1.5 a 2.5 años</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <LeadCapture source="conversion-gas-solar" />
-</LandingLayout>
+<style>
+.steps { display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-6); }
+.step {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-brand); border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+}
+.step__title { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--color-dark); margin-bottom: var(--space-2); }
+.step__desc { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--line-relaxed); }
+</style>
