@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import LeadCapture from '../../components/LeadCapture.astro';
-import { buildBreadcrumbSchema } from '../../lib/seo';
+import { buildBreadcrumbSchema, buildCollectionPageSchema, buildItemListSchema } from '../../lib/seo';
 
 import type { CollectionEntry } from 'astro:content';
 type BlogPost = CollectionEntry<'blog'>;
@@ -25,6 +25,13 @@ const structuredData = [
     { name: 'Inicio', url: '/' },
     { name: 'Blog', url: '/blog' },
   ]),
+  buildCollectionPageSchema('Blog de Calentadores Solares', 'Artículos técnicos sobre calentadores solares en México: guías de compra, mantenimiento, ahorro, comparativas y proyectos.', '/blog'),
+  buildItemListSchema('Artículos recientes', allPosts.slice(0, 10).map((p: BlogPost, i: number) => ({
+    name: p.data.title,
+    url: `/blog/${p.slug}`,
+    image: p.data.image,
+    position: i + 1,
+  }))),
 ];
 ---
 

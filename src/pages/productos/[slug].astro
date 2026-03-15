@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import Button from "../../components/ui/Button.astro";
 import Card from "../../components/ui/Card.astro";
+import { buildProductSchema, buildFAQSchema, buildBreadcrumbSchema } from "../../lib/seo";
 
 interface Props {
   product: CollectionEntry<"productos">;
@@ -46,37 +47,29 @@ const faqItems = [
   }
 ];
 
-const productSchema = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: product.data.title,
-  description: product.data.description,
-  image: `https://decalentadoressolares.com${product.data.image}`,
-  brand: {
-    "@type": "Brand",
-    name: "De Calentadores Solares"
-  },
-  offers: product.data.price
-    ? {
-        "@type": "Offer",
-        priceCurrency: "MXN",
-        price: product.data.price,
-        availability: "https://schema.org/InStock"
-      }
-    : undefined,
-  additionalProperty: faqItems.map((item) => ({
-    "@type": "PropertyValue",
-    name: item.question,
-    value: item.answer
-  }))
-};
+const structuredData = [
+  buildProductSchema({
+    name: product.data.title,
+    description: product.data.description,
+    image: product.data.image,
+    url: `/productos/${product.slug}`,
+    precio: product.data.price ? String(product.data.price) : undefined,
+    capacidad: product.data.capacityLiters ? `${product.data.capacityLiters} litros` : undefined,
+  }),
+  buildFAQSchema(faqItems.map(item => ({ pregunta: item.question, respuesta: item.answer }))),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Productos', url: '/productos' },
+    { name: product.data.title, url: `/productos/${product.slug}` },
+  ]),
+];
 ---
 
 <BaseLayout
   title={`${product.data.title} | Calentadores Solares`}
   description={product.data.description}
   ogImage={product.data.image}
-  structuredData={productSchema}
+  structuredData={structuredData}
 >
   <Breadcrumb
     items={[

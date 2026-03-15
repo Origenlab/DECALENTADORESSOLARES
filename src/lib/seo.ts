@@ -192,6 +192,36 @@ export function buildBreadcrumbSchema(items: BreadcrumbItem[]) {
   };
 }
 
+// --- ItemList ---
+interface ItemListInput { name: string; url: string; image?: string; position: number; }
+export function buildItemListSchema(name: string, items: ItemListInput[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map(item => ({
+      '@type': 'ListItem',
+      position: item.position,
+      url: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`,
+      name: item.name,
+      ...(item.image && { image: item.image.startsWith('http') ? item.image : `${SITE_URL}${item.image}` }),
+    })),
+  };
+}
+
+// --- CollectionPage ---
+export function buildCollectionPageSchema(name: string, description: string, url: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name,
+    description,
+    url: url.startsWith('http') ? url : `${SITE_URL}${url}`,
+    isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
+  };
+}
+
 // --- Article ---
 interface ArticleInput {
   title: string; description: string; url: string;
